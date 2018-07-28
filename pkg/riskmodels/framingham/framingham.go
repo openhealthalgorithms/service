@@ -1,4 +1,4 @@
-package hearts
+package framingham
 
 import (
 	"context"
@@ -9,7 +9,7 @@ import (
 
 // Data holds results of plugin.
 type Data struct {
-	Hearts `structs:"Hearts"`
+	Framingham `structs:"FRE_RISK_SCORE"`
 }
 
 // New returns a ready to use instance of the plugin.
@@ -43,15 +43,14 @@ func (d *Data) get(ctx context.Context) error {
 	return nil
 }
 
-// Hearts represents hostname.
-type Hearts struct {
+type Framingham struct {
 	Input  map[string]string
 	Output map[string]string
 }
 
-// NewHearts returns a Hostname from a string.
-func NewHearts(i map[string]string, o map[string]string) Hearts {
-	return Hearts{
+// NewFramingham returns a Hostname from a string.
+func NewFramingham(i map[string]string, o map[string]string) Framingham {
+	return Framingham{
 		Input:  i,
 		Output: o,
 	}
