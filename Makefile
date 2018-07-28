@@ -90,12 +90,12 @@ build_dev: build_dev_darwin build_dev_linux ## Build dev binaries
 
 build_dev_darwin: ## Build dev binaries for darwin
 	mkdir -p $(BUILD_DEV_DARWIN)
-	GOOS=darwin GOARCH=amd64 go build -race $(LDFLAGS_DEV) -o $(BUILD_DEV_DARWIN)/$(ART_DARWIN_64) ./cmd/$(SERVICE_NAME)
+	GOOS=darwin GOARCH=amd64 go build -race $(LDFLAGS_DEV) -o $(BUILD_DEV_DARWIN)/$(ART_ALG_DARWIN_64) ./cmd/$(DEV_ALG_NAME)
 
 build_dev_linux: ## Build dev binaries for linux
 	mkdir -p $(BUILD_DEV_LINUX)
-	GOOS=linux GOARCH=amd64 go build $(LDFLAGS_DEV) -o $(BUILD_DEV_LINUX)/$(ART_LINUX_64) ./cmd/$(SERVICE_NAME)
-	GOOS=linux GOARCH=386 go build $(LDFLAGS_DEV) -o $(BUILD_DEV_LINUX)/$(ART_LINUX_32) ./cmd/$(SERVICE_NAME)
+	GOOS=linux GOARCH=amd64 go build $(LDFLAGS_DEV) -o $(BUILD_DEV_LINUX)/$(ART_ALG_LINUX_64) ./cmd/$(DEV_ALG_NAME)
+	GOOS=linux GOARCH=386 go build $(LDFLAGS_DEV) -o $(BUILD_DEV_LINUX)/$(ART_ALG_LINUX_32) ./cmd/$(DEV_ALG_NAME)
 
 artifacts: artifacts_darwin artifacts_linux ## Create artifacts
 	$(MAKE) -f $(MKFILE_PATH) house_keep
@@ -110,17 +110,6 @@ artifacts_linux: ## Create artifacts for linux
 
 house_keep: ## Remove any .DS_Store files
 	find $(BASE_PATH) -name ".DS_Store" -depth -exec rm {} \;
-
-build_dev_alg: build_dev_alg_darwin build_dev_alg_linux ## Build dev alg
-
-build_dev_alg_darwin: ## Build dev alg for darwin
-	mkdir -p $(BUILD_DEV_DARWIN)
-	GOOS=darwin GOARCH=amd64 go build -race $(LDFLAGS_DEV) -o $(BUILD_DEV_DARWIN)/$(ART_ALG_DARWIN_64) ./cmd/$(DEV_ALG_NAME)
-
-build_dev_alg_linux: ## Build dev alg for linux
-	mkdir -p $(BUILD_DEV_LINUX)
-	GOOS=linux GOARCH=amd64 go build $(LDFLAGS_DEV) -o $(BUILD_DEV_LINUX)/$(ART_ALG_LINUX_64) ./cmd/$(DEV_ALG_NAME)
-	GOOS=linux GOARCH=386 go build $(LDFLAGS_DEV) -o $(BUILD_DEV_LINUX)/$(ART_ALG_LINUX_32) ./cmd/$(DEV_ALG_NAME)
 
 test: ## Run tests
 	go test ./... -coverpkg=./... -coverprofile=$(COVER_OUT)
@@ -138,8 +127,6 @@ cover: ## Show tests coverage
 	build build_darwin build_linux \
 	clean_dev clean_dev_darwin clean_dev_linux \
 	build_dev build_dev_darwin build_dev_linux \
-	build_dev_srv build_dev_srv_darwin build_dev_srv_linux \
-	build_dev_alg build_dev_alg_darwin build_dev_alg_linux \
 	artifacts artifacts_darwin artifacts_linux \
 	test cover \
 	house_keep
