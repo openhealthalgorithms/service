@@ -1,20 +1,22 @@
 package whocvd
 
 import (
-	"bufio"
 	"context"
 	"fmt"
 	"math"
-	"os"
-	"path/filepath"
 	"strconv"
 	"strings"
 
 	"github.com/fatih/structs"
 	"github.com/pkg/errors"
 
+	"github.com/openhealthalgorithms/service/pkg/riskmodels/common/config"
 	"github.com/openhealthalgorithms/service/pkg/tools"
 	"github.com/openhealthalgorithms/service/pkg/types"
+)
+
+var (
+	riskConfig = config.NewSettings()
 )
 
 // Data holds results of plugin.
@@ -80,11 +82,11 @@ func (d *Data) get(ctx context.Context) error {
 type WHOCVD struct {
 	Input  map[string]string
 	Output map[string]string
-	Debug  map[string]string `structs:"debug,omitempty"`
+	Debug  map[string]interface{} `structs:"debug,omitempty"`
 }
 
 // NewWHOCVD returns a Hostname from a string.
-func NewWHOCVD(i, o, d map[string]string) WHOCVD {
+func NewWHOCVD(i, o map[string]string, d map[string]interface{}) WHOCVD {
 	return WHOCVD{
 		Input:  i,
 		Output: o,
@@ -104,7 +106,7 @@ func getInputs(input string) map[string]string {
 	return out
 }
 
-func calculate(params map[string]string, debug bool) (map[string]string, map[string]string) {
+func calculate(params map[string]string, debug bool) (map[string]string, map[string]interface{}) {
 	diabetes := tools.TernaryString(params["diabetic"] == "true", "d", "ud")
 	gender := strings.ToLower(string(params["gender"][0]))
 	smoker := tools.TernaryString(params["smoker"] == "true", "s", "ns")
@@ -116,31 +118,35 @@ func calculate(params map[string]string, debug bool) (map[string]string, map[str
 	cholesterol, _ := strconv.Atoi(params["cholesterol"])
 	cholesterolUnit := params["cholesterolUnit"]
 	cholValue := convertCholesterol(float64(cholesterol), cholesterolUnit)
-
-	filename := fmt.Sprintf("%s_%s_%s_%s_%d.txt", "c", diabetes, gender, smoker, age)
-	location, _ := fileLocation(filename, region)
-
-	contents := getFileContents(location)
+	
+	contents := getContents(region, "c", diabetes, gender, smoker, age)
 
 	riskScore := contents[sbp][cholValue]
 
 	calculatedValues := make(map[string]string)
-	calculatedValues["risk"] = riskScore
+	calculatedValues["risk"] = strconv.Itoa(riskScore)
 	calculatedValues["risk_range"] = cvdRiskValue(riskScore)
 
 	if debug {
-		debugValues := make(map[string]string)
-		data := ""
-		for _, v := range contents {
-			data = tools.JoinStringsSep("|", data, tools.JoinStringsSep(", ", v...))
-		}
-		debugValues["matrix"] = data
+		debugValues := make(map[string]interface{})
+		debugValues["matrix"] = contents
 		debugValues["index"] = fmt.Sprintf("%d, %d", sbp, cholValue)
 
 		return calculatedValues, debugValues
 	}
 
 	return calculatedValues, nil
+}
+
+func getContents(region, cholesterol, diabetes, gender, smoker string, age int) [][]int {
+	values := riskConfig.RegionColorChart[strings.ToUpper(region)]
+	for _, v := range values {
+		if v.Cholesterol == cholesterol && v.Diabetes == diabetes && v.Gender == gender && v.Smoker == smoker && v.Age == age {
+			return v.Chart
+		}
+	}
+
+	return nil
 }
 
 func convertAge(a string) int {
@@ -187,50 +193,10 @@ func convertCholesterol(cholesterol float64, unit string) int {
 	return 4
 }
 
-func fileLocation(filename, region string) (string, error) {
-	pwd, err := os.Getwd()
-	if err != nil {
-		return "", err
-	}
-
-	fLocation := filepath.Join(pwd, "pkg", "riskmodels", "whocvd", "color_charts", region, filename)
-	if _, err := os.Stat(fLocation); err != nil {
-		if !os.IsNotExist(err) {
-			return "", err
-		}
-	}
-
-	return fLocation, nil
-}
-
-func getFileContents(filename string) map[int][]string {
-	file, err := os.Open(filename)
-	if err != nil {
-		return nil
-	}
-	defer file.Close()
-
-	lines := make(map[int][]string)
-	scanner := bufio.NewScanner(file)
-	i := 0
-	for scanner.Scan() {
-		line := scanner.Text()
-		if len(strings.TrimSpace(line)) > 0 {
-			elements := strings.Split(line, ",")
-			lines[i] = elements
-			i++
-		}
-	}
-
-	return lines
-}
-
-func cvdRiskValue(risk string) string {
-	cvdRisk, _ := strconv.Atoi(risk)
-
+func cvdRiskValue(risk int) string {
 	riskValue := ">40"
 
-	switch cvdRisk {
+	switch risk {
 	case 10:
 		riskValue = "<10"
 	case 20:
