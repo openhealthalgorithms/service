@@ -11,7 +11,8 @@ var (
 func init() {
 	regionalColorChart = make(RegionColorChart, 0)
 
-	regionalColorChart["AFRD"] = []ColorChart{{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{20, 30, 50, 50, 50}, {10, 10, 20, 30, 50}, {10, 10, 10, 10, 30}, {10, 10, 10, 10, 10}}},
+	regionalColorChart["AFRD"] = []ColorChart{
+		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{20, 30, 50, 50, 50}, {10, 10, 20, 30, 50}, {10, 10, 10, 10, 30}, {10, 10, 10, 10, 10}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 50, Chart: [][]int{{30, 40, 50, 50, 50}, {10, 10, 20, 30, 50}, {10, 10, 10, 20, 30}, {10, 10, 10, 10, 10}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 60, Chart: [][]int{{50, 50, 50, 50, 50}, {20, 30, 30, 40, 50}, {10, 20, 30, 40, 50}, {10, 10, 10, 20, 30}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 70, Chart: [][]int{{50, 50, 50, 50, 50}, {30, 30, 40, 50, 50}, {20, 20, 30, 30, 40}, {10, 20, 20, 20, 30}}},
@@ -77,7 +78,8 @@ func init() {
 		{Cholesterol: "uc", Diabetes: "ud", Gender: "m", Smoker: "s", Age: 70, Chart: [][]int{{50}, {40}, {20}, {10}}},
 	}
 
-	regionalColorChart["AFRE"] = []ColorChart{{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{30, 40, 50, 50, 50}, {10, 10, 20, 30, 50}, {10, 10, 10, 10, 20}, {10, 10, 10, 10, 10}}},
+	regionalColorChart["AFRE"] = []ColorChart{
+		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{30, 40, 50, 50, 50}, {10, 10, 20, 30, 50}, {10, 10, 10, 10, 20}, {10, 10, 10, 10, 10}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 50, Chart: [][]int{{30, 40, 50, 50, 50}, {10, 10, 20, 30, 50}, {10, 10, 10, 20, 30}, {10, 10, 10, 10, 20}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 60, Chart: [][]int{{40, 50, 50, 50, 50}, {20, 20, 30, 40, 50}, {10, 20, 20, 30, 30}, {10, 10, 10, 20, 30}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 70, Chart: [][]int{{40, 50, 50, 50, 50}, {20, 30, 30, 40, 50}, {20, 20, 20, 30, 40}, {10, 10, 20, 20, 30}}},
@@ -143,7 +145,8 @@ func init() {
 		{Cholesterol: "uc", Diabetes: "ud", Gender: "m", Smoker: "s", Age: 70, Chart: [][]int{{40}, {20}, {20}, {10}}},
 	}
 
-	regionalColorChart["AMRA"] = []ColorChart{{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{30, 40, 50, 50, 50}, {10, 20, 30, 40, 50}, {10, 10, 10, 20, 40}, {10, 10, 10, 10, 20}}},
+	regionalColorChart["AMRA"] = []ColorChart{
+		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{30, 40, 50, 50, 50}, {10, 20, 30, 40, 50}, {10, 10, 10, 20, 40}, {10, 10, 10, 10, 20}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 50, Chart: [][]int{{30, 40, 50, 50, 50}, {10, 20, 30, 40, 50}, {10, 10, 10, 20, 40}, {10, 10, 10, 10, 20}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 60, Chart: [][]int{{50, 50, 50, 50, 50}, {30, 40, 50, 50, 50}, {20, 20, 30, 40, 50}, {10, 20, 20, 30, 30}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 70, Chart: [][]int{{50, 50, 50, 50, 50}, {30, 40, 50, 50, 50}, {20, 30, 30, 40, 50}, {20, 20, 20, 30, 30}}},
@@ -209,7 +212,8 @@ func init() {
 		{Cholesterol: "uc", Diabetes: "ud", Gender: "m", Smoker: "s", Age: 70, Chart: [][]int{{50}, {50}, {30}, {20}}},
 	}
 
-	regionalColorChart["AMRB"] = []ColorChart{{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{40, 50, 50, 50, 50}, {10, 20, 30, 40, 50}, {10, 10, 10, 20, 40}, {10, 10, 10, 10, 10}}},
+	regionalColorChart["AMRB"] = []ColorChart{
+		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{40, 50, 50, 50, 50}, {10, 20, 30, 40, 50}, {10, 10, 10, 20, 40}, {10, 10, 10, 10, 10}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 50, Chart: [][]int{{40, 50, 50, 50, 50}, {20, 20, 30, 40, 50}, {10, 10, 10, 20, 40}, {10, 10, 10, 10, 10}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 60, Chart: [][]int{{50, 50, 50, 50, 50}, {30, 30, 40, 50, 50}, {10, 20, 20, 30, 40}, {10, 10, 10, 20, 20}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 70, Chart: [][]int{{50, 50, 50, 50, 50}, {30, 30, 40, 50, 50}, {20, 20, 30, 30, 40}, {10, 20, 20, 20, 30}}},
@@ -275,7 +279,8 @@ func init() {
 		{Cholesterol: "uc", Diabetes: "ud", Gender: "m", Smoker: "s", Age: 70, Chart: [][]int{{50}, {30}, {20}, {20}}},
 	}
 
-	regionalColorChart["AMRD"] = []ColorChart{{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{30, 40, 50, 50, 50}, {10, 20, 20, 30, 50}, {10, 10, 10, 10, 30}, {10, 10, 10, 10, 10}}},
+	regionalColorChart["AMRD"] = []ColorChart{
+		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{30, 40, 50, 50, 50}, {10, 20, 20, 30, 50}, {10, 10, 10, 10, 30}, {10, 10, 10, 10, 10}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 50, Chart: [][]int{{40, 50, 50, 50, 50}, {10, 20, 20, 30, 50}, {10, 10, 10, 20, 30}, {10, 10, 10, 10, 20}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 60, Chart: [][]int{{40, 50, 50, 50, 50}, {20, 30, 30, 40, 50}, {10, 20, 20, 30, 40}, {10, 10, 10, 20, 20}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 70, Chart: [][]int{{50, 50, 50, 50, 50}, {30, 40, 40, 40, 50}, {20, 20, 30, 40, 40}, {10, 20, 20, 20, 20}}},
@@ -341,7 +346,8 @@ func init() {
 		{Cholesterol: "uc", Diabetes: "ud", Gender: "m", Smoker: "s", Age: 70, Chart: [][]int{{50}, {30}, {20}, {10}}},
 	}
 
-	regionalColorChart["EMRB"] = []ColorChart{{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{20, 30, 40, 50, 50}, {10, 10, 10, 20, 30}, {10, 10, 10, 10, 20}, {10, 10, 10, 10, 10}}},
+	regionalColorChart["EMRB"] = []ColorChart{
+		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{20, 30, 40, 50, 50}, {10, 10, 10, 20, 30}, {10, 10, 10, 10, 20}, {10, 10, 10, 10, 10}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 50, Chart: [][]int{{30, 40, 50, 50, 50}, {10, 20, 20, 30, 50}, {10, 10, 10, 20, 30}, {10, 10, 10, 10, 10}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 60, Chart: [][]int{{50, 50, 50, 50, 50}, {30, 40, 50, 50, 50}, {20, 20, 30, 40, 50}, {10, 10, 20, 20, 40}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 70, Chart: [][]int{{50, 50, 50, 50, 50}, {40, 50, 50, 50, 50}, {30, 30, 40, 50, 50}, {20, 20, 30, 40, 50}}},
@@ -407,7 +413,8 @@ func init() {
 		{Cholesterol: "uc", Diabetes: "ud", Gender: "m", Smoker: "s", Age: 70, Chart: [][]int{{50}, {40}, {30}, {20}}},
 	}
 
-	regionalColorChart["EMRD"] = []ColorChart{{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{30, 40, 50, 50, 50}, {10, 10, 20, 20, 40}, {10, 10, 10, 10, 20}, {10, 10, 10, 10, 10}}},
+	regionalColorChart["EMRD"] = []ColorChart{
+		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{30, 40, 50, 50, 50}, {10, 10, 20, 20, 40}, {10, 10, 10, 10, 20}, {10, 10, 10, 10, 10}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 50, Chart: [][]int{{30, 50, 50, 50, 50}, {10, 20, 20, 30, 50}, {10, 10, 10, 20, 30}, {10, 10, 10, 10, 10}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 60, Chart: [][]int{{50, 50, 50, 50, 50}, {30, 40, 50, 50, 50}, {20, 30, 30, 40, 50}, {10, 20, 20, 30, 40}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 70, Chart: [][]int{{50, 50, 50, 50, 50}, {30, 40, 50, 50, 50}, {20, 30, 30, 40, 50}, {20, 20, 30, 30, 40}}},
@@ -473,7 +480,8 @@ func init() {
 		{Cholesterol: "uc", Diabetes: "ud", Gender: "m", Smoker: "s", Age: 70, Chart: [][]int{{50}, {50}, {30}, {20}}},
 	}
 
-	regionalColorChart["EURA"] = []ColorChart{{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{10, 20, 20, 40, 50}, {10, 10, 10, 10, 20}, {10, 10, 10, 10, 10}, {10, 10, 10, 10, 10}}},
+	regionalColorChart["EURA"] = []ColorChart{
+		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{10, 20, 20, 40, 50}, {10, 10, 10, 10, 20}, {10, 10, 10, 10, 10}, {10, 10, 10, 10, 10}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 50, Chart: [][]int{{20, 20, 30, 40, 50}, {10, 10, 10, 20, 30}, {10, 10, 10, 10, 20}, {10, 10, 10, 10, 10}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 60, Chart: [][]int{{30, 40, 50, 50, 50}, {20, 20, 30, 30, 40}, {10, 10, 20, 20, 30}, {10, 10, 10, 10, 20}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 70, Chart: [][]int{{40, 50, 50, 50, 50}, {20, 30, 30, 40, 50}, {20, 20, 20, 30, 30}, {10, 10, 20, 20, 20}}},
@@ -539,7 +547,8 @@ func init() {
 		{Cholesterol: "uc", Diabetes: "ud", Gender: "m", Smoker: "s", Age: 70, Chart: [][]int{{50}, {40}, {20}, {20}}},
 	}
 
-	regionalColorChart["EURB"] = []ColorChart{{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{30, 40, 50, 50, 50}, {10, 10, 20, 30, 50}, {10, 10, 10, 10, 30}, {10, 10, 10, 10, 10}}},
+	regionalColorChart["EURB"] = []ColorChart{
+		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{30, 40, 50, 50, 50}, {10, 10, 20, 30, 50}, {10, 10, 10, 10, 30}, {10, 10, 10, 10, 10}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 50, Chart: [][]int{{30, 40, 50, 50, 50}, {10, 20, 20, 30, 50}, {10, 10, 10, 20, 30}, {10, 10, 10, 10, 20}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 60, Chart: [][]int{{50, 50, 50, 50, 50}, {20, 30, 30, 40, 50}, {10, 20, 20, 30, 40}, {10, 10, 10, 20, 20}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 70, Chart: [][]int{{50, 50, 50, 50, 50}, {20, 30, 30, 40, 50}, {20, 20, 20, 30, 40}, {10, 10, 20, 20, 30}}},
@@ -605,7 +614,8 @@ func init() {
 		{Cholesterol: "uc", Diabetes: "ud", Gender: "m", Smoker: "s", Age: 70, Chart: [][]int{{50}, {30}, {20}, {10}}},
 	}
 
-	regionalColorChart["EURC"] = []ColorChart{{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{20, 30, 40, 50, 50}, {10, 10, 10, 20, 30}, {10, 10, 10, 10, 20}, {10, 10, 10, 10, 10}}},
+	regionalColorChart["EURC"] = []ColorChart{
+		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{20, 30, 40, 50, 50}, {10, 10, 10, 20, 30}, {10, 10, 10, 10, 20}, {10, 10, 10, 10, 10}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 50, Chart: [][]int{{30, 30, 40, 50, 50}, {10, 10, 20, 20, 40}, {10, 10, 10, 10, 20}, {10, 10, 10, 10, 10}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 60, Chart: [][]int{{50, 50, 50, 50, 50}, {30, 30, 40, 40, 50}, {20, 20, 30, 30, 40}, {10, 10, 20, 20, 30}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 70, Chart: [][]int{{50, 50, 50, 50, 50}, {30, 30, 40, 40, 50}, {20, 20, 30, 30, 40}, {10, 10, 20, 20, 30}}},
@@ -671,7 +681,8 @@ func init() {
 		{Cholesterol: "uc", Diabetes: "ud", Gender: "m", Smoker: "s", Age: 70, Chart: [][]int{{50}, {50}, {30}, {20}}},
 	}
 
-	regionalColorChart["SEARB"] = []ColorChart{{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{40, 50, 50, 50, 50}, {10, 20, 40, 50, 50}, {10, 10, 20, 30, 30}, {10, 10, 10, 10, 30}}},
+	regionalColorChart["SEARB"] = []ColorChart{
+		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{40, 50, 50, 50, 50}, {10, 20, 40, 50, 50}, {10, 10, 20, 30, 30}, {10, 10, 10, 10, 30}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 50, Chart: [][]int{{40, 50, 50, 50, 50}, {20, 20, 40, 50, 50}, {10, 10, 20, 30, 40}, {10, 10, 10, 20, 30}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 60, Chart: [][]int{{40, 50, 50, 50, 50}, {20, 30, 40, 50, 50}, {10, 20, 20, 30, 40}, {10, 10, 10, 20, 30}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 70, Chart: [][]int{{50, 50, 50, 50, 50}, {30, 40, 50, 50, 50}, {20, 30, 30, 40, 50}, {10, 20, 20, 30, 30}}},
@@ -737,7 +748,8 @@ func init() {
 		{Cholesterol: "uc", Diabetes: "ud", Gender: "m", Smoker: "s", Age: 70, Chart: [][]int{{50}, {30}, {20}, {10}}},
 	}
 
-	regionalColorChart["SEARD"] = []ColorChart{{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{40, 50, 50, 50, 50}, {10, 20, 30, 50, 50}, {10, 10, 10, 20, 50}, {10, 10, 10, 10, 30}}},
+	regionalColorChart["SEARD"] = []ColorChart{
+		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{40, 50, 50, 50, 50}, {10, 20, 30, 50, 50}, {10, 10, 10, 20, 50}, {10, 10, 10, 10, 30}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 50, Chart: [][]int{{40, 50, 50, 50, 50}, {20, 30, 40, 50, 50}, {10, 10, 20, 30, 50}, {10, 10, 10, 20, 30}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 60, Chart: [][]int{{50, 50, 50, 50, 50}, {30, 40, 50, 50, 50}, {20, 30, 40, 50, 50}, {10, 20, 20, 30, 40}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 70, Chart: [][]int{{50, 50, 50, 50, 50}, {40, 50, 50, 50, 50}, {30, 40, 40, 50, 50}, {20, 30, 30, 40, 50}}},
@@ -803,7 +815,8 @@ func init() {
 		{Cholesterol: "uc", Diabetes: "ud", Gender: "m", Smoker: "s", Age: 70, Chart: [][]int{{50}, {40}, {30}, {20}}},
 	}
 
-	regionalColorChart["WPRA"] = []ColorChart{{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{20, 30, 40, 50, 50}, {10, 10, 10, 20, 40}, {10, 10, 10, 10, 20}, {10, 10, 10, 10, 10}}},
+	regionalColorChart["WPRA"] = []ColorChart{
+		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{20, 30, 40, 50, 50}, {10, 10, 10, 20, 40}, {10, 10, 10, 10, 20}, {10, 10, 10, 10, 10}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 50, Chart: [][]int{{30, 30, 40, 50, 50}, {10, 10, 20, 20, 40}, {10, 10, 10, 10, 20}, {10, 10, 10, 10, 10}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 60, Chart: [][]int{{40, 50, 50, 50, 50}, {20, 30, 30, 40, 50}, {10, 20, 20, 20, 30}, {10, 10, 10, 10, 20}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 70, Chart: [][]int{{40, 50, 50, 50, 50}, {20, 30, 30, 40, 50}, {20, 20, 20, 30, 30}, {10, 10, 20, 20, 20}}},
@@ -869,7 +882,8 @@ func init() {
 		{Cholesterol: "uc", Diabetes: "ud", Gender: "m", Smoker: "s", Age: 70, Chart: [][]int{{50}, {30}, {20}, {10}}},
 	}
 
-	regionalColorChart["WPRB"] = []ColorChart{{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{30, 50, 50, 50, 50}, {10, 10, 20, 30, 50}, {10, 10, 10, 10, 30}, {10, 10, 10, 10, 10}}},
+	regionalColorChart["WPRB"] = []ColorChart{
+		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 40, Chart: [][]int{{30, 50, 50, 50, 50}, {10, 10, 20, 30, 50}, {10, 10, 10, 10, 30}, {10, 10, 10, 10, 10}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 50, Chart: [][]int{{40, 50, 50, 50, 50}, {10, 20, 20, 30, 50}, {10, 10, 10, 20, 30}, {10, 10, 10, 10, 10}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 60, Chart: [][]int{{50, 50, 50, 50, 50}, {30, 30, 40, 50, 50}, {20, 20, 20, 30, 40}, {10, 10, 10, 20, 20}}},
 		{Cholesterol: "c", Diabetes: "d", Gender: "f", Smoker: "ns", Age: 70, Chart: [][]int{{50, 50, 50, 50, 50}, {30, 30, 40, 50, 50}, {20, 20, 30, 30, 40}, {10, 10, 20, 20, 20}}},
