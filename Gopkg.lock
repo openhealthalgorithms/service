@@ -10,6 +10,14 @@
   version = "v1.0"
 
 [[projects]]
+  digest = "1:361de06aa7ae272616cbe71c3994a654cc6316324e30998e650f7765b20c5b33"
+  name = "github.com/pborman/uuid"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "e790cca94e6cc75c7064b1332e63811d4aae1a53"
+  version = "v1.1"
+
+[[projects]]
   digest = "1:40e195917a951a8bf867cd05de2a46aaf1806c50cf92eebf4c16f78cd196f747"
   name = "github.com/pkg/errors"
   packages = ["."]
@@ -57,6 +65,7 @@
   analyzer-version = 1
   input-imports = [
     "github.com/fatih/structs",
+    "github.com/pborman/uuid",
     "github.com/pkg/errors",
     "github.com/sirupsen/logrus",
     "github.com/urfave/cli",
