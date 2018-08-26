@@ -2,9 +2,14 @@ package hearts
 
 import (
 	"context"
+	"github.com/openhealthalgorithms/service/pkg/assessments/bmi"
+	"github.com/openhealthalgorithms/service/pkg/assessments/bp"
+	"github.com/openhealthalgorithms/service/pkg/assessments/whr"
 
 	"github.com/fatih/structs"
 	"github.com/pkg/errors"
+
+	who "github.com/openhealthalgorithms/service/pkg/riskmodels/whocvd"
 )
 
 // Data holds results of plugin.
@@ -39,20 +44,51 @@ func (d *Data) Output() (map[string]interface{}, error) {
 
 // get does all the job.
 func (d *Data) get(ctx context.Context) error {
+	var err error
+
+	whocvd := who.New()
+	err = whocvd.Get(ctx)
+	if err != nil {
+		return nil
+	}
+
+	bpa := bp.New()
+	err = bpa.Get(ctx)
+	if err != nil {
+		return nil
+	}
+
+	bmis := bmi.New()
+	err = bmis.Get(ctx)
+	if err != nil {
+		return nil
+	}
+
+	whrs := whr.New()
+	err = whrs.Get(ctx)
+	if err != nil {
+		return nil
+	}
+
+	d.Hearts = NewHearts(whocvd.WHOCVD.Output, bpa.BP, bmis.BMI, whrs.WHR)
 
 	return nil
 }
 
 // Hearts represents hostname.
 type Hearts struct {
-	Input  map[string]string
-	Output map[string]string
+	CVDRisk       map[string]string `structs:"cvd_risk"`
+	BPAssessment  bp.BP             `structs:"bp"`
+	BMIAssessment bmi.BMI           `structs:"bmi"`
+	WHRAssessment whr.WHR           `structs:"whr"`
 }
 
 // NewHearts returns a Hostname from a string.
-func NewHearts(i map[string]string, o map[string]string) Hearts {
+func NewHearts(cvd map[string]string, bp bp.BP, bmi bmi.BMI, whr whr.WHR) Hearts {
 	return Hearts{
-		Input:  i,
-		Output: o,
+		CVDRisk:       cvd,
+		BPAssessment:  bp,
+		BMIAssessment: bmi,
+		WHRAssessment: whr,
 	}
 }

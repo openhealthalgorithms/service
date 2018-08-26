@@ -6,7 +6,6 @@ import (
 	"strconv"
 
 	"github.com/fatih/structs"
-	"github.com/pborman/uuid"
 	"github.com/pkg/errors"
 
 	"github.com/openhealthalgorithms/service/pkg/riskmodels/common/config"
@@ -68,7 +67,6 @@ func (d *Data) get(ctx context.Context) error {
 
 // WHOCVD represents hostname.
 type WHOCVD struct {
-	RequestId uuid.UUID
 	Input     tools.Params
 	Output    map[string]string
 	Debug     map[string]interface{} `structs:"debug,omitempty"`
@@ -77,7 +75,6 @@ type WHOCVD struct {
 // NewWHOCVD returns a Hostname from a string.
 func NewWHOCVD(i tools.Params, o map[string]string, d map[string]interface{}) WHOCVD {
 	return WHOCVD{
-		RequestId: uuid.NewRandom(),
 		Input:  i,
 		Output: o,
 		Debug:  d,

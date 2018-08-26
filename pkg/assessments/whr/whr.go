@@ -1,8 +1,9 @@
-package bp
+package whr
 
 import (
 	"context"
 	"fmt"
+
 	"github.com/fatih/structs"
 	"github.com/pkg/errors"
 
@@ -11,7 +12,7 @@ import (
 
 // Data holds results of plugin.
 type Data struct {
-	BP `structs:"BP_ASSESSMENT"`
+	WHR `structs:"WHR_ASSESSMENT"`
 }
 
 // New returns a ready to use instance of the plugin.
@@ -42,57 +43,36 @@ func (d *Data) Output() (map[string]interface{}, error) {
 // get does all the job.
 func (d *Data) get(ctx context.Context) error {
 	inputs := tools.ParseParams(ctx)
-	resultCode := ""
+	resultCode := "WHR-0"
 
-	sbp := inputs.Sbp
-	dbp := inputs.Dbp
-
-	currentBp := fmt.Sprintf("%d/%d", sbp, dbp)
-	target := currentBp
-
-	if inputs.Diabetes {
-		if sbp > 130 {
-			resultCode = "BP-3B"
-			target = "130/80"
-		} else {
-			resultCode = "BP-3A"
-			target = "130/80"
-		}
-	} else {
-		if sbp > 160 {
-			resultCode = "BP-2"
-			target = "140/90"
-		} else if sbp > 140 {
-			resultCode = "BP-1B"
-			target = "140/90"
-		} else if sbp <= 140 && sbp >= 120 {
-			resultCode = "BP-1A"
-			target = "140/90"
-		} else {
-			resultCode = "BP-0"
-			target = "140/90"
-		}
+	whr := inputs.Waist / inputs.Hip
+	currentWhr := fmt.Sprintf("%.2f", whr)
+	target := "0.85"
+	if inputs.Gender == "m" {
+		target = "0.9"
 	}
 
-	d.BP = NewBP(currentBp, sbp, dbp, resultCode, target)
+	if whr >= 0.85 && inputs.Gender == "f" {
+		resultCode = "WHR-1"
+	} else if whr >= 0.9 && inputs.Gender == "m" {
+		resultCode = "WHR-2"
+	}
+
+	d.WHR = NewWHR(currentWhr, resultCode, target)
 
 	return nil
 }
 
-type BP struct {
-	BP     string `structs:"bp"`
-	SBP    int    `structs:"sbp"`
-	DBP    int    `structs:"dbp"`
+type WHR struct {
+	WHR    string `structs:"whr"`
 	Code   string `structs:"code"`
 	Target string `structs:"target"`
 }
 
-// NewBP returns a BP object.
-func NewBP(bp string, sbp, dbp int, code, target string) BP {
-	return BP{
-		BP:     bp,
-		SBP:    sbp,
-		DBP:    dbp,
+// NewWHR returns a BP object.
+func NewWHR(whr, code, target string) WHR {
+	return WHR{
+		WHR:    whr,
 		Code:   code,
 		Target: target,
 	}

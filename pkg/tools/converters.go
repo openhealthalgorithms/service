@@ -45,3 +45,27 @@ func ConvertAge(age float64) int {
 
 	return 70
 }
+
+func ConvertLength(length float64, unit string) float64 {
+	result := length
+
+	if unit == "cm" {
+		result = length / 100
+	} else if unit == "ft" {
+		result = length * 3.28084
+	} else if unit == "inch" {
+		result = length * 39.3701
+	}
+
+	return result
+}
+
+func ConvertWeight(weight float64, unit string) float64 {
+	result := weight
+
+	if unit == "lb" {
+		result = weight / 0.45359237
+	}
+
+	return result
+}

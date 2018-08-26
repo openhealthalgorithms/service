@@ -1,8 +1,9 @@
-package bp
+package bmi
 
 import (
 	"context"
 	"fmt"
+
 	"github.com/fatih/structs"
 	"github.com/pkg/errors"
 
@@ -11,7 +12,7 @@ import (
 
 // Data holds results of plugin.
 type Data struct {
-	BP `structs:"BP_ASSESSMENT"`
+	BMI `structs:"BMI_ASSESSMENT"`
 }
 
 // New returns a ready to use instance of the plugin.
@@ -44,55 +45,35 @@ func (d *Data) get(ctx context.Context) error {
 	inputs := tools.ParseParams(ctx)
 	resultCode := ""
 
-	sbp := inputs.Sbp
-	dbp := inputs.Dbp
+	bmi := inputs.Weight / (inputs.Height * inputs.Height)
+	currentBmi := fmt.Sprintf("%.2f", bmi)
+	target := "18.5 - 24.9"
 
-	currentBp := fmt.Sprintf("%d/%d", sbp, dbp)
-	target := currentBp
-
-	if inputs.Diabetes {
-		if sbp > 130 {
-			resultCode = "BP-3B"
-			target = "130/80"
-		} else {
-			resultCode = "BP-3A"
-			target = "130/80"
-		}
+	if bmi < 18.5 {
+		resultCode = "BMI-1"
+	} else if bmi < 25 {
+		resultCode = "BMI-0"
+	} else if bmi < 30 {
+		resultCode = "BMI-2"
 	} else {
-		if sbp > 160 {
-			resultCode = "BP-2"
-			target = "140/90"
-		} else if sbp > 140 {
-			resultCode = "BP-1B"
-			target = "140/90"
-		} else if sbp <= 140 && sbp >= 120 {
-			resultCode = "BP-1A"
-			target = "140/90"
-		} else {
-			resultCode = "BP-0"
-			target = "140/90"
-		}
+		resultCode = "BMI-3"
 	}
 
-	d.BP = NewBP(currentBp, sbp, dbp, resultCode, target)
+	d.BMI = NewBMI(currentBmi, resultCode, target)
 
 	return nil
 }
 
-type BP struct {
-	BP     string `structs:"bp"`
-	SBP    int    `structs:"sbp"`
-	DBP    int    `structs:"dbp"`
+type BMI struct {
+	BMI    string `structs:"bmi"`
 	Code   string `structs:"code"`
 	Target string `structs:"target"`
 }
 
-// NewBP returns a BP object.
-func NewBP(bp string, sbp, dbp int, code, target string) BP {
-	return BP{
-		BP:     bp,
-		SBP:    sbp,
-		DBP:    dbp,
+// NewBMI returns a BP object.
+func NewBMI(bmi, code, target string) BMI {
+	return BMI{
+		BMI:    bmi,
 		Code:   code,
 		Target: target,
 	}

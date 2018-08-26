@@ -44,9 +44,9 @@ type Medications struct {
 
 type Measurements struct {
 	Waist    float64
+	Hip      float64
 	Height   float64
 	Weight   float64
-	Bmi      float64
 	Sbp      int
 	Dbp      int
 	Pulse    int
@@ -137,6 +137,14 @@ func getInputs(input string) Params {
 			if strings.HasPrefix(value, "mg") {
 				out.CholUnit = "mgdl"
 			}
+		case "waist":
+			out.Waist, _ = strconv.ParseFloat(value, 64)
+		case "hip":
+			out.Hip, _ = strconv.ParseFloat(value, 64)
+		case "height":
+			out.Height, _ = strconv.ParseFloat(value, 64)
+		case "weight":
+			out.Weight, _ = strconv.ParseFloat(value, 64)
 		}
 	}
 
