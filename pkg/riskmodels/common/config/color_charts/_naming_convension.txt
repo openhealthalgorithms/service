@@ -1,7 +1,0 @@
-cholesterol_diabetes_gender_smoker_age.txt
-
-cholesterol -> c/uc
-diabetes    -> d/ud
-gender      -> m/f
-smoker      -> s/ns
-age         -> 40/50/60/70
