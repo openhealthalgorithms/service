@@ -1,10 +1,10 @@
 package config
 
 type ColorChart struct {
-	Cholesterol string
-	Diabetes    string
+	Cholesterol bool
+	Diabetes    bool
 	Gender      string
-	Smoker      string
+	Smoker      bool
 	Age         int
 	Chart       [][]int
 }
