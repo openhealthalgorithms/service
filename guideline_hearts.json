@@ -1,0 +1,148 @@
+{
+  "header": {
+    "guideline_name": "HEARTS",
+    "publisher": "World Health Organisation",
+    "publication_date": ""
+  },
+  "body": {
+    "high_risk_conditions": [
+      "CVD",
+      "CAD",
+      "AMI",
+      "HEART ATTACK",
+      "CVA",
+      "TIA",
+      "STROKE",
+      "CKD",
+      "PVD"
+    ],
+    "targets": {
+      "general": {
+        "physical_activity": {
+          "active_time": 150,
+          "activity_type": "moderate"
+        },
+        "diet": {
+          "fruit": 2,
+          "vegetables": 5
+        },
+        "blood_pressure": {
+          "sbp": 140,
+          "dbp": 90
+        }
+      }
+    },
+    "cvd_risk": {
+      "<10": {
+        "score": "<10%",
+        "label": "Low",
+        "advice": [
+          "lifestyle"
+        ],
+        "follow_up_interval": "12",
+        "follow_up_message": "You're risk is low. You should have another check up in 12 months"
+      },
+      "10-20": {
+        "score": "10-20%",
+        "label": "Low-Moderate",
+        "advice": [
+          "lifestyle",
+          "review-targets"
+        ],
+        "follow_up_interval": "3",
+        "follow_up": "Every 3 months until targets are met, then 6-9 months thereafter"
+      },
+      "20-30": {
+        "score": "20-30%",
+        "label": "Moderate",
+        "advice": [
+          "lifestyle",
+          "blood-pressure",
+          "lipids"
+        ],
+        "bp_target": "140/90",
+        "follow_up_interval": "3-6",
+        "follow_up": "Follow-up every 3-6 months"
+      },
+      "30-40": {
+        "score": "30-40%",
+        "label": "Medium",
+        "advice": [
+          "lifestyle",
+          "blood-pressure",
+          "lipids"
+        ],
+        "bp_target": "130/80",
+        "follow_up_interval": "3",
+        "follow_up": "Follow-up every 3 months, if there is no reduction in cardiovascular risk after six months of follow up refer to next level"
+      },
+      ">40": {
+        "score": ">40%",
+        "label": "High",
+        "advice": [
+          "lifestyle",
+          "blood-pressure",
+          "lipids",
+          "refer"
+        ],
+        "bp_target": "130/80",
+        "follow_up_interval": "0",
+        "follow_up": "As per higher level of care"
+      },
+      "refer": {
+        "criteria": {},
+        "label": "Referral",
+        "advice": [
+          "refer"
+        ],
+        "follow_up": "For referral to higher level of care. Seek specialist appointment ASAP"
+      }
+    },
+    "diabetes": {
+      "DM-CURRENT": {
+        "advice": [
+          "Important to maintain good glycaemic control",
+          "Work towards targets",
+          "Referral to Diabetes Education Programme",
+          "Regular Check-ups"
+        ],
+        "targets": {
+          "simple": {
+            "HBA1C": "7",
+            "fasting": "6",
+            "post-prandial": "10",
+            "units": "mmol/l"
+          },
+          "complex": {
+            "HBA1C": "8"
+          },
+          "blood_pressure": {
+            "SBP": "130",
+            "DBP": "80"
+          }
+        },
+        "follow_up": {
+          "simple": {
+            "interval": "3 months",
+            "level_of_care": "Primary",
+            "additional": "Yearly check up with Opthalmologist"
+          },
+          "complex": {
+            "interval": "As per specialist",
+            "level_of_care": "Specialist",
+            "additional": "Check for complications: eye, feet, wounds"
+          }
+        }
+      },
+      "DM-PRE": {
+        "advice": [
+          "At risk of developing diabetes",
+          "With diet and exercise you may be able to prevent diabetes",
+          "Talk to your healthcare professional"
+        ]
+      },
+      "DM-NONE": {},
+      "DM-RISK": {}
+    }
+  }
+}

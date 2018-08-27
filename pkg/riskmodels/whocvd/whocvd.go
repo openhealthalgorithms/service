@@ -50,7 +50,15 @@ func (d *Data) Output() (map[string]interface{}, error) {
 // get does all the job.
 func (d *Data) get(ctx context.Context) error {
 	v := ctx.Value(types.KeyValuesCtx).(*types.ValuesCtx)
-	inputs := tools.ParseParams(ctx)
+	patternsRaw, ok := v.Params.Get("params")
+	if !ok {
+		return nil
+	}
+
+	inputs, ok := patternsRaw.(tools.Params)
+	if !ok {
+		return nil
+	}
 
 	debugOutput := false
 	_, oks := v.Params.Get("debug")

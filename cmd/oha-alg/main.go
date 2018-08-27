@@ -6,12 +6,13 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/pborman/uuid"
+	"io/ioutil"
 	"os"
 	"runtime"
 	"runtime/pprof"
 	"sort"
 
+	"github.com/pborman/uuid"
 	"github.com/sirupsen/logrus"
 	"github.com/urfave/cli"
 
@@ -20,6 +21,7 @@ import (
 	"github.com/openhealthalgorithms/service/pkg/riskmodels"
 	freRM "github.com/openhealthalgorithms/service/pkg/riskmodels/framingham"
 	whoCvdRM "github.com/openhealthalgorithms/service/pkg/riskmodels/whocvd"
+	"github.com/openhealthalgorithms/service/pkg/tools"
 	"github.com/openhealthalgorithms/service/pkg/types"
 )
 
@@ -84,8 +86,18 @@ func main() {
 		// Param for algorithm/risk model
 		cli.StringFlag{
 			Name:  "param",
-			Usage: "Param for the risk model. REQUIRED.",
-			Value: "",
+			Usage: "Param file. REQUIRED.",
+			Value: "sample-request.json",
+		},
+		cli.StringFlag{
+			Name:  "guide",
+			Usage: "Guideline file. REQUIRED.",
+			Value: "guideline_hearts.json",
+		},
+		cli.StringFlag{
+			Name:  "guidecontent",
+			Usage: "Guideline Content file. REQUIRED.",
+			Value: "guideline_hearts_content.json",
 		},
 		// Local mode makes agent send data to localhost.
 		cli.BoolFlag{
@@ -131,6 +143,8 @@ func setupAndRun(cliCtx *cli.Context) error {
 	var riskModelName string
 	var listRiskModels bool
 	var param string
+	var guideline string
+	var guidelineContent string
 	var showConfig bool
 	var cpuProf bool
 	var memProf bool
@@ -140,7 +154,10 @@ func setupAndRun(cliCtx *cli.Context) error {
 	flag.BoolVar(&listAlgorithms, "listalgorithms", false, "list available algorithms")
 	flag.StringVar(&riskModelName, "riskmodel", "WhoCVDRiskModel", "risk model name")
 	flag.BoolVar(&listRiskModels, "listriskmodels", false, "list available riskModels")
-	flag.StringVar(&param, "param", "gender:male,age:40,systolic1:120,systolic2:140,cholesterol:8,cholesterolUnit:mmol,smoker:true,diabetic:true,region:searb", "param for riskModel")
+	// flag.StringVar(&param, "param", "gender:male,age:40,systolic1:120,systolic2:140,cholesterol:8,cholesterolUnit:mmol,smoker:true,diabetic:true,region:searb", "param for riskModel")
+	flag.StringVar(&param, "param", "sample-request.json", "param file")
+	flag.StringVar(&guideline, "guide", "sample-request.json", "guideline file")
+	flag.StringVar(&guidelineContent, "guidecontent", "sample-request.json", "guideline content file")
 	flag.BoolVar(&showConfig, "showconfig", false, "show config for riskModels")
 	flag.BoolVar(&cpuProf, "cpuprofile", false, "enable cpu profiling")
 	flag.BoolVar(&memProf, "memprofile", false, "enable mem profiling")
@@ -217,13 +234,23 @@ func setupAndRun(cliCtx *cli.Context) error {
 
 	algorithm, ok := algorithmRaw.(algorithms.Algorithmer)
 	if !ok {
-		log.Errorf("risk model %s doesn't implement Algorithmer interface", algorithmName)
+		log.Errorf("algorithm %s doesn't implement Algorithmer interface", algorithmName)
 		os.Exit(1)
 	}
 
+	content, err := ioutil.ReadFile(param)
+	if err != nil {
+		log.Errorf("param file error:", err)
+		os.Exit(1)
+	}
+
+	paramObj := tools.ParseParams(content)
+
 	v := types.NewValuesCtx()
-	v.Params.Set("params", param)
-	// if cliCtx.GlobalBool("debug") {
+	v.Params.Set("params", paramObj)
+	v.Params.Set("guide", guideline)
+	v.Params.Set("guidecontent", guidelineContent)
+
 	if debug {
 		v.Params.Set("debug", "true")
 	}
@@ -247,7 +274,10 @@ func setupAndRun(cliCtx *cli.Context) error {
 
 	algorithmOut, _ := algorithm.Output()
 	al, _ := json.MarshalIndent(algorithmOut, "", "  ")
-	log.Info("algorithm output\n", string(al))
+	dst := new(bytes.Buffer)
+	json.HTMLEscape(dst, al)
+	log.Info("algorithm output\n")
+	log.Println(dst)
 
 	requestId := uuid.NewRandom()
 	log.Info("\nRequest ID: ", requestId)
