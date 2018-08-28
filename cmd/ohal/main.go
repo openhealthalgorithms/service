@@ -26,10 +26,10 @@ import (
 )
 
 var (
-	cpuprofile = "./oha-service-cpu-prof.prof"
-	memprofile = "./oha-service-mem-prof.prof"
+	cpuprofile = "./ohas-cpu-prof.prof"
+	memprofile = "./ohas-mem-prof.prof"
 
-	appName    = "oha-algorithms"
+	appName    = "ohal"
 	appVersion = "v0.1"
 	appCommit  = "0000000"
 )
@@ -99,11 +99,6 @@ func main() {
 			Usage: "Guideline Content file. REQUIRED.",
 			Value: "guideline_hearts_content.json",
 		},
-		// Local mode makes agent send data to localhost.
-		cli.BoolFlag{
-			Name:  "grace",
-			Usage: "Grace mode enables graceful shutdown. Default - off",
-		},
 	}
 
 	// The list of commands.
@@ -113,15 +108,6 @@ func main() {
 			Name:    "run",
 			Aliases: []string{"r"},
 			Usage:   "run the algorithm",
-			Action: func(c *cli.Context) error {
-				return setupAndRun(c)
-			},
-		},
-		// Daemon command.
-		cli.Command{
-			Name:    "daemon",
-			Aliases: []string{"d"},
-			Usage:   "run algorithm in daemon mode",
 			Action: func(c *cli.Context) error {
 				return setupAndRun(c)
 			},

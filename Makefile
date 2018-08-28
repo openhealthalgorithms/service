@@ -21,14 +21,14 @@ BUILD_DEV_DARWIN := $(BUILD_DEV_ROOT)/darwin
 BUILD_DEV_LINUX := $(BUILD_DEV_ROOT)/linux
 
 # Artifacts definitions
-SERVICE_NAME := oha-service
+SERVICE_NAME := ohas
 ART_DARWIN_64 := $(SERVICE_NAME)-darwin-amd64.bin
 ART_LINUX_32 := $(SERVICE_NAME)-linux-386.bin
 ART_LINUX_64 := $(SERVICE_NAME)-linux-amd64.bin
 
 # Additional tools
 # Standalone algorithms
-DEV_ALG_NAME := oha-alg
+DEV_ALG_NAME := ohal
 ART_ALG_DARWIN_64 := $(DEV_ALG_NAME)-darwin-amd64.bin
 ART_ALG_LINUX_32 := $(DEV_ALG_NAME)-linux-386.bin
 ART_ALG_LINUX_64 := $(DEV_ALG_NAME)-linux-amd64.bin

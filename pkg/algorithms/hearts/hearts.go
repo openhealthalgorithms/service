@@ -8,6 +8,7 @@ import (
 	who "github.com/openhealthalgorithms/service/pkg/riskmodels/whocvd"
 	"github.com/openhealthalgorithms/service/pkg/tools"
 	"github.com/openhealthalgorithms/service/pkg/types"
+	"github.com/pborman/uuid"
 	"github.com/pkg/errors"
 	"io/ioutil"
 )
@@ -179,6 +180,7 @@ func getOutput(guideContent []byte, keys ...string) []string {
 
 // Hearts represents hostname.
 type Hearts struct {
+	RequestId     string `structs:"request_id"`
 	Diabetes      `structs:"diabetes"`
 	BloodPressure `structs:"blood_pressure"`
 	Lifestyle     `structs:"lifestyle"`
@@ -258,7 +260,9 @@ func NewHearts(
 	bp BloodPressure,
 	lifestyle Lifestyle,
 	cvd CvdAssessment) Hearts {
+	rid := uuid.NewRandom()
 	return Hearts{
+		RequestId:     rid.String(),
 		Diabetes:      diab,
 		BloodPressure: bp,
 		Lifestyle:     lifestyle,
