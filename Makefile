@@ -25,6 +25,7 @@ SERVICE_NAME := ohas
 ART_DARWIN_64 := $(SERVICE_NAME)-darwin-amd64.bin
 ART_LINUX_32 := $(SERVICE_NAME)-linux-386.bin
 ART_LINUX_64 := $(SERVICE_NAME)-linux-amd64.bin
+ART_ARCHIVE := $(SERVICE_NAME).zip
 
 # Additional tools
 # Standalone algorithms
@@ -32,6 +33,11 @@ DEV_ALG_NAME := ohal
 ART_ALG_DARWIN_64 := $(DEV_ALG_NAME)-darwin-amd64.bin
 ART_ALG_LINUX_32 := $(DEV_ALG_NAME)-linux-386.bin
 ART_ALG_LINUX_64 := $(DEV_ALG_NAME)-linux-amd64.bin
+
+# default json files
+GUIDELINE_JSON := guideline_hearts.json
+GUIDELINE_CONTENT_JSON := guideline_hearts_content.json
+SAMPLE_REQUEST_JSON := sample-request.json
 
 # tests
 COVER_OUT := cover.out
@@ -108,6 +114,11 @@ artifacts_linux: ## Create artifacts for linux
 	$(MAKE) -f $(MKFILE_PATH) clean_linux
 	$(MAKE) -f $(MKFILE_PATH) build_linux
 
+zip_artifacts: ## Create a zip archive with artifacts
+	$(MAKE) -f $(MKFILE_PATH) clean_releases
+	mkdir -p $(REL_PATH)
+	zip -j -v $(REL_PATH)/$(ART_ARCHIVE) $(BUILD_DARWIN)/$(ART_DARWIN_64) $(BUILD_LINUX)/$(ART_LINUX_64) $(BUILD_LINUX)/$(ART_LINUX_32) $(GUIDELINE_JSON) $(GUIDELINE_CONTENT_JSON) $(SAMPLE_REQUEST_JSON)
+
 house_keep: ## Remove any .DS_Store files
 	find $(BASE_PATH) -name ".DS_Store" -depth -exec rm {} \;
 
@@ -128,5 +139,5 @@ cover: ## Show tests coverage
 	clean_dev clean_dev_darwin clean_dev_linux \
 	build_dev build_dev_darwin build_dev_linux \
 	artifacts artifacts_darwin artifacts_linux \
-	test cover \
+	zip_artifacts test cover \
 	house_keep
