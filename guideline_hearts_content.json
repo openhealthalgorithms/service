@@ -128,13 +128,13 @@
           "GREEN",
           "You are meeting the recommended amount of exercise (150 minutes per week). Keep it up. [Looking for a community?]"
         ],
-        "PH-2": [
+        "PA-2": [
           "off_target_mild",
           "Off target, but trying",
           "AMBER",
           "Keep moving. Remember every bit counts. Aim for 150 minutes of moderate intensity exercsie per week. [Learn more]"
         ],
-        "PH-3": [
+        "PA-3": [
           "off_target",
           "Off Target",
           "RED",
