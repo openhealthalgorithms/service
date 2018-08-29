@@ -187,8 +187,8 @@ func setupAndRun(cliCtx *cli.Context) error {
 		os.Exit(1)
 	}
 
-	riskModel, ok := riskModelRaw.(riskmodels.RiskModeler)
-	if !ok {
+	_, rok := riskModelRaw.(riskmodels.RiskModeler)
+	if !rok {
 		log.Errorf("risk model %s doesn't implement RiskModeler interface", riskModelName)
 		os.Exit(1)
 	}
@@ -230,7 +230,11 @@ func setupAndRun(cliCtx *cli.Context) error {
 		os.Exit(1)
 	}
 
-	paramObj := tools.ParseParams(content)
+	paramObj, err := tools.ParseParams(content)
+	if err != nil {
+		log.Errorf("param file error:", err)
+		os.Exit(1)
+	}
 
 	v := types.NewValuesCtx()
 	v.Params.Set("params", paramObj)
@@ -241,17 +245,18 @@ func setupAndRun(cliCtx *cli.Context) error {
 		v.Params.Set("debug", "true")
 	}
 	ctx := context.WithValue(context.Background(), types.KeyValuesCtx, &v)
-	err = riskModel.Get(ctx)
 
-	if err != nil {
-		log.Fatal("error: ", err)
-	}
-
-	riskModelOut, _ := riskModel.Output()
-	j, _ := json.MarshalIndent(riskModelOut, "", "  ")
-	if debug {
-		log.Info("risk model output\n", string(j))
-	}
+	// err = riskModel.Get(ctx)
+	//
+	// if err != nil {
+	// 	log.Fatal("error: ", err)
+	// }
+	//
+	// riskModelOut, _ := riskModel.Output()
+	// j, _ := json.MarshalIndent(riskModelOut, "", "  ")
+	// if debug {
+	// 	log.Info("risk model output\n", string(j))
+	// }
 
 	err = algorithm.Get(ctx)
 	if err != nil {

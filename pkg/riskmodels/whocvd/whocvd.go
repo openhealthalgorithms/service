@@ -66,7 +66,10 @@ func (d *Data) get(ctx context.Context) error {
 		debugOutput = true
 	}
 
-	output, debug := calculate(inputs, debugOutput)
+	output, debug, err := calculate(inputs, debugOutput)
+	if err != nil {
+		return err
+	}
 
 	d.WHOCVD = NewWHOCVD(inputs, output, debug)
 
@@ -75,9 +78,9 @@ func (d *Data) get(ctx context.Context) error {
 
 // WHOCVD represents hostname.
 type WHOCVD struct {
-	Input     tools.Params
-	Output    map[string]string
-	Debug     map[string]interface{} `structs:"debug,omitempty"`
+	Input  tools.Params
+	Output map[string]string
+	Debug  map[string]interface{} `structs:"debug,omitempty"`
 }
 
 // NewWHOCVD returns a Hostname from a string.
@@ -89,7 +92,10 @@ func NewWHOCVD(i tools.Params, o map[string]string, d map[string]interface{}) WH
 	}
 }
 
-func calculate(params tools.Params, debug bool) (map[string]string, map[string]interface{}) {
+func calculate(params tools.Params, debug bool) (map[string]string, map[string]interface{}, error) {
+	if !(len(params.Region) > 0 && (params.Gender == "m" || params.Gender == "f")) {
+		return nil, nil, errors.New("invalid input for risk model")
+	}
 	age := tools.ConvertAge(params.Age)
 	sbp := tools.ConvertSbp(params.Sbp)
 	cholValue := -1
@@ -115,10 +121,10 @@ func calculate(params tools.Params, debug bool) (map[string]string, map[string]i
 		debugValues["matrix"] = contents
 		debugValues["index"] = fmt.Sprintf("%d, %d", sbp, cholValue)
 
-		return calculatedValues, debugValues
+		return calculatedValues, debugValues, nil
 	}
 
-	return calculatedValues, nil
+	return calculatedValues, nil, nil
 }
 
 func getContents(region, gender string, cholesterol, diabetes, smoker bool, age int) [][]int {

@@ -8,7 +8,6 @@ import (
 	who "github.com/openhealthalgorithms/service/pkg/riskmodels/whocvd"
 	"github.com/openhealthalgorithms/service/pkg/tools"
 	"github.com/openhealthalgorithms/service/pkg/types"
-	"github.com/pborman/uuid"
 	"github.com/pkg/errors"
 	"io/ioutil"
 )
@@ -80,12 +79,12 @@ func (d *Data) get(ctx context.Context) error {
 
 	guide, err := ioutil.ReadFile(guideFile)
 	if err != nil {
-		return nil
+		return err
 	}
 
 	guideContent, err := ioutil.ReadFile(guideContentFile)
 	if err != nil {
-		return nil
+		return err
 	}
 
 	// Diabetes
@@ -100,13 +99,19 @@ func (d *Data) get(ctx context.Context) error {
 	whocvd := who.New()
 	err = whocvd.Get(ctx)
 	if err != nil {
-		return nil
+		return err
 	}
 
 	highRisks := getOutput(guide, "body", "high_risk_conditions")
-	hra, _ := assessments.GetHighRisksWithHrc(p.Sbp, p.Dbp, p.Age, p.Conditions, highRisks)
+	hra, err := assessments.GetHighRisksWithHrc(p.Sbp, p.Dbp, p.Age, p.Conditions, highRisks)
+	if err != nil {
+		return err
+	}
 
-	ot, _, _, _ := jp.Get(guide, "body", "cvd_risk", whocvd.WHOCVD.Output["risk_range"])
+	ot, _, _, err := jp.Get(guide, "body", "cvd_risk", whocvd.WHOCVD.Output["risk_range"])
+	if err != nil {
+		return err
+	}
 
 	o := make(map[string]interface{})
 	o["score"], _ = jp.GetString(ot, "score")
@@ -140,7 +145,7 @@ func (d *Data) get(ctx context.Context) error {
 	if err == nil {
 		ex, _ = assessments.GetExerciseWithTarget(p.PhysicalActivity, int(exTarget))
 	}
-	output = getOutput(guideContent, "body", "messages", "nutrition", ex.Code)
+	output = getOutput(guideContent, "body", "messages", "physical_activity", ex.Code)
 	exa := Exercise{ex.Current, ex.Code, ex.Target, output}
 
 	dtf, err := jp.GetInt(guide, "body", "targets", "general", "diet", "fruit")
@@ -152,7 +157,7 @@ func (d *Data) get(ctx context.Context) error {
 		dtv = 5
 	}
 	dt, _ := assessments.GetDietWithTarget(p.Fruits, p.Vegetables, int(dtf), int(dtv))
-	output = getOutput(guideContent, "body", "messages", "physical_activity", dt.Code)
+	output = getOutput(guideContent, "body", "messages", "nutrition", dt.Code)
 	val := Values{p.Fruits, p.Vegetables}
 	diet := Diet{val, dt.Code, output}
 
@@ -180,7 +185,6 @@ func getOutput(guideContent []byte, keys ...string) []string {
 
 // Hearts represents hostname.
 type Hearts struct {
-	RequestId     string `structs:"request_id"`
 	Diabetes      `structs:"diabetes"`
 	BloodPressure `structs:"blood_pressure"`
 	Lifestyle     `structs:"lifestyle"`
@@ -260,9 +264,7 @@ func NewHearts(
 	bp BloodPressure,
 	lifestyle Lifestyle,
 	cvd CvdAssessment) Hearts {
-	rid := uuid.NewRandom()
 	return Hearts{
-		RequestId:     rid.String(),
 		Diabetes:      diab,
 		BloodPressure: bp,
 		Lifestyle:     lifestyle,

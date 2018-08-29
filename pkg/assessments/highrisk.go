@@ -11,7 +11,7 @@ func GetHighRisksWithHrc(sbp, dbp int, age float64, current map[string]bool, hrc
 	reason := ""
 
 	for _, h := range hrc {
-		if current[h] {
+		if _, ok := current[h]; ok {
 			hasHighRisk = true
 			resultCode = "HR-0"
 			reason = h

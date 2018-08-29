@@ -6,6 +6,7 @@ import (
 	"time"
 
 	jp "github.com/buger/jsonparser"
+	"github.com/pkg/errors"
 
 	"github.com/openhealthalgorithms/service/pkg/assessments"
 )
@@ -107,25 +108,35 @@ type Params struct {
 	Assessments
 }
 
-func ParseParams(content []byte) Params {
-	inputs := getInputs(content)
-
-	return inputs
+func ParseParams(content []byte) (Params, error) {
+	return getInputs(content)
 }
 
-func getInputs(data []byte) Params {
+func getInputs(data []byte) (Params, error) {
+	var err error
+	var intValue int64
+	var stringValue string
+	var floatValue float64
+
 	out := Params{}
+	mandatory := make([]string, 0)
 
-	if value, err := jp.GetString(data, "demographics", "gender"); err == nil {
-		out.Gender = strings.ToLower(value)
+	if stringValue, err = jp.GetString(data, "demographics", "gender"); err == nil {
+		out.Gender = strings.ToLower(stringValue)
+	} else {
+		mandatory = append(mandatory, "gender")
 	}
 
-	if value, err := jp.GetFloat(data, "demographics", "age"); err == nil {
-		out.Age = value
+	if floatValue, err = jp.GetFloat(data, "demographics", "age"); err == nil {
+		out.Age = floatValue
+	} else {
+		mandatory = append(mandatory, "age")
 	}
 
-	if value, err := jp.GetString(data, "region"); err == nil {
-		out.Region = value
+	if stringValue, err = jp.GetString(data, "region"); err == nil {
+		out.Region = stringValue
+	} else {
+		mandatory = append(mandatory, "region")
 	}
 
 	temp := 0
@@ -138,7 +149,11 @@ func getInputs(data []byte) Params {
 		}
 	}, "measurements", "sbp")
 
-	out.Sbp = int(temp / count)
+	if count > 0 {
+		out.Sbp = int(temp / count)
+	}  else {
+		mandatory = append(mandatory, "sbp")
+	}
 
 	temp = 0
 	count = 0
@@ -150,57 +165,61 @@ func getInputs(data []byte) Params {
 		}
 	}, "measurements", "dbp")
 
-	out.Dbp = int(temp / count)
-
-	if value, err := jp.GetFloat(data, "measurements", "height", "[0]"); err == nil {
-		out.Height = value
+	if count > 0 {
+		out.Dbp = int(temp / count)
+	} else {
+		mandatory = append(mandatory, "dbp")
 	}
 
-	if value, err := jp.GetString(data, "measurements", "height", "[1]"); err == nil {
-		out.HeightUnit = value
+	if floatValue, err = jp.GetFloat(data, "measurements", "height", "[0]"); err == nil {
+		out.Height = floatValue
 	}
 
-	if value, err := jp.GetFloat(data, "measurements", "weight", "[0]"); err == nil {
-		out.Weight = value
+	if stringValue, err = jp.GetString(data, "measurements", "height", "[1]"); err == nil {
+		out.HeightUnit = stringValue
 	}
 
-	if value, err := jp.GetString(data, "measurements", "weight", "[1]"); err == nil {
-		out.WeightUnit = value
+	if floatValue, err = jp.GetFloat(data, "measurements", "weight", "[0]"); err == nil {
+		out.Weight = floatValue
 	}
 
-	if value, err := jp.GetFloat(data, "measurements", "waist", "[0]"); err == nil {
-		out.Waist = value
+	if stringValue, err = jp.GetString(data, "measurements", "weight", "[1]"); err == nil {
+		out.WeightUnit = stringValue
 	}
 
-	if value, err := jp.GetString(data, "measurements", "waist", "[1]"); err == nil {
-		out.WaistUnit = value
+	if floatValue, err = jp.GetFloat(data, "measurements", "waist", "[0]"); err == nil {
+		out.Waist = floatValue
 	}
 
-	if value, err := jp.GetFloat(data, "measurements", "hip", "[0]"); err == nil {
-		out.Hip = value
+	if stringValue, err = jp.GetString(data, "measurements", "waist", "[1]"); err == nil {
+		out.WaistUnit = stringValue
 	}
 
-	if value, err := jp.GetString(data, "measurements", "hip", "[1]"); err == nil {
-		out.HipUnit = value
+	if floatValue, err = jp.GetFloat(data, "measurements", "hip", "[0]"); err == nil {
+		out.Hip = floatValue
 	}
 
-	if value, err := jp.GetInt(data, "smoking", "current"); err == nil {
+	if stringValue, err = jp.GetString(data, "measurements", "hip", "[1]"); err == nil {
+		out.HipUnit = stringValue
+	}
+
+	if intValue, err = jp.GetInt(data, "smoking", "current"); err == nil {
 		out.CurrentSmoker = false
-		if value == 1 {
+		if intValue == 1 {
 			out.CurrentSmoker = true
 		}
 	}
 
-	if value, err := jp.GetInt(data, "smoking", "ex_smoker"); err == nil {
+	if intValue, err = jp.GetInt(data, "smoking", "ex_smoker"); err == nil {
 		out.ExSmoker = false
-		if value == 1 {
+		if intValue == 1 {
 			out.ExSmoker = true
 		}
 	}
 
-	if value, err := jp.GetInt(data, "smoking", "quit_within_year"); err == nil {
+	if intValue, err = jp.GetInt(data, "smoking", "quit_within_year"); err == nil {
 		out.QuitWithinYear = false
-		if value == 1 {
+		if intValue == 1 {
 			out.QuitWithinYear = true
 		}
 	}
@@ -253,44 +272,44 @@ func getInputs(data []byte) Params {
 		out.Conditions[strings.ToUpper(s)] = true
 	}, "medical_history", "conditions")
 
-	if value, err := jp.GetString(data, "pathology", "bsl", "type"); err == nil {
-		out.BslType = value
+	if stringValue, err = jp.GetString(data, "pathology", "bsl", "type"); err == nil {
+		out.BslType = stringValue
 	}
 
-	if value, err := jp.GetString(data, "pathology", "bsl", "units"); err == nil {
-		out.BslUnit = value
+	if stringValue, err = jp.GetString(data, "pathology", "bsl", "units"); err == nil {
+		out.BslUnit = stringValue
 	}
 
-	if value, err := jp.GetFloat(data, "pathology", "bsl", "value"); err == nil {
-		out.Bsl = value
+	if floatValue, err = jp.GetFloat(data, "pathology", "bsl", "value"); err == nil {
+		out.Bsl = floatValue
 	}
 
-	if value, err := jp.GetString(data, "pathology", "cholesterol", "type"); err == nil {
-		out.CholType = value
+	if stringValue, err = jp.GetString(data, "pathology", "cholesterol", "type"); err == nil {
+		out.CholType = stringValue
 	}
 
-	if value, err := jp.GetString(data, "pathology", "cholesterol", "units"); err == nil {
-		out.CholUnit = value
+	if stringValue, err = jp.GetString(data, "pathology", "cholesterol", "units"); err == nil {
+		out.CholUnit = stringValue
 	}
 
-	if value, err := jp.GetFloat(data, "pathology", "cholesterol", "total_chol"); err == nil {
-		out.TChol = value
+	if floatValue, err = jp.GetFloat(data, "pathology", "cholesterol", "total_chol"); err == nil {
+		out.TChol = floatValue
 	}
 
-	if value, err := jp.GetFloat(data, "pathology", "cholesterol", "hdl"); err == nil {
-		out.Hdl = value
+	if floatValue, err = jp.GetFloat(data, "pathology", "cholesterol", "hdl"); err == nil {
+		out.Hdl = floatValue
 	}
 
-	if value, err := jp.GetFloat(data, "pathology", "cholesterol", "ldl"); err == nil {
-		out.Ldl = value
+	if floatValue, err = jp.GetFloat(data, "pathology", "cholesterol", "ldl"); err == nil {
+		out.Ldl = floatValue
 	}
 
-	if value, err := jp.GetFloat(data, "pathology", "cholesterol", "tg"); err == nil {
-		out.Tg = value
+	if floatValue, err = jp.GetFloat(data, "pathology", "cholesterol", "tg"); err == nil {
+		out.Tg = floatValue
 	}
 
-	if value, err := jp.GetString(data, "physical_activity"); err == nil {
-		v, e := strconv.Atoi(value)
+	if stringValue, err = jp.GetString(data, "physical_activity"); err == nil {
+		v, e := strconv.Atoi(stringValue)
 		if e != nil {
 			out.PhysicalActivity = 0
 		} else {
@@ -298,20 +317,20 @@ func getInputs(data []byte) Params {
 		}
 	}
 
-	if value, err := jp.GetInt(data, "diet_history", "fruit"); err == nil {
-		out.Fruits = int(value)
+	if intValue, err = jp.GetInt(data, "diet_history", "fruit"); err == nil {
+		out.Fruits = int(intValue)
 	}
 
-	if value, err := jp.GetInt(data, "diet_history", "veg"); err == nil {
-		out.Vegetables = int(value)
+	if intValue, err = jp.GetInt(data, "diet_history", "veg"); err == nil {
+		out.Vegetables = int(intValue)
 	}
 
-	if value, err := jp.GetInt(data, "diet_history", "rice"); err == nil {
-		out.Rice = int(value)
+	if intValue, err = jp.GetInt(data, "diet_history", "rice"); err == nil {
+		out.Rice = int(intValue)
 	}
 
-	if value, err := jp.GetString(data, "diet_history", "oil"); err == nil {
-		out.Oil = value
+	if stringValue, err = jp.GetString(data, "diet_history", "oil"); err == nil {
+		out.Oil = stringValue
 	}
 
 	// Calculations
@@ -319,42 +338,62 @@ func getInputs(data []byte) Params {
 	if value, err := assessments.GetDiabetes(out.Bsl, out.BslUnit, out.BslType, out.Diabetes); err == nil {
 		out.DiabetesAssessment = value
 		out.Diabetes = value.Status
+	} else {
+		out.DiabetesAssessment = assessments.DiabetesAssessment{}
 	}
 
 	// BMI
 	if value, err := assessments.GetBMI(out.Weight, out.Height); err == nil {
 		out.BMIAssessment = value
+	} else {
+		out.BMIAssessment = assessments.BMIAssessment{}
 	}
 
 	// WHR
 	if value, err := assessments.GetWHR(out.Waist, out.Hip, out.Gender); err == nil {
 		out.WHRAssessment = value
+	} else {
+		out.WHRAssessment = assessments.WHRAssessment{}
 	}
 
 	// BP
 	if value, err := assessments.GetBP(out.Sbp, out.Dbp, out.Diabetes); err == nil {
 		out.BPAssessment = value
+	} else {
+		out.BPAssessment = assessments.BPAssessment{}
 	}
 
 	// Smoking
 	if value, err := assessments.GetSmoking(out.CurrentSmoker, out.ExSmoker, out.QuitWithinYear); err == nil {
 		out.SmokingAssessment = value
+	} else {
+		out.SmokingAssessment = assessments.SmokingAssessment{}
 	}
 
 	// Exercise
 	if value, err := assessments.GetExercise(out.PhysicalActivity); err == nil {
 		out.ExerciseAssessment = value
+	} else {
+		out.ExerciseAssessment = assessments.ExerciseAssessment{}
 	}
 
 	// Diet
 	if value, err := assessments.GetDiet(out.Fruits, out.Vegetables); err == nil {
 		out.DietAssessment = value
+	} else {
+		out.DietAssessment = assessments.DietAssessment{}
 	}
 
 	// HighRisk
 	if value, err := assessments.GetHighRisks(out.Sbp, out.Dbp, out.Age, out.Conditions); err == nil {
 		out.HighRisksAssessment = value
+	} else {
+		out.HighRisksAssessment = assessments.HighRisksAssessment{}
 	}
 
-	return out
+	if len(mandatory) > 0 {
+		return out, errors.Errorf("missing mandatory attributes: %v", JoinStringsSep(", ", mandatory...))
+	}
+
+	return out, err
 }
