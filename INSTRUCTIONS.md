@@ -150,7 +150,7 @@ curl -X POST \
 
 This is the returned output:
 
-```json
+```javascript
 {
     "hearts": {
         "blood_pressure": {
@@ -267,7 +267,7 @@ This is the returned output:
 
 ### `/api/version`
 It will return the API version.
-```json
+```javascript
 {
     "version": "0.1"
 }
