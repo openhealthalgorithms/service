@@ -6,6 +6,7 @@ This service will generate binaries to be used as a package in any posix system.
 
 ## Table of Contents
 
+* [Execution Instructions](./INSTRUCTIONS.md)
 * [Learning](#learning)
 * [Developing](#developing)
 * [Cross-Platform Code](./CONTRIBUTING.md#cross-platform-code)

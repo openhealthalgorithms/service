@@ -38,6 +38,7 @@ ART_ALG_LINUX_64 := $(DEV_ALG_NAME)-linux-amd64.bin
 GUIDELINE_JSON := guideline_hearts.json
 GUIDELINE_CONTENT_JSON := guideline_hearts_content.json
 SAMPLE_REQUEST_JSON := sample-request.json
+HELP_FILE := INSTRUCTIONS.md
 
 # tests
 COVER_OUT := cover.out
@@ -117,7 +118,7 @@ artifacts_linux: ## Create artifacts for linux
 zip_artifacts: ## Create a zip archive with artifacts
 	$(MAKE) -f $(MKFILE_PATH) clean_releases
 	mkdir -p $(REL_PATH)
-	zip -j -v $(REL_PATH)/$(ART_ARCHIVE) $(BUILD_DARWIN)/$(ART_DARWIN_64) $(BUILD_LINUX)/$(ART_LINUX_64) $(BUILD_LINUX)/$(ART_LINUX_32) $(GUIDELINE_JSON) $(GUIDELINE_CONTENT_JSON) $(SAMPLE_REQUEST_JSON)
+	zip -j -v $(REL_PATH)/$(ART_ARCHIVE) $(BUILD_DARWIN)/$(ART_DARWIN_64) $(BUILD_LINUX)/$(ART_LINUX_64) $(BUILD_LINUX)/$(ART_LINUX_32) $(GUIDELINE_JSON) $(GUIDELINE_CONTENT_JSON) $(SAMPLE_REQUEST_JSON) $(HELP_FILE)
 
 house_keep: ## Remove any .DS_Store files
 	find $(BASE_PATH) -name ".DS_Store" -depth -exec rm {} \;

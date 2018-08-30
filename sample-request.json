@@ -1,18 +1,12 @@
 {
-  "region": "AFRD",
-  "last_assessment": {
-    "assessment_date": "",
-    "cvd_risk": "20"
-  },
+  "region": "SEARD",
   "demographics": {
     "gender": "F",
     "age": 60,
     "dob": [
       "computed",
       "01/10/1987"
-    ],
-    "occupation": "office_worker",
-    "monthly_income": ""
+    ]
   },
   "measurements": {
     "height": [
@@ -33,10 +27,14 @@
     ],
     "sbp": [
       100,
+      120,
+      130,
       "sitting"
     ],
     "dbp": [
       91,
+      95,
+      85,
       "sitting"
     ]
   },

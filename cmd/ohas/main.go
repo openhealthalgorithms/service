@@ -101,7 +101,7 @@ func main() {
 		// Debug mode sets level for logger to debug.
 		cli.BoolFlag{
 			Name:  "debug",
-			Usage: "Debug mode makes output more verbose. Default - off",
+			Usage: "Debug mode makes output more verbose",
 		},
 	}
 
@@ -136,7 +136,7 @@ func main() {
 			},
 		},
 		cli.Command{
-			Name: "main",
+			Name:   "main",
 			Action: func(c *cli.Context) error {
 				return startServer(logEntry)
 			},
