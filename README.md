@@ -66,7 +66,7 @@ cd service
 
 ### Documentation
 
-Run `godoc` and open [documentation](http://localhost:6060/pkg/github.com/trilogy-group/aurea-eng-docker-automation-agent/) in your browser:
+Run `godoc` and open [documentation](http://localhost:6060/pkg/github.com/openhealthalgorithms/service/) in your browser:
 
 ```bash
 # run godoc
