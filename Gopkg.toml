@@ -52,3 +52,7 @@
 [[constraint]]
   branch = "master"
   name = "github.com/buger/jsonparser"
+
+[[constraint]]
+  name = "github.com/go-playground/validator"
+  version = "9.21.0"

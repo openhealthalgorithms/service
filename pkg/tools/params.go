@@ -1,6 +1,7 @@
 package tools
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 	"time"
@@ -10,6 +11,11 @@ import (
 
 	"github.com/openhealthalgorithms/service/pkg/assessments"
 )
+
+type Configs struct {
+	Algorithm string
+	RiskModel string
+}
 
 type Demographics struct {
 	Age         float64
@@ -99,6 +105,7 @@ type Assessments struct {
 }
 
 type Params struct {
+	Configs
 	Demographics
 	MedicalHistory
 	FamilyHistory
@@ -120,218 +127,310 @@ func getInputs(data []byte) (Params, error) {
 
 	out := Params{}
 	mandatory := make([]string, 0)
+	unsupported := make([]string, 0)
 
-	if stringValue, err = jp.GetString(data, "demographics", "gender"); err == nil {
-		out.Gender = strings.ToLower(stringValue)
+	// Config
+	if stringValue, err = jp.GetString(data, "config", "algorithm"); err == nil {
+		out.Algorithm = strings.ToLower(stringValue)
+	} else {
+		mandatory = append(mandatory, "algorithm")
+	}
+
+	if stringValue, err = jp.GetString(data, "config", "risk_model"); err == nil {
+		out.RiskModel = strings.ToLower(stringValue)
+	} else {
+		mandatory = append(mandatory, "risk_model")
+	}
+
+	// Params
+	// Demographics
+	if stringValue, err = jp.GetString(data, "params", "demographics", "gender"); err == nil {
+		out.Gender = strings.ToLower(stringValue[:1])
 	} else {
 		mandatory = append(mandatory, "gender")
 	}
 
-	if floatValue, err = jp.GetFloat(data, "demographics", "age"); err == nil {
-		out.Age = floatValue
+	age := 0.0
+	if floatValue, err = jp.GetFloat(data, "params", "demographics", "age", "value"); err == nil {
+		age = floatValue
 	} else {
 		mandatory = append(mandatory, "age")
 	}
 
-	if stringValue, err = jp.GetString(data, "region"); err == nil {
-		out.Region = stringValue
+	unit := "year"
+	if stringValue, err = jp.GetString(data, "params", "demographics", "age", "unit"); err == nil {
+		unit = strings.ToLower(stringValue)
 	} else {
-		mandatory = append(mandatory, "region")
+		mandatory = append(mandatory, "age unit")
 	}
 
-	temp := 0
-	count := 0
-	jp.ArrayEach(data, func(value []byte, dataType jp.ValueType, offset int, err error) {
-		c, e := strconv.Atoi(string(value))
-		if e == nil {
-			temp += c
-			count++
+	out.Age = CalculateAge(age, unit)
+
+	if stringValue, err = jp.GetString(data, "params", "demographics", "birth_country_code"); err == nil {
+		if code, ok := countries[stringValue]; ok {
+			if code.Region != "#N/A" {
+				out.Region = code.Region
+			} else {
+				unsupported = append(unsupported, stringValue)
+			}
+		} else {
+			unsupported = append(unsupported, stringValue)
 		}
-	}, "measurements", "sbp")
-
-	if count > 0 {
-		out.Sbp = int(temp / count)
-	}  else {
-		mandatory = append(mandatory, "sbp")
-	}
-
-	temp = 0
-	count = 0
-	jp.ArrayEach(data, func(value []byte, dataType jp.ValueType, offset int, err error) {
-		c, e := strconv.Atoi(string(value))
-		if e == nil {
-			temp += c
-			count++
-		}
-	}, "measurements", "dbp")
-
-	if count > 0 {
-		out.Dbp = int(temp / count)
 	} else {
-		mandatory = append(mandatory, "dbp")
+		mandatory = append(mandatory, "birth_country_code")
 	}
 
-	if floatValue, err = jp.GetFloat(data, "measurements", "height", "[0]"); err == nil {
-		out.Height = floatValue
-	}
-
-	if stringValue, err = jp.GetString(data, "measurements", "height", "[1]"); err == nil {
-		out.HeightUnit = stringValue
-	}
-
-	if floatValue, err = jp.GetFloat(data, "measurements", "weight", "[0]"); err == nil {
-		out.Weight = floatValue
-	}
-
-	if stringValue, err = jp.GetString(data, "measurements", "weight", "[1]"); err == nil {
-		out.WeightUnit = stringValue
-	}
-
-	if floatValue, err = jp.GetFloat(data, "measurements", "waist", "[0]"); err == nil {
-		out.Waist = floatValue
-	}
-
-	if stringValue, err = jp.GetString(data, "measurements", "waist", "[1]"); err == nil {
-		out.WaistUnit = stringValue
-	}
-
-	if floatValue, err = jp.GetFloat(data, "measurements", "hip", "[0]"); err == nil {
-		out.Hip = floatValue
-	}
-
-	if stringValue, err = jp.GetString(data, "measurements", "hip", "[1]"); err == nil {
-		out.HipUnit = stringValue
-	}
-
-	if intValue, err = jp.GetInt(data, "smoking", "current"); err == nil {
-		out.CurrentSmoker = false
-		if intValue == 1 {
-			out.CurrentSmoker = true
-		}
-	}
-
-	if intValue, err = jp.GetInt(data, "smoking", "ex_smoker"); err == nil {
-		out.ExSmoker = false
-		if intValue == 1 {
-			out.ExSmoker = true
-		}
-	}
-
-	if intValue, err = jp.GetInt(data, "smoking", "quit_within_year"); err == nil {
-		out.QuitWithinYear = false
-		if intValue == 1 {
-			out.QuitWithinYear = true
-		}
-	}
-
+	// Components
+	// Lifestyle
 	jp.ArrayEach(data, func(value []byte, dataType jp.ValueType, offset int, err error) {
-		s := string(value)
-		if s == "cvd" {
+		name := ""
+		category := ""
+		if stringValue, err = jp.GetString(value, "name"); err == nil {
+			name = stringValue
+		}
+
+		if stringValue, err = jp.GetString(value, "category"); err == nil {
+			category = stringValue
+		}
+
+		switch category {
+		case "addiction":
+			switch name {
+			case "smoking":
+				if val, err := jp.GetString(value, "value"); err == nil {
+					if val == "smoker" {
+						out.CurrentSmoker = true
+					} else if val == "ex-smoker" {
+						out.ExSmoker = true
+					}
+				}
+
+				if val, err := jp.GetBoolean(value, "quite_within_year"); err == nil {
+					out.QuitWithinYear = val
+				}
+			}
+		case "nutrition":
+			switch name {
+			case "fruit":
+				if intValue, err = jp.GetInt(value, "value"); err == nil {
+					out.Fruits = int(intValue)
+				}
+			case "vegetables":
+				if intValue, err = jp.GetInt(value, "value"); err == nil {
+					out.Vegetables = int(intValue)
+				}
+			case "rice":
+				if intValue, err = jp.GetInt(value, "value"); err == nil {
+					out.Rice = int(intValue)
+				}
+			case "oil":
+				if stringValue, err = jp.GetString(value, "value"); err == nil {
+					out.Oil = stringValue
+				}
+			}
+		case "physical-activity":
+			if intValue, err = jp.GetInt(value, "value"); err == nil {
+				out.PhysicalActivity = int(intValue)
+			}
+		}
+	}, "params", "components", "lifestyle")
+
+	// Body measurements
+	sbpTotal := 0
+	dbpTotal := 0
+	bpCount := 0
+	jp.ArrayEach(data, func(value []byte, dataType jp.ValueType, offset int, err error) {
+		name := ""
+		if stringValue, err = jp.GetString(value, "name"); err == nil {
+			name = stringValue
+		}
+
+		switch name {
+		case "height":
+			units := ""
+			if val, err := jp.GetString(value, "units"); err == nil {
+				units = val
+			}
+
+			values := 0
+			if val, err := jp.GetInt(value, "value"); err == nil {
+				values = int(val)
+			}
+
+			out.Height = ConvertLength(float64(values), units)
+			out.HeightUnit = "m"
+		case "weight":
+			units := ""
+			if val, err := jp.GetString(value, "units"); err == nil {
+				units = val
+			}
+
+			values := 0
+			if val, err := jp.GetInt(value, "value"); err == nil {
+				values = int(val)
+			}
+
+			out.Weight = ConvertWeight(float64(values), units)
+			out.WeightUnit = "kg"
+		case "hip":
+			units := ""
+			if val, err := jp.GetString(value, "units"); err == nil {
+				units = val
+			}
+
+			values := 0
+			if val, err := jp.GetInt(value, "value"); err == nil {
+				values = int(val)
+			}
+
+			out.Hip = ConvertLength(float64(values), units)
+			out.HipUnit = "m"
+		case "waist":
+			units := ""
+			if val, err := jp.GetString(value, "units"); err == nil {
+				units = val
+			}
+
+			values := 0
+			if val, err := jp.GetInt(value, "value"); err == nil {
+				values = int(val)
+			}
+
+			out.Waist = ConvertLength(float64(values), units)
+			out.WaistUnit = "m"
+		case "blood_pressure":
+			if stringValue, err = jp.GetString(value, "value"); err == nil {
+				bps := strings.Split(stringValue, "/")
+				sbp, _ := strconv.Atoi(bps[0])
+				dbp, _ := strconv.Atoi(bps[1])
+				sbpTotal += sbp
+				dbpTotal += dbp
+				bpCount++
+			}
+		}
+	}, "params", "components", "body-measurements")
+
+	if bpCount > 0 {
+		out.Sbp = int(sbpTotal / bpCount)
+		out.Dbp = int(dbpTotal / bpCount)
+	} else {
+		mandatory = append(mandatory, "blood_pressure")
+	}
+
+	// Biological Samples
+	jp.ArrayEach(data, func(value []byte, dataType jp.ValueType, offset int, err error) {
+		name := ""
+		if stringValue, err = jp.GetString(value, "name"); err == nil {
+			name = stringValue
+		}
+
+		switch name {
+		case "blood_sugar":
+			if val, err := jp.GetString(value, "units"); err == nil {
+				out.BslUnit = val
+			}
+
+			if val, err := jp.GetFloat(value, "value"); err == nil {
+				out.Bsl = val
+			}
+
+			if val, err := jp.GetString(value, "type"); err == nil {
+				out.BslType = val
+				out.CholType = val
+			}
+		case "total_cholesterol":
+			if val, err := jp.GetFloat(value, "value"); err == nil {
+				out.TChol = val
+			}
+			if val, err := jp.GetString(value, "units"); err == nil {
+				out.CholUnit = val
+			}
+		case "hdl":
+			if val, err := jp.GetFloat(value, "value"); err == nil {
+				out.Hdl = val
+			}
+		case "ldl":
+			if val, err := jp.GetFloat(value, "value"); err == nil {
+				out.Ldl = val
+			}
+		case "tg":
+			if val, err := jp.GetFloat(value, "value"); err == nil {
+				out.Tg = val
+			}
+		}
+	}, "params", "components", "biological-samples")
+
+	// Family History
+	jp.ArrayEach(data, func(value []byte, dataType jp.ValueType, offset int, err error) {
+		name := ""
+		if stringValue, err = jp.GetString(value, "name"); err == nil {
+			name = stringValue
+		}
+
+		switch name {
+		case "cardiovascular-disease":
 			out.FamilyCvd = true
-		} else if s == "ckd" {
+		case "kidney-disease":
 			out.FamilyCkd = true
 		}
-	}, "family_history")
+	}, "params", "components", "family_history")
 
+	// Medications
 	jp.ArrayEach(data, func(value []byte, dataType jp.ValueType, offset int, err error) {
-		s := string(value)
-		if s == "anti_hypertensive" {
+		category := ""
+		if stringValue, err = jp.GetString(value, "category"); err == nil {
+			category = stringValue
+		}
+
+		switch category {
+		case "anti-hypertensive":
 			out.Antihypertensives = true
-		} else if s == "statin" {
+		case "statin":
 			out.Statin = true
-		} else if s == "antiplatelet" {
+		case "antiplatelet":
 			out.Antiplatelet = true
-		} else if s == "bronchodilator" {
+		case "bronchodilator":
 			out.Bronchodilator = true
 		}
-	}, "medications")
+	}, "params", "components", "medications")
 
+	// Medical history
 	out.Conditions = make(map[string]bool)
 	jp.ArrayEach(data, func(value []byte, dataType jp.ValueType, offset int, err error) {
-		s := string(value)
-		if s == "asthma" {
-			out.Asthma = true
-		} else if s == "tuberculosis" {
-			out.Tuberculosis = true
-		} else if s == "diabetes" {
-			out.Diabetes = true
-		} else if s == "hypertension" {
-			out.Hypertension = true
-		} else if s == "ckd" {
-			out.Ckd = true
-		} else if s == "cvd" {
-			out.Cvd = true
-		} else if s == "pvd" {
-			out.Pvd = true
-		} else if s == "pregnant" {
-			out.Pregnant = true
-		} else if s == "arrhythmia" {
-			out.Arrhythmia = true
+		category := ""
+		if stringValue, err = jp.GetString(value, "category"); err == nil {
+			category = stringValue
 		}
 
-		out.Conditions[strings.ToUpper(s)] = true
-	}, "medical_history", "conditions")
-
-	if stringValue, err = jp.GetString(data, "pathology", "bsl", "type"); err == nil {
-		out.BslType = stringValue
-	}
-
-	if stringValue, err = jp.GetString(data, "pathology", "bsl", "units"); err == nil {
-		out.BslUnit = stringValue
-	}
-
-	if floatValue, err = jp.GetFloat(data, "pathology", "bsl", "value"); err == nil {
-		out.Bsl = floatValue
-	}
-
-	if stringValue, err = jp.GetString(data, "pathology", "cholesterol", "type"); err == nil {
-		out.CholType = stringValue
-	}
-
-	if stringValue, err = jp.GetString(data, "pathology", "cholesterol", "units"); err == nil {
-		out.CholUnit = stringValue
-	}
-
-	if floatValue, err = jp.GetFloat(data, "pathology", "cholesterol", "total_chol"); err == nil {
-		out.TChol = floatValue
-	}
-
-	if floatValue, err = jp.GetFloat(data, "pathology", "cholesterol", "hdl"); err == nil {
-		out.Hdl = floatValue
-	}
-
-	if floatValue, err = jp.GetFloat(data, "pathology", "cholesterol", "ldl"); err == nil {
-		out.Ldl = floatValue
-	}
-
-	if floatValue, err = jp.GetFloat(data, "pathology", "cholesterol", "tg"); err == nil {
-		out.Tg = floatValue
-	}
-
-	if stringValue, err = jp.GetString(data, "physical_activity"); err == nil {
-		v, e := strconv.Atoi(stringValue)
-		if e != nil {
-			out.PhysicalActivity = 0
-		} else {
-			out.PhysicalActivity = v
+		switch category {
+		case "condition":
+			name := ""
+			if stringValue, err = jp.GetString(value, "name"); err == nil {
+				name = stringValue
+			}
+			out.Conditions[strings.ToUpper(name)] = true
+			switch name {
+			case "asthma":
+				out.Asthma = true
+			case "tuberculosis":
+				out.Tuberculosis = true
+			case "diabetes":
+				out.Diabetes = true
+			case "hypertension":
+				out.Hypertension = true
+			case "ckd":
+				out.Ckd = true
+			case "cvd":
+				out.Cvd = true
+			case "pvd":
+				out.Pvd = true
+			case "pregnant":
+				out.Pregnant = true
+			case "arrhythmia":
+				out.Arrhythmia = true
+			}
 		}
-	}
-
-	if intValue, err = jp.GetInt(data, "diet_history", "fruit"); err == nil {
-		out.Fruits = int(intValue)
-	}
-
-	if intValue, err = jp.GetInt(data, "diet_history", "veg"); err == nil {
-		out.Vegetables = int(intValue)
-	}
-
-	if intValue, err = jp.GetInt(data, "diet_history", "rice"); err == nil {
-		out.Rice = int(intValue)
-	}
-
-	if stringValue, err = jp.GetString(data, "diet_history", "oil"); err == nil {
-		out.Oil = stringValue
-	}
+	}, "params", "components", "medical_history")
 
 	// Calculations
 	// Diabetes
@@ -390,6 +489,7 @@ func getInputs(data []byte) (Params, error) {
 	} else {
 		out.HighRisksAssessment = assessments.HighRisksAssessment{}
 	}
+	fmt.Printf("%+v\n", out.Region)
 
 	if len(mandatory) > 0 {
 		return out, errors.Errorf("missing mandatory attributes: %v", JoinStringsSep(", ", mandatory...))
