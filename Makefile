@@ -25,7 +25,7 @@ SERVICE_NAME := ohas
 ART_DARWIN_64 := $(SERVICE_NAME)-darwin-amd64.bin
 ART_LINUX_32 := $(SERVICE_NAME)-linux-386.bin
 ART_LINUX_64 := $(SERVICE_NAME)-linux-amd64.bin
-ART_ARCHIVE := $(SERVICE_NAME).zip
+ART_ARCHIVE := $(SERVICE_NAME)-$$(date +%Y%m%d%H%M%S).zip
 
 # Additional tools
 # Standalone algorithms
