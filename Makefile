@@ -50,7 +50,7 @@ COVER_OUT := cover.out
 
 BUILD_ID := `git rev-parse --short HEAD`
 LDFLAGS_DEV := -ldflags "-X main.appCommit=$(BUILD_ID)"
-LDFLAGS := -ldflags "-X main.appCommit=$(BUILD_ID) -s -w -extldflags \"-static\""
+LDFLAGS := -ldflags "-X main.appCommit=$(BUILD_ID) -s -w"
 
 all:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -86,12 +86,12 @@ build: build_darwin build_linux ## Build binaries
 
 build_darwin: ## Build binaries for darwin
 	mkdir -p $(BUILD_DARWIN)
-	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -a -tags netgo -installsuffix cgo $(LDFLAGS) -o $(BUILD_DARWIN)/$(ART_DARWIN_64) $(CMD_PATH)/$(SERVICE_NAME)
+	CGO_ENABLED=1 GOOS=darwin GOARCH=amd64 go build -a -tags netgo -installsuffix cgo $(LDFLAGS) -o $(BUILD_DARWIN)/$(ART_DARWIN_64) $(CMD_PATH)/$(SERVICE_NAME)
 
 build_linux: ## Build binaries for linux
 	mkdir -p $(BUILD_LINUX)
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -tags netgo -installsuffix cgo $(LDFLAGS) -o $(BUILD_LINUX)/$(ART_LINUX_64) $(CMD_PATH)/$(SERVICE_NAME)
-	CGO_ENABLED=0 GOOS=linux GOARCH=386 go build -a -tags netgo -installsuffix cgo $(LDFLAGS) -o $(BUILD_LINUX)/$(ART_LINUX_32) $(CMD_PATH)/$(SERVICE_NAME)
+	CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -a -tags netgo -installsuffix cgo $(LDFLAGS) -o $(BUILD_LINUX)/$(ART_LINUX_64) $(CMD_PATH)/$(SERVICE_NAME)
+#	CGO_ENABLED=1 GOOS=linux GOARCH=386 go build -a -tags netgo -installsuffix cgo $(LDFLAGS) -o $(BUILD_LINUX)/$(ART_LINUX_32) $(CMD_PATH)/$(SERVICE_NAME)
 
 build_dev: build_dev_darwin build_dev_linux ## Build dev binaries
 
@@ -102,7 +102,7 @@ build_dev_darwin: ## Build dev binaries for darwin
 build_dev_linux: ## Build dev binaries for linux
 	mkdir -p $(BUILD_DEV_LINUX)
 	GOOS=linux GOARCH=amd64 go build $(LDFLAGS_DEV) -o $(BUILD_DEV_LINUX)/$(ART_ALG_LINUX_64) ./cmd/$(DEV_ALG_NAME)
-	GOOS=linux GOARCH=386 go build $(LDFLAGS_DEV) -o $(BUILD_DEV_LINUX)/$(ART_ALG_LINUX_32) ./cmd/$(DEV_ALG_NAME)
+#	GOOS=linux GOARCH=386 go build $(LDFLAGS_DEV) -o $(BUILD_DEV_LINUX)/$(ART_ALG_LINUX_32) ./cmd/$(DEV_ALG_NAME)
 
 artifacts: artifacts_darwin artifacts_linux ## Create artifacts
 	$(MAKE) -f $(MKFILE_PATH) house_keep
@@ -118,7 +118,7 @@ artifacts_linux: ## Create artifacts for linux
 zip_artifacts: ## Create a zip archive with artifacts
 	$(MAKE) -f $(MKFILE_PATH) clean_releases
 	mkdir -p $(REL_PATH)
-	zip -j -v $(REL_PATH)/$(ART_ARCHIVE) $(BUILD_DARWIN)/$(ART_DARWIN_64) $(BUILD_LINUX)/$(ART_LINUX_64) $(BUILD_LINUX)/$(ART_LINUX_32) $(GUIDELINE_JSON) $(GUIDELINE_CONTENT_JSON) $(SAMPLE_REQUEST_JSON) $(HELP_FILE)
+	zip -j -v $(REL_PATH)/$(ART_ARCHIVE) $(BUILD_DARWIN)/$(ART_DARWIN_64) $(BUILD_LINUX)/$(ART_LINUX_64) $(GUIDELINE_JSON) $(GUIDELINE_CONTENT_JSON) $(SAMPLE_REQUEST_JSON) $(HELP_FILE)
 
 house_keep: ## Remove any .DS_Store files
 	find $(BASE_PATH) -name ".DS_Store" -depth -exec rm {} \;

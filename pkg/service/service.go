@@ -3,17 +3,27 @@ package service
 import (
 	"context"
 	"encoding/json"
+	"fmt"
+	"github.com/openhealthalgorithms/service/pkg/database"
 	"github.com/pborman/uuid"
 	"github.com/pkg/errors"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
+	"path/filepath"
 	"strings"
 	"time"
 
 	"github.com/openhealthalgorithms/service/pkg/algorithms/hearts"
 	"github.com/openhealthalgorithms/service/pkg/tools"
 	"github.com/openhealthalgorithms/service/pkg/types"
+)
+
+var (
+	dbFile = filepath.Join(tools.GetCurrentDirectory(), "logs.db")
+
+	sqlite *database.SqliteDb
 )
 
 // errorResponse used to respond with errors.
@@ -53,6 +63,17 @@ func NewServiceWithPortAddress(port, addr string) Service {
 }
 
 func (s *Service) StartHttpServer() {
+	var err error
+
+	// Check if the DB file exists
+	if _, err := os.Stat(dbFile); os.IsNotExist(err) {
+		f, err := os.Create(dbFile)
+		if err != nil {
+			fmt.Println("Error:", err)
+		}
+		f.Close()
+	}
+
 	addr := tools.JoinStringsSep(":", s.Addr, s.Port)
 	srv := &http.Server{
 		Addr:           addr,
@@ -61,6 +82,19 @@ func (s *Service) StartHttpServer() {
 		WriteTimeout:   10 * time.Second,
 		MaxHeaderBytes: 1 << 20,
 	}
+
+	sqlite, err = database.InitDb(dbFile)
+	if err != nil {
+		fmt.Printf("Error in DB: %v\n", err)
+		os.Exit(1)
+	}
+
+	err = sqlite.Migrate()
+	if err != nil {
+		fmt.Printf("Error in DB: %v\n", err)
+		os.Exit(1)
+	}
+	defer sqlite.Closer()
 
 	log.Fatalln(srv.ListenAndServe())
 }
@@ -121,6 +155,24 @@ func algorithmRequestHandler(w http.ResponseWriter, r *http.Request) {
 	delete(algorithmOut, "Hearts")
 
 	result := &algorithmOut
+
+	tx, err := sqlite.DB.Begin()
+	if err != nil {
+		log.Println(err)
+	}
+	stmt, err := tx.Prepare("insert into logs(request, response) values(?, ?)")
+	if err != nil {
+		log.Println(err)
+	}
+	defer stmt.Close()
+
+	requestObj, _ := json.Marshal(paramObj)
+	responseObj, _ := json.Marshal(algorithmOut)
+	_, err = stmt.Exec(string(requestObj), string(responseObj))
+	if err != nil {
+		log.Println(err)
+	}
+	tx.Commit()
 
 	respondSuccess(w, result)
 }

@@ -39,3 +39,4 @@ discovery-agent.sublime-workspace
 .vagrant
 
 *.log
+*.db

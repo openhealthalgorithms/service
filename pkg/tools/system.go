@@ -93,3 +93,12 @@ func EnvVarsMap(raw []string, filterEmpty bool) map[string]string {
 
 	return info
 }
+
+func GetCurrentDirectory() string {
+	pwd, err := os.Getwd()
+	if err != nil {
+		return ""
+	}
+
+	return pwd
+}

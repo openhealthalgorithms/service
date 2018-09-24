@@ -136,7 +136,7 @@ func main() {
 			},
 		},
 		cli.Command{
-			Name:   "main",
+			Name: "main",
 			Action: func(c *cli.Context) error {
 				return startServer(logEntry)
 			},
@@ -189,15 +189,14 @@ func stopServer(logEntry *logrus.Entry) error {
 			logEntry.Debugln("Not running")
 			return err
 		}
-		ProcessID, err := strconv.Atoi(string(data))
 
+		ProcessID, err := strconv.Atoi(string(data))
 		if err != nil {
 			logEntry.Debugln("Unable to read and parse process id found in ", pidFile)
 			return err
 		}
 
 		process, err := os.FindProcess(ProcessID)
-
 		if err != nil {
 			logEntry.Debugf("Unable to find process ID [%v] with error %v \n", ProcessID, err)
 			return err
