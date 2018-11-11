@@ -16,7 +16,6 @@ import (
 	"github.com/openhealthalgorithms/service/pkg/database"
 	"github.com/openhealthalgorithms/service/pkg/tools"
 	"github.com/openhealthalgorithms/service/pkg/types"
-	"github.com/pborman/uuid"
 	"github.com/pkg/errors"
 )
 
@@ -155,9 +154,8 @@ func algorithmRequestHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	algorithmOut["request_id"] = uuid.NewRandom().String()
-	algorithmOut["hearts"] = algorithmOut["Hearts"]
-	delete(algorithmOut, "Hearts")
+	algorithmOut["hearts"] = algorithmOut["Algorithm"]
+	delete(algorithmOut, "Algorithm")
 
 	result := &algorithmOut
 
