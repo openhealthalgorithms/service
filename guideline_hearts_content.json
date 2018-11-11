@@ -295,7 +295,7 @@
                 "code": "high_risk",
                 "type": "You are at high risk",
                 "color": "AMBER",
-                "advice": "Your of a CVD event is High"
+                "advice": "Your risk of a CVD event is High"
             },
             "CVD-10": {
                 "code": "very_high_risk",
