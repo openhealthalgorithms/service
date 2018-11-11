@@ -12,10 +12,6 @@ import (
 	"runtime/pprof"
 	"sort"
 
-	"github.com/pborman/uuid"
-	"github.com/sirupsen/logrus"
-	"github.com/urfave/cli"
-
 	"github.com/openhealthalgorithms/service/pkg/algorithms"
 	heartsAlg "github.com/openhealthalgorithms/service/pkg/algorithms/hearts"
 	"github.com/openhealthalgorithms/service/pkg/riskmodels"
@@ -23,6 +19,8 @@ import (
 	whoCvdRM "github.com/openhealthalgorithms/service/pkg/riskmodels/whocvd"
 	"github.com/openhealthalgorithms/service/pkg/tools"
 	"github.com/openhealthalgorithms/service/pkg/types"
+	"github.com/sirupsen/logrus"
+	"github.com/urfave/cli"
 )
 
 var (
@@ -30,7 +28,7 @@ var (
 	memprofile = "./ohas-mem-prof.prof"
 
 	appName    = "ohal"
-	appVersion = "v0.1"
+	appVersion = "v0.2"
 	appCommit  = "0000000"
 )
 
@@ -265,13 +263,10 @@ func setupAndRun(cliCtx *cli.Context) error {
 
 	algorithmOut, _ := algorithm.Output()
 	al, _ := json.MarshalIndent(algorithmOut, "", "  ")
-	dst := new(bytes.Buffer)
-	json.HTMLEscape(dst, al)
+	// dst := new(bytes.Buffer)
+	// json.HTMLEscape(dst, al)
 	log.Info("algorithm output\n")
-	log.Println(dst)
-
-	requestId := uuid.NewRandom()
-	log.Info("\nRequest ID: ", requestId)
+	log.Println(string(al))
 
 	if memProf {
 		f, err := os.Create(memprofile)

@@ -11,17 +11,16 @@ import (
 	"strconv"
 	"syscall"
 
-	"github.com/sirupsen/logrus"
-	"github.com/urfave/cli"
-
 	"github.com/openhealthalgorithms/service/pkg/logger"
 	"github.com/openhealthalgorithms/service/pkg/service"
 	"github.com/openhealthalgorithms/service/pkg/tools"
+	"github.com/sirupsen/logrus"
+	"github.com/urfave/cli"
 )
 
 var (
 	appName    = "ohas"
-	appVersion = "v0.1"
+	appVersion = "v0.2"
 	appCommit  = "0000000"
 
 	serviceSrv *http.Server

@@ -1,22 +1,21 @@
 package tools
 
 import (
-	"fmt"
 	"strconv"
 	"strings"
 	"time"
 
 	jp "github.com/buger/jsonparser"
 	"github.com/pkg/errors"
-
-	"github.com/openhealthalgorithms/service/pkg/assessments"
 )
 
+// Configs object
 type Configs struct {
 	Algorithm string
 	RiskModel string
 }
 
+// Demographics object
 type Demographics struct {
 	Age         float64
 	DateOfBirth time.Time
@@ -25,17 +24,19 @@ type Demographics struct {
 	Region      string
 }
 
+// Smoker object
 type Smoker struct {
 	CurrentSmoker  bool
 	ExSmoker       bool
 	QuitWithinYear bool
 }
 
+// MedicalHistory object
 type MedicalHistory struct {
 	Smoker
-	AlcoholDaily    int
-	AlcoholMax      int
-	AlcoholFreeDays int
+	Alcohol         float64
+	AlcoholUnit     string
+	AMI             bool
 	Diabetes        bool
 	Hypertension    bool
 	HighCholesterol bool
@@ -50,11 +51,13 @@ type MedicalHistory struct {
 	Conditions      map[string]bool
 }
 
+// FamilyHistory object
 type FamilyHistory struct {
 	FamilyCvd bool
 	FamilyCkd bool
 }
 
+// Medications object
 type Medications struct {
 	Antihypertensives bool
 	Statin            bool
@@ -62,29 +65,33 @@ type Medications struct {
 	Bronchodilator    bool
 }
 
+// Measurements object
 type Measurements struct {
-	Waist      float64
-	WaistUnit  string
-	Hip        float64
-	HipUnit    string
-	Height     float64
-	HeightUnit string
-	Weight     float64
-	WeightUnit string
-	Sbp        int
-	Dbp        int
-	Pulse      int
-	Bsl        float64
-	BslUnit    string
-	BslType    string
-	TChol      float64
-	Hdl        float64
-	Ldl        float64
-	Tg         float64
-	CholUnit   string
-	CholType   string
+	Waist       float64
+	WaistUnit   string
+	Hip         float64
+	HipUnit     string
+	Height      float64
+	HeightUnit  string
+	Weight      float64
+	WeightUnit  string
+	BodyFat     float64
+	BodyFatUnit string
+	Sbp         int
+	Dbp         int
+	Pulse       int
+	Bsl         float64
+	BslUnit     string
+	BslType     string
+	TChol       float64
+	Hdl         float64
+	Ldl         float64
+	Tg          float64
+	CholUnit    string
+	CholType    string
 }
 
+// Activities object
 type Activities struct {
 	PhysicalActivity int
 	Fruits           int
@@ -93,17 +100,18 @@ type Activities struct {
 	Oil              string
 }
 
-type Assessments struct {
-	assessments.DiabetesAssessment
-	assessments.BPAssessment
-	assessments.BMIAssessment
-	assessments.WHRAssessment
-	assessments.SmokingAssessment
-	assessments.ExerciseAssessment
-	assessments.DietAssessment
-	assessments.HighRisksAssessment
-}
+// type Assessments struct {
+// 	assessments.DiabetesAssessment
+// 	assessments.BPAssessment
+// 	assessments.BMIAssessment
+// 	assessments.WHRAssessment
+// 	assessments.SmokingAssessment
+// 	assessments.ExerciseAssessment
+// 	assessments.DietAssessment
+// 	assessments.HighRisksAssessment
+// }
 
+// Params object
 type Params struct {
 	Configs
 	Demographics
@@ -112,9 +120,10 @@ type Params struct {
 	Medications
 	Measurements
 	Activities
-	Assessments
+	// Assessments
 }
 
+// ParseParams function
 func ParseParams(content []byte) (Params, error) {
 	return getInputs(content)
 }
@@ -205,20 +214,43 @@ func getInputs(data []byte) (Params, error) {
 					}
 				}
 
-				if val, err := jp.GetBoolean(value, "quite_within_year"); err == nil {
+				if val, err := jp.GetBoolean(value, "quit_within_year"); err == nil {
 					out.QuitWithinYear = val
 				}
+			case "alcohol_history":
+				frt := 0.0
+				freq := ""
+				if floatValue, err = jp.GetFloat(value, "value"); err == nil {
+					frt = floatValue
+				}
+				if stringValue, err = jp.GetString(value, "frequency"); err == nil {
+					freq = stringValue
+				}
+				out.Alcohol = CalculateAlcoholConsumption(frt, freq)
+				out.AlcoholUnit = "weekly"
 			}
 		case "nutrition":
 			switch name {
 			case "fruit":
+				frt := 0
+				freq := ""
 				if intValue, err = jp.GetInt(value, "value"); err == nil {
-					out.Fruits = int(intValue)
+					frt = int(intValue)
 				}
+				if stringValue, err = jp.GetString(value, "frequency"); err == nil {
+					freq = stringValue
+				}
+				out.Fruits = CalculateDietConsumption(frt, freq)
 			case "vegetables":
+				veg := 0
+				freq := ""
 				if intValue, err = jp.GetInt(value, "value"); err == nil {
-					out.Vegetables = int(intValue)
+					veg = int(intValue)
 				}
+				if stringValue, err = jp.GetString(value, "frequency"); err == nil {
+					freq = stringValue
+				}
+				out.Vegetables = CalculateDietConsumption(veg, freq)
 			case "rice":
 				if intValue, err = jp.GetInt(value, "value"); err == nil {
 					out.Rice = int(intValue)
@@ -229,9 +261,25 @@ func getInputs(data []byte) (Params, error) {
 				}
 			}
 		case "physical-activity":
+			val := 0
+			unit := ""
+			freq := ""
+			intensity := ""
+
 			if intValue, err = jp.GetInt(value, "value"); err == nil {
-				out.PhysicalActivity = int(intValue)
+				val = int(intValue)
 			}
+			if stringValue, err = jp.GetString(value, "units"); err == nil {
+				unit = stringValue
+			}
+			if stringValue, err = jp.GetString(value, "frequency"); err == nil {
+				freq = stringValue
+			}
+			if stringValue, err = jp.GetString(value, "intensity"); err == nil {
+				intensity = stringValue
+			}
+
+			out.PhysicalActivity += CalculateExercise(val, unit, freq, intensity)
 		}
 	}, "params", "components", "lifestyle")
 
@@ -298,6 +346,19 @@ func getInputs(data []byte) (Params, error) {
 
 			out.Waist = ConvertLength(float64(values), units)
 			out.WaistUnit = "m"
+		case "body-fat":
+			units := ""
+			if val, err := jp.GetString(value, "units"); err == nil {
+				units = val
+			}
+
+			values := 0.0
+			if val, err := jp.GetFloat(value, "value"); err == nil {
+				values = val
+			}
+
+			out.BodyFat = ConvertLength(float64(values), units)
+			out.BodyFatUnit = units
 		case "blood_pressure":
 			if stringValue, err = jp.GetString(value, "value"); err == nil {
 				bps := strings.Split(stringValue, "/")
@@ -432,64 +493,64 @@ func getInputs(data []byte) (Params, error) {
 		}
 	}, "params", "components", "medical_history")
 
-	// Calculations
-	// Diabetes
-	if value, err := assessments.GetDiabetes(out.Bsl, out.BslUnit, out.BslType, out.Diabetes); err == nil {
-		out.DiabetesAssessment = value
-		out.Diabetes = value.Status
-	} else {
-		out.DiabetesAssessment = assessments.DiabetesAssessment{}
-	}
+	// // Calculations
+	// // Diabetes
+	// if value, err := assessments.GetDiabetes(out.Bsl, out.BslUnit, out.BslType, out.Diabetes); err == nil {
+	// 	out.DiabetesAssessment = value
+	// 	out.Diabetes = value.Status
+	// } else {
+	// 	out.DiabetesAssessment = assessments.DiabetesAssessment{}
+	// }
 
-	// BMI
-	if value, err := assessments.GetBMI(out.Weight, out.Height); err == nil {
-		out.BMIAssessment = value
-	} else {
-		out.BMIAssessment = assessments.BMIAssessment{}
-	}
+	// // BMI
+	// if value, err := assessments.GetBMI(out.Weight, out.Height); err == nil {
+	// 	out.BMIAssessment = value
+	// } else {
+	// 	out.BMIAssessment = assessments.BMIAssessment{}
+	// }
 
-	// WHR
-	if value, err := assessments.GetWHR(out.Waist, out.Hip, out.Gender); err == nil {
-		out.WHRAssessment = value
-	} else {
-		out.WHRAssessment = assessments.WHRAssessment{}
-	}
+	// // WHR
+	// if value, err := assessments.GetWHR(out.Waist, out.Hip, out.Gender); err == nil {
+	// 	out.WHRAssessment = value
+	// } else {
+	// 	out.WHRAssessment = assessments.WHRAssessment{}
+	// }
 
-	// BP
-	if value, err := assessments.GetBP(out.Sbp, out.Dbp, out.Diabetes); err == nil {
-		out.BPAssessment = value
-	} else {
-		out.BPAssessment = assessments.BPAssessment{}
-	}
+	// // BP
+	// if value, err := assessments.GetBP(out.Sbp, out.Dbp, out.Diabetes); err == nil {
+	// 	out.BPAssessment = value
+	// } else {
+	// 	out.BPAssessment = assessments.BPAssessment{}
+	// }
 
-	// Smoking
-	if value, err := assessments.GetSmoking(out.CurrentSmoker, out.ExSmoker, out.QuitWithinYear); err == nil {
-		out.SmokingAssessment = value
-	} else {
-		out.SmokingAssessment = assessments.SmokingAssessment{}
-	}
+	// // Smoking
+	// if value, err := assessments.GetSmoking(out.CurrentSmoker, out.ExSmoker, out.QuitWithinYear); err == nil {
+	// 	out.SmokingAssessment = value
+	// } else {
+	// 	out.SmokingAssessment = assessments.SmokingAssessment{}
+	// }
 
-	// Exercise
-	if value, err := assessments.GetExercise(out.PhysicalActivity); err == nil {
-		out.ExerciseAssessment = value
-	} else {
-		out.ExerciseAssessment = assessments.ExerciseAssessment{}
-	}
+	// // Exercise
+	// if value, err := assessments.GetExercise(out.PhysicalActivity); err == nil {
+	// 	out.ExerciseAssessment = value
+	// } else {
+	// 	out.ExerciseAssessment = assessments.ExerciseAssessment{}
+	// }
 
-	// Diet
-	if value, err := assessments.GetDiet(out.Fruits, out.Vegetables); err == nil {
-		out.DietAssessment = value
-	} else {
-		out.DietAssessment = assessments.DietAssessment{}
-	}
+	// // Diet
+	// if value, err := assessments.GetDiet(out.Fruits, out.Vegetables); err == nil {
+	// 	out.DietAssessment = value
+	// } else {
+	// 	out.DietAssessment = assessments.DietAssessment{}
+	// }
 
-	// HighRisk
-	if value, err := assessments.GetHighRisks(out.Sbp, out.Dbp, out.Age, out.Conditions); err == nil {
-		out.HighRisksAssessment = value
-	} else {
-		out.HighRisksAssessment = assessments.HighRisksAssessment{}
-	}
-	fmt.Printf("%+v\n", out.Region)
+	// // HighRisk
+	// if value, err := assessments.GetHighRisks(out.Sbp, out.Dbp, out.Age, out.Conditions); err == nil {
+	// 	out.HighRisksAssessment = value
+	// } else {
+	// 	out.HighRisksAssessment = assessments.HighRisksAssessment{}
+	// }
+	// fmt.Printf("%+v\n", out.Region)
 
 	if len(mandatory) > 0 {
 		return out, errors.Errorf("missing mandatory attributes: %v", JoinStringsSep(", ", mandatory...))

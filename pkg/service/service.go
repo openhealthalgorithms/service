@@ -4,9 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/openhealthalgorithms/service/pkg/database"
-	"github.com/pborman/uuid"
-	"github.com/pkg/errors"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -16,8 +13,11 @@ import (
 	"time"
 
 	"github.com/openhealthalgorithms/service/pkg/algorithms/hearts"
+	"github.com/openhealthalgorithms/service/pkg/database"
 	"github.com/openhealthalgorithms/service/pkg/tools"
 	"github.com/openhealthalgorithms/service/pkg/types"
+	"github.com/pborman/uuid"
+	"github.com/pkg/errors"
 )
 
 var (
@@ -39,20 +39,24 @@ type defaultResponse struct {
 	Message string `json:"message"`
 }
 
+// Service object
 type Service struct {
 	Port   string
 	Addr   string
 	Router *http.ServeMux
 }
 
+// NewService method
 func NewService() Service {
 	return NewServiceWithPort("9595")
 }
 
+// NewServiceWithPort method
 func NewServiceWithPort(port string) Service {
 	return NewServiceWithPortAddress(port, "0.0.0.0")
 }
 
+// NewServiceWithPortAddress method
 func NewServiceWithPortAddress(port, addr string) Service {
 	router := http.NewServeMux()
 	router.HandleFunc("/api/algorithm", algorithmRequestHandler)
@@ -62,6 +66,7 @@ func NewServiceWithPortAddress(port, addr string) Service {
 	return Service{Port: port, Addr: addr, Router: router}
 }
 
+// StartHttpServer method
 func (s *Service) StartHttpServer() {
 	var err error
 
@@ -106,7 +111,7 @@ func defaultHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func versionRequestHandler(w http.ResponseWriter, r *http.Request) {
-	result := &versionResponse{Version: "0.1"}
+	result := &versionResponse{Version: "0.2"}
 
 	respondSuccess(w, result)
 }
@@ -170,6 +175,7 @@ func algorithmRequestHandler(w http.ResponseWriter, r *http.Request) {
 	responseObj, _ := json.Marshal(algorithmOut)
 	_, err = stmt.Exec(string(requestObj), string(responseObj))
 	if err != nil {
+		tx.Rollback()
 		log.Println(err)
 	}
 	tx.Commit()
@@ -193,6 +199,7 @@ func respondSuccess(w http.ResponseWriter, data interface{}) {
 func respondError(w http.ResponseWriter, err error, code int) {
 	resp := errorResponse{Error: err.Error()}
 	respJSON, _ := json.Marshal(resp)
+
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(code)
 	w.Write(respJSON)

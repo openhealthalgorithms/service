@@ -1,327 +1,308 @@
 {
-  "header": {
-    "content-type": "message file",
-    "published_by": "Fred Hersch",
-    "publication_date": "",
-    "version_number": "0.1"
-  },
-  "body": {
-    "messages": {
-      "smoking": {
-        "SM-0": [
-          "current_smoker",
-          "Current smoker, advise to quit",
-          "RED",
-          "Quit now. It's the best thing you can do for your health."
-        ],
-        "SM-1": [
-          "current_smoker",
-          "Current smoker, advise to quit",
-          "RED",
-          "You will benefit from smoking cessation. For advice"
-        ],
-        "SM-2": [
-          "ex_smoker_quit_within_12_months",
-          "Ex smoker, quit within the past 12 months",
-          "AMBER",
-          "Quitting smoking is the best thing you can do for your health. If you need support to stay strong, speak to your doctor"
-        ],
-        "SM-3": [
-          "ex_smoker",
-          "Ex smoker, quit > 12 months ago",
-          "GREEN",
-          "Good work quitting. It\"s the best thing you can do for your health. Stay strong"
-        ],
-        "SM-4": [
-          "non-smoker",
-          "Non Smoker",
-          "GREEN",
-          "Your lungs will thank you!"
-        ]
-      },
-      "anthro": {
-        "BMI-0": [
-          "underweight",
-          "Weight below normal range",
-          "RED",
-          "Talk to a dietitian about safe weight gain"
-        ],
-        "BMI-1": [
-          "normal_weight",
-          "Weight in normal range",
-          "GREEN",
-          "Regular diet and exercise will help you to maintain your current weight"
-        ],
-        "BMI-2": [
-          "overweight",
-          "Weight above the healthy range",
-          "AMBER",
-          "Being overweight can increase your risk of heart disease and diabetes"
-        ],
-        "BMI-3": [
-          "obese",
-          "Weight in the obese range",
-          "RED",
-          "Obesity is a risk factor for developing many conditions. Talk to a dietitian today"
-        ],
-        "WHR-0": [
-          "normal",
-          "Normal waist hip ratio",
-          "GREEN",
-          "Your wait hip ratio is normal"
-        ],
-        "WHR-1": [
-          "abnormal_female",
-          "Abnormal waist hip ratio for female",
-          "AMBER",
-          "Your wait hip ratio is above the target for females"
-        ],
-        "WHR-2": [
-          "abnormal_male",
-          "Abnormal waist hip ratio for male",
-          "AMBER",
-          "Your wait hip ratio is above the target for males"
-        ]
-      },
-      "nutrition": {
-        "NUT-1": [
-          "fv_on_target",
-          "Meeting F&V Targets",
-          "GREEN",
-          "You are eating the recommended amount of fruit and vegetables. Keep it up"
-        ],
-        "NUT-2": [
-          "fv_off_target_partial",
-          "Partially meeting targets",
-          "YELLOW",
-          "Almost there .. Try to meet the recommended targets for both Fruit and Vegetables"
-        ],
-        "NUT-3": [
-          "fv_off_target",
-          "Not meeting F&V targets",
-          "AMBER",
-          "A diet rich in fruit and vegetables is recommended"
-        ],
-        "NUT-4": [
-          "on_target",
-          "Good diet",
-          "GREEN",
-          "Avoiding foods high in salt & sugar is important to maintaining a healthy diet. Keep up the great work [Share your story]"
-        ],
-        "NUT-5": [
-          "partially_off_target",
-          "Too much added sugar or salt",
-          "AMBER",
-          "Added sugar Or salt .."
-        ],
-        "NUT-6": [
-          "off_target",
-          "Review diet",
-          "RED",
-          "Its time to look at what you are eating .. "
-        ]
-      },
-      "physical_activity": {
-        "PA-1": [
-          "on_target",
-          "Meeting PA targets",
-          "GREEN",
-          "You are meeting the recommended amount of exercise (150 minutes per week). Keep it up. [Looking for a community?]"
-        ],
-        "PA-2": [
-          "off_target_mild",
-          "Off target, but trying",
-          "AMBER",
-          "Keep moving. Remember every bit counts. Aim for 150 minutes of moderate intensity exercsie per week. [Learn more]"
-        ],
-        "PA-3": [
-          "off_target",
-          "Off Target",
-          "RED",
-          "Regular exercise is essential. Aim for 150 minutes per week. Start slow and build up gradually. [Need support?]"
-        ]
-      },
-      "blood_pressure": {
-        "BP-0": [
-          "on_target",
-          "Meeting BP targets",
-          "GREEN",
-          "You are on target. Keep it up"
-        ],
-        "BP-1A": [
-          "off_target_mild",
-          "Mildly Elevated BP",
-          "YELLOW",
-          "Your BP is a little on the high side. Follow lifestyle advice and ensure you get a review"
-        ],
-        "BP-1B": [
-          "off_target_moderate",
-          "Moderately Elevated BP",
-          "AMBER",
-          "Your BP is on the high side. Follow lifestyle advice and ensure you get a review"
-        ],
-        "BP-2": [
-          "off_target_review",
-          "Significantly Elevated BP",
-          "RED",
-          "At this level you need a review with a doctor"
-        ],
-        "BP-3A": [
-          "on_target_dm",
-          "On target for patient with diabetes",
-          "GREEN",
-          "Good job"
-        ],
-        "BP-3B": [
-          "off_target_dm",
-          "Off target for patient with diabetes",
-          "AMBER",
-          "Need to better control BP"
-        ],
-        "BP-4": [
-          "refer",
-          "Blood pressure is very high, needs referral",
-          "RED",
-          "Seek care now"
-        ],
-        "BP-5": [
-          "dx_htn",
-          "History of high blood pressure",
-          "AMBER",
-          "You told us you have high blood pressure"
-        ],
-        "BP-6": [
-          "rx_htn",
-          "Taking anti-hypertensives",
-          "AMBER",
-          "You are on medication for your blood pressure"
-        ]
-      },
-      "blood_sugar": {
-        "BSL-0": [
-          "bsl_normal",
-          "Normal blood sugar",
-          "GREEN",
-          "Normal Blood Sugar"
-        ],
-        "BSL-1": [
-          "bsl_pre_diabetes",
-          "Pre-diabetes",
-          "AMBER",
-          "Your reading indicates a state called 'pre-diabetes'"
-        ],
-        "BSL-2": [
-          "impaired_glucose",
-          "Impaired Blood Glucose",
-          "AMBER",
-          "Impaired blood sugar .. need further testing"
-        ]
-      },
-      "diabetes": {
-        "DM-0": [
-          "diabetes_risk_low",
-          "Low Diabetes Risk",
-          "GREEN",
-          "Your diabetes risk is low"
-        ],
-        "DM-1": [
-          "diabetes_risk_high",
-          "High Diabetes Risk",
-          "AMBER",
-          "Your diabetes risk is high. Please follow up"
-        ],
-        "DM-2": [
-          "pre_diabetes",
-          "Pre Diabetes",
-          "AMBER",
-          "Your reading indicates Pre Diabetes or Impaired Glucose Tolerance"
-        ],
-        "DM-3": [
-          "new_diagnosis",
-          "New Diagnosis of DM",
-          "RED",
-          "Looks like newly diagnosed diabetes"
-        ],
-        "DM-4": [
-          "dx_DM",
-          "Existing Diabetes",
-          "AMBER",
-          "You told us you have diabetes. [Find a doctor to discuss]"
-        ],
-        "DM-5": [
-          "Rx_DM",
-          "Good blood sugar control",
-          "YELLOW",
-          "Continue to follow up"
-        ]
-      },
-      "lipids": {
-        "LIP-0": [],
-        "LIP-1": []
-      },
-      "cvd_risk": {
-        "CVD-0": [
-          "high_risk_condition",
-          "Existing High Risk Condition",
-          "RED",
-          "You have a high risk condition. Not for CVD Risk Assessment"
-        ],
-        "CVD-1": [
-          "low_risk",
-          "You are at low risk",
-          "GREEN",
-          "Your risk of a CVD event is low"
-        ],
-        "CVD-2": [
-          "mod_risk",
-          "You are at moderate risk",
-          "AMBER",
-          "Your risk of a CVD event is mild"
-        ],
-        "CVD-3": [
-          "high_risk",
-          "You are at high risk",
-          "RED",
-          "Your of a CVD event is High"
-        ],
-        "CVD-4": [
-          "very_high_risk",
-          "You are at very high risk",
-          "MAROON",
-          "You're at very high CVD risk"
-        ]
-      },
-      "high_risk": {
-        "HR-0": [
-          ""
-        ],
-        "HR-1": [
-          "high_risk_bp",
-          "High BP",
-          "RED",
-          "Blood pressure is very high. Seek emergency care"
-        ],
-        "HR-2": [
-          "elevated_bp_under_40",
-          "Elevated blood pressure, age < 40",
-          "AMBER",
-          "High BP in age < 40 should be evaluated for secondary causes"
-        ]
-      },
-      "advice": {
-        "lifestyle": "Lifestyle modification is an important component of disease management. Focus on healthy diet and regula rexercise. Discuss risk factors",
-        "lifestyle-detailed": "<div class='lifestyle'><p class='lead'>A healthy diet, regular exercise and reduction in risk factors is key to disease prevention</p><h3>Diet</h3><ul><li>Salt: Restrict to less than 5 grams (1 teaspoon) per day. Reduce salt when cooking, limit processed and fast foods</li><li>Fruits &amp; Vegetables: 5 servings (400-500 grams) of fruits and vegetable per day (1 serving is equivalent to 1 orange, apple, mango, banana or 3 tablespoons of cooked vegetables</li><li>Fatty Food : Limit fatty meat, dairy fat and cooking oil (less than two tablespoons per day). Replace palm and coconut oil with olive, soya, corn, rapeseed or safflower oil. Replace other meat with chicken (without skin)</li></ul><h3>Physical Activity</h3><ul><li>Progressively increase physical activity to moderate levels (such as brisk walking); at least 150 minutes per week</li><li>Every bit counts, so start with short activities and gradually build up</li><li>There are many ways to staty motivated. Start by recruiting a friend to walk with</li></ul></div>",
-        "blood-pressure": "Consider starting treatment for high blood pressure.",
-        "lipids": "Based on your assessment, a statin or other lipid lowering medication will help to reduce your risk of cardiovascular disease. Speak to a doctor to learn more",
-        "refer": "Based on your assessment you should see a doctor to discuss further management",
-        "physical_activity": [
-          "Progressively increase physical activity to moderate levels (such as brisk walking); at least 150 minutes per week",
-          "Control body weight and avoid overweight by reducing high calorie food and taking adequate physical activity"
-        ],
-        "management": "Speak to a healthcare professional about:",
-        "follow_up": "You should follow up in",
-        "review-targets": "Keep an eye on your numbers and make sure to review with your doctor."
-      }
+    "meta": {
+        "guideline_name": "HEARTS",
+        "publisher": "World Health Organisation",
+        "publication_date": "",
+        "content_type": "message file",
+        "published_by": "Fred Hersch",
+        "version_number": "0.1"
+    },
+    "body": {
+        "contents": {
+            "SM-0": {
+                "code": "current_smoker",
+                "type": "Current smoker, advise to quit",
+                "color": "RED",
+                "advice": "Quit now. It's the best thing you can do for your health."
+            },
+            "SM-1": {
+                "code": "current_smoker",
+                "type": "Current smoker, advise to quit",
+                "color": "RED",
+                "advice": "You will benefit from smoking cessation. For advice"
+            },
+            "SM-2": {
+                "code": "ex_smoker_quit_within_12_months",
+                "type": "Ex smoker, quit within the past 12 months",
+                "color": "AMBER",
+                "advice": "Quitting smoking is the best thing you can do for your health. If you need support to stay strong, speak to your doctor"
+            },
+            "SM-3": {
+                "code": "ex_smoker",
+                "type": "Ex smoker, quit > 12 months ago",
+                "color": "GREEN",
+                "advice": "Good work quitting. It\"s the best thing you can do for your health. Stay strong"
+            },
+            "SM-4": {
+                "code": "non-smoker",
+                "type": "Non Smoker",
+                "color": "GREEN",
+                "advice": "Your lungs will thank you!"
+            },
+            "AL-0": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "AL-1": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "AL-2": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "AL-3": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "PA-1": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "PA-2": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "PA-3": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "FRT-1": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "FRT-2": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "FRT-3": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "VEG-1": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "VEG-2": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "VEG-3": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "BMI-0": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "BMI-1": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "BMI-2": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "BMI-7": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "WST-0": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "WST-1": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "WHR-2": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "WHR-1": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "WHR-0": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "BFT-OBESE": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "BFT-OVERWEIGHT": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "BFT-NORMAL": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "BFT-UNDERWEIGHT": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "BP-0": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "BP-1": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "BP-3": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "BP-X": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "DM-1": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "DM-5": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "DM-10": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "CHOL-1": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "CHOL-2": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "CHOL-3": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "CHOL-5": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "CHOL-7": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "CVD-AGE-FALSE": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "CVD-1": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "CVD-4": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "CVD-6": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "CVD-8": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            },
+            "CVD-10": {
+                "code": "",
+                "type": "",
+                "color": "",
+                "advice": ""
+            }
+        }
     }
-  }
 }

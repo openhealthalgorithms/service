@@ -40,3 +40,6 @@ discovery-agent.sublime-workspace
 
 *.log
 *.db
+
+# VSCode Files
+.vscode/

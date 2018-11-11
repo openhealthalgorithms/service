@@ -2,19 +2,23 @@ package hearts
 
 import (
 	"context"
-	jp "github.com/buger/jsonparser"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"strconv"
+
 	"github.com/fatih/structs"
-	"github.com/openhealthalgorithms/service/pkg/assessments"
-	who "github.com/openhealthalgorithms/service/pkg/riskmodels/whocvd"
+	"github.com/pkg/errors"
+
+	"github.com/openhealthalgorithms/service/pkg/datastructure"
+	"github.com/openhealthalgorithms/service/pkg/engine"
 	"github.com/openhealthalgorithms/service/pkg/tools"
 	"github.com/openhealthalgorithms/service/pkg/types"
-	"github.com/pkg/errors"
-	"io/ioutil"
 )
 
 // Data holds results of plugin.
 type Data struct {
-	Hearts `structs:"Hearts"`
+	Algorithm datastructure.Result `json:"algorithm"`
 }
 
 // New returns a ready to use instance of the plugin.
@@ -87,187 +91,170 @@ func (d *Data) get(ctx context.Context) error {
 		return err
 	}
 
+	engineGuide := engine.Guidelines{}
+	if err := json.Unmarshal(guide, &engineGuide); err != nil {
+		return err
+	}
+
+	engineContent := engine.GuideContents{}
+	if err := json.Unmarshal(guideContent, &engineContent); err != nil {
+		return err
+	}
+
+	// engineGuide.Body.Lifestyle.Smoking
+	// res2B, _ := json.Marshal(engineContent)
+	// fmt.Println(string(res2B))
+	fmt.Printf("%+v\n", p)
+
+	assessment := datastructure.NewResult("Hearts Algorithm")
+	lifestyleActions := make([]datastructure.Action, 0)
+	medicationsActions := make([]datastructure.Action, 0)
+	followupActions := make([]datastructure.Action, 0)
+
+	var res datastructure.Assessment
+
+	// Smoking
+	sm, err := engineGuide.Body.Lifestyle.Smoking.Process(p.Smoker.CurrentSmoker, p.Smoker.ExSmoker, p.Smoker.QuitWithinYear)
+	if err != nil {
+		return err
+	}
+	res, lifestyleActions = GetResults(sm, *engineContent.Body.Contents, lifestyleActions)
+	assessment.AssessmentsAttributes.Lifestyle.Smoking = res
+
+	// Alcohol
+	alc, err := engineGuide.Body.Lifestyle.Alcohol.Process(p.Alcohol)
+	if err != nil {
+		return err
+	}
+	res, lifestyleActions = GetResults(alc, *engineContent.Body.Contents, lifestyleActions)
+	assessment.AssessmentsAttributes.Lifestyle.Alcohol = res
+
+	// Physical Activity
+	ph, err := engineGuide.Body.Lifestyle.PhysicalActivity.Process(p.PhysicalActivity)
+	if err != nil {
+		return err
+	}
+	res, lifestyleActions = GetResults(ph, *engineContent.Body.Contents, lifestyleActions)
+	assessment.AssessmentsAttributes.Lifestyle.PhysicalActivity = res
+
+	// Fruits (Diet)
+	frt, err := engineGuide.Body.Lifestyle.Diet.Fruit.Process(p.Fruits)
+	if err != nil {
+		return err
+	}
+	res, lifestyleActions = GetResults(frt, *engineContent.Body.Contents, lifestyleActions)
+	assessment.AssessmentsAttributes.Lifestyle.Diet.Fruit = res
+
+	// Vegetables (Diet)
+	veg, err := engineGuide.Body.Lifestyle.Diet.Vegetables.Process(p.Vegetables)
+	if err != nil {
+		return err
+	}
+	res, lifestyleActions = GetResults(veg, *engineContent.Body.Contents, lifestyleActions)
+	assessment.AssessmentsAttributes.Lifestyle.Diet.Vegetable = res
+
+	// BMI
+	bmi, err := engineGuide.Body.BodyComposition.BMI.Process(p.Height, p.Weight)
+	if err != nil {
+		return err
+	}
+	res, lifestyleActions = GetResults(bmi, *engineContent.Body.Contents, lifestyleActions)
+	assessment.AssessmentsAttributes.BodyComposition.BMI = res
+
+	// Waist Circumference
+	waistCirc, err := engineGuide.Body.BodyComposition.WaistCirc.Process(p.Gender, p.Waist, p.WaistUnit)
+	if err != nil {
+		return err
+	}
+	res, lifestyleActions = GetResults(waistCirc, *engineContent.Body.Contents, lifestyleActions)
+	assessment.AssessmentsAttributes.BodyComposition.WaistCirc = res
+
+	// WHR
+	whr, err := engineGuide.Body.BodyComposition.WHR.Process(p.Gender, p.Waist, p.Hip)
+	if err != nil {
+		return err
+	}
+	res, lifestyleActions = GetResults(whr, *engineContent.Body.Contents, lifestyleActions)
+	assessment.AssessmentsAttributes.BodyComposition.WHR = res
+
+	// BodyFat
+	bodyFat, err := engineGuide.Body.BodyComposition.BodyFat.Process(p.Gender, p.Age, p.BodyFat)
+	if err != nil {
+		return err
+	}
+	res, lifestyleActions = GetResults(bodyFat, *engineContent.Body.Contents, lifestyleActions)
+	assessment.AssessmentsAttributes.BodyComposition.BodyFat = res
+
 	// Diabetes
-	output := getOutput(guideContent, "body", "messages", "diabetes", p.DiabetesAssessment.Code)
-	db := Diabetes{p.DiabetesAssessment.BSL, p.DiabetesAssessment.Code, p.DiabetesAssessment.Status, output}
-
-	// BP
-	output = getOutput(guideContent, "body", "messages", "blood_pressure", p.BPAssessment.Code)
-	bp := BloodPressure{p.BPAssessment.BP, p.BPAssessment.Code, p.BPAssessment.Target, output}
-
-	// CVD Assessments
-	whocvd := who.New()
-	err = whocvd.Get(ctx)
+	diabetes, err := engineGuide.Body.Diabetes.Process(p.Diabetes, p.Bsl, p.BslType, p.BslUnit)
 	if err != nil {
 		return err
 	}
+	res, followupActions = GetResults(diabetes, *engineContent.Body.Contents, followupActions)
+	assessment.AssessmentsAttributes.Diabetes = res
 
-	highRisks := getOutput(guide, "body", "high_risk_conditions")
-	hra, err := assessments.GetHighRisksWithHrc(p.Sbp, p.Dbp, p.Age, p.Conditions, highRisks)
+	// Blood Pressure
+	diab := false
+	if diabetes.Value == "diabetes" {
+		diab = true
+	}
+	bp, err := engineGuide.Body.BloodPressure.Process(diab, p.Sbp, p.Dbp)
 	if err != nil {
 		return err
 	}
+	res, followupActions = GetResults(bp, *engineContent.Body.Contents, followupActions)
+	assessment.AssessmentsAttributes.BloodPressure = res
 
-	ot, _, _, err := jp.Get(guide, "body", "cvd_risk", whocvd.WHOCVD.Output["risk_range"])
-	if err != nil {
-		return err
-	}
-
-	o := make(map[string]interface{})
-	o["score"], _ = jp.GetString(ot, "score")
-	o["label"], _ = jp.GetString(ot, "label")
-	o["bp_target"], _ = jp.GetString(ot, "bp_target")
-	o["follow_up_interval"], _ = jp.GetString(ot, "follow_up_interval")
-	o["follow_up_message"], _ = jp.GetString(ot, "follow_up_message")
-	adv := getOutput(ot, "advice")
-	o["advice"] = adv
-
-	advices := make(map[string]interface{})
-	for _, a := range adv {
-		advices[a], _ = jp.GetString(guideContent, "body", "messages", "advice", a)
-	}
-	o["management"] = advices
-
-	cv := CvdAssessment{hra, whocvd.WHOCVD.Output, o}
-
-	// Lifestyle
-	output = getOutput(guideContent, "body", "messages", "anthro", p.BMIAssessment.Code)
-	bmi := Bmi{p.BMIAssessment.BMI, p.BMIAssessment.Code, p.BMIAssessment.Target, output}
-
-	output = getOutput(guideContent, "body", "messages", "anthro", p.WHRAssessment.Code)
-	whr := Whr{p.WHRAssessment.WHR, p.WHRAssessment.Code, p.WHRAssessment.Target, output}
-
-	output = getOutput(guideContent, "body", "messages", "smoking", p.SmokingAssessment.Code)
-	smoking := Smoking{p.SmokingAssessment.Code, p.SmokingAssessment.Status, p.SmokingAssessment.SmokingCalc, output}
-
-	exTarget, err := jp.GetInt(guide, "body", "targets", "general", "physical_activity", "active_time")
-	ex := p.ExerciseAssessment
+	// CVD
+	cvdScore := -1.0
+	cvd, err := engineGuide.Body.CVD.Guidelines.Process(ctx, p.AMI, p.Cvd, p.Pvd, p.Ckd, p.Age, *engineGuide.Body.CVD.PreProcessing)
 	if err == nil {
-		ex, _ = assessments.GetExerciseWithTarget(p.PhysicalActivity, int(exTarget))
-	}
-	output = getOutput(guideContent, "body", "messages", "physical_activity", ex.Code)
-	exa := Exercise{ex.Current, ex.Code, ex.Target, output}
-
-	dtf, err := jp.GetInt(guide, "body", "targets", "general", "diet", "fruit")
-	if err != nil {
-		dtf = 2
-	}
-	dtv, err := jp.GetInt(guide, "body", "targets", "general", "diet", "vegetables")
-	if err == nil {
-		dtv = 5
-	}
-	dt, _ := assessments.GetDietWithTarget(p.Fruits, p.Vegetables, int(dtf), int(dtv))
-	output = getOutput(guideContent, "body", "messages", "nutrition", dt.Code)
-	val := Values{p.Fruits, p.Vegetables}
-	diet := Diet{val, dt.Code, output}
-
-	lf := Lifestyle{
-		Bmi:      bmi,
-		Whr:      whr,
-		Diet:     diet,
-		Exercise: exa,
-		Smoking:  smoking,
+		cvdScoreFromAssessment, cerr := strconv.ParseFloat(cvd.Value, 64)
+		if cerr == nil {
+			cvdScore = cvdScoreFromAssessment
+		}
+		res, followupActions = GetResults(cvd, *engineContent.Body.Contents, followupActions)
+		assessment.AssessmentsAttributes.CVD = res
+	} else {
+		return err
 	}
 
-	d.Hearts = NewHearts(db, bp, lf, cv)
+	// Cholesterol
+	if cvdScore > 0 {
+		chol, err := engineGuide.Body.Cholesterol.TotalCholesterol.Process(cvdScore, p.Age, p.TChol, p.CholUnit, "total cholesterol")
+		if err != nil {
+			return err
+		}
+		res, medicationsActions = GetResults(chol, *engineContent.Body.Contents, medicationsActions)
+		assessment.AssessmentsAttributes.Cholesterol.TotalCholesterol = res
+	}
+
+	assessment.RecommendationsAttributes.Lifestyle.Actions = lifestyleActions
+	assessment.RecommendationsAttributes.Medications.Actions = medicationsActions
+	assessment.RecommendationsAttributes.Followup.Actions = followupActions
+
+	d.Algorithm = assessment
 
 	return nil
 }
 
-func getOutput(guideContent []byte, keys ...string) []string {
-	output := make([]string, 0)
-	jp.ArrayEach(guideContent, func(value []byte, dataType jp.ValueType, offset int, err error) {
-		output = append(output, string(value))
-	}, keys...)
+// GetResults from response
+func GetResults(response engine.Response, contents engine.Contents, advices datastructure.Actions) (datastructure.Assessment, datastructure.Actions) {
+	assessment := datastructure.Assessment{}
 
-	return output
-}
+	assessment.Code = response.Code
+	assessment.Value = response.Value
+	assessment.Target = response.Target
 
-// Hearts represents hostname.
-type Hearts struct {
-	Diabetes      `structs:"diabetes"`
-	BloodPressure `structs:"blood_pressure"`
-	Lifestyle     `structs:"lifestyle"`
-	CvdAssessment `structs:"cvd_assessment"`
-}
-
-type Diabetes struct {
-	BSL    float64  `structs:"value"`
-	Code   string   `structs:"code"`
-	Status bool     `structs:"status"`
-	Output []string `structs:"output"`
-}
-
-type BloodPressure struct {
-	BP     string   `structs:"bp"`
-	Code   string   `structs:"code"`
-	Target string   `structs:"target"`
-	Output []string `structs:"output"`
-}
-
-type Bmi struct {
-	BMI    string   `structs:"value"`
-	Code   string   `structs:"code"`
-	Target string   `structs:"target"`
-	Output []string `structs:"output"`
-}
-
-type Whr struct {
-	WHR    string   `structs:"value"`
-	Code   string   `structs:"code"`
-	Target string   `structs:"target"`
-	Output []string `structs:"output"`
-}
-
-type Values struct {
-	Fruit      int `structs:"fruit"`
-	Vegetables int `structs:"vegetables"`
-}
-
-type Diet struct {
-	Values `structs:"value"`
-	Code   string   `structs:"code"`
-	Output []string `structs:"output"`
-}
-
-type Exercise struct {
-	Current int      `structs:"value"`
-	Code    string   `structs:"code"`
-	Target  string   `structs:"target"`
-	Output  []string `structs:"output"`
-}
-
-type Smoking struct {
-	Code        string   `structs:"code"`
-	Status      bool     `structs:"status"`
-	SmokingCalc bool     `structs:"smoking_calc"`
-	Output      []string `structs:"output"`
-}
-
-type Lifestyle struct {
-	Bmi      `structs:"bmi"`
-	Whr      `structs:"whr"`
-	Diet     `structs:"diet"`
-	Exercise `structs:"exercise"`
-	Smoking  `structs:"smoking"`
-}
-
-type CvdAssessment struct {
-	assessments.HighRisksAssessment `structs:"high_risk_condition"`
-	CvdRisk                         map[string]string      `structs:"cvd_risk_result"`
-	Guidelines                      map[string]interface{} `structs:"guidelines"`
-}
-
-// NewHearts returns a Hostname from a string.
-func NewHearts(
-	diab Diabetes,
-	bp BloodPressure,
-	lifestyle Lifestyle,
-	cvd CvdAssessment) Hearts {
-	return Hearts{
-		Diabetes:      diab,
-		BloodPressure: bp,
-		Lifestyle:     lifestyle,
-		CvdAssessment: cvd,
+	if output, ok := contents[response.Code]; ok {
+		assessment.Output.Code = *output.Code
+		assessment.Output.Type = *output.Type
+		assessment.Output.Color = *output.Color
+		advice := datastructure.Action{}
+		advice.Goal = *output.Type
+		advice.Messages = append(advice.Messages, *output.Advice)
+		advices = append(advices, advice)
 	}
+
+	return assessment, advices
 }

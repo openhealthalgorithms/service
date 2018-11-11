@@ -4,6 +4,7 @@ import (
 	"math"
 )
 
+// ConvertCholesterol function
 func ConvertCholesterol(cholesterol float64, unit string) int {
 	if unit == "mgdl" {
 		cholesterol = cholesterol * 0.02586
@@ -20,6 +21,7 @@ func ConvertCholesterol(cholesterol float64, unit string) int {
 	return 4
 }
 
+// ConvertSbp function
 func ConvertSbp(sbp int) int {
 	if sbp < 140 {
 		return 3
@@ -32,6 +34,7 @@ func ConvertSbp(sbp int) int {
 	return 0
 }
 
+// ConvertAge function
 func ConvertAge(age float64) int {
 	if age <= 18 {
 		return 0
@@ -46,20 +49,22 @@ func ConvertAge(age float64) int {
 	return 70
 }
 
+// ConvertLength function
 func ConvertLength(length float64, unit string) float64 {
 	result := length
 
 	if unit == "cm" {
 		result = length / 100
 	} else if unit == "ft" {
-		result = length * 3.28084
+		result = length / 3.28084
 	} else if unit == "inch" {
-		result = length * 39.3701
+		result = length / 39.3701
 	}
 
 	return result
 }
 
+// ConvertWeight function
 func ConvertWeight(weight float64, unit string) float64 {
 	result := weight
 
