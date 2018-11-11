@@ -6,73 +6,73 @@ import (
 
 // Result object
 type Result struct {
-	MetaAttributes            Meta            `json:"meta"`
-	AssessmentsAttributes     Assessments     `json:"assessments"`
-	GoalsAttributes           Goals           `json:"goals"`
-	RecommendationsAttributes Recommendations `json:"recommendations"`
+	MetaAttributes            Meta            `structs:"meta" json:"meta"`
+	AssessmentsAttributes     Assessments     `structs:"assessments" json:"assessments"`
+	GoalsAttributes           Goals           `structs:"goals" json:"goals"`
+	RecommendationsAttributes Recommendations `structs:"recommendations" json:"recommendations"`
 }
 
 // Meta object
 type Meta struct {
-	AlgorithmName string    `json:"algorithm"`
-	RequestID     uuid.UUID `json:"request_id"`
+	AlgorithmName string    `structs:"algorithm" json:"algorithm"`
+	RequestID     uuid.UUID `structs:"request_id" json:"request_id"`
 }
 
 /* * * * * Assessments * * * * */
 
 // Assessments object
 type Assessments struct {
-	Lifestyle       LifestyleAssessment       `json:"lifestyle"`
-	BodyComposition BodyCompositionAssessment `json:"body_composition"`
-	BloodPressure   Assessment                `json:"blood_pressure"`
-	Diabetes        Assessment                `json:"diabetes"`
-	Cholesterol     CholesterolAssessment     `json:"cholesterol"`
-	CVD             Assessment                `json:"cvd"`
+	Lifestyle       LifestyleAssessment       `structs:"lifestyle" json:"lifestyle"`
+	BodyComposition BodyCompositionAssessment `structs:"body_composition" json:"body_composition"`
+	BloodPressure   Assessment                `structs:"blood_pressure" json:"blood_pressure"`
+	Diabetes        Assessment                `structs:"diabetes" json:"diabetes"`
+	Cholesterol     CholesterolAssessment     `structs:"cholesterol" json:"cholesterol"`
+	CVD             Assessment                `structs:"cvd" json:"cvd"`
 }
 
 // LifestyleAssessment object
 type LifestyleAssessment struct {
-	Smoking          Assessment     `json:"smoking"`
-	Alcohol          Assessment     `json:"alcohol"`
-	PhysicalActivity Assessment     `json:"physical_activity"`
-	Diet             DietAssessment `json:"diet"`
+	Smoking          Assessment     `structs:"smoking" json:"smoking"`
+	Alcohol          Assessment     `structs:"alcohol" json:"alcohol"`
+	PhysicalActivity Assessment     `structs:"physical_activity" json:"physical_activity"`
+	Diet             DietAssessment `structs:"diet" json:"diet"`
 }
 
 // DietAssessment object
 type DietAssessment struct {
-	Fruit     Assessment `json:"fruit"`
-	Vegetable Assessment `json:"vegetable"`
+	Fruit     Assessment `structs:"fruit" json:"fruit"`
+	Vegetable Assessment `structs:"vegetable" json:"vegetable"`
 }
 
 // BodyCompositionAssessment object
 type BodyCompositionAssessment struct {
-	BMI       Assessment `json:"bmi"`
-	WaistCirc Assessment `json:"waist_circ"`
-	WHR       Assessment `json:"whr"`
-	BodyFat   Assessment `json:"body_fat"`
+	BMI       Assessment `structs:"bmi" json:"bmi"`
+	WaistCirc Assessment `structs:"waist_circ" json:"waist_circ"`
+	WHR       Assessment `structs:"whr" json:"whr"`
+	BodyFat   Assessment `structs:"body_fat" json:"body_fat"`
 }
 
 // CholesterolAssessment object
 type CholesterolAssessment struct {
-	TotalCholesterol Assessment `json:"total_cholesterol"`
-	HDL              Assessment `json:"hdl"`
-	LDL              Assessment `json:"ldl"`
-	TG               Assessment `json:"tg"`
+	TotalCholesterol Assessment `structs:"total_cholesterol" json:"total_cholesterol"`
+	HDL              Assessment `structs:"hdl" json:"hdl"`
+	LDL              Assessment `structs:"ldl" json:"ldl"`
+	TG               Assessment `structs:"tg" json:"tg"`
 }
 
 // Assessment object
 type Assessment struct {
-	Code   string `json:"code"`
-	Value  string `json:"value"`
-	Target string `json:"target"`
-	Output Output `json:"output"`
+	Code   string `structs:"code" json:"code"`
+	Value  string `structs:"value" json:"value"`
+	Target string `structs:"target" json:"target"`
+	Output Output `structs:"output" json:"output"`
 }
 
 // Output object
 type Output struct {
-	Code  string `json:"code"`
-	Type  string `json:"type"`
-	Color string `json:"color"`
+	Code  string `structs:"code" json:"code"`
+	Type  string `structs:"type" json:"type"`
+	Color string `structs:"color" json:"color"`
 }
 
 /* * * * * Goals * * * * */
@@ -82,33 +82,33 @@ type Goals []Goal
 
 // Goal object
 type Goal struct {
-	Code    string   `json:"code"`
-	Name    string   `json:"name"`
-	Reasons []string `json:"reasons"`
+	Code    string   `structs:"code" json:"code"`
+	Name    string   `structs:"name" json:"name"`
+	Reasons []string `structs:"reasons" json:"reasons"`
 }
 
 /* * * * * Recommendations * * * * */
 
 // Recommendations object
 type Recommendations struct {
-	Lifestyle   LifestyleRecommendation   `json:"lifestyle"`
-	Medications MedicationsRecommendation `json:"medications"`
-	Followup    FollowupRecommendation    `json:"followup"`
+	Lifestyle   LifestyleRecommendation   `structs:"lifestyle" json:"lifestyle"`
+	Medications MedicationsRecommendation `structs:"medications" json:"medications"`
+	Followup    FollowupRecommendation    `structs:"followup" json:"followup"`
 }
 
 // LifestyleRecommendation object
 type LifestyleRecommendation struct {
-	Actions `json:"actions"`
+	Actions `structs:"actions" json:"actions"`
 }
 
 // MedicationsRecommendation object
 type MedicationsRecommendation struct {
-	Actions `json:"actions"`
+	Actions `structs:"actions" json:"actions"`
 }
 
 // FollowupRecommendation object
 type FollowupRecommendation struct {
-	Actions `json:"actions"`
+	Actions `structs:"actions" json:"actions"`
 }
 
 // Actions is a collection of actions
@@ -116,8 +116,8 @@ type Actions []Action
 
 // Action object
 type Action struct {
-	Goal     string   `json:"goal"`
-	Messages []string `json:"messages"`
+	Goal     string   `structs:"goal" json:"goal"`
+	Messages []string `structs:"messages" json:"messages"`
 }
 
 // NewResult returns a Result object with meta information

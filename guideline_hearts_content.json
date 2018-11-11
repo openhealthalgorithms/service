@@ -31,7 +31,7 @@
                 "code": "ex_smoker",
                 "type": "Ex smoker, quit > 12 months ago",
                 "color": "GREEN",
-                "advice": "Good work quitting. It\"s the best thing you can do for your health. Stay strong"
+                "advice": "Good work quitting. It's the best thing you can do for your health. Stay strong"
             },
             "SM-4": {
                 "code": "non-smoker",
@@ -117,29 +117,29 @@
                 "color": "",
                 "advice": ""
             },
-            "BMI-0": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
-            },
-            "BMI-1": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+            "BMI-7": {
+                "code": "underweight",
+                "type": "Weight below normal range",
+                "color": "RED",
+                "advice": "Talk to a dietitian about safe weight gain"
             },
             "BMI-2": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+                "code": "normal_weight",
+                "type": "Weight in normal range",
+                "color": "GREEN",
+                "advice": "Regular diet and exercise will help you to maintain your current weight"
             },
-            "BMI-7": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+            "BMI-1": {
+                "code": "overweight",
+                "type": "Weight above the healthy range",
+                "color": "AMBER",
+                "advice": "Being overweight can increase your risk of heart disease and diabetes"
+            },
+            "BMI-0": {
+                "code": "obese",
+                "type": "Weight in the obese range",
+                "color": "RED",
+                "advice": "Obesity is a risk factor for developing many conditions. Talk to a dietitian today"
             },
             "WST-0": {
                 "code": "",
@@ -153,23 +153,23 @@
                 "color": "",
                 "advice": ""
             },
-            "WHR-2": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+            "WHR-0": {
+                "code": "normal",
+                "type": "Normal waist hip ratio",
+                "color": "GREEN",
+                "advice": "Your wait hip ratio is normal"
             },
             "WHR-1": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+                "code": "abnormal_female",
+                "type": "Abnormal waist hip ratio for female",
+                "color": "AMBER",
+                "advice": "Your wait hip ratio is above the target for females"
             },
-            "WHR-0": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+            "WHR-2": {
+                "code": "abnormal_male",
+                "type": "Abnormal waist hip ratio for male",
+                "color": "AMBER",
+                "advice": "Your wait hip ratio is above the target for males"
             },
             "BFT-OBESE": {
                 "code": "",
@@ -274,34 +274,34 @@
                 "advice": ""
             },
             "CVD-1": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+                "code": "high_risk_condition",
+                "type": "Existing High Risk Condition",
+                "color": "RED",
+                "advice": "You have a high risk condition. Not for CVD Risk Assessment"
             },
             "CVD-4": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+                "code": "low_risk",
+                "type": "You are at low risk",
+                "color": "GREEN",
+                "advice": "Your risk of a CVD event is low"
             },
             "CVD-6": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+                "code": "mod_risk",
+                "type": "You are at moderate risk",
+                "color": "YELLOW",
+                "advice": "Your risk of a CVD event is mild"
             },
             "CVD-8": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+                "code": "high_risk",
+                "type": "You are at high risk",
+                "color": "AMBER",
+                "advice": "Your of a CVD event is High"
             },
             "CVD-10": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+                "code": "very_high_risk",
+                "type": "You are at very high risk",
+                "color": "RED",
+                "advice": "You're at very high CVD risk"
             }
         }
     }
