@@ -2,7 +2,6 @@ package engine
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"math"
 	"strconv"
@@ -124,8 +123,8 @@ func (b *CVDGuidelines) Process(ctx context.Context, ami, hxCVD, hxPVD, hxCKD bo
 	value := ""
 	target := ""
 
-	res2B, _ := json.Marshal(preProcessing)
-	fmt.Println(string(res2B))
+	// res2B, _ := json.Marshal(preProcessing)
+	// fmt.Println(string(res2B))
 
 	ageCheckForCVD := preProcessing.AgeCheckForCVD.PreProcess(ami, hxCVD, hxPVD, hxCKD, age)
 	existingCVD := preProcessing.ExistingCVD.PreProcess(ami, hxCVD, hxPVD, hxCKD, age)
@@ -143,10 +142,10 @@ func (b *CVDGuidelines) Process(ctx context.Context, ami, hxCVD, hxPVD, hxCKD bo
 		return Response{}, err
 	}
 
-	fmt.Printf("%+v\n", ageCheckForCVD)
-	fmt.Printf("%+v\n", existingCVD)
-	fmt.Printf("%+v\n", highRiskCondition)
-	fmt.Printf("%+v\n", riskScore)
+	// fmt.Printf("%+v\n", ageCheckForCVD)
+	// fmt.Printf("%+v\n", existingCVD)
+	// fmt.Printf("%+v\n", highRiskCondition)
+	// fmt.Printf("%+v\n", riskScore)
 
 	for _, g := range *b {
 		for _, c := range *g.Conditions {
@@ -176,6 +175,12 @@ func (b *CVDGuidelines) Process(ctx context.Context, ami, hxCVD, hxPVD, hxCKD bo
 			if c.HighRiskCondition != nil && *c.HighRiskCondition != highRiskCondition {
 				conditionHighRisk = false
 			}
+
+			// res2B, _ := json.Marshal(c)
+			// fmt.Println(string(res2B))
+			// fmt.Printf("%+v\n", conditionAge)
+			// fmt.Printf("%+v\n", conditionExistingCVD)
+			// fmt.Printf("%+v\n", conditionHighRisk)
 
 			if conditionAge && conditionExistingCVD && conditionHighRisk && (riskScore >= rangeFrom && riskScore <= rangeTo) {
 				code = *g.Code

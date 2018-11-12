@@ -1120,12 +1120,12 @@
                         {
                             "age_check_for_cvd": true,
                             "existing_cvd": true,
-                            "target": "should live healthy"
+                            "target": "has existing cvd, should live healthy"
                         },
                         {
                             "age_check_for_cvd": true,
-                            "high_risk_condition": true,
-                            "target": "should live healthy"
+                            "high_risk_conditions": true,
+                            "target": "has high risk condition, should live healthy"
                         }
                     ],
                     "code": "CVD-1"
@@ -1137,7 +1137,7 @@
                         {
                             "age_check_for_cvd": true,
                             "existing_cvd": false,
-                            "high_risk_condition": false,
+                            "high_risk_conditions": false,
                             "range": {
                                 "from": 31,
                                 "unit": "%"
@@ -1145,7 +1145,7 @@
                             "target": "should lower the risk"
                         }
                     ],
-                    "code": "CVD-4"
+                    "code": "CVD-10"
                 },
                 {
                     "category": "high risk",
@@ -1154,7 +1154,7 @@
                         {
                             "age_check_for_cvd": true,
                             "existing_cvd": false,
-                            "high_risk_condition": false,
+                            "high_risk_conditions": false,
                             "range": {
                                 "from": 21,
                                 "to": 30,
@@ -1163,7 +1163,7 @@
                             "target": "should lower cvd risk"
                         }
                     ],
-                    "code": "CVD-6"
+                    "code": "CVD-8"
                 },
                 {
                     "category": "moderate risk",
@@ -1172,7 +1172,7 @@
                         {
                             "age_check_for_cvd": true,
                             "existing_cvd": false,
-                            "high_risk_condition": false,
+                            "high_risk_conditions": false,
                             "range": {
                                 "from": 11,
                                 "to": 20,
@@ -1181,7 +1181,7 @@
                             "target": "should mildly lower cvd risk"
                         }
                     ],
-                    "code": "CVD-8"
+                    "code": "CVD-6"
                 },
                 {
                     "category": "low risk",
@@ -1190,7 +1190,7 @@
                         {
                             "age_check_for_cvd": true,
                             "existing_cvd": false,
-                            "high_risk_condition": false,
+                            "high_risk_conditions": false,
                             "range": {
                                 "to": 10,
                                 "unit": "%"
@@ -1198,7 +1198,7 @@
                             "target": "well done"
                         }
                     ],
-                    "code": "CVD-10"
+                    "code": "CVD-4"
                 }
             ]
         }

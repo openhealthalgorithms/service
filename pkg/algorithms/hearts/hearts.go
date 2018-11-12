@@ -3,7 +3,6 @@ package hearts
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"strconv"
 
@@ -104,7 +103,7 @@ func (d *Data) get(ctx context.Context) error {
 	// engineGuide.Body.Lifestyle.Smoking
 	// res2B, _ := json.Marshal(engineContent)
 	// fmt.Println(string(res2B))
-	fmt.Printf("%+v\n", p)
+	// fmt.Printf("%+v\n", p)
 
 	assessment := datastructure.NewResult("Hearts Algorithm")
 	lifestyleActions := make([]datastructure.Action, 0)
