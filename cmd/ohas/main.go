@@ -20,7 +20,7 @@ import (
 
 var (
 	appName    = "ohas"
-	appVersion = "v0.2"
+	appVersion = "v0.2.1"
 	appCommit  = "0000000"
 
 	serviceSrv *http.Server
