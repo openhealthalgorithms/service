@@ -5,44 +5,39 @@
         "publication_date": "",
         "content_type": "message file",
         "published_by": "Fred Hersch",
-        "version_number": "0.1"
+        "version_number": "0.1",
+        "last_updated" : "12-11-2018"
     },
     "body": {
         "contents": {
-            "SM-0": {
+            "SM-CURRENT": {
                 "code": "current_smoker",
                 "type": "Current smoker, advise to quit",
                 "color": "RED",
                 "advice": "Quit now. It's the best thing you can do for your health."
             },
-            "SM-1": {
-                "code": "current_smoker",
-                "type": "Current smoker, advise to quit",
-                "color": "RED",
-                "advice": "You will benefit from smoking cessation. For advice"
-            },
-            "SM-2": {
+            "SM-RECENTLY-QUIT": {
                 "code": "ex_smoker_quit_within_12_months",
                 "type": "Ex smoker, quit within the past 12 months",
                 "color": "AMBER",
                 "advice": "Quitting smoking is the best thing you can do for your health. If you need support to stay strong, speak to your doctor"
             },
-            "SM-3": {
+            "SM-EX-SMOKER": {
                 "code": "ex_smoker",
                 "type": "Ex smoker, quit > 12 months ago",
                 "color": "GREEN",
                 "advice": "Good work quitting. It's the best thing you can do for your health. Stay strong"
             },
-            "SM-4": {
+            "SM-NON-SMOKER": {
                 "code": "non-smoker",
                 "type": "Non Smoker",
                 "color": "GREEN",
-                "advice": "Your lungs will thank you!"
+                "advice": "Great. Your lungs thank you!"
             },
-            "AL-0": {
-                "code": "",
-                "type": "",
-                "color": "",
+            "AL-NONE": {
+                "code": "non drinker",
+                "type": "Does not drink alcohol",
+                "color": "GREEN",
                 "advice": ""
             },
             "AL-1": {
@@ -63,59 +58,47 @@
                 "color": "",
                 "advice": ""
             },
-            "PA-1": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+            "PA-SEDENTARY": {
+                "code": "Sedentary",
+                "type": "Little or no exercise",
+                "color": "RED",
+                "advice": "Need to move more"
             },
-            "PA-2": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+            "PA-UNDER": {
+                "code": "Under target",
+                "type": "Below target",
+                "color": "AMBER",
+                "advice": "Not quit meeting targets. Aim for 150 minutes of moderate OR 75 minutes of vigroous intensity exercise per week"
             },
-            "PA-3": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+            "PA-TARGET": {
+                "code": "On target",
+                "type": "Meeting physical activity targets",
+                "color": "GREEN",
+                "advice": "Keep up the physical activity. Every little bit counts!"
             },
-            "FRT-1": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+            "FRT-LOW": {
+                "code": "Below target",
+                "type": "Low fruit consumption",
+                "color": "AMBER",
+                "advice": "Fruit is good for your overall health."
             },
-            "FRT-2": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+            "FRT-TARGET": {
+                "code": "On target",
+                "type": "Eating sufficient fruit",
+                "color": "GREEN",
+                "advice": "Keep eating fruit!"
             },
-            "FRT-3": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+            "VEG-LOW": {
+                "code": "Below target",
+                "type": "Low vegetable consumption",
+                "color": "AMBER",
+                "advice": "Eat more vegetables"
             },
-            "VEG-1": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
-            },
-            "VEG-2": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
-            },
-            "VEG-3": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+            "VEG-TARGET": {
+                "code": "on target",
+                "type": "Eating sufficient vegetables",
+                "color": "GREEN",
+                "advice": "Vegetables are great for your health. Good job!"
             },
             "BMI-7": {
                 "code": "underweight",
@@ -141,142 +124,160 @@
                 "color": "RED",
                 "advice": "Obesity is a risk factor for developing many conditions. Talk to a dietitian today"
             },
-            "WST-0": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+            "WST-NORMAL": {
+                "code": "healthy level",
+                "type": "healthy level",
+                "color": "GREEN",
+                "advice": "Waist circumference is within healthy range"
             },
-            "WST-1": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+            "WST-HIGH": {
+                "code": "at risk",
+                "type": "above healthy range",
+                "color": "AMBER",
+                "advice": "Waist circumference is higher than health range"
             },
-            "WHR-0": {
+            "WHR-NORMAL": {
                 "code": "normal",
                 "type": "Normal waist hip ratio",
                 "color": "GREEN",
                 "advice": "Your wait hip ratio is normal"
             },
-            "WHR-1": {
-                "code": "abnormal_female",
-                "type": "Abnormal waist hip ratio for female",
+            "WHR-HIGH": {
+                "code": "abnormal",
+                "type": "Abnormal waist hip ratio",
                 "color": "AMBER",
-                "advice": "Your wait hip ratio is above the target for females"
-            },
-            "WHR-2": {
-                "code": "abnormal_male",
-                "type": "Abnormal waist hip ratio for male",
-                "color": "AMBER",
-                "advice": "Your wait hip ratio is above the target for males"
+                "advice": "Your wait hip ratio is above the target"
             },
             "BFT-OBESE": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+                "code": "obese body fat %",
+                "type": "body fat % in obese range for gender and age",
+                "color": "RED",
+                "advice": "Body fat is in the obese range. Discuss with health professional"
             },
             "BFT-OVERWEIGHT": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+                "code": "overweigh body fat %",
+                "type": "body fat % in the overweight range for gender and age",
+                "color": "AMBER",
+                "advice": "Body fat is in the obese range. Discuss with health professional"
             },
             "BFT-NORMAL": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+                "code": "normal body fat %",
+                "type": "body fat % in the normal range for gender and age",
+                "color": "GREEN",
+                "advice": "Body fat is in a healthy range"
             },
             "BFT-UNDERWEIGHT": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+                "code": "low body fat %",
+                "type": "body fat % is low for gender and age",
+                "color": "BLUE",
+                "advice": "Body fat is below normal. Discuss with a health professional"
             },
-            "BP-0": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+            "BP-EMERGENCY": {
+                "code": "BP severly elevated",
+                "type": "BP severly elevated",
+                "color": "DEEP-RED",
+                "advice": "Requires immediate referral to hospital"
             },
-            "BP-1": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+            "BP-HTN-REVIEW": {
+                "code": "Hypertension for review",
+                "type": "Significantly elevated BP",
+                "color": "RED",
+                "advice": "Blood pressure is significantly elevated. Requires further assessment"
             },
-            "BP-3": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+            "BP-HTN-DM": {
+                "code": "Poorly controlled BP with Diabetes",
+                "type": "High BP with DM",
+                "color": "AMBER",
+                "advice": "Blood pressure is above target with history of diabetes. Discuss with your doctor"
             },
-            "BP-X": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+            "BP-HTN": {
+                "code": "Hypertension",
+                "type": "Hypertension",
+                "color": "AMBER",
+                "advice": "Your BP indicates hypertension. Discuss with local health professional"
             },
-            "DM-1": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+            "BP-DM-TARGET": {
+                "code": "On target with DM",
+                "type": "Normotensive with DM",
+                "color": "GREEN",
+                "advice": "Meeting BP targets with history of DM. Keep up the good work"
             },
-            "DM-5": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+            "BP-ELEVATED": {
+                "code": "Elevated BP",
+                "type": "Mildly elevated",
+                "color": "GREEN",
+                "advice": "BP is slightly raised. Focus on diet and lifestyle"
             },
-            "DM-10": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+            "BP-TARGET": {
+                "code": "Normal BP",
+                "type": "Normotensive",
+                "color": "GREEN",
+                "advice": "BP is on target. Great job."
             },
-            "CHOL-1": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+            "DM-EXISTING": {
+                "code": "Existing diabetes",
+                "type": "History of DM",
+                "color": "AMBER",
+                "advice": "Existing diagnosis of Diabetes. Review management"
             },
-            "CHOL-2": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+            "DM-NEW-DIAGNOSIS": {
+                "code": "Newly diagnosed DM",
+                "type": "New diagnosis of DM",
+                "color": "RED",
+                "advice": "New diagnosis of diabetes based on pathology"
             },
-            "CHOL-3": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+            "DM-PRE-DIABETES": {
+                "code": "Pre-diabetes",
+                "type": "Pre-diabetes",
+                "color": "AMBER",
+                "advice": "Pathology suggests 'pre-diabetes'. Discuss lifestyle modification"
             },
-            "CHOL-5": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+            "DM-NONE": {
+                "code": "Not diabetic",
+                "type": "Not diabetic",
+                "color": "GREEN",
+                "advice": "Normal blood sugar. Review family history for follow up"
             },
-            "CHOL-7": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+            "CHOL-REFER": {
+                "code": "Refer chol",
+                "type": "Cholesterol above 8. Refer",
+                "color": "DEEP-RED",
+                "advice": "Cholesterollevel > 8mmol/L requires referral and use of statins"
+            },
+            "CHOL-VERY-HIGH-CVD-RISK": {
+                "code": "Chol high cvd risk",
+                "type": "High CVD risk",
+                "color": "RED",
+                "advice": "Treat based on high CVD risk regardless of total cholesterol"
+            },
+            "CHOL-ELEVATED-WITH-HIGH-CVD-RISK": {
+                "code": "Elevated cholesterol and high CVD risk",
+                "type": "Elevated cholesterol and high CVD risk",
+                "color": "AMBER",
+                "advice": "Based on Tchol > 5 and high CVD risk, requires medication"
+            },
+            "CHOL-MOD-CVD-RISK": {
+                "code": "Mod CVD risk",
+                "type": "Moderate CVD risk",
+                "color": "GREEN",
+                "advice": "Lipid lowering diet. Manage CVD risk factors"
+            },
+             "CHOL-NO-CVD-RISK": {
+                "code": "CVD risk not calculated",
+                "type": "CVD risk not calculated",
+                "color": "GREEN",
+                "advice": "Maintain a healthy diet"
             },
             "CVD-AGE-FALSE": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+                "code": "not for cvd assessment due to age",
+                "type": "Age < 40",
+                "color": "GRAY",
+                "advice": "Report based on individual risk factors"
             },
             "CVD-1": {
                 "code": "high_risk_condition",
                 "type": "Existing High Risk Condition",
-                "color": "RED",
+                "color": "DARK-RED",
                 "advice": "You have a high risk condition. Not for CVD Risk Assessment"
             },
             "CVD-4": {
@@ -288,19 +289,19 @@
             "CVD-6": {
                 "code": "mod_risk",
                 "type": "You are at moderate risk",
-                "color": "YELLOW",
+                "color": "AMBER",
                 "advice": "Your risk of a CVD event is mild"
             },
             "CVD-8": {
                 "code": "high_risk",
                 "type": "You are at high risk",
-                "color": "AMBER",
+                "color": "RED",
                 "advice": "Your risk of a CVD event is High"
             },
             "CVD-10": {
                 "code": "very_high_risk",
                 "type": "You are at very high risk",
-                "color": "RED",
+                "color": "DARK-RED",
                 "advice": "You're at very high CVD risk"
             }
         }

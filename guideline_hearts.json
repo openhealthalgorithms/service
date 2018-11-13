@@ -9,23 +9,30 @@
             "smoking": [
                 {
                     "category": "current smoker",
-                    "definition": "is a current smoker or recently was a smoker",
+                    "definition": "is a current smoker",
                     "conditions": [
                         {
                             "smoker": true,
                             "target": "no"
-                        },
+                        }
+                    ],
+                    "code": "SM-CURRENT"
+                },
+                {
+                    "category": "recently ex-smoker",
+                    "definition": "quit within the past 12 months",
+                    "conditions": [
                         {
                             "smoker": false,
                             "quit_within_12_months": true,
                             "target": "no"
                         }
                     ],
-                    "code": "SM-1"
+                    "code": "SM-RECENTLY-QUIT"
                 },
                 {
                     "category": "ex smoker",
-                    "definition": "was a smoker long ago",
+                    "definition": "was a smoker, quit more than 12 months ago",
                     "conditions": [
                         {
                             "smoker": false,
@@ -34,7 +41,7 @@
                             "target": "no"
                         }
                     ],
-                    "code": "SM-3"
+                    "code": "SM-EX-SMOKER"
                 },
                 {
                     "category": "non smoker",
@@ -47,7 +54,7 @@
                             "target": "no"
                         }
                     ],
-                    "code": "SM-4"
+                    "code": "SM-NON-SMOKER"
                 }
             ],
             "alcohol": [
@@ -63,10 +70,10 @@
                             "target": "<1 units/week"
                         }
                     ],
-                    "code": "AL-0"
+                    "code": "AL-NONE"
                 },
                 {
-                    "category": "minor alcoholic",
+                    "category": "safe alcohol use",
                     "definition": "intakes very little alcohol",
                     "conditions": [
                         {
@@ -77,7 +84,7 @@
                             "target": "<1 units/week"
                         }
                     ],
-                    "code": "AL-1"
+                    "code": "AL-SAFE"
                 },
                 {
                     "category": "alcoholic",
@@ -85,7 +92,7 @@
                     "conditions": [
                         {
                             "from": 6,
-                            "to": 10,
+                            "to": 9,
                             "unit": "units",
                             "duration": "weekly",
                             "target": "<1 units/week"
@@ -98,7 +105,7 @@
                     "definition": "intakes huge alcohols",
                     "conditions": [
                         {
-                            "from": 11,
+                            "from": 10,
                             "unit": "units",
                             "duration": "weekly",
                             "target": "<1 units/week"
@@ -113,40 +120,40 @@
                     "definition": "does no or little exercise",
                     "conditions": [
                         {
-                            "to": 149,
+                            "to": 75,
                             "unit": "minutes",
                             "type": "moderate",
                             "target": ">150 minutes"
                         }
                     ],
-                    "code": "PA-1"
+                    "code": "PA-SEDENTARY"
                 },
                 {
                     "category": "moderate exerciser",
                     "definition": "does moderate level of exercises",
                     "conditions": [
                         {
-                            "from": 150,
-                            "to": 299,
+                            "from": 75,
+                            "to": 149,
                             "unit": "minutes",
                             "type": "moderate",
                             "target": ">150 minutes"
                         }
                     ],
-                    "code": "PA-2"
+                    "code": "PA-UNDER"
                 },
                 {
-                    "category": "heavy exerciser",
-                    "definition": "does very good exercises",
+                    "category": "On target",
+                    "definition": "does sufficient level of exercise",
                     "conditions": [
                         {
-                            "from": 300,
+                            "from": 150,
                             "unit": "minutes",
                             "type": "moderate",
                             "target": ">150 minutes"
                         }
                     ],
-                    "code": "PA-3"
+                    "code": "PA-TARGET"
                 }
             ],
             "diet": {
@@ -156,40 +163,26 @@
                         "definition": "intakes very little fruits",
                         "conditions": [
                             {
-                                "to": 5,
+                                "to": 13,
                                 "unit": "servings",
                                 "duration": "weekly",
-                                "target": ">6 servings/week"
+                                "target": ">2 servings/day"
                             }
                         ],
-                        "code": "FRT-1"
+                        "code": "FRT-LOW"
                     },
                     {
                         "category": "normal consumption",
                         "definition": "intakes normal fruits",
                         "conditions": [
                             {
-                                "from": 6,
-                                "to": 10,
+                                "from": 14,
                                 "unit": "servings",
                                 "duration": "weekly",
-                                "target": ">6 servings/week"
+                                "target": ">2 servings/day"
                             }
                         ],
-                        "code": "FRT-2"
-                    },
-                    {
-                        "category": "high consumption",
-                        "definition": "intakes good number of fruits",
-                        "conditions": [
-                            {
-                                "from": 11,
-                                "unit": "servings",
-                                "duration": "weekly",
-                                "target": ">6 servings/week"
-                            }
-                        ],
-                        "code": "FRT-3"
+                        "code": "FRT-TARGET"
                     }
                 ],
                 "vegetables": [
@@ -198,40 +191,26 @@
                         "definition": "intakes very little vegetables",
                         "conditions": [
                             {
-                                "to": 15,
+                                "to": 34,
                                 "unit": "servings",
                                 "duration": "weekly",
-                                "target": ">16 servings/week"
+                                "target": "5 or more servings/day"
                             }
                         ],
-                        "code": "VEG-1"
+                        "code": "VEG-LOW"
                     },
                     {
                         "category": "normal consumption",
                         "definition": "intakes normal vegetables",
                         "conditions": [
                             {
-                                "from": 16,
-                                "to": 25,
+                                "from": 35,
                                 "unit": "servings",
                                 "duration": "weekly",
-                                "target": ">16 servings/week"
+                                "target": "5 or more servings/day"
                             }
                         ],
-                        "code": "VEG-2"
-                    },
-                    {
-                        "category": "high consumption",
-                        "definition": "intakes good number of vegetables",
-                        "conditions": [
-                            {
-                                "from": 26,
-                                "unit": "servings",
-                                "duration": "weekly",
-                                "target": ">16 servings/week"
-                            }
-                        ],
-                        "code": "VEG-3"
+                        "code": "VEG-TARGET"
                     }
                 ]
             }
@@ -307,7 +286,7 @@
                             "target": "87cm"
                         }
                     ],
-                    "code": "WST-0"
+                    "code": "WST-HIGH"
                 },
                 {
                     "category": "normal",
@@ -326,7 +305,7 @@
                             "target": "87cm"
                         }
                     ],
-                    "code": "WST-1"
+                    "code": "WST-NORMAL"
                 }
             ],
             "whr": [
@@ -345,30 +324,11 @@
                             "target": "0.85"
                         }
                     ],
-                    "code": "WHR-2"
+                    "code": "WHR-HIGH"
                 },
                 {
                     "category": "normal",
                     "definition": "is normal limit",
-                    "conditions": [
-                        {
-                            "gender": "male",
-                            "from": 0.90,
-                            "to": 0.90,
-                            "target": "0.90"
-                        },
-                        {
-                            "gender": "female",
-                            "from": 0.85,
-                            "to": 0.85,
-                            "target": "0.85"
-                        }
-                    ],
-                    "code": "WHR-1"
-                },
-                {
-                    "category": "low",
-                    "definition": "is below normal limit",
                     "conditions": [
                         {
                             "gender": "male",
@@ -381,7 +341,7 @@
                             "target": "0.85"
                         }
                     ],
-                    "code": "WHR-0"
+                    "code": "WHR-NORMAL"
                 }
             ],
             "body_fat": [
@@ -727,7 +687,7 @@
                         "target": "140/90"
                     }
                 ],
-                "code": "BP-0"
+                "code": "BP-EMERGENCY"
             },
             {
                 "category": "hypertension for review",
@@ -750,7 +710,7 @@
                         "target": "140/90"
                     }
                 ],
-                "code": "BP-1"
+                "code": "BP-HTN-REVIEW"
             },
             {
                 "category": "hypertension in diabetes",
@@ -773,7 +733,7 @@
                         "target": "120/80"
                     }
                 ],
-                "code": "BP-3"
+                "code": "BP-HTN-DM"
             },
             {
                 "category": "hypertension",
@@ -796,30 +756,7 @@
                         "target": "130/80"
                     }
                 ],
-                "code": "BP-1"
-            },
-            {
-                "category": "hypertension in diabetes",
-                "definition": "high blood pressure in patient with diabetes",
-                "conditions": [
-                    {
-                        "diabetes": true,
-                        "sbp": {
-                            "from": 131,
-                            "unit": "mmHg"
-                        },
-                        "target": "120/80"
-                    },
-                    {
-                        "diabetes": true,
-                        "dbp": {
-                            "from": 81,
-                            "unit": "mmHg"
-                        },
-                        "target": "120/80"
-                    }
-                ],
-                "code": "BP-3"
+                "code": "BP-HTN"
             },
             {
                 "category": "normal bp in  diabetes",
@@ -842,7 +779,7 @@
                         "target": "130/80"
                     }
                 ],
-                "code": "BP-X"
+                "code": "BP-DM-TARGET"
             },
             {
                 "category": "elevated bp",
@@ -867,7 +804,7 @@
                         "target": "120/80"
                     }
                 ],
-                "code": "BP-1"
+                "code": "BP-ELEVATED"
             },
             {
                 "category": "normal bp",
@@ -892,19 +829,27 @@
                         "target": "120/80"
                     }
                 ],
-                "code": "BP-1"
+                "code": "BP-TARGET"
             }
         ],
         "diabetes": [
             {
-                "category": "diabetes",
-                "definition": "patient has diabetes",
+                "category": "existing diabetes",
+                "definition": "patient has existing diabetes",
                 "conditions": [
                     {
                         "hx_diabetes": true,
                         "target": "no"
-                    },
+                    }
+                ],
+                "code": "DM-EXISTING"
+            },
+            {
+                "category": "diabetes",
+                "definition": "patient has new diagnosis of diabetes",
+                "conditions": [
                     {
+                        "hx_diabetes": false,
                         "blood_sugar": {
                             "type": "fasting",
                             "from": 7.1,
@@ -913,6 +858,7 @@
                         "target": "no"
                     },
                     {
+                        "hx_diabetes": false,
                         "blood_sugar": {
                             "type": "HbA1c",
                             "from": 6.5,
@@ -921,7 +867,7 @@
                         "target": "no"
                     }
                 ],
-                "code": "DM-1"
+                "code": "DM-NEW-DIAGNOSIS"
             },
             {
                 "category": "pre diabetes",
@@ -948,7 +894,7 @@
                         "target": "no"
                     }
                 ],
-                "code": "DM-5"
+                "code": "DM-PRE-DIABETES"
             },
             {
                 "category": "no diabetes",
@@ -973,7 +919,7 @@
                         "target": "no"
                     }
                 ],
-                "code": "DM-10"
+                "code": "DM-NONE"
             }
         ],
         "cholesterol": {
@@ -990,7 +936,7 @@
                             "target": "<5mmol/L"
                         }
                     ],
-                    "code": "CHOL-1"
+                    "code": "CHOL-REFER"
                 },
                 {
                     "category": "high cvd risk",
@@ -1007,7 +953,7 @@
                             "target": "<5mmol/L"
                         }
                     ],
-                    "code": "CHOL-2"
+                    "code": "CHOL-VERY-HIGH-CVD-RISK"
                 },
                 {
                     "category": "elevated with high cvd risk",
@@ -1026,7 +972,7 @@
                             "target": "<5mmol/L"
                         }
                     ],
-                    "code": "CHOL-3"
+                    "code": "CHOL-ELEVATED-WITH-HIGH-CVD-RISK"
                 },
                 {
                     "category": "moderate cvd risk",
@@ -1041,7 +987,7 @@
                             "target": "<5mmol/L"
                         }
                     ],
-                    "code": "CHOL-5"
+                    "code": "CHOL-MOD-CVD-RISK"
                 },
                 {
                     "category": "low cvd risk",
@@ -1055,7 +1001,17 @@
                             "target": "<5mmol/L"
                         }
                     ],
-                    "code": "CHOL-7"
+                    "code": "CHOL-LOW-CVD-RISK"
+                },
+                {
+                    "category": "Cholesterol, but not for CVD risk assessment",
+                    "definition": "Cholesterol, but not for CVD risk assessment",
+                    "conditions": [
+                        {
+                            "target": "<5mmol/L"
+                        }
+                    ],
+                    "code": "CHOL-NO-CVD-RISK"
                 }
             ]
         },
