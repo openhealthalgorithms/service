@@ -155,7 +155,9 @@ func algorithmRequestHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	algorithmOut["hearts"] = algorithmOut["Algorithm"]
+	algorithmOut["errors"] = algorithmOut["Errors"]
 	delete(algorithmOut, "Algorithm")
+	delete(algorithmOut, "Errors")
 
 	result := &algorithmOut
 

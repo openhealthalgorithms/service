@@ -300,12 +300,12 @@ func getInputs(data []byte) (Params, error) {
 				units = val
 			}
 
-			values := 0
-			if val, err := jp.GetInt(value, "value"); err == nil {
-				values = int(val)
+			values := 0.0
+			if val, err := jp.GetFloat(value, "value"); err == nil {
+				values = val
 			}
 
-			out.Height = ConvertLength(float64(values), units)
+			out.Height = ConvertLength(values, units)
 			out.HeightUnit = "m"
 		case "weight":
 			units := ""
@@ -313,12 +313,12 @@ func getInputs(data []byte) (Params, error) {
 				units = val
 			}
 
-			values := 0
-			if val, err := jp.GetInt(value, "value"); err == nil {
-				values = int(val)
+			values := 0.0
+			if val, err := jp.GetFloat(value, "value"); err == nil {
+				values = val
 			}
 
-			out.Weight = ConvertWeight(float64(values), units)
+			out.Weight = ConvertWeight(values, units)
 			out.WeightUnit = "kg"
 		case "hip":
 			units := ""
@@ -326,12 +326,12 @@ func getInputs(data []byte) (Params, error) {
 				units = val
 			}
 
-			values := 0
-			if val, err := jp.GetInt(value, "value"); err == nil {
-				values = int(val)
+			values := 0.0
+			if val, err := jp.GetFloat(value, "value"); err == nil {
+				values = val
 			}
 
-			out.Hip = ConvertLength(float64(values), units)
+			out.Hip = ConvertLength(values, units)
 			out.HipUnit = "m"
 		case "waist":
 			units := ""
@@ -339,12 +339,12 @@ func getInputs(data []byte) (Params, error) {
 				units = val
 			}
 
-			values := 0
-			if val, err := jp.GetInt(value, "value"); err == nil {
-				values = int(val)
+			values := 0.0
+			if val, err := jp.GetFloat(value, "value"); err == nil {
+				values = val
 			}
 
-			out.Waist = ConvertLength(float64(values), units)
+			out.Waist = ConvertLength(values, units)
 			out.WaistUnit = "m"
 		case "body-fat":
 			units := ""

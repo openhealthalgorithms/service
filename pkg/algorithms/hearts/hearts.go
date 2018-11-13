@@ -18,6 +18,7 @@ import (
 // Data holds results of plugin.
 type Data struct {
 	Algorithm datastructure.Result `json:"algorithm"`
+	Errors    []string             `json:"errors"`
 }
 
 // New returns a ready to use instance of the plugin.
@@ -111,86 +112,97 @@ func (d *Data) get(ctx context.Context) error {
 	followupActions := make([]datastructure.Action, 0)
 
 	var res datastructure.Assessment
+	errs := make([]string, 0)
 
 	// Smoking
 	sm, err := engineGuide.Body.Lifestyle.Smoking.Process(p.Smoker.CurrentSmoker, p.Smoker.ExSmoker, p.Smoker.QuitWithinYear)
 	if err != nil {
-		return err
+		errs = append(errs, err.Error())
+	} else {
+		res, lifestyleActions = GetResults(sm, *engineContent.Body.Contents, lifestyleActions)
+		assessment.AssessmentsAttributes.Lifestyle.Smoking = res
 	}
-	res, lifestyleActions = GetResults(sm, *engineContent.Body.Contents, lifestyleActions)
-	assessment.AssessmentsAttributes.Lifestyle.Smoking = res
 
 	// Alcohol
 	alc, err := engineGuide.Body.Lifestyle.Alcohol.Process(p.Alcohol)
 	if err != nil {
-		return err
+		errs = append(errs, err.Error())
+	} else {
+		res, lifestyleActions = GetResults(alc, *engineContent.Body.Contents, lifestyleActions)
+		assessment.AssessmentsAttributes.Lifestyle.Alcohol = res
 	}
-	res, lifestyleActions = GetResults(alc, *engineContent.Body.Contents, lifestyleActions)
-	assessment.AssessmentsAttributes.Lifestyle.Alcohol = res
 
 	// Physical Activity
 	ph, err := engineGuide.Body.Lifestyle.PhysicalActivity.Process(p.PhysicalActivity)
 	if err != nil {
-		return err
+		errs = append(errs, err.Error())
+	} else {
+		res, lifestyleActions = GetResults(ph, *engineContent.Body.Contents, lifestyleActions)
+		assessment.AssessmentsAttributes.Lifestyle.PhysicalActivity = res
 	}
-	res, lifestyleActions = GetResults(ph, *engineContent.Body.Contents, lifestyleActions)
-	assessment.AssessmentsAttributes.Lifestyle.PhysicalActivity = res
 
 	// Fruits (Diet)
 	frt, err := engineGuide.Body.Lifestyle.Diet.Fruit.Process(p.Fruits)
 	if err != nil {
-		return err
+		errs = append(errs, err.Error())
+	} else {
+		res, lifestyleActions = GetResults(frt, *engineContent.Body.Contents, lifestyleActions)
+		assessment.AssessmentsAttributes.Lifestyle.Diet.Fruit = res
 	}
-	res, lifestyleActions = GetResults(frt, *engineContent.Body.Contents, lifestyleActions)
-	assessment.AssessmentsAttributes.Lifestyle.Diet.Fruit = res
 
 	// Vegetables (Diet)
 	veg, err := engineGuide.Body.Lifestyle.Diet.Vegetables.Process(p.Vegetables)
 	if err != nil {
-		return err
+		errs = append(errs, err.Error())
+	} else {
+		res, lifestyleActions = GetResults(veg, *engineContent.Body.Contents, lifestyleActions)
+		assessment.AssessmentsAttributes.Lifestyle.Diet.Vegetable = res
 	}
-	res, lifestyleActions = GetResults(veg, *engineContent.Body.Contents, lifestyleActions)
-	assessment.AssessmentsAttributes.Lifestyle.Diet.Vegetable = res
 
 	// BMI
 	bmi, err := engineGuide.Body.BodyComposition.BMI.Process(p.Height, p.Weight)
 	if err != nil {
-		return err
+		errs = append(errs, err.Error())
+	} else {
+		res, lifestyleActions = GetResults(bmi, *engineContent.Body.Contents, lifestyleActions)
+		assessment.AssessmentsAttributes.BodyComposition.BMI = res
 	}
-	res, lifestyleActions = GetResults(bmi, *engineContent.Body.Contents, lifestyleActions)
-	assessment.AssessmentsAttributes.BodyComposition.BMI = res
 
 	// Waist Circumference
 	waistCirc, err := engineGuide.Body.BodyComposition.WaistCirc.Process(p.Gender, p.Waist, p.WaistUnit)
 	if err != nil {
-		return err
+		errs = append(errs, err.Error())
+	} else {
+		res, lifestyleActions = GetResults(waistCirc, *engineContent.Body.Contents, lifestyleActions)
+		assessment.AssessmentsAttributes.BodyComposition.WaistCirc = res
 	}
-	res, lifestyleActions = GetResults(waistCirc, *engineContent.Body.Contents, lifestyleActions)
-	assessment.AssessmentsAttributes.BodyComposition.WaistCirc = res
 
 	// WHR
 	whr, err := engineGuide.Body.BodyComposition.WHR.Process(p.Gender, p.Waist, p.Hip)
 	if err != nil {
-		return err
+		errs = append(errs, err.Error())
+	} else {
+		res, lifestyleActions = GetResults(whr, *engineContent.Body.Contents, lifestyleActions)
+		assessment.AssessmentsAttributes.BodyComposition.WHR = res
 	}
-	res, lifestyleActions = GetResults(whr, *engineContent.Body.Contents, lifestyleActions)
-	assessment.AssessmentsAttributes.BodyComposition.WHR = res
 
 	// BodyFat
 	bodyFat, err := engineGuide.Body.BodyComposition.BodyFat.Process(p.Gender, p.Age, p.BodyFat)
 	if err != nil {
-		return err
+		errs = append(errs, err.Error())
+	} else {
+		res, lifestyleActions = GetResults(bodyFat, *engineContent.Body.Contents, lifestyleActions)
+		assessment.AssessmentsAttributes.BodyComposition.BodyFat = res
 	}
-	res, lifestyleActions = GetResults(bodyFat, *engineContent.Body.Contents, lifestyleActions)
-	assessment.AssessmentsAttributes.BodyComposition.BodyFat = res
 
 	// Diabetes
 	diabetes, err := engineGuide.Body.Diabetes.Process(p.Diabetes, p.Bsl, p.BslType, p.BslUnit)
 	if err != nil {
-		return err
+		errs = append(errs, err.Error())
+	} else {
+		res, followupActions = GetResults(diabetes, *engineContent.Body.Contents, followupActions)
+		assessment.AssessmentsAttributes.Diabetes = res
 	}
-	res, followupActions = GetResults(diabetes, *engineContent.Body.Contents, followupActions)
-	assessment.AssessmentsAttributes.Diabetes = res
 
 	// Blood Pressure
 	diab := false
@@ -199,10 +211,11 @@ func (d *Data) get(ctx context.Context) error {
 	}
 	bp, err := engineGuide.Body.BloodPressure.Process(diab, p.Sbp, p.Dbp)
 	if err != nil {
-		return err
+		errs = append(errs, err.Error())
+	} else {
+		res, followupActions = GetResults(bp, *engineContent.Body.Contents, followupActions)
+		assessment.AssessmentsAttributes.BloodPressure = res
 	}
-	res, followupActions = GetResults(bp, *engineContent.Body.Contents, followupActions)
-	assessment.AssessmentsAttributes.BloodPressure = res
 
 	// CVD
 	cvdScore := -1.0
@@ -215,17 +228,18 @@ func (d *Data) get(ctx context.Context) error {
 		res, followupActions = GetResults(cvd, *engineContent.Body.Contents, followupActions)
 		assessment.AssessmentsAttributes.CVD = res
 	} else {
-		return err
+		errs = append(errs, err.Error())
 	}
 
 	// Cholesterol
 	if cvdScore > 0 {
 		chol, err := engineGuide.Body.Cholesterol.TotalCholesterol.Process(cvdScore, p.Age, p.TChol, p.CholUnit, "total cholesterol")
 		if err != nil {
-			return err
+			errs = append(errs, err.Error())
+		} else {
+			res, medicationsActions = GetResults(chol, *engineContent.Body.Contents, medicationsActions)
+			assessment.AssessmentsAttributes.Cholesterol.TotalCholesterol = res
 		}
-		res, medicationsActions = GetResults(chol, *engineContent.Body.Contents, medicationsActions)
-		assessment.AssessmentsAttributes.Cholesterol.TotalCholesterol = res
 	}
 
 	assessment.RecommendationsAttributes.Lifestyle.Actions = lifestyleActions
@@ -233,6 +247,7 @@ func (d *Data) get(ctx context.Context) error {
 	assessment.RecommendationsAttributes.Followup.Actions = followupActions
 
 	d.Algorithm = assessment
+	d.Errors = errs
 
 	return nil
 }
