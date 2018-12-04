@@ -114,13 +114,29 @@ func (d *Data) get(ctx context.Context) error {
 	var res datastructure.Assessment
 	errs := make([]string, 0)
 
+	lifestyleGrading := 0
+	bodyCompositionGrading := 0
+	cholesterolGrading := 0
+
+	referral := false
+	referralUrgent := false
+	referralReasons := make([]string, 0)
+
 	// Smoking
 	sm, err := engineGuide.Body.Lifestyle.Smoking.Process(p.Smoker.CurrentSmoker, p.Smoker.ExSmoker, p.Smoker.QuitWithinYear)
 	if err != nil {
 		errs = append(errs, err.Error())
 	} else {
 		res, lifestyleActions = GetResults(sm, *engineContent.Body.Contents, lifestyleActions)
-		assessment.AssessmentsAttributes.Lifestyle.Smoking = res
+		assessment.AssessmentsAttributes.Lifestyle.Components.Smoking = res
+		lifestyleGrading += res.Grading
+		if res.Refer != "no" {
+			referral = referral || true
+			if res.Refer == "urgent" {
+				referralUrgent = referralUrgent || true
+			}
+			referralReasons = append(referralReasons, res.Eval)
+		}
 	}
 
 	// Alcohol
@@ -129,7 +145,15 @@ func (d *Data) get(ctx context.Context) error {
 		errs = append(errs, err.Error())
 	} else {
 		res, lifestyleActions = GetResults(alc, *engineContent.Body.Contents, lifestyleActions)
-		assessment.AssessmentsAttributes.Lifestyle.Alcohol = res
+		assessment.AssessmentsAttributes.Lifestyle.Components.Alcohol = res
+		lifestyleGrading += res.Grading
+		if res.Refer != "no" {
+			referral = referral || true
+			if res.Refer == "urgent" {
+				referralUrgent = referralUrgent || true
+			}
+			referralReasons = append(referralReasons, res.Eval)
+		}
 	}
 
 	// Physical Activity
@@ -138,8 +162,18 @@ func (d *Data) get(ctx context.Context) error {
 		errs = append(errs, err.Error())
 	} else {
 		res, lifestyleActions = GetResults(ph, *engineContent.Body.Contents, lifestyleActions)
-		assessment.AssessmentsAttributes.Lifestyle.PhysicalActivity = res
+		assessment.AssessmentsAttributes.Lifestyle.Components.PhysicalActivity = res
+		lifestyleGrading += res.Grading
+		if res.Refer != "no" {
+			referral = referral || true
+			if res.Refer == "urgent" {
+				referralUrgent = referralUrgent || true
+			}
+			referralReasons = append(referralReasons, res.Eval)
+		}
 	}
+
+	dietGrading := 0
 
 	// Fruits (Diet)
 	frt, err := engineGuide.Body.Lifestyle.Diet.Fruit.Process(p.Fruits)
@@ -147,7 +181,15 @@ func (d *Data) get(ctx context.Context) error {
 		errs = append(errs, err.Error())
 	} else {
 		res, lifestyleActions = GetResults(frt, *engineContent.Body.Contents, lifestyleActions)
-		assessment.AssessmentsAttributes.Lifestyle.Diet.Fruit = res
+		assessment.AssessmentsAttributes.Lifestyle.Components.Diet.Components.Fruit = res
+		dietGrading += res.Grading
+		if res.Refer != "no" {
+			referral = referral || true
+			if res.Refer == "urgent" {
+				referralUrgent = referralUrgent || true
+			}
+			referralReasons = append(referralReasons, res.Eval)
+		}
 	}
 
 	// Vegetables (Diet)
@@ -156,7 +198,15 @@ func (d *Data) get(ctx context.Context) error {
 		errs = append(errs, err.Error())
 	} else {
 		res, lifestyleActions = GetResults(veg, *engineContent.Body.Contents, lifestyleActions)
-		assessment.AssessmentsAttributes.Lifestyle.Diet.Vegetable = res
+		assessment.AssessmentsAttributes.Lifestyle.Components.Diet.Components.Vegetable = res
+		dietGrading += res.Grading
+		if res.Refer != "no" {
+			referral = referral || true
+			if res.Refer == "urgent" {
+				referralUrgent = referralUrgent || true
+			}
+			referralReasons = append(referralReasons, res.Eval)
+		}
 	}
 
 	// BMI
@@ -165,7 +215,15 @@ func (d *Data) get(ctx context.Context) error {
 		errs = append(errs, err.Error())
 	} else {
 		res, lifestyleActions = GetResults(bmi, *engineContent.Body.Contents, lifestyleActions)
-		assessment.AssessmentsAttributes.BodyComposition.BMI = res
+		assessment.AssessmentsAttributes.BodyComposition.Components.BMI = res
+		bodyCompositionGrading += res.Grading
+		if res.Refer != "no" {
+			referral = referral || true
+			if res.Refer == "urgent" {
+				referralUrgent = referralUrgent || true
+			}
+			referralReasons = append(referralReasons, res.Eval)
+		}
 	}
 
 	// Waist Circumference
@@ -174,7 +232,15 @@ func (d *Data) get(ctx context.Context) error {
 		errs = append(errs, err.Error())
 	} else {
 		res, lifestyleActions = GetResults(waistCirc, *engineContent.Body.Contents, lifestyleActions)
-		assessment.AssessmentsAttributes.BodyComposition.WaistCirc = res
+		assessment.AssessmentsAttributes.BodyComposition.Components.WaistCirc = res
+		bodyCompositionGrading += res.Grading
+		if res.Refer != "no" {
+			referral = referral || true
+			if res.Refer == "urgent" {
+				referralUrgent = referralUrgent || true
+			}
+			referralReasons = append(referralReasons, res.Eval)
+		}
 	}
 
 	// WHR
@@ -183,7 +249,15 @@ func (d *Data) get(ctx context.Context) error {
 		errs = append(errs, err.Error())
 	} else {
 		res, lifestyleActions = GetResults(whr, *engineContent.Body.Contents, lifestyleActions)
-		assessment.AssessmentsAttributes.BodyComposition.WHR = res
+		assessment.AssessmentsAttributes.BodyComposition.Components.WHR = res
+		bodyCompositionGrading += res.Grading
+		if res.Refer != "no" {
+			referral = referral || true
+			if res.Refer == "urgent" {
+				referralUrgent = referralUrgent || true
+			}
+			referralReasons = append(referralReasons, res.Eval)
+		}
 	}
 
 	// BodyFat
@@ -192,7 +266,15 @@ func (d *Data) get(ctx context.Context) error {
 		errs = append(errs, err.Error())
 	} else {
 		res, lifestyleActions = GetResults(bodyFat, *engineContent.Body.Contents, lifestyleActions)
-		assessment.AssessmentsAttributes.BodyComposition.BodyFat = res
+		assessment.AssessmentsAttributes.BodyComposition.Components.BodyFat = res
+		bodyCompositionGrading += res.Grading
+		if res.Refer != "no" {
+			referral = referral || true
+			if res.Refer == "urgent" {
+				referralUrgent = referralUrgent || true
+			}
+			referralReasons = append(referralReasons, res.Eval)
+		}
 	}
 
 	// Diabetes
@@ -202,6 +284,13 @@ func (d *Data) get(ctx context.Context) error {
 	} else {
 		res, followupActions = GetResults(diabetes, *engineContent.Body.Contents, followupActions)
 		assessment.AssessmentsAttributes.Diabetes = res
+		if res.Refer != "no" {
+			referral = referral || true
+			if res.Refer == "urgent" {
+				referralUrgent = referralUrgent || true
+			}
+			referralReasons = append(referralReasons, res.Eval)
+		}
 	}
 
 	// Blood Pressure
@@ -215,6 +304,13 @@ func (d *Data) get(ctx context.Context) error {
 	} else {
 		res, followupActions = GetResults(bp, *engineContent.Body.Contents, followupActions)
 		assessment.AssessmentsAttributes.BloodPressure = res
+		if res.Refer != "no" {
+			referral = referral || true
+			if res.Refer == "urgent" {
+				referralUrgent = referralUrgent || true
+			}
+			referralReasons = append(referralReasons, res.Eval)
+		}
 	}
 
 	// CVD
@@ -227,6 +323,13 @@ func (d *Data) get(ctx context.Context) error {
 		}
 		res, followupActions = GetResults(cvd, *engineContent.Body.Contents, followupActions)
 		assessment.AssessmentsAttributes.CVD = res
+		if res.Refer != "no" {
+			referral = referral || true
+			if res.Refer == "urgent" {
+				referralUrgent = referralUrgent || true
+			}
+			referralReasons = append(referralReasons, res.Eval)
+		}
 	} else {
 		errs = append(errs, err.Error())
 	}
@@ -238,13 +341,62 @@ func (d *Data) get(ctx context.Context) error {
 			errs = append(errs, err.Error())
 		} else {
 			res, medicationsActions = GetResults(chol, *engineContent.Body.Contents, medicationsActions)
-			assessment.AssessmentsAttributes.Cholesterol.TotalCholesterol = res
+			assessment.AssessmentsAttributes.Cholesterol.Components.TotalCholesterol = res
+			cholesterolGrading += res.Grading
+			if res.Refer != "no" {
+				referral = referral || true
+				if res.Refer == "urgent" {
+					referralUrgent = referralUrgent || true
+				}
+				referralReasons = append(referralReasons, res.Eval)
+			}
 		}
 	}
 
 	assessment.RecommendationsAttributes.Lifestyle.Actions = lifestyleActions
 	assessment.RecommendationsAttributes.Medications.Actions = medicationsActions
 	assessment.RecommendationsAttributes.Followup.Actions = followupActions
+
+	// Assessment message calculation
+	if engineContent.Body.Gradings.Lifestyle != nil {
+		for _, bc := range *engineContent.Body.Gradings.Lifestyle {
+			if bodyCompositionGrading >= *bc.Grading.From && bodyCompositionGrading <= *bc.Grading.To {
+				assessment.AssessmentsAttributes.BodyComposition.Message = *bc.Message
+			}
+		}
+	}
+
+	if engineContent.Body.Gradings.Diet != nil {
+		for _, bc := range *engineContent.Body.Gradings.Diet {
+			if bodyCompositionGrading >= *bc.Grading.From && bodyCompositionGrading <= *bc.Grading.To {
+				assessment.AssessmentsAttributes.BodyComposition.Message = *bc.Message
+			}
+		}
+	}
+
+	if engineContent.Body.Gradings.BodyComposition != nil {
+		for _, bc := range *engineContent.Body.Gradings.BodyComposition {
+			if bodyCompositionGrading >= *bc.Grading.From && bodyCompositionGrading <= *bc.Grading.To {
+				assessment.AssessmentsAttributes.BodyComposition.Message = *bc.Message
+			}
+		}
+	}
+
+	if engineContent.Body.Gradings.Cholesterol != nil {
+		for _, bc := range *engineContent.Body.Gradings.Cholesterol {
+			if bodyCompositionGrading >= *bc.Grading.From && bodyCompositionGrading <= *bc.Grading.To {
+				assessment.AssessmentsAttributes.BodyComposition.Message = *bc.Message
+			}
+		}
+	}
+
+	if referral {
+		assessment.AssessmentReferralAttibutes.Refer = true
+		if referralUrgent {
+			assessment.AssessmentReferralAttibutes.Urgent = true
+		}
+		assessment.AssessmentReferralAttibutes.Reasons = referralReasons
+	}
 
 	d.Algorithm = assessment
 	d.Errors = errs
@@ -261,12 +413,15 @@ func GetResults(response engine.Response, contents engine.Contents, advices data
 	assessment.Target = response.Target
 
 	if output, ok := contents[response.Code]; ok {
-		assessment.Output.Code = *output.Code
-		assessment.Output.Type = *output.Type
-		assessment.Output.Color = *output.Color
+		assessment.Eval = *output.Eval
+		assessment.TFL = *output.TFL
+		assessment.Message = *output.Message
+		assessment.Refer = *output.Refer
+		assessment.Grading = *output.Grading
+
 		advice := datastructure.Action{}
-		advice.Goal = *output.Type
-		advice.Messages = append(advice.Messages, *output.Advice)
+		advice.Goal = *output.Eval
+		advice.Messages = append(advice.Messages, *output.Message)
 		advices = append(advices, advice)
 	}
 

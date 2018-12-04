@@ -925,6 +925,19 @@
         "cholesterol": {
             "total_cholesterol": [
                 {
+                    "category": "Cholesterol, but not for CVD risk assessment",
+                    "definition": "Cholesterol, but not for CVD risk assessment",
+                    "conditions": [
+                        {
+                            "age": {
+                                "to": 39
+                            },
+                            "target": "<5mmol/L"
+                        }
+                    ],
+                    "code": "CHOL-NO-CVD-RISK"
+                },
+                {
                     "category": "refer for treatment",
                     "definition": "requires treatment for high cholesterol",
                     "conditions": [
@@ -995,23 +1008,13 @@
                     "conditions": [
                         {
                             "cvd": {
-                                "to": 10,
+                                "to": 9,
                                 "units": "%"
                             },
                             "target": "<5mmol/L"
                         }
                     ],
                     "code": "CHOL-LOW-CVD-RISK"
-                },
-                {
-                    "category": "Cholesterol, but not for CVD risk assessment",
-                    "definition": "Cholesterol, but not for CVD risk assessment",
-                    "conditions": [
-                        {
-                            "target": "<5mmol/L"
-                        }
-                    ],
-                    "code": "CHOL-NO-CVD-RISK"
                 }
             ]
         },

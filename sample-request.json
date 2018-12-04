@@ -68,7 +68,7 @@
                     "effectiveDate": "timestamp",
                     "name": "blood_pressure",
                     "category": "vital-signs",
-                    "value": "120/80",
+                    "value": "170/110",
                     "units": "mmHg",
                     "arm": "right"
                 },
@@ -76,7 +76,7 @@
                     "effectiveDate": "timestamp",
                     "name": "blood_pressure",
                     "category": "vital-signs",
-                    "value": "130/85",
+                    "value": "175/105",
                     "units": "mmHg",
                     "arm": "right"
                 },
@@ -84,7 +84,7 @@
                     "effectiveDate": "timestamp",
                     "name": "blood_pressure",
                     "category": "vital-signs",
-                    "value": "135/90",
+                    "value": "165/98",
                     "units": "mmHg",
                     "arm": "right"
                 },
@@ -143,14 +143,14 @@
                     "effectiveDate": "timestamp",
                     "name": "a1c",
                     "category": "blood-test",
-                    "value": 6.5,
+                    "value": 8.5,
                     "units": "%"
                 },
                 {
                     "effectiveDate": "timestamp",
                     "name": "blood_sugar",
                     "category": "blood-test",
-                    "value": 5.6,
+                    "value": 9.6,
                     "units": "mmol/L",
                     "type": "fasting"
                 },

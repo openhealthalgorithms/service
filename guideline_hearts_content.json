@@ -11,299 +11,359 @@
     "body": {
         "contents": {
             "SM-CURRENT": {
-                "code": "current_smoker",
-                "type": "Current smoker, advise to quit",
-                "color": "RED",
-                "advice": "Quit now. It's the best thing you can do for your health."
+                "eval": "current_smoker",
+                "grading": 0,
+                "tfl": "RED",
+                "message": "Quit now. It's the best thing you can do for your health.",
+                "refer": "no"
             },
             "SM-RECENTLY-QUIT": {
-                "code": "ex_smoker_quit_within_12_months",
-                "type": "Ex smoker, quit within the past 12 months",
-                "color": "AMBER",
-                "advice": "Quitting smoking is the best thing you can do for your health. If you need support to stay strong, speak to your doctor"
+                "eval": "ex_smoker_quit_within_12_months",
+                "grading": 0,
+                "tfl": "AMBER",
+                "message": "Quitting smoking is the best thing you can do for your health. If you need support to stay strong, speak to your doctor",
+                "refer": "no"
             },
             "SM-EX-SMOKER": {
-                "code": "ex_smoker",
-                "type": "Ex smoker, quit > 12 months ago",
-                "color": "GREEN",
-                "advice": "Good work quitting. It's the best thing you can do for your health. Stay strong"
+                "eval": "ex_smoker",
+                "grading": 0,
+                "tfl": "GREEN",
+                "message": "Good work quitting. It's the best thing you can do for your health. Stay strong",
+                "refer": "no"
             },
             "SM-NON-SMOKER": {
-                "code": "non-smoker",
-                "type": "Non Smoker",
-                "color": "GREEN",
-                "advice": "Great. Your lungs thank you!"
+                "eval": "non-smoker",
+                "grading": 0,
+                "tfl": "GREEN",
+                "message": "Great. Your lungs thank you!",
+                "refer": "no"
             },
             "AL-NONE": {
-                "code": "non drinker",
-                "type": "Does not drink alcohol",
-                "color": "GREEN",
-                "advice": ""
+                "eval": "non drinker",
+                "grading": 0,
+                "tfl": "GREEN",
+                "message": "",
+                "refer": "no"
             },
             "AL-1": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+                "eval": "",
+                "grading": 0,
+                "tfl": "",
+                "message": "",
+                "refer": "no"
             },
             "AL-2": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+                "eval": "",
+                "grading": 0,
+                "tfl": "",
+                "message": "",
+                "refer": "no"
             },
             "AL-3": {
-                "code": "",
-                "type": "",
-                "color": "",
-                "advice": ""
+                "eval": "",
+                "grading": 0,
+                "tfl": "",
+                "message": "",
+                "refer": "no"
             },
             "PA-SEDENTARY": {
-                "code": "Sedentary",
-                "type": "Little or no exercise",
-                "color": "RED",
-                "advice": "Need to move more"
+                "eval": "Sedentary",
+                "grading": 0,
+                "tfl": "RED",
+                "message": "Need to move more",
+                "refer": "no"
             },
             "PA-UNDER": {
-                "code": "Under target",
-                "type": "Below target",
-                "color": "AMBER",
-                "advice": "Not quit meeting targets. Aim for 150 minutes of moderate OR 75 minutes of vigroous intensity exercise per week"
+                "eval": "Under target",
+                "grading": 0,
+                "tfl": "AMBER",
+                "message": "Not quit meeting targets. Aim for 150 minutes of moderate OR 75 minutes of vigroous intensity exercise per week",
+                "refer": "no"
             },
             "PA-TARGET": {
-                "code": "On target",
-                "type": "Meeting physical activity targets",
-                "color": "GREEN",
-                "advice": "Keep up the physical activity. Every little bit counts!"
+                "eval": "On target",
+                "grading": 0,
+                "tfl": "GREEN",
+                "message": "Keep up the physical activity. Every little bit counts!",
+                "refer": "no"
             },
             "FRT-LOW": {
-                "code": "Below target",
-                "type": "Low fruit consumption",
-                "color": "AMBER",
-                "advice": "Fruit is good for your overall health."
+                "eval": "Below target",
+                "grading": 0,
+                "tfl": "AMBER",
+                "message": "Fruit is good for your overall health.",
+                "refer": "no"
             },
             "FRT-TARGET": {
-                "code": "On target",
-                "type": "Eating sufficient fruit",
-                "color": "GREEN",
-                "advice": "Keep eating fruit!"
+                "eval": "On target",
+                "grading": 0,
+                "tfl": "GREEN",
+                "message": "Keep eating fruit!",
+                "refer": "no"
             },
             "VEG-LOW": {
-                "code": "Below target",
-                "type": "Low vegetable consumption",
-                "color": "AMBER",
-                "advice": "Eat more vegetables"
+                "eval": "Below target",
+                "grading": 0,
+                "tfl": "AMBER",
+                "message": "Eat more vegetables",
+                "refer": "no"
             },
             "VEG-TARGET": {
-                "code": "on target",
-                "type": "Eating sufficient vegetables",
-                "color": "GREEN",
-                "advice": "Vegetables are great for your health. Good job!"
+                "eval": "on target",
+                "grading": 0,
+                "tfl": "GREEN",
+                "message": "Vegetables are great for your health. Good job!",
+                "refer": "no"
             },
             "BMI-7": {
-                "code": "underweight",
-                "type": "Weight below normal range",
-                "color": "RED",
-                "advice": "Talk to a dietitian about safe weight gain"
+                "eval": "underweight",
+                "grading": 0,
+                "tfl": "RED",
+                "message": "Talk to a dietitian about safe weight gain",
+                "refer": "yes"
             },
             "BMI-2": {
-                "code": "normal_weight",
-                "type": "Weight in normal range",
-                "color": "GREEN",
-                "advice": "Regular diet and exercise will help you to maintain your current weight"
+                "eval": "normal_weight",
+                "grading": 0,
+                "tfl": "GREEN",
+                "message": "Regular diet and exercise will help you to maintain your current weight",
+                "refer": "no"
             },
             "BMI-1": {
-                "code": "overweight",
-                "type": "Weight above the healthy range",
-                "color": "AMBER",
-                "advice": "Being overweight can increase your risk of heart disease and diabetes"
+                "eval": "overweight",
+                "grading": 0,
+                "tfl": "AMBER",
+                "message": "Being overweight can increase your risk of heart disease and diabetes",
+                "refer": "no"
             },
             "BMI-0": {
-                "code": "obese",
-                "type": "Weight in the obese range",
-                "color": "RED",
-                "advice": "Obesity is a risk factor for developing many conditions. Talk to a dietitian today"
+                "eval": "obese",
+                "grading": 0,
+                "tfl": "RED",
+                "message": "Obesity is a risk factor for developing many conditions. Talk to a dietitian today",
+                "refer": "no"
             },
             "WST-NORMAL": {
-                "code": "healthy level",
-                "type": "healthy level",
-                "color": "GREEN",
-                "advice": "Waist circumference is within healthy range"
+                "eval": "healthy level",
+                "grading": 0,
+                "tfl": "GREEN",
+                "message": "Waist circumference is within healthy range",
+                "refer": "no"
             },
             "WST-HIGH": {
-                "code": "at risk",
-                "type": "above healthy range",
-                "color": "AMBER",
-                "advice": "Waist circumference is higher than health range"
+                "eval": "at risk",
+                "grading": 0,
+                "tfl": "AMBER",
+                "message": "Waist circumference is higher than health range",
+                "refer": "yes"
             },
             "WHR-NORMAL": {
-                "code": "normal",
-                "type": "Normal waist hip ratio",
-                "color": "GREEN",
-                "advice": "Your wait hip ratio is normal"
+                "eval": "normal",
+                "grading": 0,
+                "tfl": "GREEN",
+                "message": "Your wait hip ratio is normal",
+                "refer": "no"
             },
             "WHR-HIGH": {
-                "code": "abnormal",
-                "type": "Abnormal waist hip ratio",
-                "color": "AMBER",
-                "advice": "Your wait hip ratio is above the target"
+                "eval": "abnormal",
+                "grading": 0,
+                "tfl": "AMBER",
+                "message": "Your wait hip ratio is above the target",
+                "refer": "no"
             },
             "BFT-OBESE": {
-                "code": "obese body fat %",
-                "type": "body fat % in obese range for gender and age",
-                "color": "RED",
-                "advice": "Body fat is in the obese range. Discuss with health professional"
+                "eval": "obese body fat %",
+                "grading": 0,
+                "tfl": "RED",
+                "message": "Body fat is in the obese range. Discuss with health professional",
+                "refer": "yes"
             },
             "BFT-OVERWEIGHT": {
-                "code": "overweigh body fat %",
-                "type": "body fat % in the overweight range for gender and age",
-                "color": "AMBER",
-                "advice": "Body fat is in the obese range. Discuss with health professional"
+                "eval": "overweigh body fat %",
+                "grading": 0,
+                "tfl": "AMBER",
+                "message": "Body fat is in the obese range. Discuss with health professional",
+                "refer": "no"
             },
             "BFT-NORMAL": {
-                "code": "normal body fat %",
-                "type": "body fat % in the normal range for gender and age",
-                "color": "GREEN",
-                "advice": "Body fat is in a healthy range"
+                "eval": "normal body fat %",
+                "grading": 0,
+                "tfl": "GREEN",
+                "message": "Body fat is in a healthy range",
+                "refer": "no"
             },
             "BFT-UNDERWEIGHT": {
-                "code": "low body fat %",
-                "type": "body fat % is low for gender and age",
-                "color": "BLUE",
-                "advice": "Body fat is below normal. Discuss with a health professional"
+                "eval": "low body fat %",
+                "grading": 0,
+                "tfl": "BLUE",
+                "message": "Body fat is below normal. Discuss with a health professional",
+                "refer": "no"
             },
             "BP-EMERGENCY": {
-                "code": "BP severly elevated",
-                "type": "BP severly elevated",
-                "color": "DEEP-RED",
-                "advice": "Requires immediate referral to hospital"
+                "eval": "BP severly elevated",
+                "grading": 0,
+                "tfl": "DEEP-RED",
+                "message": "Requires immediate referral to hospital",
+                "refer": "urgent"
             },
             "BP-HTN-REVIEW": {
-                "code": "Hypertension for review",
-                "type": "Significantly elevated BP",
-                "color": "RED",
-                "advice": "Blood pressure is significantly elevated. Requires further assessment"
+                "eval": "Hypertension for review",
+                "grading": 0,
+                "tfl": "RED",
+                "message": "Blood pressure is significantly elevated. Requires further assessment",
+                "refer": "no"
             },
             "BP-HTN-DM": {
-                "code": "Poorly controlled BP with Diabetes",
-                "type": "High BP with DM",
-                "color": "AMBER",
-                "advice": "Blood pressure is above target with history of diabetes. Discuss with your doctor"
+                "eval": "Poorly controlled BP with Diabetes",
+                "grading": 0,
+                "tfl": "AMBER",
+                "message": "Blood pressure is above target with history of diabetes. Discuss with your doctor",
+                "refer": "no"
             },
             "BP-HTN": {
-                "code": "Hypertension",
-                "type": "Hypertension",
-                "color": "AMBER",
-                "advice": "Your BP indicates hypertension. Discuss with local health professional"
+                "eval": "Hypertension",
+                "grading": 0,
+                "tfl": "AMBER",
+                "message": "Your BP indicates hypertension. Discuss with local health professional",
+                "refer": "no"
             },
             "BP-DM-TARGET": {
-                "code": "On target with DM",
-                "type": "Normotensive with DM",
-                "color": "GREEN",
-                "advice": "Meeting BP targets with history of DM. Keep up the good work"
+                "eval": "On target with DM",
+                "grading": 0,
+                "tfl": "GREEN",
+                "message": "Meeting BP targets with history of DM. Keep up the good work",
+                "refer": "no"
             },
             "BP-ELEVATED": {
-                "code": "Elevated BP",
-                "type": "Mildly elevated",
-                "color": "GREEN",
-                "advice": "BP is slightly raised. Focus on diet and lifestyle"
+                "eval": "Elevated BP",
+                "grading": 0,
+                "tfl": "GREEN",
+                "message": "BP is slightly raised. Focus on diet and lifestyle",
+                "refer": "no"
             },
             "BP-TARGET": {
-                "code": "Normal BP",
-                "type": "Normotensive",
-                "color": "GREEN",
-                "advice": "BP is on target. Great job."
+                "eval": "Normal BP",
+                "grading": 0,
+                "tfl": "GREEN",
+                "message": "BP is on target. Great job.",
+                "refer": "no"
             },
             "DM-EXISTING": {
-                "code": "Existing diabetes",
-                "type": "History of DM",
-                "color": "AMBER",
-                "advice": "Existing diagnosis of Diabetes. Review management"
+                "eval": "Existing diabetes",
+                "grading": 0,
+                "tfl": "AMBER",
+                "message": "Existing diagnosis of Diabetes. Review management",
+                "refer": "no"
             },
             "DM-NEW-DIAGNOSIS": {
-                "code": "Newly diagnosed DM",
-                "type": "New diagnosis of DM",
-                "color": "RED",
-                "advice": "New diagnosis of diabetes based on pathology"
+                "eval": "Newly diagnosed DM",
+                "grading": 0,
+                "tfl": "RED",
+                "message": "New diagnosis of diabetes based on pathology",
+                "refer": "no"
             },
             "DM-PRE-DIABETES": {
-                "code": "Pre-diabetes",
-                "type": "Pre-diabetes",
-                "color": "AMBER",
-                "advice": "Pathology suggests 'pre-diabetes'. Discuss lifestyle modification"
+                "eval": "Pre-diabetes",
+                "grading": 0,
+                "tfl": "AMBER",
+                "message": "Pathology suggests 'pre-diabetes'. Discuss lifestyle modification",
+                "refer": "no"
             },
             "DM-NONE": {
-                "code": "Not diabetic",
-                "type": "Not diabetic",
-                "color": "GREEN",
-                "advice": "Normal blood sugar. Review family history for follow up"
+                "eval": "Not diabetic",
+                "grading": 0,
+                "tfl": "GREEN",
+                "message": "Normal blood sugar. Review family history for follow up",
+                "refer": "no"
             },
             "CHOL-REFER": {
-                "code": "Refer chol",
-                "type": "Cholesterol above 8. Refer",
-                "color": "DEEP-RED",
-                "advice": "Cholesterollevel > 8mmol/L requires referral and use of statins"
+                "eval": "Refer chol",
+                "grading": 0,
+                "tfl": "DEEP-RED",
+                "message": "Cholesterollevel > 8mmol/L requires referral and use of statins",
+                "refer": "no"
             },
             "CHOL-VERY-HIGH-CVD-RISK": {
-                "code": "Chol high cvd risk",
-                "type": "High CVD risk",
-                "color": "RED",
-                "advice": "Treat based on high CVD risk regardless of total cholesterol"
+                "eval": "Chol high cvd risk",
+                "grading": 0,
+                "tfl": "RED",
+                "message": "Treat based on high CVD risk regardless of total cholesterol",
+                "refer": "urgents"
             },
             "CHOL-ELEVATED-WITH-HIGH-CVD-RISK": {
-                "code": "Elevated cholesterol and high CVD risk",
-                "type": "Elevated cholesterol and high CVD risk",
-                "color": "AMBER",
-                "advice": "Based on Tchol > 5 and high CVD risk, requires medication"
+                "eval": "Elevated cholesterol and high CVD risk",
+                "grading": 0,
+                "tfl": "AMBER",
+                "message": "Based on Tchol > 5 and high CVD risk, requires medication",
+                "refer": "no"
             },
             "CHOL-MOD-CVD-RISK": {
-                "code": "Mod CVD risk",
-                "type": "Moderate CVD risk",
-                "color": "GREEN",
-                "advice": "Lipid lowering diet. Manage CVD risk factors"
+                "eval": "Mod CVD risk",
+                "grading": 0,
+                "tfl": "GREEN",
+                "message": "Lipid lowering diet. Manage CVD risk factors",
+                "refer": "no"
             },
              "CHOL-NO-CVD-RISK": {
-                "code": "CVD risk not calculated",
-                "type": "CVD risk not calculated",
-                "color": "GREEN",
-                "advice": "Maintain a healthy diet"
+                "eval": "CVD risk not calculated",
+                "grading": 0,
+                "tfl": "GREEN",
+                "message": "Maintain a healthy diet",
+                "refer": "no"
             },
             "CVD-AGE-FALSE": {
-                "code": "not for cvd assessment due to age",
-                "type": "Age < 40",
-                "color": "GRAY",
-                "advice": "Report based on individual risk factors"
+                "eval": "not for cvd assessment due to age",
+                "grading": 0,
+                "tfl": "GRAY",
+                "message": "Report based on individual risk factors",
+                "refer": "no"
             },
             "CVD-1": {
-                "code": "high_risk_condition",
-                "type": "Existing High Risk Condition",
-                "color": "DARK-RED",
-                "advice": "You have a high risk condition. Not for CVD Risk Assessment"
+                "eval": "high_risk_condition",
+                "grading": 0,
+                "tfl": "DARK-RED",
+                "message": "You have a high risk condition. Not for CVD Risk Assessment",
+                "refer": "yes"
             },
             "CVD-4": {
-                "code": "low_risk",
-                "type": "You are at low risk",
-                "color": "GREEN",
-                "advice": "Your risk of a CVD event is low"
+                "eval": "low_risk",
+                "grading": 0,
+                "tfl": "GREEN",
+                "message": "Your risk of a CVD event is low",
+                "refer": "no"
             },
             "CVD-6": {
-                "code": "mod_risk",
-                "type": "You are at moderate risk",
-                "color": "AMBER",
-                "advice": "Your risk of a CVD event is mild"
+                "eval": "mod_risk",
+                "grading": 0,
+                "tfl": "AMBER",
+                "message": "Your risk of a CVD event is mild",
+                "refer": "no"
             },
             "CVD-8": {
-                "code": "high_risk",
-                "type": "You are at high risk",
-                "color": "RED",
-                "advice": "Your risk of a CVD event is High"
+                "eval": "high_risk",
+                "grading": 0,
+                "tfl": "RED",
+                "message": "Your risk of a CVD event is High",
+                "refer": "urgent"
             },
             "CVD-10": {
-                "code": "very_high_risk",
-                "type": "You are at very high risk",
-                "color": "DARK-RED",
-                "advice": "You're at very high CVD risk"
+                "eval": "very_high_risk",
+                "grading": 0,
+                "tfl": "DARK-RED",
+                "message": "You're at very high CVD risk",
+                "refer": "urgent"
             }
+        },
+        "gradings": {
+            "body-composition": [
+                {
+                    "grading": {
+                        "from": 0,
+                        "to": 4
+                    },
+                    "message": "in normal range, congratualtions"
+                }
+            ]
         }
     }
 }
