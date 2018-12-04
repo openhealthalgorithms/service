@@ -192,7 +192,7 @@ func respondSuccess(w http.ResponseWriter, data interface{}) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	enableCors(&w)
+	// enableCors(&w)
 	w.WriteHeader(http.StatusOK)
 	w.Write(respJSON)
 }
@@ -202,11 +202,12 @@ func respondError(w http.ResponseWriter, err error, code int) {
 	respJSON, _ := json.Marshal(resp)
 
 	w.Header().Set("Content-Type", "application/json")
-	enableCors(&w)
+	// enableCors(&w)
 	w.WriteHeader(code)
 	w.Write(respJSON)
 }
 
 func enableCors(w *http.ResponseWriter) {
 	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+	(*w).Header().Set("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS")
 }
