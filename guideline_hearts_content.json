@@ -6,7 +6,7 @@
         "content_type": "message file",
         "published_by": "Fred Hersch",
         "version_number": "0.1",
-        "last_updated" : "12-11-2018"
+        "last_updated": "12-11-2018"
     },
     "body": {
         "contents": {
@@ -89,7 +89,7 @@
             },
             "FRT-LOW": {
                 "eval": "Below target",
-                "grading": 0,
+                "grading": 5,
                 "tfl": "AMBER",
                 "message": "Fruit is good for your overall health.",
                 "refer": "no"
@@ -103,7 +103,7 @@
             },
             "VEG-LOW": {
                 "eval": "Below target",
-                "grading": 0,
+                "grading": 5,
                 "tfl": "AMBER",
                 "message": "Eat more vegetables",
                 "refer": "no"
@@ -117,7 +117,7 @@
             },
             "BMI-7": {
                 "eval": "underweight",
-                "grading": 0,
+                "grading": 10,
                 "tfl": "RED",
                 "message": "Talk to a dietitian about safe weight gain",
                 "refer": "yes"
@@ -131,14 +131,14 @@
             },
             "BMI-1": {
                 "eval": "overweight",
-                "grading": 0,
+                "grading": 5,
                 "tfl": "AMBER",
                 "message": "Being overweight can increase your risk of heart disease and diabetes",
                 "refer": "no"
             },
             "BMI-0": {
                 "eval": "obese",
-                "grading": 0,
+                "grading": 10,
                 "tfl": "RED",
                 "message": "Obesity is a risk factor for developing many conditions. Talk to a dietitian today",
                 "refer": "no"
@@ -152,7 +152,7 @@
             },
             "WST-HIGH": {
                 "eval": "at risk",
-                "grading": 0,
+                "grading": 10,
                 "tfl": "AMBER",
                 "message": "Waist circumference is higher than health range",
                 "refer": "yes"
@@ -166,21 +166,21 @@
             },
             "WHR-HIGH": {
                 "eval": "abnormal",
-                "grading": 0,
+                "grading": 10,
                 "tfl": "AMBER",
                 "message": "Your wait hip ratio is above the target",
                 "refer": "no"
             },
             "BFT-OBESE": {
                 "eval": "obese body fat %",
-                "grading": 0,
+                "grading": 10,
                 "tfl": "RED",
                 "message": "Body fat is in the obese range. Discuss with health professional",
                 "refer": "yes"
             },
             "BFT-OVERWEIGHT": {
                 "eval": "overweigh body fat %",
-                "grading": 0,
+                "grading": 5,
                 "tfl": "AMBER",
                 "message": "Body fat is in the obese range. Discuss with health professional",
                 "refer": "no"
@@ -197,7 +197,7 @@
                 "grading": 0,
                 "tfl": "BLUE",
                 "message": "Body fat is below normal. Discuss with a health professional",
-                "refer": "no"
+                "refer": "5"
             },
             "BP-EMERGENCY": {
                 "eval": "BP severly elevated",
@@ -211,21 +211,21 @@
                 "grading": 0,
                 "tfl": "RED",
                 "message": "Blood pressure is significantly elevated. Requires further assessment",
-                "refer": "no"
+                "refer": "urgent"
             },
             "BP-HTN-DM": {
                 "eval": "Poorly controlled BP with Diabetes",
                 "grading": 0,
                 "tfl": "AMBER",
                 "message": "Blood pressure is above target with history of diabetes. Discuss with your doctor",
-                "refer": "no"
+                "refer": "yes"
             },
             "BP-HTN": {
                 "eval": "Hypertension",
                 "grading": 0,
                 "tfl": "AMBER",
                 "message": "Your BP indicates hypertension. Discuss with local health professional",
-                "refer": "no"
+                "refer": "yes"
             },
             "BP-DM-TARGET": {
                 "eval": "On target with DM",
@@ -253,14 +253,14 @@
                 "grading": 0,
                 "tfl": "AMBER",
                 "message": "Existing diagnosis of Diabetes. Review management",
-                "refer": "no"
+                "refer": "yes"
             },
             "DM-NEW-DIAGNOSIS": {
                 "eval": "Newly diagnosed DM",
                 "grading": 0,
                 "tfl": "RED",
                 "message": "New diagnosis of diabetes based on pathology",
-                "refer": "no"
+                "refer": "yes"
             },
             "DM-PRE-DIABETES": {
                 "eval": "Pre-diabetes",
@@ -281,7 +281,7 @@
                 "grading": 0,
                 "tfl": "DEEP-RED",
                 "message": "Cholesterollevel > 8mmol/L requires referral and use of statins",
-                "refer": "no"
+                "refer": "urgent"
             },
             "CHOL-VERY-HIGH-CVD-RISK": {
                 "eval": "Chol high cvd risk",
@@ -295,7 +295,7 @@
                 "grading": 0,
                 "tfl": "AMBER",
                 "message": "Based on Tchol > 5 and high CVD risk, requires medication",
-                "refer": "no"
+                "refer": "yes"
             },
             "CHOL-MOD-CVD-RISK": {
                 "eval": "Mod CVD risk",
@@ -304,7 +304,7 @@
                 "message": "Lipid lowering diet. Manage CVD risk factors",
                 "refer": "no"
             },
-             "CHOL-NO-CVD-RISK": {
+            "CHOL-NO-CVD-RISK": {
                 "eval": "CVD risk not calculated",
                 "grading": 0,
                 "tfl": "GREEN",
@@ -361,7 +361,37 @@
                         "from": 0,
                         "to": 4
                     },
-                    "message": "in normal range, congratualtions"
+                    "message": "You are in normal range."
+                },
+                {
+                    "grading": {
+                        "from": 5,
+                        "to": 9
+                    },
+                    "message": "You are mildly out of shape."
+                },
+                {
+                    "grading": {
+                        "from": 10,
+                        "to": 100
+                    },
+                    "message": "You are in abnormal range. Try to do more exercise and follow guidelines for healthy life."
+                }
+            ],
+            "diet": [
+                {
+                    "grading": {
+                        "from": 0,
+                        "to": 4
+                    },
+                    "message": "You are following healthy diet, keep up the good work."
+                },
+                {
+                    "grading": {
+                        "from": 5,
+                        "to": 20
+                    },
+                    "message": "You are not following healthy diet. Please make sure to consume ample fruits and vegetables."
                 }
             ]
         }

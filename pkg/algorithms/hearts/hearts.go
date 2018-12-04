@@ -360,16 +360,16 @@ func (d *Data) get(ctx context.Context) error {
 	// Assessment message calculation
 	if engineContent.Body.Gradings.Lifestyle != nil {
 		for _, bc := range *engineContent.Body.Gradings.Lifestyle {
-			if bodyCompositionGrading >= *bc.Grading.From && bodyCompositionGrading <= *bc.Grading.To {
-				assessment.AssessmentsAttributes.BodyComposition.Message = *bc.Message
+			if lifestyleGrading >= *bc.Grading.From && lifestyleGrading <= *bc.Grading.To {
+				assessment.AssessmentsAttributes.Lifestyle.Message = *bc.Message
 			}
 		}
 	}
 
 	if engineContent.Body.Gradings.Diet != nil {
 		for _, bc := range *engineContent.Body.Gradings.Diet {
-			if bodyCompositionGrading >= *bc.Grading.From && bodyCompositionGrading <= *bc.Grading.To {
-				assessment.AssessmentsAttributes.BodyComposition.Message = *bc.Message
+			if dietGrading >= *bc.Grading.From && dietGrading <= *bc.Grading.To {
+				assessment.AssessmentsAttributes.Lifestyle.Components.Diet.Message = *bc.Message
 			}
 		}
 	}
@@ -384,8 +384,8 @@ func (d *Data) get(ctx context.Context) error {
 
 	if engineContent.Body.Gradings.Cholesterol != nil {
 		for _, bc := range *engineContent.Body.Gradings.Cholesterol {
-			if bodyCompositionGrading >= *bc.Grading.From && bodyCompositionGrading <= *bc.Grading.To {
-				assessment.AssessmentsAttributes.BodyComposition.Message = *bc.Message
+			if cholesterolGrading >= *bc.Grading.From && cholesterolGrading <= *bc.Grading.To {
+				assessment.AssessmentsAttributes.Cholesterol.Message = *bc.Message
 			}
 		}
 	}
