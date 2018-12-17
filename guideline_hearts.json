@@ -759,7 +759,7 @@
                 "code": "BP-HTN"
             },
             {
-                "category": "normal bp in  diabetes",
+                "category": "normal bp in diabetic",
                 "definition": "normal pressure in patient with diabetes",
                 "conditions": [
                     {
@@ -834,15 +834,85 @@
         ],
         "diabetes": [
             {
-                "category": "existing diabetes",
+                "category": "existing diabetes well controlled, hba1c",
                 "definition": "patient has existing diabetes",
                 "conditions": [
                     {
                         "hx_diabetes": true,
-                        "target": "no"
+                        "hba1c": {
+                            "type": "",
+                            "to": 6.0,
+                            "unit": "%"
+                        },
+                        "target": "< 6.5mmol/L"
                     }
                 ],
-                "code": "DM-EXISTING"
+                "code": "DM-EXISTING-GOOD-CONTROL"
+            },
+            {
+                "category": "Existing Diabetes, over controlled via HbA1c ",
+                "definition": "Patient with existing diabetes with very tight glucose control as measured by HbA1c",
+                "conditions": [
+                    {
+                        "hx_diabetes": true,
+                        "hba1c": {
+                            "type": "",
+                            "from" : 4.0,
+                            "to": 6.9,
+                            "unit": "%"
+                        },
+                        "target": "7-8%"
+                    }
+                ],
+                "code": "DM-EXISTING-OVER-CONTROL"
+            },
+            {
+                "category": "Existing Diabetes, poorly controlled via HbA1c ",
+                "definition": "Patient with existing diabetes with poor glucose control as measured by HbA1c",
+                "conditions": [
+                    {
+                        "hx_diabetes": true,
+                        "hba1c": {
+                            "type": "",
+                            "from" : 8.0,
+                            "unit": "%"
+                        },
+                        "target": "7-8%"
+                    }
+                ],
+                "code": "DM-EXISTING-POOR-CONTROL"
+            },
+            {
+                "category": "existing diabetes well controlled, fasting bsl",
+                "definition": "patient has existing diabetes",
+                "conditions": [
+                    {
+                        "hx_diabetes": true,
+                        "blood_sugar": {
+                            "type": "fasting",
+                            "to": 5.0,
+                            "unit": "mmol/L"
+                        },
+                        "target": "< 6.5mmol/L"
+                    }
+                ],
+                "code": "DM-EXISTING-GOOD-CONTROL"
+            },
+            {
+                "category": "existing diabetes poorly controlled",
+                "definition": "patient has existing diabetes",
+                "conditions": [
+                    {
+                        "hx_diabetes": true,
+                        "blood_sugar": {
+                            "type": "fasting",
+                            "from": 5,
+                            "unit": "mmol/L"
+                        },
+                        "target": "< 6.5mmol/L"
+                    }
+                ],
+                "code": "DM-EXISTING-POOR-CONTROL"
             },
             {
                 "category": "diabetes",
@@ -925,19 +995,6 @@
         "cholesterol": {
             "total_cholesterol": [
                 {
-                    "category": "Cholesterol, but not for CVD risk assessment",
-                    "definition": "Cholesterol, but not for CVD risk assessment",
-                    "conditions": [
-                        {
-                            "age": {
-                                "to": 39
-                            },
-                            "target": "<5mmol/L"
-                        }
-                    ],
-                    "code": "CHOL-NO-CVD-RISK"
-                },
-                {
                     "category": "refer for treatment",
                     "definition": "requires treatment for high cholesterol",
                     "conditions": [
@@ -956,9 +1013,6 @@
                     "definition": "requires treatment for cholesterol regardless of level based on high cvd risk",
                     "conditions": [
                         {
-                            "age": {
-                                "from": 35
-                            },
                             "cvd": {
                                 "from": 30,
                                 "units": "%"
@@ -1008,13 +1062,28 @@
                     "conditions": [
                         {
                             "cvd": {
-                                "to": 9,
+                                "from": 5,
+                                "to": 10,
                                 "units": "%"
                             },
                             "target": "<5mmol/L"
                         }
                     ],
                     "code": "CHOL-LOW-CVD-RISK"
+                },
+                {
+                    "category": "Cholesterol, but not for CVD risk assessment",
+                    "definition": "Cholesterol, but not for CVD risk assessment",
+                    "conditions": [
+                        {
+                            "cvd": {
+                                "to": 4,
+                                "units": "%"
+                            },
+                            "target": "<5mmol/L"
+                        }
+                    ],
+                    "code": "CHOL-NO-CVD-RISK"
                 }
             ]
         },

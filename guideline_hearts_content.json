@@ -3,43 +3,43 @@
         "guideline_name": "HEARTS",
         "publisher": "World Health Organisation",
         "publication_date": "",
-        "content_type": "message file",
+        "content_type": "Message file",
         "published_by": "Fred Hersch",
-        "version_number": "0.1",
-        "last_updated": "12-11-2018"
+        "version_number": "0.2",
+        "last_updated": "06-12-2018"
     },
     "body": {
         "contents": {
             "SM-CURRENT": {
-                "eval": "current_smoker",
+                "eval": "Smoker",
                 "grading": 0,
                 "tfl": "RED",
                 "message": "Quit now. It's the best thing you can do for your health.",
                 "refer": "no"
             },
             "SM-RECENTLY-QUIT": {
-                "eval": "ex_smoker_quit_within_12_months",
+                "eval": "Ex-Smoker",
                 "grading": 0,
                 "tfl": "AMBER",
                 "message": "Quitting smoking is the best thing you can do for your health. If you need support to stay strong, speak to your doctor",
                 "refer": "no"
             },
             "SM-EX-SMOKER": {
-                "eval": "ex_smoker",
+                "eval": "Non Smoker",
                 "grading": 0,
                 "tfl": "GREEN",
                 "message": "Good work quitting. It's the best thing you can do for your health. Stay strong",
                 "refer": "no"
             },
             "SM-NON-SMOKER": {
-                "eval": "non-smoker",
+                "eval": "Non Smoker",
                 "grading": 0,
                 "tfl": "GREEN",
                 "message": "Great. Your lungs thank you!",
                 "refer": "no"
             },
             "AL-NONE": {
-                "eval": "non drinker",
+                "eval": "Non Drinker",
                 "grading": 0,
                 "tfl": "GREEN",
                 "message": "",
@@ -74,7 +74,7 @@
                 "refer": "no"
             },
             "PA-UNDER": {
-                "eval": "Under target",
+                "eval": "Below target",
                 "grading": 0,
                 "tfl": "AMBER",
                 "message": "Not quit meeting targets. Aim for 150 minutes of moderate OR 75 minutes of vigroous intensity exercise per week",
@@ -109,112 +109,112 @@
                 "refer": "no"
             },
             "VEG-TARGET": {
-                "eval": "on target",
+                "eval": "On target",
                 "grading": 0,
                 "tfl": "GREEN",
                 "message": "Vegetables are great for your health. Good job!",
                 "refer": "no"
             },
             "BMI-7": {
-                "eval": "underweight",
+                "eval": "Underweight",
                 "grading": 10,
                 "tfl": "RED",
                 "message": "Talk to a dietitian about safe weight gain",
                 "refer": "yes"
             },
             "BMI-2": {
-                "eval": "normal_weight",
+                "eval": "Normal Weight",
                 "grading": 0,
                 "tfl": "GREEN",
                 "message": "Regular diet and exercise will help you to maintain your current weight",
                 "refer": "no"
             },
             "BMI-1": {
-                "eval": "overweight",
+                "eval": "Overweight",
                 "grading": 5,
                 "tfl": "AMBER",
                 "message": "Being overweight can increase your risk of heart disease and diabetes",
                 "refer": "no"
             },
             "BMI-0": {
-                "eval": "obese",
+                "eval": "Obese",
                 "grading": 10,
                 "tfl": "RED",
                 "message": "Obesity is a risk factor for developing many conditions. Talk to a dietitian today",
                 "refer": "no"
             },
             "WST-NORMAL": {
-                "eval": "healthy level",
+                "eval": "Healthy level",
                 "grading": 0,
                 "tfl": "GREEN",
                 "message": "Waist circumference is within healthy range",
                 "refer": "no"
             },
             "WST-HIGH": {
-                "eval": "at risk",
+                "eval": "At risk",
                 "grading": 10,
                 "tfl": "AMBER",
                 "message": "Waist circumference is higher than health range",
                 "refer": "yes"
             },
             "WHR-NORMAL": {
-                "eval": "normal",
+                "eval": "Healthy",
                 "grading": 0,
                 "tfl": "GREEN",
                 "message": "Your wait hip ratio is normal",
                 "refer": "no"
             },
             "WHR-HIGH": {
-                "eval": "abnormal",
+                "eval": "Abnormal",
                 "grading": 10,
                 "tfl": "AMBER",
                 "message": "Your wait hip ratio is above the target",
                 "refer": "no"
             },
             "BFT-OBESE": {
-                "eval": "obese body fat %",
+                "eval": "Obese",
                 "grading": 10,
                 "tfl": "RED",
                 "message": "Body fat is in the obese range. Discuss with health professional",
                 "refer": "yes"
             },
             "BFT-OVERWEIGHT": {
-                "eval": "overweigh body fat %",
+                "eval": "Overweight",
                 "grading": 5,
                 "tfl": "AMBER",
                 "message": "Body fat is in the obese range. Discuss with health professional",
                 "refer": "no"
             },
             "BFT-NORMAL": {
-                "eval": "normal body fat %",
+                "eval": "Healthy",
                 "grading": 0,
                 "tfl": "GREEN",
                 "message": "Body fat is in a healthy range",
                 "refer": "no"
             },
             "BFT-UNDERWEIGHT": {
-                "eval": "low body fat %",
+                "eval": "Low",
                 "grading": 0,
                 "tfl": "BLUE",
                 "message": "Body fat is below normal. Discuss with a health professional",
                 "refer": "5"
             },
             "BP-EMERGENCY": {
-                "eval": "BP severly elevated",
+                "eval": "Severly Elevated",
                 "grading": 0,
                 "tfl": "DEEP-RED",
                 "message": "Requires immediate referral to hospital",
                 "refer": "urgent"
             },
             "BP-HTN-REVIEW": {
-                "eval": "Hypertension for review",
+                "eval": "Hypertension",
                 "grading": 0,
                 "tfl": "RED",
                 "message": "Blood pressure is significantly elevated. Requires further assessment",
                 "refer": "urgent"
             },
             "BP-HTN-DM": {
-                "eval": "Poorly controlled BP with Diabetes",
+                "eval": "Elevated",
                 "grading": 0,
                 "tfl": "AMBER",
                 "message": "Blood pressure is above target with history of diabetes. Discuss with your doctor",
@@ -228,35 +228,56 @@
                 "refer": "yes"
             },
             "BP-DM-TARGET": {
-                "eval": "On target with DM",
+                "eval": "On target",
                 "grading": 0,
                 "tfl": "GREEN",
                 "message": "Meeting BP targets with history of DM. Keep up the good work",
                 "refer": "no"
             },
             "BP-ELEVATED": {
-                "eval": "Elevated BP",
+                "eval": "Elevated",
                 "grading": 0,
                 "tfl": "GREEN",
                 "message": "BP is slightly raised. Focus on diet and lifestyle",
                 "refer": "no"
             },
             "BP-TARGET": {
-                "eval": "Normal BP",
+                "eval": "Normal",
                 "grading": 0,
                 "tfl": "GREEN",
                 "message": "BP is on target. Great job.",
                 "refer": "no"
             },
             "DM-EXISTING": {
-                "eval": "Existing diabetes",
+                "eval": "Existing",
                 "grading": 0,
                 "tfl": "AMBER",
                 "message": "Existing diagnosis of Diabetes. Review management",
                 "refer": "yes"
             },
+            "DM-EXISTING-GOOD-CONTROL": {
+                "eval": "Well Controlled",
+                "grading": 0,
+                "tfl": "GREEN",
+                "message": "Diabetes is well controlled",
+                "refer": "no"
+            },
+            "DM-EXISTING-OVER-CONTROL": {
+                "eval": "Over Controlled",
+                "grading": 0,
+                "tfl": "AMBER",
+                "message": "Diabetes is too tightly controlled. Review",
+                "refer": "yes"
+            },
+            "DM-EXISTING-POOR-CONTROL": {
+                "eval": "Poor Control",
+                "grading": 0,
+                "tfl": "AMBER",
+                "message": "Diabetes is poorly controlled. Review",
+                "refer": "yes"
+            },
             "DM-NEW-DIAGNOSIS": {
-                "eval": "Newly diagnosed DM",
+                "eval": "Newly diagnosis",
                 "grading": 0,
                 "tfl": "RED",
                 "message": "New diagnosis of diabetes based on pathology",
@@ -270,28 +291,28 @@
                 "refer": "no"
             },
             "DM-NONE": {
-                "eval": "Not diabetic",
+                "eval": "No Diabetes",
                 "grading": 0,
                 "tfl": "GREEN",
                 "message": "Normal blood sugar. Review family history for follow up",
                 "refer": "no"
             },
             "CHOL-REFER": {
-                "eval": "Refer chol",
+                "eval": "Refer",
                 "grading": 0,
                 "tfl": "DEEP-RED",
                 "message": "Cholesterollevel > 8mmol/L requires referral and use of statins",
                 "refer": "urgent"
             },
             "CHOL-VERY-HIGH-CVD-RISK": {
-                "eval": "Chol high cvd risk",
+                "eval": "CVD Risk",
                 "grading": 0,
                 "tfl": "RED",
                 "message": "Treat based on high CVD risk regardless of total cholesterol",
                 "refer": "urgents"
             },
             "CHOL-ELEVATED-WITH-HIGH-CVD-RISK": {
-                "eval": "Elevated cholesterol and high CVD risk",
+                "eval": "Elevated",
                 "grading": 0,
                 "tfl": "AMBER",
                 "message": "Based on Tchol > 5 and high CVD risk, requires medication",
@@ -305,49 +326,49 @@
                 "refer": "no"
             },
             "CHOL-NO-CVD-RISK": {
-                "eval": "CVD risk not calculated",
+                "eval": "Normal",
                 "grading": 0,
                 "tfl": "GREEN",
                 "message": "Maintain a healthy diet",
                 "refer": "no"
             },
             "CVD-AGE-FALSE": {
-                "eval": "not for cvd assessment due to age",
+                "eval": "Not Calculated",
                 "grading": 0,
                 "tfl": "GRAY",
                 "message": "Report based on individual risk factors",
                 "refer": "no"
             },
             "CVD-1": {
-                "eval": "high_risk_condition",
+                "eval": "High Risk",
                 "grading": 0,
                 "tfl": "DARK-RED",
                 "message": "You have a high risk condition. Not for CVD Risk Assessment",
                 "refer": "yes"
             },
             "CVD-4": {
-                "eval": "low_risk",
+                "eval": "Low Risk",
                 "grading": 0,
                 "tfl": "GREEN",
                 "message": "Your risk of a CVD event is low",
                 "refer": "no"
             },
             "CVD-6": {
-                "eval": "mod_risk",
+                "eval": "Moderate Risk",
                 "grading": 0,
                 "tfl": "AMBER",
                 "message": "Your risk of a CVD event is mild",
                 "refer": "no"
             },
             "CVD-8": {
-                "eval": "high_risk",
+                "eval": "High Risk",
                 "grading": 0,
                 "tfl": "RED",
                 "message": "Your risk of a CVD event is High",
                 "refer": "urgent"
             },
             "CVD-10": {
-                "eval": "very_high_risk",
+                "eval": "Very High Risk",
                 "grading": 0,
                 "tfl": "DARK-RED",
                 "message": "You're at very high CVD risk",
@@ -361,7 +382,7 @@
                         "from": 0,
                         "to": 4
                     },
-                    "message": "You are in normal range."
+                    "message": "Great work. Keep"
                 },
                 {
                     "grading": {

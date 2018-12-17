@@ -184,7 +184,11 @@ func (b *CVDGuidelines) Process(ctx context.Context, ami, hxCVD, hxPVD, hxCKD bo
 
 			if conditionAge && conditionExistingCVD && conditionHighRisk && (riskScore >= rangeFrom && riskScore <= rangeTo) {
 				code = *g.Code
-				value = fmt.Sprintf("%d", int(riskScore))
+				if code != "CVD-AGE-FALSE" {
+					value = fmt.Sprintf("%d", int(riskScore))
+				} else {
+					value = "1"
+				}
 				target = *c.Target
 				break
 			}
