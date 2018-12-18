@@ -41,20 +41,36 @@ func (b *DiabetesGuidelines) Process(hxDiabetes bool, bsFromInput float64, bsTyp
 	value := ""
 	target := ""
 
-	from := tools.CalculateMMOLValue(bsFromInput, unit)
+	from := bsFromInput
+	bslCheck := false
+
+	if bsType == "fasting" || bsType == "random" || unit != "%" {
+		from = tools.CalculateMMOLValue(bsFromInput, unit)
+		bslCheck = true
+	}
 
 	for _, g := range *b {
 		for _, c := range *g.Conditions {
 			bsFrom := 0.0
 			bsTo := math.MaxFloat64
+			givenBsType := ""
 
 			if c.BloodSugar != nil {
 				if c.BloodSugar.From != nil {
-					bsFrom = tools.CalculateMMOLValue(*c.BloodSugar.From, *c.BloodSugar.Unit)
+					if bslCheck {
+						bsFrom = tools.CalculateMMOLValue(*c.BloodSugar.From, *c.BloodSugar.Unit)
+					} else {
+						bsFrom = *c.BloodSugar.From
+					}
 				}
 				if c.BloodSugar.To != nil {
-					bsTo = tools.CalculateMMOLValue(*c.BloodSugar.To, *c.BloodSugar.Unit)
+					if bslCheck {
+						bsTo = tools.CalculateMMOLValue(*c.BloodSugar.To, *c.BloodSugar.Unit)
+					} else {
+						bsTo = *c.BloodSugar.To
+					}
 				}
+				givenBsType = *c.BloodSugar.Type
 			}
 
 			conditionHxDiabetes := true
@@ -62,7 +78,7 @@ func (b *DiabetesGuidelines) Process(hxDiabetes bool, bsFromInput float64, bsTyp
 				conditionHxDiabetes = false
 			}
 
-			if conditionHxDiabetes && bsFrom <= from && bsTo >= from {
+			if conditionHxDiabetes && bsFrom <= from && bsTo >= from && bsType == givenBsType {
 				code = *g.Code
 				target = *c.Target
 				value = *g.Category

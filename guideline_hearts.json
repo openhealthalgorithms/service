@@ -839,12 +839,12 @@
                 "conditions": [
                     {
                         "hx_diabetes": true,
-                        "hba1c": {
-                            "type": "",
+                        "blood_sugar": {
+                            "type": "HbA1C",
                             "to": 6.0,
                             "unit": "%"
                         },
-                        "target": "< 6.5mmol/L"
+                        "target": "7-8%"
                     }
                 ],
                 "code": "DM-EXISTING-GOOD-CONTROL"
@@ -855,8 +855,8 @@
                 "conditions": [
                     {
                         "hx_diabetes": true,
-                        "hba1c": {
-                            "type": "",
+                        "blood_sugar": {
+                            "type": "HbA1C",
                             "from" : 4.0,
                             "to": 6.9,
                             "unit": "%"
@@ -872,8 +872,8 @@
                 "conditions": [
                     {
                         "hx_diabetes": true,
-                        "hba1c": {
-                            "type": "",
+                        "blood_sugar": {
+                            "type": "HbA1C",
                             "from" : 8.0,
                             "unit": "%"
                         },
@@ -899,7 +899,7 @@
                 "code": "DM-EXISTING-GOOD-CONTROL"
             },
             {
-                "category": "existing diabetes poorly controlled",
+                "category": "existing diabetes poorly controlled, bsl",
                 "definition": "patient has existing diabetes",
                 "conditions": [
                     {

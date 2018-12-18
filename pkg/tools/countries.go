@@ -1,10 +1,12 @@
 package tools
 
+// Country object
 type Country struct {
 	Name   string
 	Region string
 }
 
+// CountryCode map
 type CountryCode map[string]Country
 
 var (

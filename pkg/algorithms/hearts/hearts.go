@@ -3,6 +3,7 @@ package hearts
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"strconv"
 
@@ -277,8 +278,20 @@ func (d *Data) get(ctx context.Context) error {
 		}
 	}
 
+	fmt.Printf("\n%f | %f | %s | %s\n", p.A1C, p.Bsl, p.BslType, p.BslUnit)
+	bslOrA1c := 0.0
+	bslOrA1cType := "HbA1C"
+	bslOrA1cUnit := "%"
+	if p.A1C > 0.0 {
+		bslOrA1c = p.A1C
+	} else {
+		bslOrA1c = p.Bsl
+		bslOrA1cType = p.BslType
+		bslOrA1cUnit = p.BslUnit
+	}
+
 	// Diabetes
-	diabetes, err := engineGuide.Body.Diabetes.Process(p.Diabetes, p.Bsl, p.BslType, p.BslUnit)
+	diabetes, err := engineGuide.Body.Diabetes.Process(p.Diabetes, bslOrA1c, bslOrA1cType, bslOrA1cUnit)
 	if err != nil {
 		errs = append(errs, err.Error())
 	} else {

@@ -83,6 +83,7 @@ type Measurements struct {
 	Bsl         float64
 	BslUnit     string
 	BslType     string
+	A1C         float64
 	TChol       float64
 	Hdl         float64
 	Ldl         float64
@@ -398,6 +399,10 @@ func getInputs(data []byte) (Params, error) {
 			if val, err := jp.GetString(value, "type"); err == nil {
 				out.BslType = val
 				out.CholType = val
+			}
+		case "a1c":
+			if val, err := jp.GetFloat(value, "value"); err == nil {
+				out.A1C = val
 			}
 		case "total_cholesterol":
 			if val, err := jp.GetFloat(value, "value"); err == nil {
