@@ -28,7 +28,7 @@ var (
 	memprofile = "./ohas-mem-prof.prof"
 
 	appName    = "ohal"
-	appVersion = "v0.2.1"
+	appVersion = "v0.3"
 	appCommit  = "0000000"
 )
 
