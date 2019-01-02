@@ -190,11 +190,6 @@
                     "is_active": true
                 },
                 {
-                    "name": "diabetes",
-                    "category": "condition",
-                    "is_active": true
-                },
-                {
                     "name": "tuberculosis",
                     "category": "condition",
                     "is_active": false

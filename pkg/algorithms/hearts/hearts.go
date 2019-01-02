@@ -289,6 +289,7 @@ func (d *Data) get(ctx context.Context) error {
 		bslOrA1cType = p.BslType
 		bslOrA1cUnit = p.BslUnit
 	}
+	fmt.Printf("\n%f | %s | %s\n", bslOrA1c, bslOrA1cType, bslOrA1cUnit)
 
 	// Diabetes
 	diabetes, err := engineGuide.Body.Diabetes.Process(p.Diabetes, bslOrA1c, bslOrA1cType, bslOrA1cUnit)

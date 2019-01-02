@@ -3,6 +3,7 @@ package engine
 import (
 	"fmt"
 	"math"
+	"strings"
 
 	"github.com/openhealthalgorithms/service/pkg/tools"
 )
@@ -79,7 +80,7 @@ func (b *DiabetesGuidelines) Process(hxDiabetes bool, bsFromInput float64, bsTyp
 				conditionHxDiabetes = false
 			}
 
-			if conditionHxDiabetes && bsFrom <= from && bsTo >= from && bsType == givenBsType {
+			if conditionHxDiabetes && bsFrom <= from && bsTo >= from && strings.ToLower(bsType) == strings.ToLower(givenBsType) {
 				code = *g.Code
 				target = *c.Target
 				value = fmt.Sprintf("%.2f%s", from, unit)
