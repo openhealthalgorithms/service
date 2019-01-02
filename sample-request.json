@@ -141,25 +141,18 @@
             "biological-samples": [
                 {
                     "effectiveDate": "timestamp",
-                    "name": "a1c",
-                    "category": "blood-test",
-                    "value": 8.5,
-                    "units": "%"
-                },
-                {
-                    "effectiveDate": "timestamp",
                     "name": "blood_sugar",
                     "category": "blood-test",
-                    "value": 9.6,
-                    "units": "mmol/L",
+                    "value": 150,
+                    "units": "mg/dL",
                     "type": "fasting"
                 },
                 {
                     "effectiveDate": "timestamp",
                     "name": "total_cholesterol",
                     "category": "blood-test",
-                    "value": 5.6,
-                    "units": "mmol/L"
+                    "value": 120,
+                    "units": "mg/dL"
                 },
                 {
                     "effectiveDate": "timestamp",

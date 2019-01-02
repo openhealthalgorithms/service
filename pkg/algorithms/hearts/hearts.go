@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"strconv"
 
 	"github.com/fatih/structs"
 	"github.com/pkg/errors"
@@ -278,7 +277,6 @@ func (d *Data) get(ctx context.Context) error {
 		}
 	}
 
-	fmt.Printf("\n%f | %f | %s | %s\n", p.A1C, p.Bsl, p.BslType, p.BslUnit)
 	bslOrA1c := 0.0
 	bslOrA1cType := "HbA1C"
 	bslOrA1cUnit := "%"
@@ -289,7 +287,6 @@ func (d *Data) get(ctx context.Context) error {
 		bslOrA1cType = p.BslType
 		bslOrA1cUnit = p.BslUnit
 	}
-	fmt.Printf("\n%f | %s | %s\n", bslOrA1c, bslOrA1cType, bslOrA1cUnit)
 
 	// Diabetes
 	diabetes, err := engineGuide.Body.Diabetes.Process(p.Diabetes, bslOrA1c, bslOrA1cType, bslOrA1cUnit)
@@ -328,13 +325,10 @@ func (d *Data) get(ctx context.Context) error {
 	}
 
 	// CVD
-	cvdScore := -1.0
+	cvdScore := ""
 	cvd, err := engineGuide.Body.CVD.Guidelines.Process(ctx, p.AMI, p.Cvd, p.Pvd, p.Ckd, p.Age, *engineGuide.Body.CVD.PreProcessing)
 	if err == nil {
-		cvdScoreFromAssessment, cerr := strconv.ParseFloat(cvd.Value, 64)
-		if cerr == nil {
-			cvdScore = cvdScoreFromAssessment
-		}
+		cvdScore = cvd.Value
 		res, followupActions = GetResults(cvd, *engineContent.Body.Contents, followupActions)
 		assessment.AssessmentsAttributes.CVD = res
 		if res.Refer != "no" {
@@ -347,10 +341,22 @@ func (d *Data) get(ctx context.Context) error {
 	} else {
 		errs = append(errs, err.Error())
 	}
-
+	fmt.Println("CVD Score: ", cvdScore)
 	// Cholesterol
-	if cvdScore > 0 {
-		chol, err := engineGuide.Body.Cholesterol.TotalCholesterol.Process(cvdScore, p.Age, p.TChol, p.CholUnit, "total cholesterol")
+	if len(cvdScore) > 0 {
+		cvdForChol := 1.0
+		if cvdScore == "10-20%" {
+			cvdForChol = 20.0
+		} else if cvdScore == "20-30%" {
+			cvdForChol = 30.0
+		} else if cvdScore == "30-40%" {
+			cvdForChol = 40.0
+		} else if cvdScore == ">40%" {
+			cvdForChol = 50.0
+		} else if cvdScore == "<10%" {
+			cvdForChol = 10.0
+		}
+		chol, err := engineGuide.Body.Cholesterol.TotalCholesterol.Process(cvdForChol, p.Age, p.TChol, p.CholUnit, "total cholesterol")
 		if err != nil {
 			errs = append(errs, err.Error())
 		} else {

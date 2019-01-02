@@ -142,6 +142,8 @@ func (b *CVDGuidelines) Process(ctx context.Context, ami, hxCVD, hxPVD, hxCKD bo
 		return Response{}, err
 	}
 
+	riskRange := whocvd.WHOCVD.Output["risk_range"]
+
 	// fmt.Printf("%+v\n", ageCheckForCVD)
 	// fmt.Printf("%+v\n", existingCVD)
 	// fmt.Printf("%+v\n", highRiskCondition)
@@ -185,7 +187,7 @@ func (b *CVDGuidelines) Process(ctx context.Context, ami, hxCVD, hxPVD, hxCKD bo
 			if conditionAge && conditionExistingCVD && conditionHighRisk && (riskScore >= rangeFrom && riskScore <= rangeTo) {
 				code = *g.Code
 				if code != "CVD-AGE-FALSE" {
-					value = fmt.Sprintf("%d", int(riskScore))
+					value = fmt.Sprintf("%s%%", riskRange)
 				} else {
 					value = "1"
 				}

@@ -83,7 +83,7 @@ func (b *DiabetesGuidelines) Process(hxDiabetes bool, bsFromInput float64, bsTyp
 			if conditionHxDiabetes && bsFrom <= from && bsTo >= from && strings.ToLower(bsType) == strings.ToLower(givenBsType) {
 				code = *g.Code
 				target = *c.Target
-				value = fmt.Sprintf("%.2f%s", from, unit)
+				value = fmt.Sprintf("%.1f%s", bsFromInput, unit)
 				break
 			}
 		}

@@ -42,7 +42,7 @@ func (b *CholesterolGuidelines) Process(cvd, age, chol float64, cholUnit, cholTy
 	cholesterol := tools.CalculateMMOLValue(chol, cholUnit)
 
 	code := ""
-	value := fmt.Sprintf("%.1fmmol/L", cholesterol)
+	value := fmt.Sprintf("%.1f%s", chol, cholUnit)
 	target := ""
 
 	for _, g := range *b {
@@ -76,10 +76,10 @@ func (b *CholesterolGuidelines) Process(cvd, age, chol float64, cholUnit, cholTy
 
 			if c.Range != nil {
 				if c.Range.From != nil {
-					cholFrom = *c.Range.From
+					cholFrom = tools.CalculateMMOLValue(*c.Range.From, *c.Range.Unit)
 				}
 				if c.Range.To != nil {
-					cholTo = *c.Range.To
+					cholTo = tools.CalculateMMOLValue(*c.Range.To, *c.Range.Unit)
 				}
 			}
 
