@@ -110,7 +110,7 @@ func defaultHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func versionRequestHandler(w http.ResponseWriter, r *http.Request) {
-	result := &versionResponse{Version: "0.3"}
+	result := &versionResponse{Version: "0.3.1"}
 
 	respondSuccess(w, result)
 }

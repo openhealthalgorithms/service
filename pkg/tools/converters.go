@@ -8,7 +8,7 @@ import (
 // ConvertCholesterol function
 func ConvertCholesterol(cholesterol float64, unit string) int {
 	if strings.ToLower(unit) == "mgdl" || strings.ToLower(unit) == "mg/dl" {
-		cholesterol = cholesterol / 18
+		cholesterol = cholesterol * 0.055555556
 	}
 
 	tmp := int(math.Floor(cholesterol)) - 4

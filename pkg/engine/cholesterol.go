@@ -65,6 +65,8 @@ func (b *CholesterolGuidelines) Process(cvd, age, chol float64, cholUnit, cholTy
 				}
 			}
 
+			// fmt.Println("AGE =>", ageFrom, ageTo)
+
 			if c.CVD != nil {
 				if c.CVD.From != nil {
 					cvdFrom = *c.CVD.From
@@ -74,6 +76,8 @@ func (b *CholesterolGuidelines) Process(cvd, age, chol float64, cholUnit, cholTy
 				}
 			}
 
+			// fmt.Println("CVD =>", cvdFrom, cvdTo)
+
 			if c.Range != nil {
 				if c.Range.From != nil {
 					cholFrom = tools.CalculateMMOLValue(*c.Range.From, *c.Range.Unit)
@@ -82,6 +86,8 @@ func (b *CholesterolGuidelines) Process(cvd, age, chol float64, cholUnit, cholTy
 					cholTo = tools.CalculateMMOLValue(*c.Range.To, *c.Range.Unit)
 				}
 			}
+
+			// fmt.Println("CHOL =>", cholFrom, cholTo, cholUnit)
 
 			if (age >= ageFrom && age <= ageTo) && (cvd >= cvdFrom && cvd <= cvdTo) && (cholesterol >= cholFrom && cholesterol <= cholTo) {
 				code = *g.Code

@@ -1000,7 +1000,7 @@
                     "conditions": [
                         {
                             "range": {
-                                "from": 8,
+                                "from": 8.0,
                                 "unit": "mmol/L"
                             },
                             "target": "<5mmol/L (90mg/dL)"
@@ -1015,7 +1015,7 @@
                         {
                             "cvd": {
                                 "from": 30,
-                                "units": "%"
+                                "unit": "%"
                             },
                             "target": "<5mmol/L (90mg/dL)"
                         }
@@ -1030,11 +1030,12 @@
                             "cvd": {
                                 "from": 20,
                                 "to": 29,
-                                "units": "%"
+                                "unit": "%"
                             },
                             "range": {
-                                "from": 5,
-                                "units": "mmol/L"
+                                "from": 5.1,
+                                "to": 7.9,
+                                "unit": "mmol/L"
                             },
                             "target": "<5mmol/L (90mg/dL)"
                         }
@@ -1049,7 +1050,7 @@
                             "cvd": {
                                 "from": 10,
                                 "to": 19,
-                                "units": "%"
+                                "unit": "%"
                             },
                             "target": "<5mmol/L (90mg/dL)"
                         }
@@ -1064,7 +1065,7 @@
                             "cvd": {
                                 "from": 5,
                                 "to": 10,
-                                "units": "%"
+                                "unit": "%"
                             },
                             "target": "<5mmol/L (90mg/dL)"
                         }
@@ -1078,7 +1079,14 @@
                         {
                             "cvd": {
                                 "to": 4,
-                                "units": "%"
+                                "unit": "%"
+                            },
+                            "target": "<5mmol/L (90mg/dL)"
+                        },
+                        {
+                            "range": {
+                                "to": 5.0,
+                                "unit": "mmol/L"
                             },
                             "target": "<5mmol/L (90mg/dL)"
                         }
