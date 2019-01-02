@@ -1,6 +1,7 @@
 package engine
 
 import (
+	"fmt"
 	"math"
 
 	"github.com/openhealthalgorithms/service/pkg/tools"
@@ -81,7 +82,7 @@ func (b *DiabetesGuidelines) Process(hxDiabetes bool, bsFromInput float64, bsTyp
 			if conditionHxDiabetes && bsFrom <= from && bsTo >= from && bsType == givenBsType {
 				code = *g.Code
 				target = *c.Target
-				value = *g.Category
+				value = fmt.Sprintf("%.2f%s", from, unit)
 				break
 			}
 		}

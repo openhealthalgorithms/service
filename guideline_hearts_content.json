@@ -161,14 +161,14 @@
                 "eval": "Healthy",
                 "grading": 0,
                 "tfl": "GREEN",
-                "message": "Your wait hip ratio is normal",
+                "message": "Your waist hip ratio is normal",
                 "refer": "no"
             },
             "WHR-HIGH": {
                 "eval": "Abnormal",
                 "grading": 10,
                 "tfl": "AMBER",
-                "message": "Your wait hip ratio is above the target",
+                "message": "Your waist hip ratio is above the target",
                 "refer": "no"
             },
             "BFT-OBESE": {
