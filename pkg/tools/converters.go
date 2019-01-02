@@ -2,12 +2,13 @@ package tools
 
 import (
 	"math"
+	"strings"
 )
 
 // ConvertCholesterol function
 func ConvertCholesterol(cholesterol float64, unit string) int {
-	if unit == "mgdl" {
-		cholesterol = cholesterol * 0.02586
+	if strings.ToLower(unit) == "mgdl" || strings.ToLower(unit) == "mg/dl" {
+		cholesterol = cholesterol / 18
 	}
 
 	tmp := int(math.Floor(cholesterol)) - 4

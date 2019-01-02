@@ -3,7 +3,6 @@ package hearts
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 
 	"github.com/fatih/structs"
@@ -341,7 +340,8 @@ func (d *Data) get(ctx context.Context) error {
 	} else {
 		errs = append(errs, err.Error())
 	}
-	fmt.Println("CVD Score: ", cvdScore)
+
+	// fmt.Println("CVD Score: ", cvdScore)
 	// Cholesterol
 	if len(cvdScore) > 0 {
 		cvdForChol := 1.0
