@@ -301,7 +301,7 @@
                 "eval": "Refer",
                 "grading": 0,
                 "tfl": "DEEP-RED",
-                "message": "Cholesterollevel > 8mmol/L requires referral and use of statins",
+                "message": "Cholesterol level > 8mmol/L requires referral and use of statins",
                 "refer": "urgent"
             },
             "CHOL-VERY-HIGH-CVD-RISK": {

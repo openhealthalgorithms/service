@@ -841,7 +841,7 @@
                         "hx_diabetes": true,
                         "blood_sugar": {
                             "type": "HbA1C",
-                            "from": 6.0,
+                            "from": 7.0,
                             "to": 8.0,
                             "unit": "%"
                         },
@@ -858,7 +858,7 @@
                         "hx_diabetes": true,
                         "blood_sugar": {
                             "type": "HbA1C",
-                            "to": 5.9,
+                            "to": 6.9,
                             "unit": "%"
                         },
                         "target": "7-8%"
@@ -893,7 +893,7 @@
                             "to": 6.4,
                             "unit": "mmol/L"
                         },
-                        "target": "<6.5mmol/L (117mg/dL)"
+                        "target": "<117mg/dL (6.5mmol/L)"
                     }
                 ],
                 "code": "DM-EXISTING-GOOD-CONTROL"
@@ -909,7 +909,7 @@
                             "from": 6.5,
                             "unit": "mmol/L"
                         },
-                        "target": "<6.5mmol/L (117mg/dL)"
+                        "target": "<117mg/dL (6.5mmol/L)"
                     }
                 ],
                 "code": "DM-EXISTING-POOR-CONTROL"
@@ -925,7 +925,7 @@
                             "from": 7.1,
                             "unit": "mmol/L"
                         },
-                        "target": "<6.5mmol/L (117mg/dL)"
+                        "target": "<117mg/dL (6.5mmol/L)"
                     },
                     {
                         "hx_diabetes": false,
@@ -961,7 +961,7 @@
                             "to": 7.0,
                             "unit": "mmol/L"
                         },
-                        "target": "<6.5mmol/L (117mg/dL)"
+                        "target": "<117mg/dL (6.5mmol/L)"
                     }
                 ],
                 "code": "DM-PRE-DIABETES"
@@ -986,7 +986,7 @@
                             "to": 5.5,
                             "unit": "mmol/L"
                         },
-                        "target": "<6.5mmol/L (117mg/dL)"
+                        "target": "<117mg/dL (6.5mmol/L)"
                     }
                 ],
                 "code": "DM-NONE"
@@ -1003,7 +1003,7 @@
                                 "from": 8.0,
                                 "unit": "mmol/L"
                             },
-                            "target": "<5mmol/L (90mg/dL)"
+                            "target": "<90mg/dL (5mmol/L)"
                         }
                     ],
                     "code": "CHOL-REFER"
@@ -1014,10 +1014,10 @@
                     "conditions": [
                         {
                             "cvd": {
-                                "from": 30,
+                                "from": 31,
                                 "unit": "%"
                             },
-                            "target": "<5mmol/L (90mg/dL)"
+                            "target": "<90mg/dL (5mmol/L)"
                         }
                     ],
                     "code": "CHOL-VERY-HIGH-CVD-RISK"
@@ -1028,8 +1028,8 @@
                     "conditions": [
                         {
                             "cvd": {
-                                "from": 20,
-                                "to": 29,
+                                "from": 21,
+                                "to": 30,
                                 "unit": "%"
                             },
                             "range": {
@@ -1037,7 +1037,7 @@
                                 "to": 7.9,
                                 "unit": "mmol/L"
                             },
-                            "target": "<5mmol/L (90mg/dL)"
+                            "target": "<90mg/dL (5mmol/L)"
                         }
                     ],
                     "code": "CHOL-ELEVATED-WITH-HIGH-CVD-RISK"
@@ -1048,11 +1048,11 @@
                     "conditions": [
                         {
                             "cvd": {
-                                "from": 10,
-                                "to": 19,
+                                "from": 11,
+                                "to": 20,
                                 "unit": "%"
                             },
-                            "target": "<5mmol/L (90mg/dL)"
+                            "target": "<90mg/dL (5mmol/L)"
                         }
                     ],
                     "code": "CHOL-MOD-CVD-RISK"
@@ -1063,11 +1063,11 @@
                     "conditions": [
                         {
                             "cvd": {
-                                "from": 5,
+                                "from": 1,
                                 "to": 10,
                                 "unit": "%"
                             },
-                            "target": "<5mmol/L (90mg/dL)"
+                            "target": "<90mg/dL (5mmol/L)"
                         }
                     ],
                     "code": "CHOL-LOW-CVD-RISK"
@@ -1078,17 +1078,17 @@
                     "conditions": [
                         {
                             "cvd": {
-                                "to": 4,
+                                "to": 0,
                                 "unit": "%"
                             },
-                            "target": "<5mmol/L (90mg/dL)"
+                            "target": "<90mg/dL (5mmol/L)"
                         },
                         {
                             "range": {
                                 "to": 5.0,
                                 "unit": "mmol/L"
                             },
-                            "target": "<5mmol/L (90mg/dL)"
+                            "target": "<90mg/dL (5mmol/L)"
                         }
                     ],
                     "code": "CHOL-NO-CVD-RISK"
