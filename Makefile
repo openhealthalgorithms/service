@@ -28,13 +28,14 @@ ART_LINUX_64 := $(SERVICE_NAME)-linux-amd64.bin
 ART_ARCHIVE := $(SERVICE_NAME)-$$(git describe --abbrev=1)-$$(git branch | grep \* | cut -d ' ' -f2)-$$(date +%y%m%d).zip
 
 # Additional tools
+
 # Standalone algorithms
 DEV_ALG_NAME := ohal
 ART_ALG_DARWIN_64 := $(DEV_ALG_NAME)-darwin-amd64.bin
 ART_ALG_LINUX_32 := $(DEV_ALG_NAME)-linux-386.bin
 ART_ALG_LINUX_64 := $(DEV_ALG_NAME)-linux-amd64.bin
 
-# default json files
+# default files to include
 GUIDELINE_JSON := guideline_hearts.json
 GUIDELINE_CONTENT_JSON := guideline_hearts_content.json
 GOALS_JSON := goals_hearts.json
