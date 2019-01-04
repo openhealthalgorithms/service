@@ -110,7 +110,7 @@ func defaultHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func versionRequestHandler(w http.ResponseWriter, r *http.Request) {
-	result := &versionResponse{Version: "0.3.1"}
+	result := &versionResponse{Version: "0.4"}
 
 	respondSuccess(w, result)
 }
@@ -138,6 +138,8 @@ func algorithmRequestHandler(w http.ResponseWriter, r *http.Request) {
 	v.Params.Set("params", paramObj)
 	v.Params.Set("guide", "guideline_hearts.json")
 	v.Params.Set("guidecontent", "guideline_hearts_content.json")
+	v.Params.Set("goal", "goals_hearts.json")
+	v.Params.Set("goalcontent", "goals_hearts_content.json")
 
 	ctx := context.WithValue(context.Background(), types.KeyValuesCtx, &v)
 

@@ -1,0 +1,95 @@
+{
+    "meta": {
+        "goal_name": "HEARTS",
+        "publisher": "World Health Organisation",
+        "publication_date": ""
+    },
+    "body": {
+        "weight_loss": [
+            {
+                "category": "worst",
+                "definition": "consider weight loss as soon as possible",
+                "conditions": [
+                    {
+                        "bmi": ["red", "dark-red"]
+                    },
+                    {
+                        "whr": ["red"]
+                    },
+                    {
+                        "body_fat": ["red", "dark-red"]
+                    },
+                    {
+                        "bmi": ["amber"],
+                        "whr": ["amber"],
+                        "body_fat": ["amber"]
+                    }
+                ],
+                "code": "WL-1"
+            },
+            {
+                "category": "worse",
+                "definition": "consider weight loss soon",
+                "conditions": [
+                    {
+                        "bmi": ["amber"]
+                    },
+                    {
+                        "whr": ["amber"]
+                    },
+                    {
+                        "body_fat": ["amber"]
+                    }
+                ],
+                "code": "WL-2"
+            },
+            {
+                "category": "good",
+                "definition": "good shape",
+                "conditions": [
+                    {
+                        "bmi": ["green"]
+                    },
+                    {
+                        "whr": ["green"]
+                    },
+                    {
+                        "body_fat": ["green"]
+                    }
+                ],
+                "code": "WL-3"
+            },
+            {
+                "category": "better",
+                "definition": "better shape",
+                "conditions": [
+                    {
+                        "bmi": ["green"],
+                        "whr": ["green"]
+                    },
+                    {
+                        "whr": ["green"],
+                        "body_fat": ["green"]
+                    },
+                    {
+                        "bmi": ["green"],
+                        "body_fat": ["green"]
+                    }
+                ],
+                "code": "WL-4"
+            },
+            {
+                "category": "best",
+                "definition": "best shape",
+                "conditions": [
+                    {
+                        "bmi": ["green"],
+                        "whr": ["green"],
+                        "body_fat": ["green"]
+                    }
+                ],
+                "code": "WL-5"
+            }
+        ]
+    }
+}

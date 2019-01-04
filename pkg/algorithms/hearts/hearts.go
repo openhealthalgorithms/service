@@ -81,12 +81,42 @@ func (d *Data) get(ctx context.Context) error {
 		return nil
 	}
 
+	raw, ok = v.Params.Get("goal")
+	if !ok {
+		return nil
+	}
+
+	goalFile, ok := raw.(string)
+	if !ok {
+		return nil
+	}
+
+	raw, ok = v.Params.Get("goalcontent")
+	if !ok {
+		return nil
+	}
+
+	goalContentFile, ok := raw.(string)
+	if !ok {
+		return nil
+	}
+
 	guide, err := ioutil.ReadFile(guideFile)
 	if err != nil {
 		return err
 	}
 
 	guideContent, err := ioutil.ReadFile(guideContentFile)
+	if err != nil {
+		return err
+	}
+
+	goal, err := ioutil.ReadFile(goalFile)
+	if err != nil {
+		return err
+	}
+
+	goalContent, err := ioutil.ReadFile(goalContentFile)
 	if err != nil {
 		return err
 	}
@@ -101,9 +131,22 @@ func (d *Data) get(ctx context.Context) error {
 		return err
 	}
 
+	engineGoal := engine.GoalGuidelines{}
+	if err := json.Unmarshal(goal, &engineGoal); err != nil {
+		return err
+	}
+
+	engineGoalContent := engine.GoalGuideContents{}
+	if err := json.Unmarshal(goalContent, &engineGoalContent); err != nil {
+		return err
+	}
+
 	// engineGuide.Body.Lifestyle.Smoking
-	// res2B, _ := json.Marshal(engineContent)
-	// fmt.Println(string(res2B))
+	res2B, _ := json.Marshal(engineGoal)
+	fmt.Println(string(res2B))
+
+	res2C, _ := json.Marshal(engineGoalContent)
+	fmt.Println(string(res2C))
 	// fmt.Printf("%+v\n", p)
 
 	assessment := datastructure.NewResult("Hearts Algorithm")
@@ -342,7 +385,7 @@ func (d *Data) get(ctx context.Context) error {
 		errs = append(errs, err.Error())
 	}
 
-	fmt.Println("CVD Score: ", cvdScore)
+	// fmt.Println("CVD Score: ", cvdScore)
 	// Cholesterol
 	if len(cvdScore) > 0 {
 		cvdForChol := 1.0
@@ -357,7 +400,7 @@ func (d *Data) get(ctx context.Context) error {
 		} else if cvdScore == "<10%" {
 			cvdForChol = 10.0
 		}
-		fmt.Println("CVD for Chol: ", cvdForChol)
+		// fmt.Println("CVD for Chol: ", cvdForChol)
 		chol, err := engineGuide.Body.Cholesterol.TotalCholesterol.Process(cvdForChol, p.Age, p.TChol, p.CholUnit, "total cholesterol")
 		if err != nil {
 			errs = append(errs, err.Error())

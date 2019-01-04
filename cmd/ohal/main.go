@@ -28,7 +28,7 @@ var (
 	memprofile = "./ohas-mem-prof.prof"
 
 	appName    = "ohal"
-	appVersion = "v0.3.1"
+	appVersion = "v0.4"
 	appCommit  = "0000000"
 )
 
@@ -97,6 +97,16 @@ func main() {
 			Usage: "Guideline Content file. REQUIRED.",
 			Value: "guideline_hearts_content.json",
 		},
+		cli.StringFlag{
+			Name:  "goal",
+			Usage: "Goal file. REQUIRED.",
+			Value: "goal_hearts.json",
+		},
+		cli.StringFlag{
+			Name:  "goalcontent",
+			Usage: "Goal Content file. REQUIRED.",
+			Value: "goal_hearts_content.json",
+		},
 	}
 
 	// The list of commands.
@@ -129,6 +139,8 @@ func setupAndRun(cliCtx *cli.Context) error {
 	var param string
 	var guideline string
 	var guidelineContent string
+	var goal string
+	var goalContent string
 	var showConfig bool
 	var cpuProf bool
 	var memProf bool
@@ -140,8 +152,10 @@ func setupAndRun(cliCtx *cli.Context) error {
 	flag.BoolVar(&listRiskModels, "listriskmodels", false, "list available riskModels")
 	// flag.StringVar(&param, "param", "gender:male,age:40,systolic1:120,systolic2:140,cholesterol:8,cholesterolUnit:mmol,smoker:true,diabetic:true,region:searb", "param for riskModel")
 	flag.StringVar(&param, "param", "sample-request.json", "param file")
-	flag.StringVar(&guideline, "guide", "sample-request.json", "guideline file")
-	flag.StringVar(&guidelineContent, "guidecontent", "sample-request.json", "guideline content file")
+	flag.StringVar(&guideline, "guide", "guideline_hearts.json", "guideline file")
+	flag.StringVar(&guidelineContent, "guidecontent", "guideline_hearts_content.json", "guideline content file")
+	flag.StringVar(&goal, "goal", "goals_hearts.json", "goal file")
+	flag.StringVar(&goalContent, "goalcontent", "goals_hearts_content.json", "goal content file")
 	flag.BoolVar(&showConfig, "showconfig", false, "show config for riskModels")
 	flag.BoolVar(&cpuProf, "cpuprofile", false, "enable cpu profiling")
 	flag.BoolVar(&memProf, "memprofile", false, "enable mem profiling")
@@ -224,13 +238,13 @@ func setupAndRun(cliCtx *cli.Context) error {
 
 	content, err := ioutil.ReadFile(param)
 	if err != nil {
-		log.Errorf("param file error:", err)
+		log.Errorf("param file error: %#v", err)
 		os.Exit(1)
 	}
 
 	paramObj, err := tools.ParseParams(content)
 	if err != nil {
-		log.Errorf("param file error:", err)
+		log.Errorf("param file error: %#v", err)
 		os.Exit(1)
 	}
 
@@ -238,6 +252,8 @@ func setupAndRun(cliCtx *cli.Context) error {
 	v.Params.Set("params", paramObj)
 	v.Params.Set("guide", guideline)
 	v.Params.Set("guidecontent", guidelineContent)
+	v.Params.Set("goal", goal)
+	v.Params.Set("goalcontent", goalContent)
 
 	if debug {
 		v.Params.Set("debug", "true")
