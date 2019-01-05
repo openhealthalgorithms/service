@@ -1,0 +1,60 @@
+{
+    "meta": {
+        "goal_name": "HEARTS",
+        "publisher": "Open Health Algorithms",
+        "publication_date": "",
+        "content_type": "Message file",
+        "published_by": "Fred Hersch",
+        "version_number": "0.2",
+        "last_updated": "06-12-2018"
+    },
+    "body": {
+        "contents": {
+            "WC-1": {
+                "eval": "Weight control",
+                "tfl": "RED",
+                "message": "Need to reduce weight. Consult with a dietician."
+            },
+            "WC-2": {
+                "eval": "Weight control",
+                "tfl": "AMBER",
+                "message": "Need to gain weight. Consult with a dietician."
+            },
+            "SC-1": {
+                "eval": "Smoking control",
+                "tfl": "GREEN",
+                "message": "Good work quitting. It's the best thing you can do for your health. Stay strong"
+            },
+            "SC-2": {
+                "eval": "Smoking control",
+                "tfl": "AMBER",
+                "message": "You need to quit smoking to lead a better life."
+            },
+            "AC-1": {
+                "eval": "Alcohol control",
+                "tfl": "AMBER",
+                "message": "You need to quit drinking alcohol to lead a better life."
+            },
+            "MC-1": {
+                "eval": "Medical control",
+                "tfl": "AMBER",
+                "message": "You should review with doctor as you have moderate risk."
+            },
+            "MC-2": {
+                "eval": "Medical control",
+                "tfl": "RED",
+                "message": "You should have a follow up soon with doctor as you have high risk."
+            },
+            "BPC-1": {
+                "eval": "Blood pressure control",
+                "tfl": "AMBER",
+                "message": "Cosult with a doctor to get your BP under control."
+            },
+            "BSC-1": {
+                "eval": "Blood sugar control",
+                "tfl": "AMBER",
+                "message": "Cosult and take appripriate actions by reviewing with a doctor to get your blood sugar level normal."
+            }
+        }
+    }
+}

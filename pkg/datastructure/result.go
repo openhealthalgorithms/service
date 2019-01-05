@@ -100,14 +100,14 @@ type Assessment struct {
 /* * * * * Goals * * * * */
 
 // Goals object
-type Goals []Goal
+type Goals interface{}
 
 // Goal object
-type Goal struct {
-	Code    string   `structs:"code" json:"code"`
-	Name    string   `structs:"name" json:"name"`
-	Reasons []string `structs:"reasons" json:"reasons"`
-}
+// type Goal struct {
+// 	Code    string   `structs:"code" json:"code"`
+// 	Name    string   `structs:"name" json:"name"`
+// 	Reasons []string `structs:"reasons" json:"reasons"`
+// }
 
 /* * * * * Recommendations * * * * */
 

@@ -3,7 +3,6 @@ package hearts
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 
 	"github.com/fatih/structs"
@@ -81,12 +80,42 @@ func (d *Data) get(ctx context.Context) error {
 		return nil
 	}
 
+	raw, ok = v.Params.Get("goal")
+	if !ok {
+		return nil
+	}
+
+	goalFile, ok := raw.(string)
+	if !ok {
+		return nil
+	}
+
+	raw, ok = v.Params.Get("goalcontent")
+	if !ok {
+		return nil
+	}
+
+	goalContentFile, ok := raw.(string)
+	if !ok {
+		return nil
+	}
+
 	guide, err := ioutil.ReadFile(guideFile)
 	if err != nil {
 		return err
 	}
 
 	guideContent, err := ioutil.ReadFile(guideContentFile)
+	if err != nil {
+		return err
+	}
+
+	goal, err := ioutil.ReadFile(goalFile)
+	if err != nil {
+		return err
+	}
+
+	goalContent, err := ioutil.ReadFile(goalContentFile)
 	if err != nil {
 		return err
 	}
@@ -101,9 +130,22 @@ func (d *Data) get(ctx context.Context) error {
 		return err
 	}
 
+	engineGoal := engine.GoalGuidelines{}
+	if err := json.Unmarshal(goal, &engineGoal); err != nil {
+		return err
+	}
+
+	engineGoalContent := engine.GoalGuideContents{}
+	if err := json.Unmarshal(goalContent, &engineGoalContent); err != nil {
+		return err
+	}
+
 	// engineGuide.Body.Lifestyle.Smoking
-	// res2B, _ := json.Marshal(engineContent)
+	// res2B, _ := json.Marshal(engineGoal)
 	// fmt.Println(string(res2B))
+
+	// res2C, _ := json.Marshal(engineGoalContent)
+	// fmt.Println(string(res2C))
 	// fmt.Printf("%+v\n", p)
 
 	assessment := datastructure.NewResult("Hearts Algorithm")
@@ -342,7 +384,7 @@ func (d *Data) get(ctx context.Context) error {
 		errs = append(errs, err.Error())
 	}
 
-	fmt.Println("CVD Score: ", cvdScore)
+	// fmt.Println("CVD Score: ", cvdScore)
 	// Cholesterol
 	if len(cvdScore) > 0 {
 		cvdForChol := 1.0
@@ -357,7 +399,7 @@ func (d *Data) get(ctx context.Context) error {
 		} else if cvdScore == "<10%" {
 			cvdForChol = 10.0
 		}
-		fmt.Println("CVD for Chol: ", cvdForChol)
+		// fmt.Println("CVD for Chol: ", cvdForChol)
 		chol, err := engineGuide.Body.Cholesterol.TotalCholesterol.Process(cvdForChol, p.Age, p.TChol, p.CholUnit, "total cholesterol")
 		if err != nil {
 			errs = append(errs, err.Error())
@@ -419,6 +461,26 @@ func (d *Data) get(ctx context.Context) error {
 		}
 		assessment.AssessmentReferralAttibutes.Reasons = referralReasons
 	}
+
+	/***** GOALS *****/
+	codes := engineGoal.GenerateGoals(
+		assessment.AssessmentsAttributes.Lifestyle.Components.Smoking,
+		assessment.AssessmentsAttributes.Lifestyle.Components.Alcohol,
+		assessment.AssessmentsAttributes.Lifestyle.Components.PhysicalActivity,
+		assessment.AssessmentsAttributes.Lifestyle.Components.Diet.Components.Fruit,
+		assessment.AssessmentsAttributes.Lifestyle.Components.Diet.Components.Vegetable,
+		assessment.AssessmentsAttributes.BodyComposition.Components.BMI,
+		assessment.AssessmentsAttributes.BodyComposition.Components.WaistCirc,
+		assessment.AssessmentsAttributes.BodyComposition.Components.WHR,
+		assessment.AssessmentsAttributes.BodyComposition.Components.BodyFat,
+		assessment.AssessmentsAttributes.BloodPressure,
+		assessment.AssessmentsAttributes.Diabetes,
+		assessment.AssessmentsAttributes.Cholesterol.Components.TotalCholesterol,
+		assessment.AssessmentsAttributes.CVD,
+	)
+
+	goals := engineGoalContent.GenerateGoalsGuideline(codes...)
+	assessment.GoalsAttributes = goals
 
 	d.Algorithm = assessment
 	d.Errors = errs

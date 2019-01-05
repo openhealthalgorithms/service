@@ -25,18 +25,21 @@ SERVICE_NAME := ohas
 ART_DARWIN_64 := $(SERVICE_NAME)-darwin-amd64.bin
 ART_LINUX_32 := $(SERVICE_NAME)-linux-386.bin
 ART_LINUX_64 := $(SERVICE_NAME)-linux-amd64.bin
-ART_ARCHIVE := $(SERVICE_NAME)-$$(date +%Y%m%d%H%M%S).zip
+ART_ARCHIVE := $(SERVICE_NAME)-$$(git describe --abbrev=1)-$$(git branch | grep \* | cut -d ' ' -f2)-$$(date +%y%m%d).zip
 
 # Additional tools
+
 # Standalone algorithms
 DEV_ALG_NAME := ohal
 ART_ALG_DARWIN_64 := $(DEV_ALG_NAME)-darwin-amd64.bin
 ART_ALG_LINUX_32 := $(DEV_ALG_NAME)-linux-386.bin
 ART_ALG_LINUX_64 := $(DEV_ALG_NAME)-linux-amd64.bin
 
-# default json files
+# default files to include
 GUIDELINE_JSON := guideline_hearts.json
 GUIDELINE_CONTENT_JSON := guideline_hearts_content.json
+GOALS_JSON := goals_hearts.json
+GOALS_CONTENT_JSON := goals_hearts_content.json
 SAMPLE_REQUEST_JSON := sample-request.json
 HELP_FILE := INSTRUCTIONS.md
 
@@ -51,6 +54,7 @@ COVER_OUT := cover.out
 BUILD_ID := `git rev-parse --short HEAD`
 LDFLAGS_DEV := -ldflags "-X main.appCommit=$(BUILD_ID)"
 LDFLAGS := -ldflags "-X main.appCommit=$(BUILD_ID) -s -w"
+LAST_TAG := `git describe --abbrev=0`
 
 all:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -118,7 +122,7 @@ artifacts_linux: ## Create artifacts for linux
 zip_artifacts: ## Create a zip archive with artifacts
 	$(MAKE) -f $(MKFILE_PATH) clean_releases
 	mkdir -p $(REL_PATH)
-	zip -j -v $(REL_PATH)/$(ART_ARCHIVE) $(BUILD_DARWIN)/$(ART_DARWIN_64) $(BUILD_LINUX)/$(ART_LINUX_64) $(GUIDELINE_JSON) $(GUIDELINE_CONTENT_JSON) $(SAMPLE_REQUEST_JSON) $(HELP_FILE)
+	zip -j -v $(REL_PATH)/$(ART_ARCHIVE) $(BUILD_DARWIN)/$(ART_DARWIN_64) $(BUILD_LINUX)/$(ART_LINUX_64) $(GUIDELINE_JSON) $(GUIDELINE_CONTENT_JSON) $(GOALS_JSON) $(GOALS_CONTENT_JSON) $(SAMPLE_REQUEST_JSON) $(HELP_FILE)
 
 house_keep: ## Remove any .DS_Store files
 	find $(BASE_PATH) -name ".DS_Store" -depth -exec rm {} \;
