@@ -1,5 +1,9 @@
 package engine
 
+import (
+	"github.com/openhealthalgorithms/service/pkg/tools"
+)
+
 // GoalGuideContents object
 type GoalGuideContents struct {
 	Meta *GoalGuidelinesMetaContents `json:"meta"`
@@ -27,8 +31,20 @@ type GoalGuidelinesContents map[string]GoalGuidelinesContent
 // GoalGuidelinesContent object
 type GoalGuidelinesContent struct {
 	Eval    *string `json:"eval"`
-	Grading *int    `json:"grading"`
 	TFL     *string `json:"tfl"`
 	Message *string `json:"message"`
-	Refer   *string `json:"refer"`
+}
+
+// GenerateGoalsGuideline function
+func (g *GoalGuideContents) GenerateGoalsGuideline(codes ...string) []GoalGuidelinesContent {
+	ggc := make([]GoalGuidelinesContent, 0)
+
+	for k, v := range *g.Body.GoalGuidelinesContents {
+		_, found := tools.SliceContainsString(codes, k)
+		if found {
+			ggc = append(ggc, v)
+		}
+	}
+
+	return ggc
 }

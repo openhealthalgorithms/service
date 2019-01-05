@@ -5,91 +5,128 @@
         "publication_date": ""
     },
     "body": {
-        "weight_loss": [
+        "weight_control": [
             {
-                "category": "worst",
+                "category": "need weight loss",
                 "definition": "consider weight loss as soon as possible",
                 "conditions": [
                     {
-                        "bmi": ["red", "dark-red"]
+                        "bmi": ["BMI-0", "BMI-1"]
                     },
                     {
-                        "whr": ["red"]
+                        "whr": ["WHR-HIGH"]
                     },
                     {
-                        "body_fat": ["red", "dark-red"]
+                        "wst": ["WST-HIGH"]
                     },
                     {
-                        "bmi": ["amber"],
-                        "whr": ["amber"],
-                        "body_fat": ["amber"]
+                        "body_fat": ["BFT-OBESE"]
+                    },
+                    {
+                        "bmi": ["BMI-0", "BMI-1", "BMI-2"],
+                        "whr": ["WHR-HIGH"],
+                        "wst": ["WST-HIGH"],
+                        "body_fat": ["BFT-OBESE", "BFT-OVERWEIGHT"]
                     }
                 ],
-                "code": "WL-1"
+                "code": "WC-1"
             },
             {
-                "category": "worse",
-                "definition": "consider weight loss soon",
+                "category": "need weight gain",
+                "definition": "consider weight gain soon",
                 "conditions": [
                     {
-                        "bmi": ["amber"]
+                        "bmi": ["BMI-7"]
                     },
                     {
-                        "whr": ["amber"]
-                    },
-                    {
-                        "body_fat": ["amber"]
+                        "body_fat": ["BFT-UNDERWEIGHT"]
                     }
                 ],
-                "code": "WL-2"
-            },
-            {
-                "category": "good",
-                "definition": "good shape",
-                "conditions": [
-                    {
-                        "bmi": ["green"]
-                    },
-                    {
-                        "whr": ["green"]
-                    },
-                    {
-                        "body_fat": ["green"]
-                    }
-                ],
-                "code": "WL-3"
-            },
-            {
-                "category": "better",
-                "definition": "better shape",
-                "conditions": [
-                    {
-                        "bmi": ["green"],
-                        "whr": ["green"]
-                    },
-                    {
-                        "whr": ["green"],
-                        "body_fat": ["green"]
-                    },
-                    {
-                        "bmi": ["green"],
-                        "body_fat": ["green"]
-                    }
-                ],
-                "code": "WL-4"
-            },
-            {
-                "category": "best",
-                "definition": "best shape",
-                "conditions": [
-                    {
-                        "bmi": ["green"],
-                        "whr": ["green"],
-                        "body_fat": ["green"]
-                    }
-                ],
-                "code": "WL-5"
+                "code": "WC-2"
             }
-        ]
+        ],
+        "smoking_control": [
+            {
+                "category": "keep up",
+                "definition": "keep up good work",
+                "conditions": [
+                    {
+                        "smoking": ["SM-RECENTLY-QUIT"]
+                    }
+                ],
+                "code": "SC-1"
+            },
+            {
+                "category": "quit soon",
+                "definition": "should quit smoking",
+                "conditions": [
+                    {
+                        "smoking": ["SM-CURRENT"]
+                    }
+                ],
+                "code": "SC-2"
+            }
+        ],
+        "alcohol_control": [
+            {
+                "category": "quit",
+                "definition": "quit or reduce consumption",
+                "conditions": [
+                    {
+                        "alcohol": ["AL-2", "AL-3"]
+                    }
+                ],
+                "code": "AC-1"
+            }
+        ],
+        "medical_control": [
+            {
+                "category": "moderate",
+                "definition": "moderate risk",
+                "conditions": [
+                    {
+                        "cvd": ["CVD-6"]
+                    }
+                ],
+                "code": "MC-1"
+            },
+            {
+                "category": "high",
+                "definition": "high/very high risk",
+                "conditions": [
+                    {
+                        "cvd": ["CVD-1", "CVD-8", "CVD-10"]
+                    }
+                ],
+                "code": "MC-2"
+            }
+        ],
+        "blood_pressure_control": [
+            {
+                "category": "high",
+                "definition": "high/very high risk",
+                "conditions": [
+                    {
+                        "cvd": ["CVD-6", "CVD-1", "CVD-8", "CVD-10"],
+                        "diabetes": ["DM-EXISTING-GOOD-CONTROL", "DM-EXISTING-OVER-CONTROL", "DM-EXISTING-POOR-CONTROL", "DM-EXISTING-GOOD-CONTROL", "DM-NEW-DIAGNOSIS"],
+                        "blood_pressure": ["BP-EMERGENCY", "BP-HTN-REVIEW", "BP-HTN-DM", "BP-HTN", "BP-ELEVATED"]
+                    }
+                ],
+                "code": "BPC-1"
+            }
+        ],
+        "blood_sugar_control": [
+            {
+                "category": "high",
+                "definition": "high/very high risk",
+                "conditions": [
+                    {
+                        "diabetes": ["DM-EXISTING-POOR-CONTROL", "DM-NEW-DIAGNOSIS", "DM-PRE-DIABETES"]
+                    }
+                ],
+                "code": "BSC-1"
+            }
+        ],
+        "cholesterol_control": []
     }
 }

@@ -3,7 +3,6 @@ package hearts
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 
 	"github.com/fatih/structs"
@@ -142,11 +141,11 @@ func (d *Data) get(ctx context.Context) error {
 	}
 
 	// engineGuide.Body.Lifestyle.Smoking
-	res2B, _ := json.Marshal(engineGoal)
-	fmt.Println(string(res2B))
+	// res2B, _ := json.Marshal(engineGoal)
+	// fmt.Println(string(res2B))
 
-	res2C, _ := json.Marshal(engineGoalContent)
-	fmt.Println(string(res2C))
+	// res2C, _ := json.Marshal(engineGoalContent)
+	// fmt.Println(string(res2C))
 	// fmt.Printf("%+v\n", p)
 
 	assessment := datastructure.NewResult("Hearts Algorithm")
@@ -462,6 +461,26 @@ func (d *Data) get(ctx context.Context) error {
 		}
 		assessment.AssessmentReferralAttibutes.Reasons = referralReasons
 	}
+
+	/***** GOALS *****/
+	codes := engineGoal.GenerateGoals(
+		assessment.AssessmentsAttributes.Lifestyle.Components.Smoking,
+		assessment.AssessmentsAttributes.Lifestyle.Components.Alcohol,
+		assessment.AssessmentsAttributes.Lifestyle.Components.PhysicalActivity,
+		assessment.AssessmentsAttributes.Lifestyle.Components.Diet.Components.Fruit,
+		assessment.AssessmentsAttributes.Lifestyle.Components.Diet.Components.Vegetable,
+		assessment.AssessmentsAttributes.BodyComposition.Components.BMI,
+		assessment.AssessmentsAttributes.BodyComposition.Components.WaistCirc,
+		assessment.AssessmentsAttributes.BodyComposition.Components.WHR,
+		assessment.AssessmentsAttributes.BodyComposition.Components.BodyFat,
+		assessment.AssessmentsAttributes.BloodPressure,
+		assessment.AssessmentsAttributes.Diabetes,
+		assessment.AssessmentsAttributes.Cholesterol.Components.TotalCholesterol,
+		assessment.AssessmentsAttributes.CVD,
+	)
+
+	goals := engineGoalContent.GenerateGoalsGuideline(codes...)
+	assessment.GoalsAttributes = goals
 
 	d.Algorithm = assessment
 	d.Errors = errs
