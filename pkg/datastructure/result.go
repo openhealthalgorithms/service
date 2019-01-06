@@ -9,8 +9,8 @@ type Result struct {
 	MetaAttributes              Meta               `structs:"meta" json:"meta"`
 	AssessmentsAttributes       Assessments        `structs:"assessments" json:"assessments"`
 	GoalsAttributes             Goals              `structs:"goals" json:"goals"`
-	RecommendationsAttributes   Recommendations    `structs:"recommendations" json:"recommendations"`
 	AssessmentReferralAttibutes AssessmentReferral `structs:"referrals" json:"referrals"`
+	// RecommendationsAttributes   Recommendations    `structs:"recommendations" json:"recommendations"`
 }
 
 // Meta object

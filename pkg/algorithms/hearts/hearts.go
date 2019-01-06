@@ -417,9 +417,9 @@ func (d *Data) get(ctx context.Context) error {
 		}
 	}
 
-	assessment.RecommendationsAttributes.Lifestyle.Actions = lifestyleActions
-	assessment.RecommendationsAttributes.Medications.Actions = medicationsActions
-	assessment.RecommendationsAttributes.Followup.Actions = followupActions
+	// assessment.RecommendationsAttributes.Lifestyle.Actions = lifestyleActions
+	// assessment.RecommendationsAttributes.Medications.Actions = medicationsActions
+	// assessment.RecommendationsAttributes.Followup.Actions = followupActions
 
 	// Assessment message calculation
 	if engineContent.Body.Gradings.Lifestyle != nil {
