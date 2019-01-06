@@ -35,14 +35,27 @@ type GoalGuidelinesContent struct {
 	Message *string `json:"message"`
 }
 
+// GoalGuidelinesContentResponse object
+type GoalGuidelinesContentResponse struct {
+	Code    string `json:"code"`
+	Eval    string `json:"eval"`
+	TFL     string `json:"tfl"`
+	Message string `json:"message"`
+}
+
 // GenerateGoalsGuideline function
-func (g *GoalGuideContents) GenerateGoalsGuideline(codes ...string) []GoalGuidelinesContent {
-	ggc := make([]GoalGuidelinesContent, 0)
+func (g *GoalGuideContents) GenerateGoalsGuideline(codes ...string) []GoalGuidelinesContentResponse {
+	ggc := make([]GoalGuidelinesContentResponse, 0)
 
 	for k, v := range *g.Body.GoalGuidelinesContents {
 		_, found := tools.SliceContainsString(codes, k)
 		if found {
-			ggc = append(ggc, v)
+			ggcr := GoalGuidelinesContentResponse{}
+			ggcr.Code = k
+			ggcr.Eval = *v.Eval
+			ggcr.TFL = *v.TFL
+			ggcr.Message = *v.Message
+			ggc = append(ggc, ggcr)
 		}
 	}
 
