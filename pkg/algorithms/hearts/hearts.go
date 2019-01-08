@@ -8,7 +8,7 @@ import (
 	"github.com/fatih/structs"
 	"github.com/pkg/errors"
 
-	"github.com/openhealthalgorithms/service/pkg/datastructure"
+	ds "github.com/openhealthalgorithms/service/pkg/datastructure"
 	"github.com/openhealthalgorithms/service/pkg/engine"
 	"github.com/openhealthalgorithms/service/pkg/tools"
 	"github.com/openhealthalgorithms/service/pkg/types"
@@ -16,8 +16,8 @@ import (
 
 // Data holds results of plugin.
 type Data struct {
-	Algorithm datastructure.Result `json:"algorithm"`
-	Errors    []string             `json:"errors"`
+	Algorithm ds.Result `json:"algorithm"`
+	Errors    []string  `json:"errors"`
 }
 
 // New returns a ready to use instance of the plugin.
@@ -148,12 +148,12 @@ func (d *Data) get(ctx context.Context) error {
 	// fmt.Println(string(res2C))
 	// fmt.Printf("%+v\n", p)
 
-	assessment := datastructure.NewResult("Hearts Algorithm")
-	lifestyleActions := make([]datastructure.Action, 0)
-	medicationsActions := make([]datastructure.Action, 0)
-	followupActions := make([]datastructure.Action, 0)
+	assessment := ds.NewResult("Hearts Algorithm")
+	lifestyleActions := make([]ds.Action, 0)
+	medicationsActions := make([]ds.Action, 0)
+	followupActions := make([]ds.Action, 0)
 
-	var res datastructure.Assessment
+	var res ds.Assessment
 	errs := make([]string, 0)
 
 	lifestyleGrading := 0
@@ -162,7 +162,7 @@ func (d *Data) get(ctx context.Context) error {
 
 	referral := false
 	referralUrgent := false
-	referralReasons := make([]string, 0)
+	referralReasons := make([]ds.ReferralsResponse, 0)
 
 	// Smoking
 	sm, err := engineGuide.Body.Lifestyle.Smoking.Process(p.Smoker.CurrentSmoker, p.Smoker.ExSmoker, p.Smoker.QuitWithinYear)
@@ -174,10 +174,13 @@ func (d *Data) get(ctx context.Context) error {
 		lifestyleGrading += res.Grading
 		if res.Refer != "no" {
 			referral = referral || true
+			ref := ds.ReferralsResponse{}
 			if res.Refer == "urgent" {
 				referralUrgent = referralUrgent || true
+				ref.RUrgent = true
 			}
-			referralReasons = append(referralReasons, res.Eval)
+			ref.RType = "smoking"
+			referralReasons = append(referralReasons, ref)
 		}
 	}
 
@@ -191,10 +194,13 @@ func (d *Data) get(ctx context.Context) error {
 		lifestyleGrading += res.Grading
 		if res.Refer != "no" {
 			referral = referral || true
+			ref := ds.ReferralsResponse{}
 			if res.Refer == "urgent" {
 				referralUrgent = referralUrgent || true
+				ref.RUrgent = true
 			}
-			referralReasons = append(referralReasons, res.Eval)
+			ref.RType = "alcohol"
+			referralReasons = append(referralReasons, ref)
 		}
 	}
 
@@ -208,10 +214,13 @@ func (d *Data) get(ctx context.Context) error {
 		lifestyleGrading += res.Grading
 		if res.Refer != "no" {
 			referral = referral || true
+			ref := ds.ReferralsResponse{}
 			if res.Refer == "urgent" {
 				referralUrgent = referralUrgent || true
+				ref.RUrgent = true
 			}
-			referralReasons = append(referralReasons, res.Eval)
+			ref.RType = "physical activity"
+			referralReasons = append(referralReasons, ref)
 		}
 	}
 
@@ -227,10 +236,13 @@ func (d *Data) get(ctx context.Context) error {
 		dietGrading += res.Grading
 		if res.Refer != "no" {
 			referral = referral || true
+			ref := ds.ReferralsResponse{}
 			if res.Refer == "urgent" {
 				referralUrgent = referralUrgent || true
+				ref.RUrgent = true
 			}
-			referralReasons = append(referralReasons, res.Eval)
+			ref.RType = "fruit"
+			referralReasons = append(referralReasons, ref)
 		}
 	}
 
@@ -244,10 +256,13 @@ func (d *Data) get(ctx context.Context) error {
 		dietGrading += res.Grading
 		if res.Refer != "no" {
 			referral = referral || true
+			ref := ds.ReferralsResponse{}
 			if res.Refer == "urgent" {
 				referralUrgent = referralUrgent || true
+				ref.RUrgent = true
 			}
-			referralReasons = append(referralReasons, res.Eval)
+			ref.RType = "vegetable"
+			referralReasons = append(referralReasons, ref)
 		}
 	}
 
@@ -261,10 +276,13 @@ func (d *Data) get(ctx context.Context) error {
 		bodyCompositionGrading += res.Grading
 		if res.Refer != "no" {
 			referral = referral || true
+			ref := ds.ReferralsResponse{}
 			if res.Refer == "urgent" {
 				referralUrgent = referralUrgent || true
+				ref.RUrgent = true
 			}
-			referralReasons = append(referralReasons, res.Eval)
+			ref.RType = "bmi"
+			referralReasons = append(referralReasons, ref)
 		}
 	}
 
@@ -278,10 +296,13 @@ func (d *Data) get(ctx context.Context) error {
 		bodyCompositionGrading += res.Grading
 		if res.Refer != "no" {
 			referral = referral || true
+			ref := ds.ReferralsResponse{}
 			if res.Refer == "urgent" {
 				referralUrgent = referralUrgent || true
+				ref.RUrgent = true
 			}
-			referralReasons = append(referralReasons, res.Eval)
+			ref.RType = "waist circumference"
+			referralReasons = append(referralReasons, ref)
 		}
 	}
 
@@ -295,10 +316,13 @@ func (d *Data) get(ctx context.Context) error {
 		bodyCompositionGrading += res.Grading
 		if res.Refer != "no" {
 			referral = referral || true
+			ref := ds.ReferralsResponse{}
 			if res.Refer == "urgent" {
 				referralUrgent = referralUrgent || true
+				ref.RUrgent = true
 			}
-			referralReasons = append(referralReasons, res.Eval)
+			ref.RType = "whr"
+			referralReasons = append(referralReasons, ref)
 		}
 	}
 
@@ -312,10 +336,13 @@ func (d *Data) get(ctx context.Context) error {
 		bodyCompositionGrading += res.Grading
 		if res.Refer != "no" {
 			referral = referral || true
+			ref := ds.ReferralsResponse{}
 			if res.Refer == "urgent" {
 				referralUrgent = referralUrgent || true
+				ref.RUrgent = true
 			}
-			referralReasons = append(referralReasons, res.Eval)
+			ref.RType = "body fat"
+			referralReasons = append(referralReasons, ref)
 		}
 	}
 
@@ -339,10 +366,13 @@ func (d *Data) get(ctx context.Context) error {
 		assessment.AssessmentsAttributes.Diabetes = res
 		if res.Refer != "no" {
 			referral = referral || true
+			ref := ds.ReferralsResponse{}
 			if res.Refer == "urgent" {
 				referralUrgent = referralUrgent || true
+				ref.RUrgent = true
 			}
-			referralReasons = append(referralReasons, res.Eval)
+			ref.RType = "diabetes"
+			referralReasons = append(referralReasons, ref)
 		}
 	}
 
@@ -359,10 +389,13 @@ func (d *Data) get(ctx context.Context) error {
 		assessment.AssessmentsAttributes.BloodPressure = res
 		if res.Refer != "no" {
 			referral = referral || true
+			ref := ds.ReferralsResponse{}
 			if res.Refer == "urgent" {
 				referralUrgent = referralUrgent || true
+				ref.RUrgent = true
 			}
-			referralReasons = append(referralReasons, res.Eval)
+			ref.RType = "blood pressure"
+			referralReasons = append(referralReasons, ref)
 		}
 	}
 
@@ -375,10 +408,13 @@ func (d *Data) get(ctx context.Context) error {
 		assessment.AssessmentsAttributes.CVD = res
 		if res.Refer != "no" {
 			referral = referral || true
+			ref := ds.ReferralsResponse{}
 			if res.Refer == "urgent" {
 				referralUrgent = referralUrgent || true
+				ref.RUrgent = true
 			}
-			referralReasons = append(referralReasons, res.Eval)
+			ref.RType = "cvd"
+			referralReasons = append(referralReasons, ref)
 		}
 	} else {
 		errs = append(errs, err.Error())
@@ -409,10 +445,13 @@ func (d *Data) get(ctx context.Context) error {
 			cholesterolGrading += res.Grading
 			if res.Refer != "no" {
 				referral = referral || true
+				ref := ds.ReferralsResponse{}
 				if res.Refer == "urgent" {
 					referralUrgent = referralUrgent || true
+					ref.RUrgent = true
 				}
-				referralReasons = append(referralReasons, res.Eval)
+				ref.RType = "total cholesterol"
+				referralReasons = append(referralReasons, ref)
 			}
 		}
 	}
@@ -489,8 +528,8 @@ func (d *Data) get(ctx context.Context) error {
 }
 
 // GetResults from response
-func GetResults(response engine.Response, contents engine.Contents, advices datastructure.Actions) (datastructure.Assessment, datastructure.Actions) {
-	assessment := datastructure.Assessment{}
+func GetResults(response engine.Response, contents engine.Contents, advices ds.Actions) (ds.Assessment, ds.Actions) {
+	assessment := ds.Assessment{}
 
 	assessment.Code = response.Code
 	assessment.Value = response.Value
@@ -503,7 +542,7 @@ func GetResults(response engine.Response, contents engine.Contents, advices data
 		assessment.Refer = *output.Refer
 		assessment.Grading = *output.Grading
 
-		advice := datastructure.Action{}
+		advice := ds.Action{}
 		advice.Goal = *output.Eval
 		advice.Messages = append(advice.Messages, *output.Message)
 		advices = append(advices, advice)

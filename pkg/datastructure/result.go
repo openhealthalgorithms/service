@@ -146,9 +146,15 @@ type Action struct {
 
 // AssessmentReferral object
 type AssessmentReferral struct {
-	Refer   bool     `structs:"refer" json:"refer"`
-	Urgent  bool     `structs:"urgent" json:"urgent"`
-	Reasons []string `structs:"reasons" json:"reasons"`
+	Refer   bool                `structs:"refer" json:"refer"`
+	Urgent  bool                `structs:"urgent" json:"urgent"`
+	Reasons []ReferralsResponse `structs:"reasons" json:"reasons"`
+}
+
+// ReferralsResponse object
+type ReferralsResponse struct {
+	RType   string `structs:"type" json:"type"`
+	RUrgent bool   `structs:"urgent" json:"urgent"`
 }
 
 // NewResult returns a Result object with meta information
