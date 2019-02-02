@@ -9,7 +9,7 @@ use it to provide advance health care support.
 
 When you unzip the `ohas.zip` into your favorite directory, you will see these files:
 
-```
+```text
 |-- ohas
     |-- guideline_hearts.json
     |   (Has the conditions/targets for various health check)
@@ -53,9 +53,11 @@ The service will run on port `9595` or your given port on the server you install
 You can use postman or any application to use the API.
 
 ### `/api/algorithm`
+
 This is the primary API to run the algorithm.
 
 Here is a sample request:
+
 ```bash
 curl -X POST \
   http://localhost:9595/api/algorithm \
@@ -266,7 +268,9 @@ This is the returned output:
 ```
 
 ### `/api/version`
+
 It will return the API version.
+
 ```javascript
 {
     "version": "0.1"
@@ -277,8 +281,7 @@ It will return the API version.
 
 - The binary file and both guideline files must be on the same directory.
 - Do not rename the guideline files.
-- Most of the attributes in `sample-request.json` are mandatory. If you get
-invalid/unexpected output, the check the input attributes
+- Most of the attributes in `sample-request.json` are mandatory. If you get invalid/unexpected output, the check the input attributes
 - Many error checking is not fully implemented, so use in your own risk.
 
 ## Coming Soon

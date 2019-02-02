@@ -6,274 +6,216 @@
     },
     "body": {
         "lifestyle": {
-            "smoking": [
-                {
+            "smoking": [{
                     "category": "current smoker",
                     "definition": "is a current smoker",
-                    "conditions": [
-                        {
-                            "smoker": true,
-                            "target": "no"
-                        }
-                    ],
+                    "conditions": [{
+                        "smoker": true,
+                        "target": "no"
+                    }],
                     "code": "SM-CURRENT"
                 },
                 {
                     "category": "recently ex-smoker",
                     "definition": "quit within the past 12 months",
-                    "conditions": [
-                        {
-                            "smoker": false,
-                            "quit_within_12_months": true,
-                            "target": "no"
-                        }
-                    ],
+                    "conditions": [{
+                        "smoker": false,
+                        "quit_within_12_months": true,
+                        "target": "no"
+                    }],
                     "code": "SM-RECENTLY-QUIT"
                 },
                 {
                     "category": "ex smoker",
                     "definition": "was a smoker, quit more than 12 months ago",
-                    "conditions": [
-                        {
-                            "smoker": false,
-                            "ex_smoker": true,
-                            "quit_within_12_months": false,
-                            "target": "no"
-                        }
-                    ],
+                    "conditions": [{
+                        "smoker": false,
+                        "ex_smoker": true,
+                        "quit_within_12_months": false,
+                        "target": "no"
+                    }],
                     "code": "SM-EX-SMOKER"
                 },
                 {
                     "category": "non smoker",
                     "definition": "never smoked",
-                    "conditions": [
-                        {
-                            "smoker": false,
-                            "ex_smoker": false,
-                            "quit_within_12_months": false,
-                            "target": "no"
-                        }
-                    ],
+                    "conditions": [{
+                        "smoker": false,
+                        "ex_smoker": false,
+                        "quit_within_12_months": false,
+                        "target": "no"
+                    }],
                     "code": "SM-NON-SMOKER"
                 }
             ],
-            "alcohol": [
-                {
+            "alcohol": [{
                     "category": "non alcoholic",
                     "definition": "intakes no alcohol",
-                    "conditions": [
-                        {
-                            "from": 0,
-                            "to": 0,
-                            "unit": "units",
-                            "duration": "weekly",
-                            "target": "<1 units/week"
-                        }
-                    ],
-                    "code": "AL-NONE"
+                    "conditions": [{
+                        "from": 0,
+                        "to": 0,
+                        "unit": "units",
+                        "duration": "weekly",
+                        "target": "No alcohol"
+                    }],
+                    "code": "ALC-NONE"
                 },
                 {
-                    "category": "safe alcohol use",
-                    "definition": "intakes very little alcohol",
-                    "conditions": [
-                        {
-                            "from": 1,
-                            "to": 5,
-                            "unit": "units",
-                            "duration": "weekly",
-                            "target": "<1 units/week"
-                        }
-                    ],
-                    "code": "AL-SAFE"
+                    "category": "safe alcohol use for male & female",
+                    "definition": "Less than 14 standard drinks per week",
+                    "conditions": [{
+                        "from": 1,
+                        "to": 14,
+                        "unit": "units",
+                        "duration": "weekly",
+                        "target": "< 14 units/week"
+                    }],
+                    "code": "ALC-LOW-RISK"
                 },
                 {
-                    "category": "alcoholic",
-                    "definition": "intakes normal alcoholic",
-                    "conditions": [
-                        {
-                            "from": 6,
-                            "to": 9,
-                            "unit": "units",
-                            "duration": "weekly",
-                            "target": "<1 units/week"
-                        }
-                    ],
-                    "code": "AL-2"
-                },
-                {
-                    "category": "high alcoholic",
-                    "definition": "intakes huge alcohols",
-                    "conditions": [
-                        {
-                            "from": 10,
-                            "unit": "units",
-                            "duration": "weekly",
-                            "target": "<1 units/week"
-                        }
-                    ],
-                    "code": "AL-3"
+                    "category": "At risk consumption of alcohol",
+                    "definition": "> 12 units per week",
+                    "conditions": [{
+                        "from": 15,
+                        "unit": "units",
+                        "duration": "weekly",
+                        "target": "< 14 units/week"
+                    }],
+                    "code": "ALC-AT-RISK"
                 }
             ],
-            "physical_activity": [
-                {
+            "physical_activity": [{
                     "category": "no exerciser",
                     "definition": "does no or little exercise",
-                    "conditions": [
-                        {
-                            "to": 75,
-                            "unit": "minutes",
-                            "type": "moderate",
-                            "target": ">150 minutes"
-                        }
-                    ],
+                    "conditions": [{
+                        "to": 75,
+                        "unit": "minutes",
+                        "type": "moderate",
+                        "target": ">150 minutes"
+                    }],
                     "code": "PA-SEDENTARY"
                 },
                 {
                     "category": "moderate exerciser",
                     "definition": "does moderate level of exercises",
-                    "conditions": [
-                        {
-                            "from": 75,
-                            "to": 149,
-                            "unit": "minutes",
-                            "type": "moderate",
-                            "target": ">150 minutes"
-                        }
-                    ],
+                    "conditions": [{
+                        "from": 75,
+                        "to": 149,
+                        "unit": "minutes",
+                        "type": "moderate",
+                        "target": ">150 minutes"
+                    }],
                     "code": "PA-UNDER"
                 },
                 {
                     "category": "On target",
                     "definition": "does sufficient level of exercise",
-                    "conditions": [
-                        {
-                            "from": 150,
-                            "unit": "minutes",
-                            "type": "moderate",
-                            "target": ">150 minutes"
-                        }
-                    ],
+                    "conditions": [{
+                        "from": 150,
+                        "unit": "minutes",
+                        "type": "moderate",
+                        "target": ">150 minutes"
+                    }],
                     "code": "PA-TARGET"
                 }
             ],
             "diet": {
-                "fruit": [
-                    {
+                "fruit": [{
                         "category": "low consumption",
                         "definition": "intakes very little fruits",
-                        "conditions": [
-                            {
-                                "to": 13,
-                                "unit": "servings",
-                                "duration": "weekly",
-                                "target": ">2 servings/day"
-                            }
-                        ],
+                        "conditions": [{
+                            "to": 13,
+                            "unit": "servings",
+                            "duration": "weekly",
+                            "target": ">2 servings/day"
+                        }],
                         "code": "FRT-LOW"
                     },
                     {
                         "category": "normal consumption",
                         "definition": "intakes normal fruits",
-                        "conditions": [
-                            {
-                                "from": 14,
-                                "unit": "servings",
-                                "duration": "weekly",
-                                "target": ">2 servings/day"
-                            }
-                        ],
+                        "conditions": [{
+                            "from": 14,
+                            "unit": "servings",
+                            "duration": "weekly",
+                            "target": ">2 servings/day"
+                        }],
                         "code": "FRT-TARGET"
                     }
                 ],
-                "vegetables": [
-                    {
+                "vegetables": [{
                         "category": "low consumption",
                         "definition": "intakes very little vegetables",
-                        "conditions": [
-                            {
-                                "to": 34,
-                                "unit": "servings",
-                                "duration": "weekly",
-                                "target": "5 or more servings/day"
-                            }
-                        ],
+                        "conditions": [{
+                            "to": 34,
+                            "unit": "servings",
+                            "duration": "weekly",
+                            "target": "5 or more servings/day"
+                        }],
                         "code": "VEG-LOW"
                     },
                     {
                         "category": "normal consumption",
                         "definition": "intakes normal vegetables",
-                        "conditions": [
-                            {
-                                "from": 35,
-                                "unit": "servings",
-                                "duration": "weekly",
-                                "target": "5 or more servings/day"
-                            }
-                        ],
+                        "conditions": [{
+                            "from": 35,
+                            "unit": "servings",
+                            "duration": "weekly",
+                            "target": "5 or more servings/day"
+                        }],
                         "code": "VEG-TARGET"
                     }
                 ]
             }
         },
         "body_composition": {
-            "bmi": [
-                {
-                    "category": "obese",
-                    "definition": "obese range",
-                    "conditions": [
-                        {
-                            "from": 30,
-                            "unit": "kg/m2",
-                            "target": "18.5-24.9"
-                        }
-                    ],
-                    "code": "BMI-0"
+            "bmi": [{
+                    "category": "Obese",
+                    "definition": "South Asian BMI > 27.5 kg/m2",
+                    "conditions": [{
+                        "from": 27.6,
+                        "unit": "kg/m2",
+                        "target": "18.5–23"
+                    }],
+                    "code": "BMI-OBESE"
                 },
                 {
-                    "category": "overweight",
-                    "definition": "overweight range",
-                    "conditions": [
-                        {
-                            "from": 25,
-                            "to": 29,
-                            "unit": "kg/m2",
-                            "target": "18.5-24.9"
-                        }
-                    ],
-                    "code": "BMI-1"
+                    "category": "Overweight",
+                    "definition": "South Asian BMI > 23–27.5 kg/m2",
+                    "conditions": [{
+                        "from": 23.1,
+                        "to": 27.5,
+                        "unit": "kg/m2",
+                        "target": "18.5-23"
+                    }],
+                    "code": "BMI-OVERWEIGHT"
                 },
                 {
-                    "category": "normal",
-                    "definition": "normal weight range",
-                    "conditions": [
-                        {
-                            "from": 18.5,
-                            "to": 24.9,
-                            "unit": "kg/m2",
-                            "target": "18.5-24.9"
-                        }
-                    ],
-                    "code": "BMI-2"
+                    "category": "Normal",
+                    "definition": "South Asian BMI 18.5–23 kg/m2",
+                    "conditions": [{
+                        "from": 18.5,
+                        "to": 23,
+                        "unit": "kg/m2",
+                        "target": "18.5-23"
+                    }],
+                    "code": "BMI-NORMAL"
                 },
                 {
-                    "category": "underweight",
-                    "definition": "below normal weight range",
-                    "conditions": [
-                        {
-                            "to": 18.4,
-                            "unit": "kg/m2",
-                            "target": "18.5-24.9"
-                        }
-                    ],
-                    "code": "BMI-7"
+                    "category": "Underweight",
+                    "definition": "South Asian BMI < 18.5",
+                    "conditions": [{
+                        "to": 18.5,
+                        "unit": "kg/m2",
+                        "target": "18.5-23"
+                    }],
+                    "code": "BMI-UNDERWEIGHT"
                 }
             ],
-            "waist_circ": [
-                {
+            "waist_circ": [{
                     "category": "high",
                     "definition": "is above normal limit",
-                    "conditions": [
-                        {
+                    "conditions": [{
                             "gender": "male",
                             "from": 102,
                             "unit": "cm",
@@ -291,8 +233,7 @@
                 {
                     "category": "normal",
                     "definition": "is within normal limit",
-                    "conditions": [
-                        {
+                    "conditions": [{
                             "gender": "male",
                             "to": 101,
                             "unit": "cm",
@@ -308,12 +249,10 @@
                     "code": "WST-NORMAL"
                 }
             ],
-            "whr": [
-                {
+            "whr": [{
                     "category": "high",
                     "definition": "is above normal limit",
-                    "conditions": [
-                        {
+                    "conditions": [{
                             "gender": "male",
                             "from": 0.91,
                             "target": "0.90"
@@ -329,8 +268,7 @@
                 {
                     "category": "normal",
                     "definition": "is normal limit",
-                    "conditions": [
-                        {
+                    "conditions": [{
                             "gender": "male",
                             "to": 0.89,
                             "target": "0.90"
@@ -344,12 +282,10 @@
                     "code": "WHR-NORMAL"
                 }
             ],
-            "body_fat": [
-                {
+            "body_fat": [{
                     "category": "obese",
                     "definition": "obese condition",
-                    "conditions": [
-                        {
+                    "conditions": [{
                             "gender": "male",
                             "age": {
                                 "from": 60
@@ -425,8 +361,7 @@
                 {
                     "category": "overweight",
                     "definition": "overweight condition",
-                    "conditions": [
-                        {
+                    "conditions": [{
                             "gender": "male",
                             "age": {
                                 "from": 60
@@ -508,8 +443,7 @@
                 {
                     "category": "healty",
                     "definition": "health weight condition",
-                    "conditions": [
-                        {
+                    "conditions": [{
                             "gender": "male",
                             "age": {
                                 "from": 60
@@ -591,8 +525,7 @@
                 {
                     "category": "underweight",
                     "definition": "underweight condition",
-                    "conditions": [
-                        {
+                    "conditions": [{
                             "gender": "male",
                             "age": {
                                 "from": 60
@@ -667,12 +600,10 @@
                 }
             ]
         },
-        "blood_pressure": [
-            {
+        "blood_pressure": [{
                 "category": "emergency referral",
                 "definition": "dangerously high blood pressure",
-                "conditions": [
-                    {
+                "conditions": [{
                         "sbp": {
                             "from": 180,
                             "unit": "mmHg"
@@ -692,8 +623,7 @@
             {
                 "category": "hypertension for review",
                 "definition": "high blood pressure",
-                "conditions": [
-                    {
+                "conditions": [{
                         "sbp": {
                             "from": 160,
                             "to": 179,
@@ -715,8 +645,7 @@
             {
                 "category": "hypertension in diabetes",
                 "definition": "high blood pressure in patient with diabetes",
-                "conditions": [
-                    {
+                "conditions": [{
                         "diabetes": true,
                         "sbp": {
                             "from": 131,
@@ -738,8 +667,7 @@
             {
                 "category": "hypertension",
                 "definition": "high blood pressure",
-                "conditions": [
-                    {
+                "conditions": [{
                         "diabetes": false,
                         "sbp": {
                             "from": 141,
@@ -761,8 +689,7 @@
             {
                 "category": "normal bp in diabetic",
                 "definition": "normal pressure in patient with diabetes",
-                "conditions": [
-                    {
+                "conditions": [{
                         "diabetes": true,
                         "sbp": {
                             "to": 130,
@@ -784,8 +711,7 @@
             {
                 "category": "elevated bp",
                 "definition": "elevated blood pressure, not hypertension",
-                "conditions": [
-                    {
+                "conditions": [{
                         "diabetes": false,
                         "sbp": {
                             "from": 121,
@@ -809,8 +735,7 @@
             {
                 "category": "normal bp",
                 "definition": "normal range",
-                "conditions": [
-                    {
+                "conditions": [{
                         "diabetes": false,
                         "sbp": {
                             "from": 120,
@@ -832,93 +757,81 @@
                 "code": "BP-TARGET"
             }
         ],
-        "diabetes": [
-            {
+        "diabetes": [{
                 "category": "existing diabetes well controlled, hba1c",
                 "definition": "patient has existing diabetes",
-                "conditions": [
-                    {
-                        "hx_diabetes": true,
-                        "blood_sugar": {
-                            "type": "HbA1C",
-                            "from": 7.0,
-                            "to": 8.0,
-                            "unit": "%"
-                        },
-                        "target": "7-8%"
-                    }
-                ],
+                "conditions": [{
+                    "hx_diabetes": true,
+                    "blood_sugar": {
+                        "type": "HbA1C",
+                        "from": 7.0,
+                        "to": 8.0,
+                        "unit": "%"
+                    },
+                    "target": "7-8%"
+                }],
                 "code": "DM-EXISTING-GOOD-CONTROL"
             },
             {
                 "category": "Existing Diabetes, over controlled via HbA1c ",
                 "definition": "Patient with existing diabetes with very tight glucose control as measured by HbA1c",
-                "conditions": [
-                    {
-                        "hx_diabetes": true,
-                        "blood_sugar": {
-                            "type": "HbA1C",
-                            "to": 6.9,
-                            "unit": "%"
-                        },
-                        "target": "7-8%"
-                    }
-                ],
+                "conditions": [{
+                    "hx_diabetes": true,
+                    "blood_sugar": {
+                        "type": "HbA1C",
+                        "to": 6.9,
+                        "unit": "%"
+                    },
+                    "target": "7-8%"
+                }],
                 "code": "DM-EXISTING-OVER-CONTROL"
             },
             {
                 "category": "Existing Diabetes, poorly controlled via HbA1c ",
                 "definition": "Patient with existing diabetes with poor glucose control as measured by HbA1c",
-                "conditions": [
-                    {
-                        "hx_diabetes": true,
-                        "blood_sugar": {
-                            "type": "HbA1C",
-                            "from" : 8.1,
-                            "unit": "%"
-                        },
-                        "target": "7-8%"
-                    }
-                ],
+                "conditions": [{
+                    "hx_diabetes": true,
+                    "blood_sugar": {
+                        "type": "HbA1C",
+                        "from": 8.1,
+                        "unit": "%"
+                    },
+                    "target": "7-8%"
+                }],
                 "code": "DM-EXISTING-POOR-CONTROL"
             },
             {
                 "category": "existing diabetes well controlled, fasting bsl",
                 "definition": "patient has existing diabetes",
-                "conditions": [
-                    {
-                        "hx_diabetes": true,
-                        "blood_sugar": {
-                            "type": "fasting",
-                            "to": 6.4,
-                            "unit": "mmol/L"
-                        },
-                        "target": "<117mg/dL (6.5mmol/L)"
-                    }
-                ],
+                "conditions": [{
+                    "hx_diabetes": true,
+                    "blood_sugar": {
+                        "type": "fasting",
+                        "to": 6.4,
+                        "unit": "mmol/L"
+                    },
+                    "target": "<117mg/dL (6.5mmol/L)"
+                }],
                 "code": "DM-EXISTING-GOOD-CONTROL"
             },
             {
                 "category": "existing diabetes poorly controlled, bsl",
                 "definition": "patient has existing diabetes",
-                "conditions": [
-                    {
-                        "hx_diabetes": true,
-                        "blood_sugar": {
-                            "type": "fasting",
-                            "from": 6.5,
-                            "unit": "mmol/L"
-                        },
-                        "target": "<117mg/dL (6.5mmol/L)"
-                    }
-                ],
+                "conditions": [{
+                    "hx_diabetes": true,
+                    "blood_sugar": {
+                        "type": "fasting",
+                        "from": 6.5,
+                        "unit": "mmol/L"
+                    },
+                    "target": "<117mg/dL (6.5mmol/L)"
+                }],
                 "code": "DM-EXISTING-POOR-CONTROL"
             },
             {
                 "category": "diabetes",
                 "definition": "patient has new diagnosis of diabetes",
-                "conditions": [
-                    {
+                "conditions": [{
                         "hx_diabetes": false,
                         "blood_sugar": {
                             "type": "fasting",
@@ -942,8 +855,7 @@
             {
                 "category": "pre diabetes",
                 "definition": "patient has pre-diabetes",
-                "conditions": [
-                    {
+                "conditions": [{
                         "hx_diabetes": false,
                         "blood_sugar": {
                             "type": "HbA1c",
@@ -969,8 +881,7 @@
             {
                 "category": "no diabetes",
                 "definition": "normal blood sugar levels",
-                "conditions": [
-                    {
+                "conditions": [{
                         "hx_diabetes": false,
                         "blood_sugar": {
                             "type": "HbA1c",
@@ -993,102 +904,90 @@
             }
         ],
         "cholesterol": {
-            "total_cholesterol": [
-                {
+            "total_cholesterol": [{
                     "category": "refer for treatment",
                     "definition": "requires treatment for high cholesterol",
-                    "conditions": [
-                        {
-                            "range": {
-                                "from": 8.0,
-                                "unit": "mmol/L"
-                            },
-                            "target": "<90mg/dL (5mmol/L)"
-                        }
-                    ],
+                    "conditions": [{
+                        "range": {
+                            "from": 8.0,
+                            "unit": "mmol/L"
+                        },
+                        "target": "< 90mg/dL (5 mmol/L)"
+                    }],
                     "code": "CHOL-REFER"
                 },
                 {
                     "category": "high cvd risk",
                     "definition": "requires treatment for cholesterol regardless of level based on high cvd risk",
-                    "conditions": [
-                        {
-                            "cvd": {
-                                "from": 31,
-                                "unit": "%"
-                            },
-                            "target": "<90mg/dL (5mmol/L)"
-                        }
-                    ],
+                    "conditions": [{
+                        "cvd": {
+                            "from": 31,
+                            "unit": "%"
+                        },
+                        "target": "<90mg/dL (5mmol/L)"
+                    }],
                     "code": "CHOL-VERY-HIGH-CVD-RISK"
                 },
                 {
                     "category": "elevated with high cvd risk",
                     "definition": "tchol over 5 and high cvd risk",
-                    "conditions": [
-                        {
-                            "cvd": {
-                                "from": 21,
-                                "to": 30,
-                                "unit": "%"
-                            },
-                            "range": {
-                                "from": 5.1,
-                                "to": 7.9,
-                                "unit": "mmol/L"
-                            },
-                            "target": "<90mg/dL (5mmol/L)"
-                        }
-                    ],
+                    "conditions": [{
+                        "cvd": {
+                            "from": 21,
+                            "to": 30,
+                            "unit": "%"
+                        },
+                        "range": {
+                            "from": 5.1,
+                            "to": 7.9,
+                            "unit": "mmol/L"
+                        },
+                        "target": "< 90mg/dL (5 mmol/L)"
+                    }],
                     "code": "CHOL-ELEVATED-WITH-HIGH-CVD-RISK"
                 },
                 {
                     "category": "moderate cvd risk",
                     "definition": "based on moderate cvd risk",
-                    "conditions": [
-                        {
-                            "cvd": {
-                                "from": 11,
-                                "to": 20,
-                                "unit": "%"
-                            },
-                            "target": "<90mg/dL (5mmol/L)"
-                        }
-                    ],
+                    "conditions": [{
+                        "cvd": {
+                            "from": 11,
+                            "to": 20,
+                            "unit": "%"
+                        },
+                        "target": "< 90mg/dL (5 mmol/L)"
+                    }],
                     "code": "CHOL-MOD-CVD-RISK"
                 },
                 {
                     "category": "low cvd risk",
                     "definition": "based on low cvd risk",
-                    "conditions": [
-                        {
-                            "cvd": {
-                                "from": 1,
-                                "to": 10,
-                                "unit": "%"
-                            },
-                            "target": "<90mg/dL (5mmol/L)"
-                        }
-                    ],
+                    "conditions": [{
+                        "cvd": {
+                            "from": 1,
+                            "to": 10,
+                            "unit": "%"
+                        },
+                        "target": "< 90mg/dL (5 mmol/L)"
+                    }],
                     "code": "CHOL-LOW-CVD-RISK"
                 },
                 {
                     "category": "Cholesterol, but not for CVD risk assessment",
                     "definition": "Cholesterol, but not for CVD risk assessment",
-                    "conditions": [
-                        {
+                    "conditions": [{
                             "cvd": {
                                 "to": 0,
                                 "unit": "%"
                             },
-                            "target": "<90mg/dL (5mmol/L)"
+                            "target": "< 90mg/dL (5 mmol/L)"
                         },
                         {
                             "range": {
                                 "to": 5.0,
                                 "unit": "mmol/L"
                             },
-                            "target": "<90mg/dL (5mmol/L)"
+                            "target": "< 90mg/dL (5 mmol/L)"
                         }
                     ],
                     "code": "CHOL-NO-CVD-RISK"
@@ -1097,144 +996,122 @@
         },
         "cvd": {
             "pre_processing": {
-                "existing_cvd": [
-                    {
-                        "conditions": [
-                            {
-                                "ami": true
-                            },
-                            {
-                                "hx_cvd": true
-                            }
-                        ],
-                        "return": true
-                    }
-                ],
-                "high_risk_conditions": [
-                    {
-                        "conditions": [
-                            {
-                                "hx_pvd": true
-                            },
-                            {
-                                "hx_ckd": true
-                            }
-                        ],
-                        "return": true
-                    }
-                ],
-                "age_check_for_cvd": [
-                    {
-                        "conditions": [
-                            {
-                                "age": {
-                                    "from": 40,
-                                    "to": 79
-                                }
-                            }
-                        ],
-                        "return": true
-                    }
-                ]
-            },
-            "guidelines": [
-                {
-                    "category": "not eligible based on age",
-                    "definition": "patient is not old enough",
-                    "conditions": [
+                "existing_cvd": [{
+                    "conditions": [{
+                            "ami": true
+                        },
                         {
-                            "age_check_for_cvd": false,
-                            "target": "must be older than 40 years"
+                            "hx_cvd": true
                         }
                     ],
+                    "return": true
+                }],
+                "high_risk_conditions": [{
+                    "conditions": [{
+                            "hx_pvd": true
+                        },
+                        {
+                            "hx_ckd": true
+                        }
+                    ],
+                    "return": true
+                }],
+                "age_check_for_cvd": [{
+                    "conditions": [{
+                        "age": {
+                            "from": 40,
+                            "to": 79
+                        }
+                    }],
+                    "return": true
+                }]
+            },
+            "guidelines": [{
+                    "category": "Not eligible based on age",
+                    "definition": "Age < 40",
+                    "conditions": [{
+                        "age_check_for_cvd": false,
+                        "target": "CVD risk only calculated in age > 40"
+                    }],
                     "code": "CVD-AGE-FALSE"
                 },
                 {
                     "category": "existing cvd",
                     "definition": "patient has existing cvd",
-                    "conditions": [
-                        {
+                    "conditions": [{
                             "age_check_for_cvd": true,
                             "existing_cvd": true,
-                            "target": "has existing cvd, should live healthy"
+                            "target": "Existing CVD"
                         },
                         {
                             "age_check_for_cvd": true,
                             "high_risk_conditions": true,
-                            "target": "has high risk condition, should live healthy"
+                            "target": "High risk condition for CVD"
                         }
                     ],
-                    "code": "CVD-1"
+                    "code": "CVD-EXISTING"
                 },
                 {
                     "category": "very high risk",
-                    "definition": "at very high cvd risk",
-                    "conditions": [
-                        {
-                            "age_check_for_cvd": true,
-                            "existing_cvd": false,
-                            "high_risk_conditions": false,
-                            "range": {
-                                "from": 31,
-                                "unit": "%"
-                            },
-                            "target": "should lower the risk"
-                        }
-                    ],
-                    "code": "CVD-10"
+                    "definition": "At very high cvd risk, WHO/ISH > 30",
+                    "conditions": [{
+                        "age_check_for_cvd": true,
+                        "existing_cvd": false,
+                        "high_risk_conditions": false,
+                        "range": {
+                            "from": 31,
+                            "unit": "%"
+                        },
+                        "target": "Risk Management"
+                    }],
+                    "code": "CVD-VERY-HIGH-RISK"
                 },
                 {
                     "category": "high risk",
-                    "definition": "at high cvd risk",
-                    "conditions": [
-                        {
-                            "age_check_for_cvd": true,
-                            "existing_cvd": false,
-                            "high_risk_conditions": false,
-                            "range": {
-                                "from": 21,
-                                "to": 30,
-                                "unit": "%"
-                            },
-                            "target": "should lower cvd risk"
-                        }
-                    ],
-                    "code": "CVD-8"
+                    "definition": "At high cvd risk, WHO/ISH 20-30",
+                    "conditions": [{
+                        "age_check_for_cvd": true,
+                        "existing_cvd": false,
+                        "high_risk_conditions": false,
+                        "range": {
+                            "from": 21,
+                            "to": 30,
+                            "unit": "%"
+                        },
+                        "target": "Risk Management"
+                    }],
+                    "code": "CVD-HIGH-RISK"
                 },
                 {
                     "category": "moderate risk",
-                    "definition": "at moderate cvd risk",
-                    "conditions": [
-                        {
-                            "age_check_for_cvd": true,
-                            "existing_cvd": false,
-                            "high_risk_conditions": false,
-                            "range": {
-                                "from": 11,
-                                "to": 20,
-                                "unit": "%"
-                            },
-                            "target": "should mildly lower cvd risk"
-                        }
-                    ],
-                    "code": "CVD-6"
+                    "definition": "Moderate cvd risk, WHO/ISH 10-20",
+                    "conditions": [{
+                        "age_check_for_cvd": true,
+                        "existing_cvd": false,
+                        "high_risk_conditions": false,
+                        "range": {
+                            "from": 11,
+                            "to": 20,
+                            "unit": "%"
+                        },
+                        "target": "Reduce risk"
+                    }],
+                    "code": "CVD-MODERATE-RISK"
                 },
                 {
                     "category": "low risk",
-                    "definition": "at low cvd risk",
-                    "conditions": [
-                        {
-                            "age_check_for_cvd": true,
-                            "existing_cvd": false,
-                            "high_risk_conditions": false,
-                            "range": {
-                                "to": 10,
-                                "unit": "%"
-                            },
-                            "target": "well done"
-                        }
-                    ],
-                    "code": "CVD-4"
+                    "definition": "Low cvd risk, WHO/ISH < 10",
+                    "conditions": [{
+                        "age_check_for_cvd": true,
+                        "existing_cvd": false,
+                        "high_risk_conditions": false,
+                        "range": {
+                            "to": 10,
+                            "unit": "%"
+                        },
+                        "target": "Maintain low risk"
+                    }],
+                    "code": "CVD-LOW-RISK"
                 }
             ]
         }

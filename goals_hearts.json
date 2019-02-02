@@ -5,13 +5,11 @@
         "publication_date": ""
     },
     "body": {
-        "weight_control": [
-            {
+        "weight_control": [{
                 "category": "need weight loss",
                 "definition": "consider weight loss as soon as possible",
-                "conditions": [
-                    {
-                        "bmi": ["BMI-0", "BMI-1"]
+                "conditions": [{
+                        "bmi": ["BMI-OBESE", "BMI-OVERWEIGHT"]
                     },
                     {
                         "whr": ["WHR-HIGH"]
@@ -23,7 +21,7 @@
                         "body_fat": ["BFT-OBESE"]
                     },
                     {
-                        "bmi": ["BMI-0", "BMI-1", "BMI-2"],
+                        "bmi": ["BMI-OBESE", "BMI-OVERWEIGHT", "BMI-NORMAL"],
                         "whr": ["WHR-HIGH"],
                         "wst": ["WST-HIGH"],
                         "body_fat": ["BFT-OBESE", "BFT-OVERWEIGHT"]
@@ -32,11 +30,10 @@
                 "code": "WC-1"
             },
             {
-                "category": "need weight gain",
-                "definition": "consider weight gain soon",
-                "conditions": [
-                    {
-                        "bmi": ["BMI-7"]
+                "category": "Need to weight gain",
+                "definition": "BMI or Body Fat underweight",
+                "conditions": [{
+                        "bmi": ["BMI-UNDERWEIGHT"]
                     },
                     {
                         "body_fat": ["BFT-UNDERWEIGHT"]
@@ -45,88 +42,74 @@
                 "code": "WC-2"
             }
         ],
-        "smoking_control": [
-            {
-                "category": "keep up",
-                "definition": "keep up good work",
-                "conditions": [
-                    {
-                        "smoking": ["SM-RECENTLY-QUIT"]
-                    }
-                ],
+        "smoking_control": [{
+                "category": "Encouragement to stay quitting",
+                "definition": "Recently quit smoking",
+                "conditions": [{
+                    "smoking": ["SM-RECENTLY-QUIT"]
+                }],
                 "code": "SC-1"
             },
             {
-                "category": "quit soon",
-                "definition": "should quit smoking",
-                "conditions": [
-                    {
-                        "smoking": ["SM-CURRENT"]
-                    }
-                ],
+                "category": "Current smoker",
+                "definition": "Current smoker, set goal for cessation",
+                "conditions": [{
+                    "smoking": ["SM-CURRENT"]
+                }],
                 "code": "SC-2"
             }
         ],
-        "alcohol_control": [
-            {
-                "category": "quit",
-                "definition": "quit or reduce consumption",
-                "conditions": [
-                    {
-                        "alcohol": ["AL-2", "AL-3"]
-                    }
-                ],
-                "code": "AC-1"
-            }
-        ],
-        "medical_control": [
-            {
-                "category": "moderate",
-                "definition": "moderate risk",
-                "conditions": [
-                    {
-                        "cvd": ["CVD-6"]
-                    }
-                ],
+        "alcohol_control": [{
+            "category": "Reduce alcohol consumption",
+            "definition": "Quit or reduce consumption",
+            "conditions": [{
+                "alcohol": ["ALC-AT-RISK"]
+            }],
+            "code": "AC-1"
+        }],
+        "medical_control": [{
+                "category": "Moderate CVD risk",
+                "definition": "Moderate CVD risk",
+                "conditions": [{
+                    "cvd": ["CVD-MODERATE-RISK"]
+                }],
                 "code": "MC-1"
             },
             {
-                "category": "high",
-                "definition": "high/very high risk",
-                "conditions": [
-                    {
-                        "cvd": ["CVD-1", "CVD-8", "CVD-10"]
-                    }
-                ],
+                "category": "High CVD risk",
+                "definition": "High CVD risk",
+                "conditions": [{
+                    "cvd": ["CVD-HIGH-RISK"]
+                }],
                 "code": "MC-2"
-            }
-        ],
-        "blood_pressure_control": [
+            },
             {
-                "category": "high",
+                "category": "Very high or existing CVD",
                 "definition": "high/very high risk",
-                "conditions": [
-                    {
-                        "cvd": ["CVD-6", "CVD-1", "CVD-8", "CVD-10"],
-                        "diabetes": ["DM-EXISTING-GOOD-CONTROL", "DM-EXISTING-OVER-CONTROL", "DM-EXISTING-POOR-CONTROL", "DM-EXISTING-GOOD-CONTROL", "DM-NEW-DIAGNOSIS"],
-                        "blood_pressure": ["BP-EMERGENCY", "BP-HTN-REVIEW", "BP-HTN-DM", "BP-HTN", "BP-ELEVATED"]
-                    }
-                ],
-                "code": "BPC-1"
+                "conditions": [{
+                    "cvd": ["CVD-VERY-HIGH-RISK", "CVD-EXISTING"]
+                }],
+                "code": "MC-3"
             }
         ],
-        "blood_sugar_control": [
-            {
-                "category": "high",
-                "definition": "high/very high risk",
-                "conditions": [
-                    {
-                        "diabetes": ["DM-EXISTING-POOR-CONTROL", "DM-NEW-DIAGNOSIS", "DM-PRE-DIABETES"]
-                    }
-                ],
-                "code": "BSC-1"
-            }
-        ],
+        "blood_pressure_control": [{
+            "category": "high",
+            "definition": "high/very high risk",
+            "conditions": [{
+                "cvd": ["CVD-6", "CVD-1", "CVD-8", "CVD-10"],
+                "diabetes": ["DM-EXISTING-GOOD-CONTROL", "DM-EXISTING-OVER-CONTROL", "DM-EXISTING-POOR-CONTROL", "DM-EXISTING-GOOD-CONTROL", "DM-NEW-DIAGNOSIS"],
+                "blood_pressure": ["BP-EMERGENCY", "BP-HTN-REVIEW", "BP-HTN-DM", "BP-HTN", "BP-ELEVATED"]
+            }],
+            "code": "BPC-1"
+        }],
+        "blood_sugar_control": [{
+            "category": "high",
+            "definition": "high/very high risk",
+            "conditions": [{
+                "diabetes": ["DM-EXISTING-OVER-CONTROL", "DM-EXISTING-POOR-CONTROL", "DM-NEW-DIAGNOSIS", "DM-PRE-DIABETES"]
+            }],
+            "code": "BSC-1"
+        }],
         "cholesterol_control": []
     }
 }

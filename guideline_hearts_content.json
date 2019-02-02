@@ -5,8 +5,8 @@
         "publication_date": "",
         "content_type": "Message file",
         "published_by": "Fred Hersch",
-        "version_number": "0.2",
-        "last_updated": "06-12-2018"
+        "version_number": "0.3",
+        "last_updated": "21-01-2019"
     },
     "body": {
         "contents": {
@@ -38,40 +38,33 @@
                 "message": "Great. Your lungs thank you!",
                 "refer": "no"
             },
-            "AL-NONE": {
+            "ALC-NONE": {
                 "eval": "Non Drinker",
                 "grading": 0,
                 "tfl": "GREEN",
                 "message": "",
                 "refer": "no"
             },
-            "AL-1": {
-                "eval": "",
+            "ALC-LOW-RISK": {
+                "eval": "Low Risk",
                 "grading": 0,
-                "tfl": "",
-                "message": "",
+                "tfl": "AMBER",
+                "message": "If you regularly drink 14 units per week, it's best to spread your drinking over 3 or more days (avoid heavy drinking on any single day)",
                 "refer": "no"
             },
-            "AL-2": {
-                "eval": "",
+            "ALC-AT-RISK": {
+                "eval": "At Risk",
                 "grading": 0,
-                "tfl": "",
-                "message": "",
-                "refer": "no"
-            },
-            "AL-3": {
-                "eval": "",
-                "grading": 0,
-                "tfl": "",
-                "message": "",
-                "refer": "no"
+                "tfl": "RED",
+                "message": "Alcohol at this level can be harmful to your health. To cut down, try and reduce the number of drinks per day and introduce drink free days.",
+                "refer": "yes"
             },
             "PA-SEDENTARY": {
                 "eval": "Sedentary",
                 "grading": 0,
                 "tfl": "RED",
-                "message": "Need to move more",
-                "refer": "no"
+                "message": "No physical activity is very harfmul to your health. Every bit of movement counts. Start small and build up slowly.",
+                "refer": "yes"
             },
             "PA-UNDER": {
                 "eval": "Below target",
@@ -115,28 +108,28 @@
                 "message": "Vegetables are great for your health. Good job!",
                 "refer": "no"
             },
-            "BMI-7": {
+            "BMI-UNDERWEIGHT": {
                 "eval": "Underweight",
                 "grading": 10,
                 "tfl": "RED",
                 "message": "Talk to a dietitian about safe weight gain",
                 "refer": "yes"
             },
-            "BMI-2": {
+            "BMI-NORMAL": {
                 "eval": "Normal Weight",
                 "grading": 0,
                 "tfl": "GREEN",
                 "message": "Regular diet and exercise will help you to maintain your current weight",
                 "refer": "no"
             },
-            "BMI-1": {
+            "BMI-OVERWEIGHT": {
                 "eval": "Overweight",
                 "grading": 5,
                 "tfl": "AMBER",
                 "message": "Being overweight can increase your risk of heart disease and diabetes",
                 "refer": "no"
             },
-            "BMI-0": {
+            "BMI-OBESE": {
                 "eval": "Obese",
                 "grading": 10,
                 "tfl": "RED",
@@ -339,45 +332,44 @@
                 "message": "Report based on individual risk factors",
                 "refer": "no"
             },
-            "CVD-1": {
+            "CVD-EXISTING": {
                 "eval": "High Risk",
                 "grading": 0,
                 "tfl": "DARK-RED",
-                "message": "You have a high risk condition. Not for CVD Risk Assessment",
+                "message": "You have a high risk condition or existing heart disease. Not for CVD Risk Assessment",
                 "refer": "yes"
             },
-            "CVD-4": {
+            "CVD-LOW-RISK": {
                 "eval": "Low Risk",
                 "grading": 0,
                 "tfl": "GREEN",
                 "message": "Your risk of a CVD event is low",
                 "refer": "no"
             },
-            "CVD-6": {
+            "CVD-MODERATE-RISK": {
                 "eval": "Moderate Risk",
                 "grading": 0,
                 "tfl": "AMBER",
-                "message": "Your risk of a CVD event is mild",
+                "message": "Your risk of a CVD event is in the moderate category. Address modifiable risk factors",
                 "refer": "no"
             },
-            "CVD-8": {
+            "CVD-HIGH-RISH": {
                 "eval": "High Risk",
                 "grading": 0,
                 "tfl": "RED",
-                "message": "Your risk of a CVD event is High",
-                "refer": "urgent"
+                "message": "Your risk of a CVD event is High. You should consult a doctor for managing your risks",
+                "refer": "yes"
             },
-            "CVD-10": {
+            "CVD-VERY-HIGH-RISK": {
                 "eval": "Very High Risk",
                 "grading": 0,
                 "tfl": "DARK-RED",
-                "message": "You're at very high CVD risk",
+                "message": "You're at very high CVD risk. Seek immediate care to address risks",
                 "refer": "urgent"
             }
         },
         "gradings": {
-            "body-composition": [
-                {
+            "body-composition": [{
                     "grading": {
                         "from": 0,
                         "to": 4
@@ -399,8 +391,7 @@
                     "message": "You are in abnormal range. Try to do more exercise and follow guidelines for healthy life."
                 }
             ],
-            "diet": [
-                {
+            "diet": [{
                     "grading": {
                         "from": 0,
                         "to": 4

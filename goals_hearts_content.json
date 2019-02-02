@@ -33,27 +33,32 @@
             "AC-1": {
                 "eval": "Alcohol control",
                 "tfl": "AMBER",
-                "message": "You need to quit drinking alcohol to lead a better life."
-            },
-            "MC-1": {
-                "eval": "Medical control",
-                "tfl": "AMBER",
-                "message": "You should review with doctor as you have moderate risk."
+                "message": "Alcohol at this level can be harmful to your health. To cut down, try and reduce the number of drinks per day and introduce drink free days."
             },
             "MC-2": {
-                "eval": "Medical control",
+                "eval": "CVD Risk Review",
+                "tfl": "AMBER",
+                "message": "You should review with doctor as you have high CVD risk."
+            },
+            "MC-3": {
+                "eval": "CVD Risk Management",
                 "tfl": "RED",
-                "message": "You should have a follow up soon with doctor as you have high risk."
+                "message": "You should have a follow up soon with doctor as you have very high CVD risk or existing condition and require medical attention."
+            },
+            "MC-1": {
+                "eval": "CVD Risk Review",
+                "tfl": "AMBER",
+                "message": "You should have a follow up soon with doctor in the next 3 months to review your CVD risk. Focus on diet and exercise."
             },
             "BPC-1": {
-                "eval": "Blood pressure control",
+                "eval": "Blood Pressure Management",
                 "tfl": "AMBER",
-                "message": "Cosult with a doctor to get your BP under control."
+                "message": "Medical review required for Blood Pressure Control."
             },
             "BSC-1": {
-                "eval": "Blood sugar control",
+                "eval": "Diabetes Management",
                 "tfl": "AMBER",
-                "message": "Cosult and take appripriate actions by reviewing with a doctor to get your blood sugar level normal."
+                "message": "Consult and take appripriate actions by reviewing with a doctor to get your blood sugar level normal."
             }
         }
     }
