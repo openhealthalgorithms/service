@@ -1,15 +1,17 @@
 package datastructure
 
 import (
+	"github.com/openhealthalgorithms/service/pkg"
 	"github.com/pborman/uuid"
 )
 
 // Result object
 type Result struct {
-	MetaAttributes              Meta               `structs:"meta" json:"meta"`
-	AssessmentsAttributes       Assessments        `structs:"assessments" json:"assessments"`
-	GoalsAttributes             Goals              `structs:"goals" json:"goals"`
-	AssessmentReferralAttibutes AssessmentReferral `structs:"referrals" json:"referrals"`
+	MetaAttributes              Meta                   `structs:"meta" json:"meta"`
+	AssessmentsAttributes       Assessments            `structs:"assessments" json:"assessments"`
+	GoalsAttributes             Goals                  `structs:"goals" json:"goals"`
+	AssessmentReferralAttibutes AssessmentReferral     `structs:"referrals" json:"referrals"`
+	Input                       map[string]interface{} `structs:"input,omitempty" json:"input,omitempty"`
 	// RecommendationsAttributes   Recommendations    `structs:"recommendations" json:"recommendations"`
 }
 
@@ -17,6 +19,7 @@ type Result struct {
 type Meta struct {
 	AlgorithmName string    `structs:"algorithm" json:"algorithm"`
 	RequestID     uuid.UUID `structs:"request_id" json:"request_id"`
+	APIVersion    string    `structs:"api_version" json:"api_version"`
 }
 
 /* * * * * Assessments * * * * */
@@ -163,6 +166,7 @@ func NewResult(algorithmName string) Result {
 
 	result.MetaAttributes.AlgorithmName = algorithmName
 	result.MetaAttributes.RequestID = uuid.NewRandom()
+	result.MetaAttributes.APIVersion = pkg.GetVersion()
 
 	return result
 }

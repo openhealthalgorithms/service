@@ -11,6 +11,7 @@ import (
 	"strconv"
 	"syscall"
 
+	"github.com/openhealthalgorithms/service/pkg"
 	"github.com/openhealthalgorithms/service/pkg/logger"
 	"github.com/openhealthalgorithms/service/pkg/service"
 	"github.com/openhealthalgorithms/service/pkg/tools"
@@ -20,7 +21,7 @@ import (
 
 var (
 	appName    = "ohas"
-	appVersion = "v0.4.5"
+	appVersion = pkg.GetVersion()
 	appCommit  = "0000000"
 
 	serviceSrv *http.Server
@@ -121,7 +122,7 @@ func main() {
 
 				cmd := exec.Command(os.Args[0], "main")
 				cmd.Start()
-				logEntry.Debugf("Service process ID is : ", cmd.Process.Pid)
+				logEntry.Debugf("Service process ID is : %d", cmd.Process.Pid)
 				savePID(cmd.Process.Pid)
 				return nil
 			},
@@ -174,7 +175,7 @@ func startServer(logEntry *logrus.Entry) error {
 	}()
 
 	srv := service.NewService()
-	srv.StartHttpServer()
+	srv.StartHTTPServer()
 
 	logEntry.Debug("server started")
 

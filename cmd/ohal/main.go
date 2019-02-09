@@ -12,6 +12,7 @@ import (
 	"runtime/pprof"
 	"sort"
 
+	"github.com/openhealthalgorithms/service/pkg"
 	"github.com/openhealthalgorithms/service/pkg/algorithms"
 	heartsAlg "github.com/openhealthalgorithms/service/pkg/algorithms/hearts"
 	"github.com/openhealthalgorithms/service/pkg/riskmodels"
@@ -28,7 +29,7 @@ var (
 	memprofile = "./ohas-mem-prof.prof"
 
 	appName    = "ohal"
-	appVersion = "v0.4.5"
+	appVersion = pkg.GetVersion()
 	appCommit  = "0000000"
 )
 

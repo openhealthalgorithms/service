@@ -12,6 +12,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/openhealthalgorithms/service/pkg"
 	"github.com/openhealthalgorithms/service/pkg/algorithms/hearts"
 	"github.com/openhealthalgorithms/service/pkg/database"
 	"github.com/openhealthalgorithms/service/pkg/tools"
@@ -65,8 +66,8 @@ func NewServiceWithPortAddress(port, addr string) Service {
 	return Service{Port: port, Addr: addr, Router: router}
 }
 
-// StartHttpServer method
-func (s *Service) StartHttpServer() {
+// StartHTTPServer method
+func (s *Service) StartHTTPServer() {
 	var err error
 
 	// Check if the DB file exists
@@ -110,7 +111,7 @@ func defaultHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func versionRequestHandler(w http.ResponseWriter, r *http.Request) {
-	result := &versionResponse{Version: "0.4.5"}
+	result := &versionResponse{Version: pkg.GetVersion()}
 
 	respondSuccess(w, result)
 }

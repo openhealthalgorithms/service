@@ -86,7 +86,8 @@ curl -X POST \
   -d '{
   "config": {
     "algorithm": "hearts",
-    "risk_model": "whocvd"
+    "risk_model": "whocvd",
+    "debug": false
   },
   "params": {
     "demographics": {
@@ -504,7 +505,8 @@ The **response** will be a json object.
         ],
         "meta": {
             "algorithm": "Hearts Algorithm",
-            "request_id": "fcdff736-5178-40d1-8c3a-727b057400bd"
+            "request_id": "fcdff736-5178-40d1-8c3a-727b057400bd",
+            "api_version": "v0.4.6"
         },
         "referrals": {
             "reasons": [
@@ -543,9 +545,12 @@ First part is **config**. It consist of the algorithm name and the risk model to
 ```javascript
 "config": {
     "algorithm": "hearts",
-    "risk_model": "whocvd"
+    "risk_model": "whocvd",
+    "debug": false
 }
 ```
+
+If you give `"debug": true`, then the request JSON will be added to output as `input`. It is an **OPTIONAL** parameter. You can safely remove it if you don't need it.
 
 ### param
 

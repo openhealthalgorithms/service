@@ -521,6 +521,16 @@ func (d *Data) get(ctx context.Context) error {
 	goals := engineGoalContent.GenerateGoalsGuideline(codes...)
 	assessment.GoalsAttributes = goals
 
+	if p.Debug {
+		m := make(map[string]interface{})
+		err := json.Unmarshal(p.Input, &m)
+		if err != nil {
+			assessment.Input = map[string]interface{}{"error": "Cannot preview inputs"}
+		} else {
+			assessment.Input = m
+		}
+	}
+
 	d.Algorithm = assessment
 	d.Errors = errs
 

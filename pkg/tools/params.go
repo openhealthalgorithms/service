@@ -13,6 +13,7 @@ import (
 type Configs struct {
 	Algorithm string
 	RiskModel string
+	Debug     bool
 }
 
 // Demographics object
@@ -122,6 +123,7 @@ type Params struct {
 	Measurements
 	Activities
 	// Assessments
+	Input []byte
 }
 
 // ParseParams function
@@ -139,6 +141,8 @@ func getInputs(data []byte) (Params, error) {
 	mandatory := make([]string, 0)
 	unsupported := make([]string, 0)
 
+	out.Input = data
+
 	// Config
 	if stringValue, err = jp.GetString(data, "config", "algorithm"); err == nil {
 		out.Algorithm = strings.ToLower(stringValue)
@@ -150,6 +154,12 @@ func getInputs(data []byte) (Params, error) {
 		out.RiskModel = strings.ToLower(stringValue)
 	} else {
 		mandatory = append(mandatory, "risk_model")
+	}
+
+	if val, err := jp.GetBoolean(data, "config", "debug"); err == nil {
+		out.Debug = val
+	} else {
+		out.Debug = false
 	}
 
 	// Params
@@ -474,26 +484,30 @@ func getInputs(data []byte) (Params, error) {
 			if stringValue, err = jp.GetString(value, "name"); err == nil {
 				name = stringValue
 			}
-			out.Conditions[strings.ToUpper(name)] = true
+			conditionBool := false
+			if boolValue, err := jp.GetBoolean(value, "is_active"); err == nil {
+				conditionBool = boolValue
+			}
+			out.Conditions[strings.ToUpper(name)] = conditionBool
 			switch name {
 			case "asthma":
-				out.Asthma = true
+				out.Asthma = conditionBool
 			case "tuberculosis":
-				out.Tuberculosis = true
+				out.Tuberculosis = conditionBool
 			case "diabetes":
-				out.Diabetes = true
+				out.Diabetes = conditionBool
 			case "hypertension":
-				out.Hypertension = true
+				out.Hypertension = conditionBool
 			case "ckd":
-				out.Ckd = true
+				out.Ckd = conditionBool
 			case "cvd":
-				out.Cvd = true
+				out.Cvd = conditionBool
 			case "pvd":
-				out.Pvd = true
+				out.Pvd = conditionBool
 			case "pregnant":
-				out.Pregnant = true
+				out.Pregnant = conditionBool
 			case "arrhythmia":
-				out.Arrhythmia = true
+				out.Arrhythmia = conditionBool
 			}
 		}
 	}, "params", "components", "medical_history")
