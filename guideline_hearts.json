@@ -61,27 +61,54 @@
                     "code": "ALC-NONE"
                 },
                 {
-                    "category": "safe alcohol use for male & female",
+                    "category": "Safe alcohol use, for male",
                     "definition": "Less than 14 standard drinks per week",
                     "conditions": [{
+                        "gender": "male",
                         "from": 1,
                         "to": 14,
                         "unit": "units",
                         "duration": "weekly",
                         "target": "< 14 units/week"
                     }],
-                    "code": "ALC-LOW-RISK"
+                    "code": "ALC-LOW-RISK-MALE"
                 },
                 {
-                    "category": "At risk consumption of alcohol",
-                    "definition": "> 12 units per week",
+                    "category": "Safe alcohol use, for female",
+                    "definition": "Less than 7 or 14 standard drinks per week",
                     "conditions": [{
+                        "gender": "female",
+                        "from": 1,
+                        "to": 7,
+                        "unit": "units",
+                        "duration": "weekly",
+                        "target": "< 7 units/week"
+                    }],
+                    "code": "ALC-LOW-RISK-FEMALE"
+                },
+                {
+                    "category": "At risk consumption of alcohol, female",
+                    "definition": "> 7 units per week",
+                    "conditions": [{
+                        "gender": "female",
+                        "from": 8,
+                        "unit": "units",
+                        "duration": "weekly",
+                        "target": "< 14 units/week"
+                    }],
+                    "code": "ALC-AT-RISK-FEMALE"
+                },
+                {
+                    "category": "At risk consumption of alcohol, Male",
+                    "definition": "> 14 units per week",
+                    "conditions": [{
+                        "gender": "male",
                         "from": 15,
                         "unit": "units",
                         "duration": "weekly",
                         "target": "< 14 units/week"
                     }],
-                    "code": "ALC-AT-RISK"
+                    "code": "ALC-AT-RISK-MALE"
                 }
             ],
             "physical_activity": [{
@@ -165,6 +192,29 @@
                         }],
                         "code": "VEG-TARGET"
                     }
+                ],
+                "fruit_vegetable": [{
+                        "category": "Low consumption",
+                        "definition": "Reduced intake",
+                        "conditions": [{
+                            "to": 34,
+                            "unit": "servings",
+                            "duration": "weekly",
+                            "target": ">5 servings/day"
+                        }],
+                        "code": "FRT-VEG-LOW"
+                    },
+                    {
+                        "category": "On target",
+                        "definition": "On target Fruit & Veg",
+                        "conditions": [{
+                            "from": 35,
+                            "unit": "servings",
+                            "duration": "weekly",
+                            "target": ">5 servings/day"
+                        }],
+                        "code": "FRT-VEG-TARGET"
+                    }
                 ]
             }
         },
@@ -217,15 +267,15 @@
                     "definition": "is above normal limit",
                     "conditions": [{
                             "gender": "male",
-                            "from": 102,
+                            "from": 91,
                             "unit": "cm",
-                            "target": "101cm"
+                            "target": "90cm"
                         },
                         {
                             "gender": "female",
-                            "from": 88,
+                            "from": 81,
                             "unit": "cm",
-                            "target": "87cm"
+                            "target": "80cm"
                         }
                     ],
                     "code": "WST-HIGH"
@@ -235,15 +285,15 @@
                     "definition": "is within normal limit",
                     "conditions": [{
                             "gender": "male",
-                            "to": 101,
+                            "to": 91,
                             "unit": "cm",
-                            "target": "101cm"
+                            "target": "90cm"
                         },
                         {
                             "gender": "female",
-                            "to": 87,
+                            "to": 81,
                             "unit": "cm",
-                            "target": "87cm"
+                            "target": "80cm"
                         }
                     ],
                     "code": "WST-NORMAL"
@@ -270,12 +320,12 @@
                     "definition": "is normal limit",
                     "conditions": [{
                             "gender": "male",
-                            "to": 0.89,
+                            "to": 0.90,
                             "target": "0.90"
                         },
                         {
                             "gender": "female",
-                            "to": 0.84,
+                            "to": 0.85,
                             "target": "0.85"
                         }
                     ],
@@ -441,7 +491,7 @@
                     "code": "BFT-OVERWEIGHT"
                 },
                 {
-                    "category": "healty",
+                    "category": "healthy",
                     "definition": "health weight condition",
                     "conditions": [{
                             "gender": "male",
@@ -687,8 +737,8 @@
                 "code": "BP-HTN"
             },
             {
-                "category": "normal bp in diabetic",
-                "definition": "normal pressure in patient with diabetes",
+                "category": "Normal bp in diabetic",
+                "definition": "Normal pressure in patient with diabetes",
                 "conditions": [{
                         "diabetes": true,
                         "sbp": {
@@ -709,52 +759,59 @@
                 "code": "BP-DM-TARGET"
             },
             {
-                "category": "elevated bp",
+                "category": "Elevated bp",
                 "definition": "elevated blood pressure, not hypertension",
                 "conditions": [{
-                        "diabetes": false,
-                        "sbp": {
-                            "from": 121,
-                            "to": 140,
-                            "unit": "mmHg"
-                        },
-                        "target": "120/80"
+                    "diabetes": false,
+                    "sbp": {
+                        "from": 121,
+                        "to": 140,
+                        "unit": "mmHg"
                     },
-                    {
-                        "diabetes": true,
-                        "dbp": {
-                            "from": 81,
-                            "to": 90,
-                            "unit": "mmHg"
-                        },
-                        "target": "120/80"
-                    }
-                ],
+                    "target": "120/80"
+                },
+                {
+                    "diabetes": false,
+                    "dbp": {
+                        "from": 81,
+                        "to": 90,
+                        "unit": "mmHg"
+                    },
+                    "target": "120/80"
+                }],
                 "code": "BP-ELEVATED"
             },
             {
-                "category": "normal bp",
-                "definition": "normal range",
+                "category": "Normal bp",
+                "definition": "Normal range",
                 "conditions": [{
-                        "diabetes": false,
-                        "sbp": {
-                            "from": 120,
-                            "to": 140,
-                            "unit": "mmHg"
-                        },
-                        "target": "120/80"
+                    "diabetes": false,
+                    "sbp": {
+                        "from": 90,
+                        "to": 120,
+                        "unit": "mmHg"
                     },
-                    {
-                        "diabetes": true,
-                        "dbp": {
-                            "from": 80,
-                            "to": 90,
-                            "unit": "mmHg"
-                        },
-                        "target": "120/80"
-                    }
-                ],
+                    "dbp": {
+                        "from": 60,
+                        "to": 80,
+                        "unit": "mmHg"
+                    },
+                    "target": "120/80"
+                }],
                 "code": "BP-TARGET"
+            },
+            {
+                "category": "Low bp",
+                "definition": "BP in the low range",
+                "conditions": [{
+                    "sbp": {
+                        "from": 60,
+                        "to": 89,
+                        "unit": "mmHg"
+                    },
+                    "target": "120/80"
+                }],
+                "code": "BP-HYPOTENSION"
             }
         ],
         "diabetes": [{
@@ -764,11 +821,11 @@
                     "hx_diabetes": true,
                     "blood_sugar": {
                         "type": "HbA1C",
-                        "from": 7.0,
-                        "to": 8.0,
+                        "from": 4.1,
+                        "to": 7.0,
                         "unit": "%"
                     },
-                    "target": "7-8%"
+                    "target": "&lt; 7%"
                 }],
                 "code": "DM-EXISTING-GOOD-CONTROL"
             },
@@ -779,10 +836,10 @@
                     "hx_diabetes": true,
                     "blood_sugar": {
                         "type": "HbA1C",
-                        "to": 6.9,
+                        "to": 4,
                         "unit": "%"
                     },
-                    "target": "7-8%"
+                    "target": "&lt; 7%"
                 }],
                 "code": "DM-EXISTING-OVER-CONTROL"
             },
@@ -793,10 +850,10 @@
                     "hx_diabetes": true,
                     "blood_sugar": {
                         "type": "HbA1C",
-                        "from": 8.1,
+                        "from": 7.1,
                         "unit": "%"
                     },
-                    "target": "7-8%"
+                    "target": "&lt; 7%"
                 }],
                 "code": "DM-EXISTING-POOR-CONTROL"
             },
@@ -807,24 +864,38 @@
                     "hx_diabetes": true,
                     "blood_sugar": {
                         "type": "fasting",
-                        "to": 6.4,
+                        "to": 7.0,
                         "unit": "mmol/L"
                     },
-                    "target": "<117mg/dL (6.5mmol/L)"
+                    "target": "&lt; 126 mg/dL (7.0 mmol/L)"
                 }],
                 "code": "DM-EXISTING-GOOD-CONTROL"
             },
             {
-                "category": "existing diabetes poorly controlled, bsl",
+                "category": "Existing Diabetes, over controlled via HbA1c ",
+                "definition": "Patient with existing diabetes with very tight glucose control as measured by HbA1c",
+                "conditions": [{
+                    "hx_diabetes": true,
+                    "blood_sugar": {
+                        "type": "fasting",
+                        "to": 4,
+                        "unit": "mmol/L"
+                    },
+                    "target": "&lt; 126 mg/dL (7.0 mmol/L)"
+                }],
+                "code": "DM-EXISTING-OVER-CONTROL"
+            },
+            {
+                "category": "Existing diabetes poorly controlled, bsl",
                 "definition": "patient has existing diabetes",
                 "conditions": [{
                     "hx_diabetes": true,
                     "blood_sugar": {
                         "type": "fasting",
-                        "from": 6.5,
+                        "from": 7.1,
                         "unit": "mmol/L"
                     },
-                    "target": "<117mg/dL (6.5mmol/L)"
+                    "target": "&lt; 126 mg/dL (7.0 mmol/L)"
                 }],
                 "code": "DM-EXISTING-POOR-CONTROL"
             },
@@ -838,7 +909,7 @@
                             "from": 7.1,
                             "unit": "mmol/L"
                         },
-                        "target": "<117mg/dL (6.5mmol/L)"
+                        "target": "&lt; 126 mg/dL (7.0 mmol/L)"
                     },
                     {
                         "hx_diabetes": false,
@@ -847,7 +918,7 @@
                             "from": 6.5,
                             "unit": "%"
                         },
-                        "target": "7-8%"
+                        "target": "&lt; 7%"
                     }
                 ],
                 "code": "DM-NEW-DIAGNOSIS"
@@ -863,7 +934,7 @@
                             "to": 6.4,
                             "unit": "%"
                         },
-                        "target": "7-8%"
+                        "target": "&lt; 6.5%"
                     },
                     {
                         "hx_diabetes": false,
@@ -873,7 +944,7 @@
                             "to": 7.0,
                             "unit": "mmol/L"
                         },
-                        "target": "<117mg/dL (6.5mmol/L)"
+                        "target": "&lt; 100 mg/dL (6.0 mmol/L)"
                     }
                 ],
                 "code": "DM-PRE-DIABETES"
@@ -888,7 +959,7 @@
                             "to": 5.6,
                             "unit": "%"
                         },
-                        "target": "7-8%"
+                        "target": "&lt; 6.5%"
                     },
                     {
                         "hx_diabetes": false,
@@ -897,7 +968,7 @@
                             "to": 5.5,
                             "unit": "mmol/L"
                         },
-                        "target": "<117mg/dL (6.5mmol/L)"
+                        "target": "&lt; 100 mg/dL (6.0 mmol/L)"
                     }
                 ],
                 "code": "DM-NONE"
@@ -964,7 +1035,7 @@
                     "definition": "based on low cvd risk",
                     "conditions": [{
                         "cvd": {
-                            "from": 1,
+                            "from": 1.1,
                             "to": 10,
                             "unit": "%"
                         },
@@ -977,14 +1048,14 @@
                     "definition": "Cholesterol, but not for CVD risk assessment",
                     "conditions": [{
                             "cvd": {
-                                "to": 0,
+                                "to": 1,
                                 "unit": "%"
                             },
                             "target": "< 90mg/dL (5 mmol/L)"
                         },
                         {
                             "range": {
-                                "to": 5.0,
+                                "to": 8.0,
                                 "unit": "mmol/L"
                             },
                             "target": "< 90mg/dL (5 mmol/L)"
@@ -1019,8 +1090,7 @@
                 "age_check_for_cvd": [{
                     "conditions": [{
                         "age": {
-                            "from": 40,
-                            "to": 79
+                            "from": 40
                         }
                     }],
                     "return": true

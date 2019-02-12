@@ -103,13 +103,22 @@
             "code": "BPC-1"
         }],
         "blood_sugar_control": [{
-            "category": "high",
-            "definition": "high/very high risk",
-            "conditions": [{
-                "diabetes": ["DM-EXISTING-OVER-CONTROL", "DM-EXISTING-POOR-CONTROL", "DM-NEW-DIAGNOSIS", "DM-PRE-DIABETES"]
-            }],
-            "code": "BSC-1"
-        }],
+                "category": "Needs better blood sugar control",
+                "definition": "Existing or new diabetes +/- Poor Control",
+                "conditions": [{
+                    "diabetes": ["DM-EXISTING-OVER-CONTROL", "DM-EXISTING-POOR-CONTROL", "DM-NEW-DIAGNOSIS"]
+                }],
+                "code": "BSC-1"
+            },
+            {
+                "category": "Lifestyle modification for prevention",
+                "definition": "Pre-diabetes",
+                "conditions": [{
+                    "diabetes": ["DM-PRE-DIABETES"]
+                }],
+                "code": "BSC-2"
+            }
+        ],
         "cholesterol_control": []
     }
 }

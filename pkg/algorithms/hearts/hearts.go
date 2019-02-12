@@ -185,7 +185,7 @@ func (d *Data) get(ctx context.Context) error {
 	}
 
 	// Alcohol
-	alc, err := engineGuide.Body.Lifestyle.Alcohol.Process(p.Alcohol)
+	alc, err := engineGuide.Body.Lifestyle.Alcohol.Process(p.Alcohol, p.Gender)
 	if err != nil {
 		errs = append(errs, err.Error())
 	} else {
@@ -262,6 +262,26 @@ func (d *Data) get(ctx context.Context) error {
 				ref.RUrgent = true
 			}
 			ref.RType = "vegetable"
+			referralReasons = append(referralReasons, ref)
+		}
+	}
+
+	// Fruit_Vegetables (Diet)
+	fveg, err := engineGuide.Body.Lifestyle.Diet.FruitVegetables.Process(p.Fruits + p.Vegetables)
+	if err != nil {
+		errs = append(errs, err.Error())
+	} else {
+		res, lifestyleActions = GetResults(fveg, *engineContent.Body.Contents, lifestyleActions)
+		assessment.AssessmentsAttributes.Lifestyle.Components.Diet.Components.FruitVegetable = res
+		dietGrading += res.Grading
+		if res.Refer != "no" {
+			referral = referral || true
+			ref := ds.ReferralsResponse{}
+			if res.Refer == "urgent" {
+				referralUrgent = referralUrgent || true
+				ref.RUrgent = true
+			}
+			ref.RType = "fruit_vegetable"
 			referralReasons = append(referralReasons, ref)
 		}
 	}

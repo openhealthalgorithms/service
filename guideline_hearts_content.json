@@ -45,14 +45,28 @@
                 "message": "",
                 "refer": "no"
             },
-            "ALC-LOW-RISK": {
+            "ALC-LOW-RISK-MALE": {
                 "eval": "Low Risk",
                 "grading": 0,
                 "tfl": "AMBER",
                 "message": "If you regularly drink 14 units per week, it's best to spread your drinking over 3 or more days (avoid heavy drinking on any single day)",
                 "refer": "no"
             },
-            "ALC-AT-RISK": {
+            "ALC-LOW-RISK-FEMALE": {
+                "eval": "Low Risk",
+                "grading": 0,
+                "tfl": "AMBER",
+                "message": "If you regularly drink 7 units per week, it's best to spread your drinking over 3 or more days (avoid heavy drinking on any single day)",
+                "refer": "no"
+            },
+            "ALC-AT-RISK-MALE": {
+                "eval": "At Risk",
+                "grading": 0,
+                "tfl": "RED",
+                "message": "Alcohol at this level can be harmful to your health. To cut down, try and reduce the number of drinks per day and introduce drink free days.",
+                "refer": "yes"
+            },
+            "ALC-AT-RISK-FEMALE": {
                 "eval": "At Risk",
                 "grading": 0,
                 "tfl": "RED",
@@ -106,6 +120,20 @@
                 "grading": 0,
                 "tfl": "GREEN",
                 "message": "Vegetables are great for your health. Good job!",
+                "refer": "no"
+            },
+            "FRT-VEG-LOW": {
+                "eval": "Below target",
+                "grading": 5,
+                "tfl": "AMBER",
+                "message": "Eat more fruits and vegetables",
+                "refer": "no"
+            },
+            "FRT-VEG-TARGET": {
+                "eval": "On target",
+                "grading": 0,
+                "tfl": "GREEN",
+                "message": "Fruits and vegetables are great for your health. Good job!",
                 "refer": "no"
             },
             "BMI-UNDERWEIGHT": {
@@ -280,7 +308,7 @@
                 "eval": "Pre-diabetes",
                 "grading": 0,
                 "tfl": "AMBER",
-                "message": "Pathology suggests 'pre-diabetes'. Discuss lifestyle modification",
+                "message": "Pathology suggests 'pre-diabetes'. Discuss lifestyle modification with local health team",
                 "refer": "no"
             },
             "DM-NONE": {
@@ -302,7 +330,7 @@
                 "grading": 0,
                 "tfl": "RED",
                 "message": "Treat based on high CVD risk regardless of total cholesterol",
-                "refer": "urgents"
+                "refer": "urgent"
             },
             "CHOL-ELEVATED-WITH-HIGH-CVD-RISK": {
                 "eval": "Elevated",
@@ -316,6 +344,13 @@
                 "grading": 0,
                 "tfl": "GREEN",
                 "message": "Lipid lowering diet. Manage CVD risk factors",
+                "refer": "no"
+            },
+            "CHOL-LOW-CVD-RISK": {
+                "eval": "Mod CVD risk",
+                "grading": 0,
+                "tfl": "GREEN",
+                "message": "Lipid lowering diet.",
                 "refer": "no"
             },
             "CHOL-NO-CVD-RISK": {

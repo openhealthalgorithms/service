@@ -77,6 +77,7 @@ func (s *SmokingGuidelines) Process(smoker bool, exSmoker bool, quitWithin12Mont
 
 // AlcoholCondition object
 type AlcoholCondition struct {
+	Gender   *string  `json:"gender"`
 	From     *float64 `json:"from"`
 	To       *float64 `json:"to"`
 	Unit     *string  `json:"unit"`
@@ -99,10 +100,16 @@ type AlcoholGuide struct {
 type AlcoholGuidelines []AlcoholGuide
 
 // Process function
-func (a *AlcoholGuidelines) Process(units float64) (Response, error) {
+func (a *AlcoholGuidelines) Process(units float64, gender string) (Response, error) {
 	code := ""
 	value := fmt.Sprintf("%.1f units", units)
 	target := ""
+
+	if gender == "m" {
+		gender = "male"
+	} else {
+		gender = "female"
+	}
 
 	for _, g := range *a {
 		for _, c := range *g.Conditions {
@@ -114,7 +121,13 @@ func (a *AlcoholGuidelines) Process(units float64) (Response, error) {
 			if c.To != nil {
 				to = tools.CalculateAlcoholConsumption(*c.To, *c.Duration)
 			}
-			if units >= from && units <= to {
+
+			conditionGender := true
+			if c.Gender != nil && *c.Gender != gender {
+				conditionGender = false
+			}
+
+			if conditionGender && units >= from && units <= to {
 				code = *g.Code
 				target = *c.Target
 				break
@@ -207,10 +220,14 @@ type FruitGuidelines []DietGuide
 // VegetableGuidelines slice
 type VegetableGuidelines []DietGuide
 
+// FruitVegetableGuideline object
+type FruitVegetableGuideline []DietGuide
+
 // DietGuideline object
 type DietGuideline struct {
-	Fruit      *FruitGuidelines     `json:"fruit"`
-	Vegetables *VegetableGuidelines `json:"vegetables"`
+	Fruit           *FruitGuidelines         `json:"fruit"`
+	Vegetables      *VegetableGuidelines     `json:"vegetables"`
+	FruitVegetables *FruitVegetableGuideline `json:"fruit_vegetable"`
 }
 
 // Process function
@@ -223,6 +240,13 @@ func (f *FruitGuidelines) Process(servings int) (Response, error) {
 // Process function
 func (v *VegetableGuidelines) Process(servings int) (Response, error) {
 	resp, err := dietCalculation(*v, servings, "vegetable")
+
+	return resp, err
+}
+
+// Process function
+func (fv *FruitVegetableGuideline) Process(servings int) (Response, error) {
+	resp, err := dietCalculation(*fv, servings, "fruit_vegetable")
 
 	return resp, err
 }

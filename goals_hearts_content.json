@@ -6,7 +6,7 @@
         "content_type": "Message file",
         "published_by": "Fred Hersch",
         "version_number": "0.2",
-        "last_updated": "06-12-2018"
+        "last_updated": "11-02-2019"
     },
     "body": {
         "contents": {
@@ -59,6 +59,11 @@
                 "eval": "Diabetes Management",
                 "tfl": "AMBER",
                 "message": "Consult and take appripriate actions by reviewing with a doctor to get your blood sugar level normal."
+            },
+            "BSC-2": {
+                "eval": "Diabetes Prevention",
+                "tfl": "AMBER",
+                "message": "Lifestyle modification can help you prevent development of diabetes. Focus on diet and exercise."
             }
         }
     }

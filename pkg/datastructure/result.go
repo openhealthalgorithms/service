@@ -56,8 +56,9 @@ type DietAssessment struct {
 
 // DietComponents object
 type DietComponents struct {
-	Fruit     Assessment `structs:"fruit" json:"fruit"`
-	Vegetable Assessment `structs:"vegetable" json:"vegetable"`
+	Fruit          Assessment `structs:"fruit" json:"fruit"`
+	Vegetable      Assessment `structs:"vegetable" json:"vegetable"`
+	FruitVegetable Assessment `structs:"fruit_vegetable" json:"fruit_vegetable"`
 }
 
 // BodyCompositionAssessment object

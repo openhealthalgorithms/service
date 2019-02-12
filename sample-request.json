@@ -5,7 +5,7 @@
     },
     "params": {
         "demographics": {
-            "gender": "male",
+            "gender": "female",
             "age": {
                 "value": 65,
                 "unit": "year"
@@ -68,7 +68,7 @@
                     "effectiveDate": "timestamp",
                     "name": "blood_pressure",
                     "category": "vital-signs",
-                    "value": "170/110",
+                    "value": "110/85",
                     "units": "mmHg",
                     "arm": "right"
                 },
@@ -76,7 +76,7 @@
                     "effectiveDate": "timestamp",
                     "name": "blood_pressure",
                     "category": "vital-signs",
-                    "value": "175/105",
+                    "value": "125/80",
                     "units": "mmHg",
                     "arm": "right"
                 },
@@ -84,7 +84,7 @@
                     "effectiveDate": "timestamp",
                     "name": "blood_pressure",
                     "category": "vital-signs",
-                    "value": "165/98",
+                    "value": "115/78",
                     "units": "mmHg",
                     "arm": "right"
                 },
@@ -187,12 +187,12 @@
                 {
                     "name": "hypertension",
                     "category": "condition",
-                    "is_active": true
+                    "is_active": false
                 },
                 {
                     "name": "diabetes",
                     "category": "condition",
-                    "is_active": true
+                    "is_active": false
                 },
                 {
                     "name": "tuberculosis",

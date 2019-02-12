@@ -147,9 +147,9 @@ func setupAndRun(cliCtx *cli.Context) error {
 	var memProf bool
 	var debug bool
 
-	flag.StringVar(&algorithmName, "algorithm", "HeartsAlgorithm", "algorithm name")
+	flag.StringVar(&algorithmName, "algorithm", "hearts", "algorithm name")
 	flag.BoolVar(&listAlgorithms, "listalgorithms", false, "list available algorithms")
-	flag.StringVar(&riskModelName, "riskmodel", "WhoCVDRiskModel", "risk model name")
+	flag.StringVar(&riskModelName, "riskmodel", "whocvd", "risk model name")
 	flag.BoolVar(&listRiskModels, "listriskmodels", false, "list available riskModels")
 	// flag.StringVar(&param, "param", "gender:male,age:40,systolic1:120,systolic2:140,cholesterol:8,cholesterolUnit:mmol,smoker:true,diabetic:true,region:searb", "param for riskModel")
 	flag.StringVar(&param, "param", "sample-request.json", "param file")

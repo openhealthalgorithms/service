@@ -425,7 +425,7 @@ The **response** will be a json object.
             "lifestyle": {
                 "components": {
                     "alcohol": {
-                        "code": "ALC-LOW-RISK",
+                        "code": "ALC-LOW-RISK-MALE",
                         "eval": "Low Risk",
                         "grading": 0,
                         "message": "If you regularly drink 14 units per week, it's best to spread your drinking over 3 or more days (avoid heavy drinking on any single day)",
@@ -445,6 +445,16 @@ The **response** will be a json object.
                                 "target": ">2 servings/day",
                                 "tfl": "GREEN",
                                 "value": "21 servings"
+                            },
+                            "fruit_vegetable": {
+                                "code": "FRT-VEG-TARGET",
+                                "eval": "On target",
+                                "grading": 0,
+                                "message": "Fruits and vegetables are great for your health. Good job!",
+                                "refer": "no",
+                                "target": ">5 servings/day",
+                                "tfl": "GREEN",
+                                "value": "35 servings"
                             },
                             "vegetable": {
                                 "code": "VEG-LOW",
@@ -858,6 +868,7 @@ We have the following list of assessments:
 - lifestyle/components/alcohol
 - lifestyle/components/diet/components/fruit
 - lifestyle/components/diet/components/vegetable
+- lifestyle/components/diet/components/fruit_vegetable
 - lifestyle/components/physical_activity
 - lifestyle/components/smoking
 
@@ -881,6 +892,7 @@ Meta information for each request will be in this section.
 ```javascript
 "meta": {
     "algorithm": "Hearts Algorithm",
+    "api_version": "v0.4.7",
     "request_id": "c94fea6a-91ea-4f17-97c3-2455aeb3fdb1"
 }
 ```
