@@ -723,7 +723,7 @@
                             "from": 141,
                             "unit": "mmHg"
                         },
-                        "target": "130/80"
+                        "target": "120/80"
                     },
                     {
                         "diabetes": false,
@@ -731,7 +731,7 @@
                             "from": 91,
                             "unit": "mmHg"
                         },
-                        "target": "130/80"
+                        "target": "120/80"
                     }
                 ],
                 "code": "BP-HTN"
@@ -759,26 +759,53 @@
                 "code": "BP-DM-TARGET"
             },
             {
+                "category": "Suspected secondary Hypertension",
+                "definition": "Elevated blood pressure in patient age < 40",
+                "conditions": [{
+                        "diabetes": false,
+                        "age": {
+                            "to": 40
+                        },
+                        "sbp": {
+                            "from": 140,
+                            "unit": "mmHg"
+                        },
+                        "target": "140/90"
+                    },
+                    {
+                        "diabetes": false,
+                        "dbp": {
+                            "from": 81,
+                            "to": 90,
+                            "unit": "mmHg"
+                        },
+                        "target": "120/80"
+                    }
+                ],
+                "code": "BP-ELEVATED"
+            },
+            {
                 "category": "Elevated bp",
                 "definition": "elevated blood pressure, not hypertension",
                 "conditions": [{
-                    "diabetes": false,
-                    "sbp": {
-                        "from": 121,
-                        "to": 140,
-                        "unit": "mmHg"
+                        "diabetes": false,
+                        "sbp": {
+                            "from": 121,
+                            "to": 140,
+                            "unit": "mmHg"
+                        },
+                        "target": "120/80"
                     },
-                    "target": "120/80"
-                },
-                {
-                    "diabetes": false,
-                    "dbp": {
-                        "from": 81,
-                        "to": 90,
-                        "unit": "mmHg"
-                    },
-                    "target": "120/80"
-                }],
+                    {
+                        "diabetes": false,
+                        "dbp": {
+                            "from": 81,
+                            "to": 90,
+                            "unit": "mmHg"
+                        },
+                        "target": "120/80"
+                    }
+                ],
                 "code": "BP-ELEVATED"
             },
             {
@@ -825,7 +852,7 @@
                         "to": 7.0,
                         "unit": "%"
                     },
-                    "target": "&lt; 7%"
+                    "target": "< 7%"
                 }],
                 "code": "DM-EXISTING-GOOD-CONTROL"
             },
@@ -839,7 +866,7 @@
                         "to": 4,
                         "unit": "%"
                     },
-                    "target": "&lt; 7%"
+                    "target": "< 7%"
                 }],
                 "code": "DM-EXISTING-OVER-CONTROL"
             },
@@ -853,7 +880,7 @@
                         "from": 7.1,
                         "unit": "%"
                     },
-                    "target": "&lt; 7%"
+                    "target": "< 7%"
                 }],
                 "code": "DM-EXISTING-POOR-CONTROL"
             },
@@ -867,7 +894,7 @@
                         "to": 7.0,
                         "unit": "mmol/L"
                     },
-                    "target": "&lt; 126 mg/dL (7.0 mmol/L)"
+                    "target": "< 126 mg/dL (7.0 mmol/L)"
                 }],
                 "code": "DM-EXISTING-GOOD-CONTROL"
             },
@@ -881,7 +908,7 @@
                         "to": 4,
                         "unit": "mmol/L"
                     },
-                    "target": "&lt; 126 mg/dL (7.0 mmol/L)"
+                    "target": "< 126 mg/dL (7.0 mmol/L)"
                 }],
                 "code": "DM-EXISTING-OVER-CONTROL"
             },
@@ -895,7 +922,7 @@
                         "from": 7.1,
                         "unit": "mmol/L"
                     },
-                    "target": "&lt; 126 mg/dL (7.0 mmol/L)"
+                    "target": "< 126 mg/dL (7.0 mmol/L)"
                 }],
                 "code": "DM-EXISTING-POOR-CONTROL"
             },
@@ -909,7 +936,7 @@
                             "from": 7.1,
                             "unit": "mmol/L"
                         },
-                        "target": "&lt; 126 mg/dL (7.0 mmol/L)"
+                        "target": "< 126 mg/dL (7.0 mmol/L)"
                     },
                     {
                         "hx_diabetes": false,
@@ -918,7 +945,7 @@
                             "from": 6.5,
                             "unit": "%"
                         },
-                        "target": "&lt; 7%"
+                        "target": "< 7%"
                     }
                 ],
                 "code": "DM-NEW-DIAGNOSIS"
@@ -934,7 +961,7 @@
                             "to": 6.4,
                             "unit": "%"
                         },
-                        "target": "&lt; 6.5%"
+                        "target": "< 6.5%"
                     },
                     {
                         "hx_diabetes": false,
@@ -944,7 +971,7 @@
                             "to": 7.0,
                             "unit": "mmol/L"
                         },
-                        "target": "&lt; 100 mg/dL (6.0 mmol/L)"
+                        "target": "< 100 mg/dL (6.0 mmol/L)"
                     }
                 ],
                 "code": "DM-PRE-DIABETES"
@@ -959,7 +986,7 @@
                             "to": 5.6,
                             "unit": "%"
                         },
-                        "target": "&lt; 6.5%"
+                        "target": "< 6.5%"
                     },
                     {
                         "hx_diabetes": false,
@@ -968,7 +995,7 @@
                             "to": 5.5,
                             "unit": "mmol/L"
                         },
-                        "target": "&lt; 100 mg/dL (6.0 mmol/L)"
+                        "target": "< 100 mg/dL (6.0 mmol/L)"
                     }
                 ],
                 "code": "DM-NONE"
@@ -1039,7 +1066,7 @@
                             "to": 10,
                             "unit": "%"
                         },
-                        "target": "< 90mg/dL (5 mmol/L)"
+                        "target": "Below 90mg/dL (5 mmol/L)"
                     }],
                     "code": "CHOL-LOW-CVD-RISK"
                 },
@@ -1051,14 +1078,14 @@
                                 "to": 1,
                                 "unit": "%"
                             },
-                            "target": "< 90mg/dL (5 mmol/L)"
+                            "target": "Below 90mg/dL (5 mmol/L)"
                         },
                         {
                             "range": {
                                 "to": 8.0,
                                 "unit": "mmol/L"
                             },
-                            "target": "< 90mg/dL (5 mmol/L)"
+                            "target": "Below 90mg/dL (5 mmol/L)"
                         }
                     ],
                     "code": "CHOL-NO-CVD-RISK"

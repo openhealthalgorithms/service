@@ -233,7 +233,7 @@ type BodyFatGuideline struct {
 type BodyFatGuidelines []BodyFatGuideline
 
 // Process function
-func (b *BodyFatGuidelines) Process(gender string, age float64, bodyFat float64) (Response, error) {
+func (b *BodyFatGuidelines) Process(gender string, age, bodyFat float64) (Response, error) {
 	code := ""
 	value := fmt.Sprintf("%.1f%%", bodyFat)
 	target := ""

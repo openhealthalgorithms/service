@@ -401,7 +401,7 @@ func (d *Data) get(ctx context.Context) error {
 	if diabetes.Value == "diabetes" {
 		diab = true
 	}
-	bp, err := engineGuide.Body.BloodPressure.Process(diab, p.Sbp, p.Dbp)
+	bp, err := engineGuide.Body.BloodPressure.Process(diab, p.Sbp, p.Dbp, p.Age)
 	if err != nil {
 		errs = append(errs, err.Error())
 	} else {

@@ -7,10 +7,11 @@ import (
 
 // BloodPressureCondition object
 type BloodPressureCondition struct {
-	Diabetes *bool     `json:"diabetes"`
-	SBP      *RangeInt `json:"sbp"`
-	DBP      *RangeInt `json:"dbp"`
-	Target   *string   `json:"target"`
+	Diabetes *bool       `json:"diabetes"`
+	SBP      *RangeInt   `json:"sbp"`
+	DBP      *RangeInt   `json:"dbp"`
+	Age      *RangeFloat `json:"age"`
+	Target   *string     `json:"target"`
 }
 
 // BloodPressureConditions slice
@@ -28,13 +29,25 @@ type BloodPressureGuideline struct {
 type BloodPressureGuidelines []BloodPressureGuideline
 
 // Process function
-func (b *BloodPressureGuidelines) Process(diabetes bool, sbp, dbp int) (Response, error) {
+func (b *BloodPressureGuidelines) Process(diabetes bool, sbp, dbp int, age float64) (Response, error) {
 	code := ""
 	value := fmt.Sprintf("%d/%d", sbp, dbp)
 	target := ""
 
 	for _, g := range *b {
 		for _, c := range *g.Conditions {
+			ageFrom := 0.0
+			ageTo := math.MaxFloat64
+
+			if c.Age != nil {
+				if c.Age.From != nil {
+					ageFrom = *c.Age.From
+				}
+				if c.Age.To != nil {
+					ageTo = *c.Age.To
+				}
+			}
+
 			sbpFrom := 0
 			sbpTo := math.MaxInt32
 
@@ -64,7 +77,7 @@ func (b *BloodPressureGuidelines) Process(diabetes bool, sbp, dbp int) (Response
 				conditionDiabetes = false
 			}
 
-			if conditionDiabetes && sbpFrom <= sbp && sbpTo >= sbp && dbpFrom <= dbp && dbpTo >= dbp {
+			if conditionDiabetes && (age >= ageFrom && age <= ageTo) && sbpFrom <= sbp && sbpTo >= sbp && dbpFrom <= dbp && dbpTo >= dbp {
 				code = *g.Code
 				target = *c.Target
 				break
