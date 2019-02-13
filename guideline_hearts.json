@@ -719,6 +719,9 @@
                 "definition": "high blood pressure",
                 "conditions": [{
                         "diabetes": false,
+                        "age": {
+                            "from": 41
+                        },
                         "sbp": {
                             "from": 141,
                             "unit": "mmHg"
