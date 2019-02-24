@@ -143,11 +143,13 @@ func (a *AlcoholGuidelines) Process(units float64, gender string) (Response, err
 
 // PhysicalActivityCondition object
 type PhysicalActivityCondition struct {
-	From   *int    `json:"from"`
-	To     *int    `json:"to"`
-	Unit   *string `json:"unit"`
-	Type   *string `json:"type"`
-	Target *string `json:"target"`
+	Gender *string     `json:"gender"`
+	Age    *RangeFloat `json:"age"`
+	From   *int        `json:"from"`
+	To     *int        `json:"to"`
+	Unit   *string     `json:"unit"`
+	Type   *string     `json:"type"`
+	Target *string     `json:"target"`
 }
 
 // PhysicalActivityConditions slice
@@ -165,13 +167,31 @@ type PhysicalActivityGuideline struct {
 type PhysicalActivityGuidelines []PhysicalActivityGuideline
 
 // Process function
-func (p *PhysicalActivityGuidelines) Process(duration int) (Response, error) {
+func (p *PhysicalActivityGuidelines) Process(duration int, gender string, age float64) (Response, error) {
 	code := ""
 	value := fmt.Sprintf("%d minutes", duration)
 	target := ""
 
+	if gender == "m" {
+		gender = "male"
+	} else {
+		gender = "female"
+	}
+
 	for _, g := range *p {
 		for _, c := range *g.Conditions {
+			ageFrom := 0.0
+			ageTo := math.MaxFloat64
+
+			if c.Age != nil {
+				if c.Age.From != nil {
+					ageFrom = *c.Age.From
+				}
+				if c.Age.To != nil {
+					ageTo = *c.Age.To
+				}
+			}
+
 			from := 0
 			to := math.MaxInt32
 			if c.From != nil {
@@ -180,7 +200,13 @@ func (p *PhysicalActivityGuidelines) Process(duration int) (Response, error) {
 			if c.To != nil {
 				to = tools.CalculateExercise(*c.To, *c.Unit, "weekly", *c.Type)
 			}
-			if duration >= from && duration <= to {
+
+			conditionGender := true
+			if c.Gender != nil && *c.Gender != gender {
+				conditionGender = false
+			}
+
+			if conditionGender && (age >= ageFrom && age <= ageTo) && duration >= from && duration <= to {
 				code = *g.Code
 				target = *c.Target
 				break

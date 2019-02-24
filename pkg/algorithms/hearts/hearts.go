@@ -205,7 +205,7 @@ func (d *Data) get(ctx context.Context) error {
 	}
 
 	// Physical Activity
-	ph, err := engineGuide.Body.Lifestyle.PhysicalActivity.Process(p.PhysicalActivity)
+	ph, err := engineGuide.Body.Lifestyle.PhysicalActivity.Process(p.PhysicalActivity, p.Gender, p.Age)
 	if err != nil {
 		errs = append(errs, err.Error())
 	} else {

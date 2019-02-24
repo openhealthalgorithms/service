@@ -1,0 +1,14 @@
+[server]
+port = "9595"                                                       # define port number to run the service. It's your responsibility to select an unused port number.
+
+[files]
+guideline_file = "guideline_hearts.json"                            # name of the guideline JSON file
+guideline_content_file = "guideline_hearts_content.json"            # name of the guideline content JSON file
+goal_file = "goals_hearts.json"                                     # name of the goal JSON file
+goal_content_file = "goals_hearts_content.json"                     # name of the goal content JSON file
+log_file = "ohas-logs.db"                                           # name of the logs database file
+
+[directories]
+guideline_path = "contents"                                         # path of the directory for guideline JSON and guideline content JSON file
+goal_path = "contents"                                              # path of the directory for goal JSON and goal content JSON file
+log_file_path = "~"                                                 # path of the log file

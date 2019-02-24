@@ -12,6 +12,8 @@ import (
 	"runtime/pprof"
 	"sort"
 
+	"github.com/openhealthalgorithms/service/pkg/config"
+
 	"github.com/openhealthalgorithms/service/pkg"
 	"github.com/openhealthalgorithms/service/pkg/algorithms"
 	heartsAlg "github.com/openhealthalgorithms/service/pkg/algorithms/hearts"
@@ -163,6 +165,8 @@ func setupAndRun(cliCtx *cli.Context) error {
 	flag.BoolVar(&debug, "debug", false, "debug flag")
 	flag.Parse()
 
+	currentSettings := config.CurrentSettings()
+
 	if cpuProf {
 		f, err := os.Create(cpuprofile)
 		if err != nil {
@@ -251,10 +255,10 @@ func setupAndRun(cliCtx *cli.Context) error {
 
 	v := types.NewValuesCtx()
 	v.Params.Set("params", paramObj)
-	v.Params.Set("guide", guideline)
-	v.Params.Set("guidecontent", guidelineContent)
-	v.Params.Set("goal", goal)
-	v.Params.Set("goalcontent", goalContent)
+	v.Params.Set("guide", currentSettings.GuidelineFile)
+	v.Params.Set("guidecontent", currentSettings.GuidelineContentFile)
+	v.Params.Set("goal", currentSettings.GoalFile)
+	v.Params.Set("goalcontent", currentSettings.GoalContentFile)
 
 	if debug {
 		v.Params.Set("debug", "true")

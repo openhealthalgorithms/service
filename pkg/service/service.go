@@ -14,6 +14,7 @@ import (
 
 	"github.com/openhealthalgorithms/service/pkg"
 	"github.com/openhealthalgorithms/service/pkg/algorithms/hearts"
+	"github.com/openhealthalgorithms/service/pkg/config"
 	"github.com/openhealthalgorithms/service/pkg/database"
 	"github.com/openhealthalgorithms/service/pkg/tools"
 	"github.com/openhealthalgorithms/service/pkg/types"
@@ -48,7 +49,11 @@ type Service struct {
 
 // NewService method
 func NewService() Service {
-	return NewServiceWithPort("9595")
+	currentSettings := config.CurrentSettings()
+
+	dbFile = currentSettings.LogFile
+
+	return NewServiceWithPort(currentSettings.Port)
 }
 
 // NewServiceWithPort method
@@ -135,12 +140,14 @@ func algorithmRequestHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	currentSettings := config.CurrentSettings()
+
 	v := types.NewValuesCtx()
 	v.Params.Set("params", paramObj)
-	v.Params.Set("guide", "guideline_hearts.json")
-	v.Params.Set("guidecontent", "guideline_hearts_content.json")
-	v.Params.Set("goal", "goals_hearts.json")
-	v.Params.Set("goalcontent", "goals_hearts_content.json")
+	v.Params.Set("guide", currentSettings.GuidelineFile)
+	v.Params.Set("guidecontent", currentSettings.GuidelineContentFile)
+	v.Params.Set("goal", currentSettings.GoalFile)
+	v.Params.Set("goalcontent", currentSettings.GoalContentFile)
 
 	ctx := context.WithValue(context.Background(), types.KeyValuesCtx, &v)
 

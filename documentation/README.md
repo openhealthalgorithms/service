@@ -22,12 +22,14 @@ in a zip file, unzip to a directory of your choice. This zip file contains the f
         |-- icon.png
         |-- index.html
         |-- README.md (This file)
-    |-- goals_hearts_content.json (Has the goals content for various health check)
-    |-- goals_hearts.json (Has the goals conditions for various health check)
-    |-- guideline_hearts_content.json (Has the care plan messages for different attributes)
-    |-- guideline_hearts.json (Has the conditions/targets for various health check)
+    |-- contents
+        |-- goals_hearts_content.json (Has the goals content for various health check)
+        |-- goals_hearts.json (Has the goals conditions for various health check)
+        |-- guideline_hearts_content.json (Has the care plan messages for different attributes)
+        |-- guideline_hearts.json (Has the conditions/targets for various health check)
     |-- ohas-darwin-amd64.bin (The binary you can use in Mac)
     |-- ohas-linux-amd64.bin (The binary you can use in Linux)
+    |-- ohas.toml
     |-- sample-request.json (A sample request object)
 ```
 
@@ -41,6 +43,35 @@ To stop Service, run the following command:
 
 ```bash
 cd ~/ohas && ./ohas-linux-amd64.bin stop
+```
+
+You'll need to modify the `ohas.toml` config file for your system. By default, the system will check for this config file in the following directories (from high to low priority):
+
+```text
+/etc/ohas/
+/usr/local/ohas/
+/usr/local/etc/ohas/
+/var/lib/ohas/
+Current Directory
+```
+
+A sample structure of the config file:
+
+```toml
+[server]
+port = "9595"                                                       # define port number to run the service. It's your responsibility to select an unused port number.
+
+[files]
+guideline_file = "guideline_hearts.json"                            # name of the guideline JSON file
+guideline_content_file = "guideline_hearts_content.json"            # name of the guideline content JSON file
+goal_file = "goals_hearts.json"                                     # name of the goal JSON file
+goal_content_file = "goals_hearts_content.json"                     # name of the goal content JSON file
+log_file = "ohas-logs.db"                                           # name of the logs database file
+
+[directories]
+guideline_path = "contents"                                         # path of the directory for guideline JSON and guideline content JSON file
+goal_path = "contents"                                              # path of the directory for goal JSON and goal content JSON file
+log_file_path = "~"                                                 # path of the log file
 ```
 
 To view the documentation in the given html file, run it within a webserver.
