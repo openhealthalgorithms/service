@@ -715,6 +715,37 @@
                 "code": "BP-HTN-DM"
             },
             {
+                "category": "hypertension, on medication",
+                "definition": "high blood pressure, on medication",
+                "conditions": [{
+                        "medications": {
+                            "anti-hypertensive": true
+                        },
+                        "diabetes": false,
+                        "age": {
+                            "from": 41
+                        },
+                        "sbp": {
+                            "from": 141,
+                            "unit": "mmHg"
+                        },
+                        "target": "120/80"
+                    },
+                    {
+                        "medications": {
+                            "anti-hypertensive": true
+                        },
+                        "diabetes": false,
+                        "dbp": {
+                            "from": 91,
+                            "unit": "mmHg"
+                        },
+                        "target": "120/80"
+                    }
+                ],
+                "code": "BP-HTN-ON-MEDICATION"
+            },
+            {
                 "category": "hypertension",
                 "definition": "high blood pressure",
                 "conditions": [{

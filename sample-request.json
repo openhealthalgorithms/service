@@ -68,7 +68,7 @@
                     "effectiveDate": "timestamp",
                     "name": "blood_pressure",
                     "category": "vital-signs",
-                    "value": "110/85",
+                    "value": "150/95",
                     "units": "mmHg",
                     "arm": "right"
                 },
@@ -76,7 +76,7 @@
                     "effectiveDate": "timestamp",
                     "name": "blood_pressure",
                     "category": "vital-signs",
-                    "value": "125/80",
+                    "value": "145/90",
                     "units": "mmHg",
                     "arm": "right"
                 },
@@ -84,7 +84,7 @@
                     "effectiveDate": "timestamp",
                     "name": "blood_pressure",
                     "category": "vital-signs",
-                    "value": "115/78",
+                    "value": "148/88",
                     "units": "mmHg",
                     "arm": "right"
                 },
@@ -210,7 +210,8 @@
             "medications": [
                 {
                     "generic": "rampiril",
-                    "category": "anti-hypertensive"
+                    "category": "anti-hypertensive",
+                    "class": ""
                 }
             ],
             "family_history": [

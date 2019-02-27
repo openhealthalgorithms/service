@@ -18,9 +18,10 @@ type BloodSugarCondition struct {
 
 // DiabetesCondition object
 type DiabetesCondition struct {
-	HxDiabetes *bool                `json:"hx_diabetes"`
-	BloodSugar *BloodSugarCondition `json:"blood_sugar"`
-	Target     *string              `json:"target"`
+	Medications *MedicationConditions `json:"medications"`
+	HxDiabetes  *bool                 `json:"hx_diabetes"`
+	BloodSugar  *BloodSugarCondition  `json:"blood_sugar"`
+	Target      *string               `json:"target"`
 }
 
 // DiabetesConditions slice
@@ -38,7 +39,7 @@ type DiabetesGuideline struct {
 type DiabetesGuidelines []DiabetesGuideline
 
 // Process function
-func (b *DiabetesGuidelines) Process(hxDiabetes bool, bsFromInput float64, bsType, unit string) (Response, error) {
+func (b *DiabetesGuidelines) Process(hxDiabetes bool, bsFromInput float64, bsType, unit string, medications map[string]bool) (Response, error) {
 	code := ""
 	value := ""
 	target := ""
@@ -75,12 +76,19 @@ func (b *DiabetesGuidelines) Process(hxDiabetes bool, bsFromInput float64, bsTyp
 				givenBsType = *c.BloodSugar.Type
 			}
 
+			conditionMedication := true
+			if c.Medications != nil {
+				if (c.Medications.OralHypoglycaemic != nil && *c.Medications.OralHypoglycaemic != medications["oral-hypoglycaemic"]) || (c.Medications.Insulin != nil && *c.Medications.Insulin != medications["insulin"]) {
+					conditionMedication = false
+				}
+			}
+
 			conditionHxDiabetes := true
 			if c.HxDiabetes != nil && *c.HxDiabetes != hxDiabetes {
 				conditionHxDiabetes = false
 			}
 
-			if conditionHxDiabetes && bsFrom <= from && bsTo >= from && strings.ToLower(bsType) == strings.ToLower(givenBsType) {
+			if conditionHxDiabetes && conditionMedication && bsFrom <= from && bsTo >= from && strings.ToLower(bsType) == strings.ToLower(givenBsType) {
 				code = *g.Code
 				target = *c.Target
 				value = fmt.Sprintf("%.1f%s", bsFromInput, unit)

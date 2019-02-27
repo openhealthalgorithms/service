@@ -59,12 +59,7 @@ type FamilyHistory struct {
 }
 
 // Medications object
-type Medications struct {
-	Antihypertensives bool
-	Statin            bool
-	Antiplatelet      bool
-	Bronchodilator    bool
-}
+type Medications map[string]bool
 
 // Measurements object
 type Measurements struct {
@@ -452,22 +447,31 @@ func getInputs(data []byte) (Params, error) {
 	}, "params", "components", "family_history")
 
 	// Medications
+	out.Medications = make(map[string]bool)
 	jp.ArrayEach(data, func(value []byte, dataType jp.ValueType, offset int, err error) {
 		category := ""
 		if stringValue, err = jp.GetString(value, "category"); err == nil {
 			category = stringValue
 		}
 
-		switch category {
-		case "anti-hypertensive":
-			out.Antihypertensives = true
-		case "statin":
-			out.Statin = true
-		case "antiplatelet":
-			out.Antiplatelet = true
-		case "bronchodilator":
-			out.Bronchodilator = true
-		}
+		out.Medications[category] = true
+
+		// switch category {
+		// case "anti-hypertensive":
+		// 	out.Antihypertensives = true
+		// case "oral-hypoglycaemic":
+		// 	out.OralHypoglycaemic = true
+		// case "insulin":
+		// 	out.Insulin = true
+		// case "lipid-lowering":
+		// 	out.LipidLowering = true
+		// case "anti-platelet":
+		// 	out.Antiplatelet = true
+		// case "anti-coagulant":
+		// 	out.AntiCoagulant = true
+		// case "bronchodilator":
+		// 	out.Bronchodilator = true
+		// }
 	}, "params", "components", "medications")
 
 	// Medical history

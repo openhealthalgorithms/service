@@ -378,7 +378,7 @@ func (d *Data) get(ctx context.Context) error {
 	}
 
 	// Diabetes
-	diabetes, err := engineGuide.Body.Diabetes.Process(p.Diabetes, bslOrA1c, bslOrA1cType, bslOrA1cUnit)
+	diabetes, err := engineGuide.Body.Diabetes.Process(p.Diabetes, bslOrA1c, bslOrA1cType, bslOrA1cUnit, p.Medications)
 	if err != nil {
 		errs = append(errs, err.Error())
 	} else {
@@ -401,7 +401,7 @@ func (d *Data) get(ctx context.Context) error {
 	if diabetes.Value == "diabetes" {
 		diab = true
 	}
-	bp, err := engineGuide.Body.BloodPressure.Process(diab, p.Sbp, p.Dbp, p.Age)
+	bp, err := engineGuide.Body.BloodPressure.Process(diab, p.Sbp, p.Dbp, p.Age, p.Medications)
 	if err != nil {
 		errs = append(errs, err.Error())
 	} else {
@@ -421,7 +421,7 @@ func (d *Data) get(ctx context.Context) error {
 
 	// CVD
 	cvdScore := ""
-	cvd, err := engineGuide.Body.CVD.Guidelines.Process(ctx, p.AMI, p.Cvd, p.Pvd, p.Ckd, p.Age, *engineGuide.Body.CVD.PreProcessing)
+	cvd, err := engineGuide.Body.CVD.Guidelines.Process(ctx, p.AMI, p.Cvd, p.Pvd, p.Ckd, p.Age, *engineGuide.Body.CVD.PreProcessing, p.Medications)
 	if err == nil {
 		cvdScore = cvd.Value
 		res, followupActions = GetResults(cvd, *engineContent.Body.Contents, followupActions)
@@ -456,7 +456,7 @@ func (d *Data) get(ctx context.Context) error {
 			cvdForChol = 10.0
 		}
 		// fmt.Println("CVD for Chol: ", cvdForChol)
-		chol, err := engineGuide.Body.Cholesterol.TotalCholesterol.Process(cvdForChol, p.Age, p.TChol, p.CholUnit, "total cholesterol")
+		chol, err := engineGuide.Body.Cholesterol.TotalCholesterol.Process(cvdForChol, p.Age, p.TChol, p.CholUnit, "total cholesterol", p.Medications)
 		if err != nil {
 			errs = append(errs, err.Error())
 		} else {

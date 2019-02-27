@@ -96,11 +96,12 @@ func (p *PreProcessingGuidelines) PreProcess(ami, hxCVD, hxPVD, hxCKD bool, age 
 
 // CVDCondition object
 type CVDCondition struct {
-	ExistingCVD       *bool       `json:"existing_cvd"`
-	HighRiskCondition *bool       `json:"high_risk_conditions"`
-	AgeCheckForCVD    *bool       `json:"age_check_for_cvd"`
-	Range             *RangeFloat `json:"range"`
-	Target            *string     `json:"target"`
+	Medications       *MedicationConditions `json:"medications"`
+	ExistingCVD       *bool                 `json:"existing_cvd"`
+	HighRiskCondition *bool                 `json:"high_risk_conditions"`
+	AgeCheckForCVD    *bool                 `json:"age_check_for_cvd"`
+	Range             *RangeFloat           `json:"range"`
+	Target            *string               `json:"target"`
 }
 
 // CVDConditions slice
@@ -118,7 +119,7 @@ type CVDGuideline struct {
 type CVDGuidelines []CVDGuideline
 
 // Process function
-func (b *CVDGuidelines) Process(ctx context.Context, ami, hxCVD, hxPVD, hxCKD bool, age float64, preProcessing PreProcessing) (Response, error) {
+func (b *CVDGuidelines) Process(ctx context.Context, ami, hxCVD, hxPVD, hxCKD bool, age float64, preProcessing PreProcessing, medications map[string]bool) (Response, error) {
 	code := ""
 	value := ""
 	target := ""
@@ -178,18 +179,25 @@ func (b *CVDGuidelines) Process(ctx context.Context, ami, hxCVD, hxPVD, hxCKD bo
 				conditionHighRisk = false
 			}
 
+			conditionMedication := true
+			if c.Medications != nil {
+				if (c.Medications.Antiplatelet != nil && *c.Medications.Antiplatelet != medications["anti-platelet"]) || (c.Medications.AntiCoagulant != nil && *c.Medications.AntiCoagulant != medications["anti-coagulant"]) {
+					conditionMedication = false
+				}
+			}
+
 			// res2B, _ := json.Marshal(c)
 			// fmt.Println(string(res2B))
 			// fmt.Printf("%+v\n", conditionAge)
 			// fmt.Printf("%+v\n", conditionExistingCVD)
 			// fmt.Printf("%+v\n", conditionHighRisk)
 
-			if conditionAge && conditionExistingCVD && conditionHighRisk && (riskScore >= rangeFrom && riskScore <= rangeTo) {
+			if conditionMedication && conditionAge && conditionExistingCVD && conditionHighRisk && (riskScore >= rangeFrom && riskScore <= rangeTo) {
 				code = *g.Code
 				if code != "CVD-AGE-FALSE" {
 					value = fmt.Sprintf("%s%%", riskRange)
 				} else {
-					value = "1"
+					value = "0"
 				}
 				target = *c.Target
 				break

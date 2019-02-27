@@ -17,10 +17,11 @@ type CholesterolGuidelinesFull struct {
 
 // CholesterolCondition object
 type CholesterolCondition struct {
-	Age    *RangeFloat `json:"age"`
-	CVD    *RangeFloat `json:"cvd"`
-	Range  *RangeFloat `json:"range"`
-	Target *string     `json:"target"`
+	Medications *MedicationConditions `json:"medications"`
+	Age         *RangeFloat           `json:"age"`
+	CVD         *RangeFloat           `json:"cvd"`
+	Range       *RangeFloat           `json:"range"`
+	Target      *string               `json:"target"`
 }
 
 // CholesterolConditions slice
@@ -38,7 +39,7 @@ type CholesterolGuideline struct {
 type CholesterolGuidelines []CholesterolGuideline
 
 // Process function
-func (b *CholesterolGuidelines) Process(cvd, age, chol float64, cholUnit, cholType string) (Response, error) {
+func (b *CholesterolGuidelines) Process(cvd, age, chol float64, cholUnit, cholType string, medications map[string]bool) (Response, error) {
 	cholesterol := tools.CalculateMMOLValue(chol, cholUnit)
 
 	code := ""
@@ -87,9 +88,15 @@ func (b *CholesterolGuidelines) Process(cvd, age, chol float64, cholUnit, cholTy
 				}
 			}
 
+			conditionMedication := true
+			if c.Medications != nil {
+				if c.Medications.LipidLowering != nil && *c.Medications.LipidLowering != medications["lipid-lowering"] {
+					conditionMedication = false
+				}
+			}
 			// fmt.Println("CHOL =>", cholFrom, cholTo, cholUnit)
 
-			if (age >= ageFrom && age <= ageTo) && (cvd >= cvdFrom && cvd <= cvdTo) && (cholesterol >= cholFrom && cholesterol <= cholTo) {
+			if conditionMedication && (age >= ageFrom && age <= ageTo) && (cvd >= cvdFrom && cvd <= cvdTo) && (cholesterol >= cholFrom && cholesterol <= cholTo) {
 				code = *g.Code
 				target = *c.Target
 				break
