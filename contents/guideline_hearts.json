@@ -1130,20 +1130,28 @@
             "pre_processing": {
                 "existing_cvd": [{
                     "conditions": [{
-                            "ami": true
+                            "diseases": {
+                                "ami": true
+                            }
                         },
                         {
-                            "hx_cvd": true
+                            "diseases": {
+                                "hx_cvd": true
+                            }
                         }
                     ],
                     "return": true
                 }],
                 "high_risk_conditions": [{
                     "conditions": [{
-                            "hx_pvd": true
+                            "diseases": {
+                                "hx_pvd": true
+                            }
                         },
                         {
-                            "hx_ckd": true
+                            "diseases": {
+                                "hx_ckd": true
+                            }
                         }
                     ],
                     "return": true

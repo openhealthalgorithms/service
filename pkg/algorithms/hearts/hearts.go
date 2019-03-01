@@ -421,7 +421,7 @@ func (d *Data) get(ctx context.Context) error {
 
 	// CVD
 	cvdScore := ""
-	cvd, err := engineGuide.Body.CVD.Guidelines.Process(ctx, p.AMI, p.Cvd, p.Pvd, p.Ckd, p.Age, *engineGuide.Body.CVD.PreProcessing, p.Medications)
+	cvd, err := engineGuide.Body.CVD.Guidelines.Process(ctx, p.ConditionNames, p.Age, *engineGuide.Body.CVD.PreProcessing, p.Medications)
 	if err == nil {
 		cvdScore = cvd.Value
 		res, followupActions = GetResults(cvd, *engineContent.Body.Contents, followupActions)

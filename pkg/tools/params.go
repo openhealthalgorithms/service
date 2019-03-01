@@ -50,6 +50,7 @@ type MedicalHistory struct {
 	Asthma          bool
 	Tuberculosis    bool
 	Conditions      map[string]bool
+	ConditionNames  map[string]bool
 }
 
 // FamilyHistory object
@@ -476,6 +477,7 @@ func getInputs(data []byte) (Params, error) {
 
 	// Medical history
 	out.Conditions = make(map[string]bool)
+	out.ConditionNames = make(map[string]bool)
 	jp.ArrayEach(data, func(value []byte, dataType jp.ValueType, offset int, err error) {
 		category := ""
 		if stringValue, err = jp.GetString(value, "category"); err == nil {
@@ -493,25 +495,26 @@ func getInputs(data []byte) (Params, error) {
 				conditionBool = boolValue
 			}
 			out.Conditions[strings.ToUpper(name)] = conditionBool
+			out.ConditionNames[name] = conditionBool
 			switch name {
-			case "asthma":
-				out.Asthma = conditionBool
-			case "tuberculosis":
-				out.Tuberculosis = conditionBool
+			// case "asthma":
+			// 	out.Asthma = conditionBool
+			// case "tuberculosis":
+			// 	out.Tuberculosis = conditionBool
 			case "diabetes":
 				out.Diabetes = conditionBool
-			case "hypertension":
-				out.Hypertension = conditionBool
-			case "ckd":
-				out.Ckd = conditionBool
-			case "cvd":
-				out.Cvd = conditionBool
-			case "pvd":
-				out.Pvd = conditionBool
-			case "pregnant":
-				out.Pregnant = conditionBool
-			case "arrhythmia":
-				out.Arrhythmia = conditionBool
+				// case "hypertension":
+				// 	out.Hypertension = conditionBool
+				// case "ckd":
+				// 	out.Ckd = conditionBool
+				// case "cvd":
+				// 	out.Cvd = conditionBool
+				// case "pvd":
+				// 	out.Pvd = conditionBool
+				// case "pregnant":
+				// 	out.Pregnant = conditionBool
+				// case "arrhythmia":
+				// 	out.Arrhythmia = conditionBool
 			}
 		}
 	}, "params", "components", "medical_history")

@@ -24,11 +24,8 @@ type PreProcessing struct {
 
 // PreProcessingCondition object
 type PreProcessingCondition struct {
-	AMI   *bool       `json:"ami"`
-	HxCVD *bool       `json:"hx_cvd"`
-	HxPVD *bool       `json:"hx_pvd"`
-	HxCKD *bool       `json:"hx_ckd"`
-	Age   *RangeFloat `json:"age"`
+	Condition map[string]bool `json:"diseases"`
+	Age       *RangeFloat     `json:"age"`
 }
 
 // PreProcessingConditions slice
@@ -44,7 +41,7 @@ type PreProcessingGuideline struct {
 type PreProcessingGuidelines []PreProcessingGuideline
 
 // PreProcess function
-func (p *PreProcessingGuidelines) PreProcess(ami, hxCVD, hxPVD, hxCKD bool, age float64) bool {
+func (p *PreProcessingGuidelines) PreProcess(existingConditions map[string]bool, age float64) bool {
 	returnValue := false
 
 	for _, g := range *p {
@@ -61,27 +58,18 @@ func (p *PreProcessingGuidelines) PreProcess(ami, hxCVD, hxPVD, hxCKD bool, age 
 				}
 			}
 
-			conditionAMI := true
-			if c.AMI != nil && *c.AMI != ami {
-				conditionAMI = false
+			existingCondition := true
+			if c.Condition != nil {
+				for k, v := range c.Condition {
+					if val, ok := existingConditions[k]; ok {
+						existingCondition = existingCondition && (val == v)
+					} else {
+						existingCondition = false
+					}
+				}
 			}
 
-			conditionCVD := true
-			if c.HxCVD != nil && *c.HxCVD != hxCVD {
-				conditionCVD = false
-			}
-
-			conditionPVD := true
-			if c.HxPVD != nil && *c.HxPVD != hxPVD {
-				conditionPVD = false
-			}
-
-			conditionCKD := true
-			if c.HxCKD != nil && *c.HxCKD != hxCKD {
-				conditionCKD = false
-			}
-
-			if conditionAMI && conditionCVD && conditionPVD && conditionCKD && (age >= ageFrom && age <= ageTo) {
+			if existingCondition && (age >= ageFrom && age <= ageTo) {
 				returnValue = *g.Return
 				break
 			}
@@ -119,7 +107,7 @@ type CVDGuideline struct {
 type CVDGuidelines []CVDGuideline
 
 // Process function
-func (b *CVDGuidelines) Process(ctx context.Context, ami, hxCVD, hxPVD, hxCKD bool, age float64, preProcessing PreProcessing, medications map[string]bool) (Response, error) {
+func (b *CVDGuidelines) Process(ctx context.Context, existingConditions map[string]bool, age float64, preProcessing PreProcessing, medications map[string]bool) (Response, error) {
 	code := ""
 	value := ""
 	target := ""
@@ -127,9 +115,9 @@ func (b *CVDGuidelines) Process(ctx context.Context, ami, hxCVD, hxPVD, hxCKD bo
 	// res2B, _ := json.Marshal(preProcessing)
 	// fmt.Println(string(res2B))
 
-	ageCheckForCVD := preProcessing.AgeCheckForCVD.PreProcess(ami, hxCVD, hxPVD, hxCKD, age)
-	existingCVD := preProcessing.ExistingCVD.PreProcess(ami, hxCVD, hxPVD, hxCKD, age)
-	highRiskCondition := preProcessing.HighRiskCondition.PreProcess(ami, hxCVD, hxPVD, hxCKD, age)
+	ageCheckForCVD := preProcessing.AgeCheckForCVD.PreProcess(existingConditions, age)
+	existingCVD := preProcessing.ExistingCVD.PreProcess(existingConditions, age)
+	highRiskCondition := preProcessing.HighRiskCondition.PreProcess(existingConditions, age)
 
 	// CVD Assessments
 	whocvd := who.New()
@@ -146,7 +134,7 @@ func (b *CVDGuidelines) Process(ctx context.Context, ami, hxCVD, hxPVD, hxCKD bo
 	riskRange := whocvd.WHOCVD.Output["risk_range"]
 
 	// fmt.Printf("%+v\n", ageCheckForCVD)
-	// fmt.Printf("%+v\n", existingCVD)
+	fmt.Printf("%+v\n", existingCVD)
 	// fmt.Printf("%+v\n", highRiskCondition)
 	// fmt.Printf("%+v\n", riskScore)
 

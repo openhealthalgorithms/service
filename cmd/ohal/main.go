@@ -166,6 +166,7 @@ func setupAndRun(cliCtx *cli.Context) error {
 	flag.Parse()
 
 	currentSettings := config.CurrentSettings()
+	log.Println(currentSettings)
 
 	if cpuProf {
 		f, err := os.Create(cpuprofile)

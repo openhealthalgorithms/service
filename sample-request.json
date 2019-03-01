@@ -195,6 +195,11 @@
                     "is_active": false
                 },
                 {
+                    "name": "ckd",
+                    "category": "condition",
+                    "is_active": false
+                },
+                {
                     "name": "tuberculosis",
                     "category": "condition",
                     "is_active": false
