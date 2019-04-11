@@ -17,7 +17,7 @@ type GoalGuidelinesMetaContents struct {
 	PublicationDate   *string `json:"publication_date"`
 	ContentType       *string `json:"content_type"`
 	PublishedBy       *string `json:"published_by"`
-	VersionNumber     *string `json:"version_number"`
+	// VersionNumber     *string `json:"version_number"`
 }
 
 // GoalGuidelinesBodyContents object

@@ -12,3 +12,12 @@ log_file = "ohas-logs.db"                                           # name of th
 guideline_path = "contents"                                         # path of the directory for guideline JSON and guideline content JSON file
 goal_path = "contents"                                              # path of the directory for goal JSON and goal content JSON file
 log_file_path = "~"                                                 # path of the log file
+
+[cloud]
+cloud_enable = false
+cloud_bucket_name = ""
+cloud_config_file = ""
+cloud_db_host = ""
+cloud_db_name = ""
+cloud_db_user = ""
+cloud_db_password = ""

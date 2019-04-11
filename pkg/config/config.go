@@ -39,6 +39,13 @@ func defaultSettings() map[string]interface{} {
 		"directories.guideline_path":   "",
 		"directories.goal_path":        "",
 		"directories.log_file_path":    "",
+		"cloud.cloud_enable":           false,
+		"cloud.cloud_bucket_name":      "",
+		"cloud.cloud_config_file":      "",
+		"cloud.cloud_db_host":          "",
+		"cloud.cloud_db_name":          "",
+		"cloud.cloud_db_user":          "",
+		"cloud.cloud_db_password":      "",
 	}
 
 	return settings
@@ -53,6 +60,17 @@ func configSettings(v *viper.Viper) Settings {
 	settings.GoalFile = filepath.Join(v.GetString("directories.goal_path"), v.GetString("files.goal_file"))
 	settings.GoalContentFile = filepath.Join(v.GetString("directories.goal_path"), v.GetString("files.goal_content_file"))
 	settings.LogFile = filepath.Join(v.GetString("directories.log_file_path"), v.GetString("files.log_file"))
+
+	cloudEnable := v.GetBool("cloud.cloud_enable")
+	if cloudEnable {
+		settings.CloudEnable = true
+		settings.CloudBucket = v.GetString("cloud.cloud_bucket_name")
+		settings.CloudConfigFile = v.GetString("cloud.cloud_config_file")
+		settings.CloudDBHost = v.GetString("cloud.cloud_db_host")
+		settings.CloudDBName = v.GetString("cloud.cloud_db_name")
+		settings.CloudDBUser = v.GetString("cloud.cloud_db_user")
+		settings.CloudDBPassword = v.GetString("cloud.cloud_db_password")
+	}
 
 	return settings
 }

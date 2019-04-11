@@ -8,4 +8,11 @@ type Settings struct {
 	GoalFile             string
 	GoalContentFile      string
 	LogFile              string
+	CloudEnable          bool
+	CloudBucket          string
+	CloudConfigFile      string
+	CloudDBHost          string
+	CloudDBName          string
+	CloudDBUser          string
+	CloudDBPassword      string
 }

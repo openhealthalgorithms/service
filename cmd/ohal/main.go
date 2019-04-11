@@ -91,6 +91,11 @@ func main() {
 			Value: "sample-request.json",
 		},
 		cli.StringFlag{
+			Name:  "project",
+			Usage: "Project Name",
+			Value: "default-json",
+		},
+		cli.StringFlag{
 			Name:  "guide",
 			Usage: "Guideline file. REQUIRED.",
 			Value: "guideline_hearts.json",
@@ -144,6 +149,7 @@ func setupAndRun(cliCtx *cli.Context) error {
 	var guidelineContent string
 	var goal string
 	var goalContent string
+	var projectName string
 	var showConfig bool
 	var cpuProf bool
 	var memProf bool
@@ -159,6 +165,7 @@ func setupAndRun(cliCtx *cli.Context) error {
 	flag.StringVar(&guidelineContent, "guidecontent", "guideline_hearts_content.json", "guideline content file")
 	flag.StringVar(&goal, "goal", "goals_hearts.json", "goal file")
 	flag.StringVar(&goalContent, "goalcontent", "goals_hearts_content.json", "goal content file")
+	flag.StringVar(&projectName, "project", "default-json", "project name")
 	flag.BoolVar(&showConfig, "showconfig", false, "show config for riskModels")
 	flag.BoolVar(&cpuProf, "cpuprofile", false, "enable cpu profiling")
 	flag.BoolVar(&memProf, "memprofile", false, "enable mem profiling")
@@ -166,7 +173,10 @@ func setupAndRun(cliCtx *cli.Context) error {
 	flag.Parse()
 
 	currentSettings := config.CurrentSettings()
-	log.Println(currentSettings)
+	// log.Println(currentSettings)
+	if len(projectName) == 0 {
+		projectName = ""
+	}
 
 	if cpuProf {
 		f, err := os.Create(cpuprofile)
@@ -256,10 +266,19 @@ func setupAndRun(cliCtx *cli.Context) error {
 
 	v := types.NewValuesCtx()
 	v.Params.Set("params", paramObj)
-	v.Params.Set("guide", currentSettings.GuidelineFile)
-	v.Params.Set("guidecontent", currentSettings.GuidelineContentFile)
-	v.Params.Set("goal", currentSettings.GoalFile)
-	v.Params.Set("goalcontent", currentSettings.GoalContentFile)
+
+	if currentSettings.CloudEnable {
+		v.Params.Set("cloud", "yes")
+		v.Params.Set("project", projectName)
+		v.Params.Set("bucket", currentSettings.CloudBucket)
+		v.Params.Set("configfile", currentSettings.CloudConfigFile)
+	} else {
+		v.Params.Set("cloud", "no")
+		v.Params.Set("guide", currentSettings.GuidelineFile)
+		v.Params.Set("guidecontent", currentSettings.GuidelineContentFile)
+		v.Params.Set("goal", currentSettings.GoalFile)
+		v.Params.Set("goalcontent", currentSettings.GoalContentFile)
+	}
 
 	if debug {
 		v.Params.Set("debug", "true")

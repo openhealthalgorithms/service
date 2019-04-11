@@ -3,10 +3,15 @@ package hearts
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
+	"os"
+	"strings"
 
+	"cloud.google.com/go/storage"
 	"github.com/fatih/structs"
 	"github.com/pkg/errors"
+	"google.golang.org/api/iterator"
 
 	ds "github.com/openhealthalgorithms/service/pkg/datastructure"
 	"github.com/openhealthalgorithms/service/pkg/engine"
@@ -60,62 +65,7 @@ func (d *Data) get(ctx context.Context) error {
 		return nil
 	}
 
-	raw, ok = v.Params.Get("guide")
-	if !ok {
-		return nil
-	}
-
-	guideFile, ok := raw.(string)
-	if !ok {
-		return nil
-	}
-
-	raw, ok = v.Params.Get("guidecontent")
-	if !ok {
-		return nil
-	}
-
-	guideContentFile, ok := raw.(string)
-	if !ok {
-		return nil
-	}
-
-	raw, ok = v.Params.Get("goal")
-	if !ok {
-		return nil
-	}
-
-	goalFile, ok := raw.(string)
-	if !ok {
-		return nil
-	}
-
-	raw, ok = v.Params.Get("goalcontent")
-	if !ok {
-		return nil
-	}
-
-	goalContentFile, ok := raw.(string)
-	if !ok {
-		return nil
-	}
-
-	guide, err := ioutil.ReadFile(guideFile)
-	if err != nil {
-		return err
-	}
-
-	guideContent, err := ioutil.ReadFile(guideContentFile)
-	if err != nil {
-		return err
-	}
-
-	goal, err := ioutil.ReadFile(goalFile)
-	if err != nil {
-		return err
-	}
-
-	goalContent, err := ioutil.ReadFile(goalContentFile)
+	guide, guideContent, goal, goalContent, err := parseGuidesFiles(ctx)
 	if err != nil {
 		return err
 	}
@@ -164,6 +114,7 @@ func (d *Data) get(ctx context.Context) error {
 	referralUrgent := false
 	referralReasons := make([]ds.ReferralsResponse, 0)
 
+	fmt.Println("---- SMOKING ----")
 	// Smoking
 	sm, err := engineGuide.Body.Lifestyle.Smoking.Process(p.Smoker.CurrentSmoker, p.Smoker.ExSmoker, p.Smoker.QuitWithinYear)
 	if err != nil {
@@ -184,6 +135,7 @@ func (d *Data) get(ctx context.Context) error {
 		}
 	}
 
+	fmt.Println("---- ALCOHOL ----")
 	// Alcohol
 	alc, err := engineGuide.Body.Lifestyle.Alcohol.Process(p.Alcohol, p.Gender)
 	if err != nil {
@@ -204,6 +156,7 @@ func (d *Data) get(ctx context.Context) error {
 		}
 	}
 
+	fmt.Println("---- PA ----")
 	// Physical Activity
 	ph, err := engineGuide.Body.Lifestyle.PhysicalActivity.Process(p.PhysicalActivity, p.Gender, p.Age)
 	if err != nil {
@@ -226,6 +179,7 @@ func (d *Data) get(ctx context.Context) error {
 
 	dietGrading := 0
 
+	fmt.Println("---- DIET (FRUIT) ----")
 	// Fruits (Diet)
 	frt, err := engineGuide.Body.Lifestyle.Diet.Fruit.Process(p.Fruits)
 	if err != nil {
@@ -246,6 +200,7 @@ func (d *Data) get(ctx context.Context) error {
 		}
 	}
 
+	fmt.Println("---- DIET (VEGETABLE) ----")
 	// Vegetables (Diet)
 	veg, err := engineGuide.Body.Lifestyle.Diet.Vegetables.Process(p.Vegetables)
 	if err != nil {
@@ -266,6 +221,7 @@ func (d *Data) get(ctx context.Context) error {
 		}
 	}
 
+	fmt.Println("---- DIET (COMBINED) ----")
 	// Fruit_Vegetables (Diet)
 	fveg, err := engineGuide.Body.Lifestyle.Diet.FruitVegetables.Process(p.Fruits + p.Vegetables)
 	if err != nil {
@@ -286,6 +242,7 @@ func (d *Data) get(ctx context.Context) error {
 		}
 	}
 
+	fmt.Println("---- BMI ----")
 	// BMI
 	bmi, err := engineGuide.Body.BodyComposition.BMI.Process(p.Height, p.Weight)
 	if err != nil {
@@ -306,6 +263,7 @@ func (d *Data) get(ctx context.Context) error {
 		}
 	}
 
+	fmt.Println("---- WAIST ----")
 	// Waist Circumference
 	waistCirc, err := engineGuide.Body.BodyComposition.WaistCirc.Process(p.Gender, p.Waist, p.WaistUnit)
 	if err != nil {
@@ -326,6 +284,7 @@ func (d *Data) get(ctx context.Context) error {
 		}
 	}
 
+	fmt.Println("---- WHR ----")
 	// WHR
 	whr, err := engineGuide.Body.BodyComposition.WHR.Process(p.Gender, p.Waist, p.Hip)
 	if err != nil {
@@ -346,6 +305,7 @@ func (d *Data) get(ctx context.Context) error {
 		}
 	}
 
+	fmt.Println("---- BODY FAT ----")
 	// BodyFat
 	bodyFat, err := engineGuide.Body.BodyComposition.BodyFat.Process(p.Gender, p.Age, p.BodyFat)
 	if err != nil {
@@ -377,6 +337,7 @@ func (d *Data) get(ctx context.Context) error {
 		bslOrA1cUnit = p.BslUnit
 	}
 
+	fmt.Println("---- DIABETES ----")
 	// Diabetes
 	diabetes, err := engineGuide.Body.Diabetes.Process(p.Diabetes, bslOrA1c, bslOrA1cType, bslOrA1cUnit, p.Medications)
 	if err != nil {
@@ -396,6 +357,7 @@ func (d *Data) get(ctx context.Context) error {
 		}
 	}
 
+	fmt.Println("---- BP ----")
 	// Blood Pressure
 	diab := false
 	if diabetes.Value == "diabetes" {
@@ -419,6 +381,7 @@ func (d *Data) get(ctx context.Context) error {
 		}
 	}
 
+	fmt.Println("---- CVD ----")
 	// CVD
 	cvdScore := ""
 	cvd, err := engineGuide.Body.CVD.Guidelines.Process(ctx, p.ConditionNames, p.Age, *engineGuide.Body.CVD.PreProcessing, p.Medications)
@@ -440,6 +403,7 @@ func (d *Data) get(ctx context.Context) error {
 		errs = append(errs, err.Error())
 	}
 
+	fmt.Println("---- CHOLESTEROL ----")
 	// fmt.Println("CVD Score: ", cvdScore)
 	// Cholesterol
 	if len(cvdScore) > 0 {
@@ -479,6 +443,8 @@ func (d *Data) get(ctx context.Context) error {
 	// assessment.RecommendationsAttributes.Lifestyle.Actions = lifestyleActions
 	// assessment.RecommendationsAttributes.Medications.Actions = medicationsActions
 	// assessment.RecommendationsAttributes.Followup.Actions = followupActions
+
+	fmt.Println("---- ASSESSMENTS MESSAGES ----")
 
 	// Assessment message calculation
 	if engineContent.Body.Gradings.Lifestyle != nil {
@@ -521,6 +487,7 @@ func (d *Data) get(ctx context.Context) error {
 		assessment.AssessmentReferralAttibutes.Reasons = referralReasons
 	}
 
+	fmt.Println("---- GOALS ----")
 	/***** GOALS *****/
 	codes := engineGoal.GenerateGoals(
 		assessment.AssessmentsAttributes.Lifestyle.Components.Smoking,
@@ -541,6 +508,7 @@ func (d *Data) get(ctx context.Context) error {
 	goals := engineGoalContent.GenerateGoalsGuideline(codes...)
 	assessment.GoalsAttributes = goals
 
+	fmt.Println("---- DEBUG ----")
 	if p.Debug {
 		m := make(map[string]interface{})
 		err := json.Unmarshal(p.Input, &m)
@@ -553,8 +521,199 @@ func (d *Data) get(ctx context.Context) error {
 
 	d.Algorithm = assessment
 	d.Errors = errs
+	fmt.Println("---- COMPLETE ----")
 
 	return nil
+}
+
+func parseGuidesFiles(ctx context.Context) ([]byte, []byte, []byte, []byte, error) {
+	v := ctx.Value(types.KeyValuesCtx).(*types.ValuesCtx)
+
+	var raw interface{}
+	var ok bool
+	var guide, guideContent, goal, goalContent []byte
+	var err error
+
+	raw, ok = v.Params.Get("cloud")
+	if !ok {
+		return nil, nil, nil, nil, nil
+	}
+
+	cloudEnable, ok := raw.(string)
+	if !ok {
+		return nil, nil, nil, nil, nil
+	}
+
+	if cloudEnable == "yes" {
+		raw, ok = v.Params.Get("project")
+		if !ok {
+			return nil, nil, nil, nil, nil
+		}
+
+		projectName, ok := raw.(string)
+		if !ok {
+			return nil, nil, nil, nil, nil
+		}
+		if len(projectName) == 0 {
+			projectName = "default-json"
+		}
+		fmt.Println("PROJECT: " + projectName)
+
+		raw, ok = v.Params.Get("bucket")
+		if !ok {
+			return nil, nil, nil, nil, nil
+		}
+
+		bucketName, ok := raw.(string)
+		if !ok {
+			return nil, nil, nil, nil, nil
+		}
+
+		raw, ok = v.Params.Get("configfile")
+		if !ok {
+			return nil, nil, nil, nil, nil
+		}
+
+		configFile, ok := raw.(string)
+		if !ok {
+			return nil, nil, nil, nil, nil
+		}
+
+		err := os.Setenv("GOOGLE_APPLICATION_CREDENTIALS", configFile)
+		if err != nil {
+			return nil, nil, nil, nil, err
+		}
+
+		ctxBack := context.Background()
+
+		// Creates a client.
+		client, err := storage.NewClient(ctxBack)
+		if err != nil {
+			return nil, nil, nil, nil, err
+		}
+		bucket := client.Bucket(bucketName)
+		objs := bucket.Objects(ctx, &storage.Query{
+			Prefix:    projectName + "/",
+			Delimiter: "/",
+		})
+		i := 0
+		for {
+			attrs, err := objs.Next()
+			if err == iterator.Done {
+				break
+			}
+			if err != nil {
+				return nil, nil, nil, nil, err
+			}
+			// fmt.Println(attrs.Name)
+			name := strings.ToLower(attrs.Name)
+			if strings.Contains(name, "guideline_hearts.json") {
+				i++
+				guide, err = readStorageContent(ctxBack, bucket, attrs.Name)
+				if err != nil {
+					return nil, nil, nil, nil, err
+				}
+			} else if strings.Contains(name, "guideline_hearts_content.json") {
+				i++
+				guideContent, err = readStorageContent(ctxBack, bucket, attrs.Name)
+				if err != nil {
+					return nil, nil, nil, nil, err
+				}
+			} else if strings.Contains(name, "goals_hearts.json") {
+				i++
+				goal, err = readStorageContent(ctxBack, bucket, attrs.Name)
+				if err != nil {
+					return nil, nil, nil, nil, err
+				}
+			} else if strings.Contains(name, "goals_hearts_content.json") {
+				i++
+				goalContent, err = readStorageContent(ctxBack, bucket, attrs.Name)
+				if err != nil {
+					return nil, nil, nil, nil, err
+				}
+			}
+		}
+
+		if !(i == 4) {
+			return nil, nil, nil, nil, errors.New("guideline files for the project are missing")
+		}
+	} else {
+		raw, ok = v.Params.Get("guide")
+		if !ok {
+			return nil, nil, nil, nil, nil
+		}
+
+		guideFile, ok := raw.(string)
+		if !ok {
+			return nil, nil, nil, nil, nil
+		}
+
+		raw, ok = v.Params.Get("guidecontent")
+		if !ok {
+			return nil, nil, nil, nil, nil
+		}
+
+		guideContentFile, ok := raw.(string)
+		if !ok {
+			return nil, nil, nil, nil, nil
+		}
+
+		raw, ok = v.Params.Get("goal")
+		if !ok {
+			return nil, nil, nil, nil, nil
+		}
+
+		goalFile, ok := raw.(string)
+		if !ok {
+			return nil, nil, nil, nil, nil
+		}
+
+		raw, ok = v.Params.Get("goalcontent")
+		if !ok {
+			return nil, nil, nil, nil, nil
+		}
+
+		goalContentFile, ok := raw.(string)
+		if !ok {
+			return nil, nil, nil, nil, nil
+		}
+
+		guide, err = ioutil.ReadFile(guideFile)
+		if err != nil {
+			return nil, nil, nil, nil, err
+		}
+
+		guideContent, err = ioutil.ReadFile(guideContentFile)
+		if err != nil {
+			return nil, nil, nil, nil, err
+		}
+
+		goal, err = ioutil.ReadFile(goalFile)
+		if err != nil {
+			return nil, nil, nil, nil, err
+		}
+
+		goalContent, err = ioutil.ReadFile(goalContentFile)
+		if err != nil {
+			return nil, nil, nil, nil, err
+		}
+	}
+
+	return guide, guideContent, goal, goalContent, nil
+}
+
+func readStorageContent(ctx context.Context, bucket *storage.BucketHandle, name string) ([]byte, error) {
+	rc, err := bucket.Object(name).NewReader(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer rc.Close()
+
+	data, err := ioutil.ReadAll(rc)
+	if err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 // GetResults from response

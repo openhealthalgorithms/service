@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -19,6 +20,9 @@ import (
 	"github.com/openhealthalgorithms/service/pkg/tools"
 	"github.com/openhealthalgorithms/service/pkg/types"
 	"github.com/pkg/errors"
+
+	// pq for postgresql driver
+	_ "github.com/lib/pq"
 )
 
 var (
@@ -65,6 +69,7 @@ func NewServiceWithPort(port string) Service {
 func NewServiceWithPortAddress(port, addr string) Service {
 	router := http.NewServeMux()
 	router.HandleFunc("/api/algorithm", algorithmRequestHandler)
+	router.HandleFunc("/api/algorithm/", algorithmRequestHandler)
 	router.HandleFunc("/api/version", versionRequestHandler)
 	router.HandleFunc("/", defaultHandler)
 
@@ -141,13 +146,61 @@ func algorithmRequestHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	currentSettings := config.CurrentSettings()
-
 	v := types.NewValuesCtx()
 	v.Params.Set("params", paramObj)
-	v.Params.Set("guide", currentSettings.GuidelineFile)
-	v.Params.Set("guidecontent", currentSettings.GuidelineContentFile)
-	v.Params.Set("goal", currentSettings.GoalFile)
-	v.Params.Set("goalcontent", currentSettings.GoalContentFile)
+
+	if currentSettings.CloudEnable {
+		projectName := strings.Replace(r.URL.Path, "/api/algorithm", "", 1)
+		if len(projectName) > 1 {
+			projectName = projectName[1:]
+
+			// check for authorization
+			authorizationToken := r.Header.Get("Authorization")
+			if len(authorizationToken) == 0 {
+				respondError(w, errors.New("authorization token missing"), http.StatusNotAcceptable)
+				return
+			}
+			if !strings.HasPrefix(authorizationToken, "Bearer ") || len(authorizationToken) != 71 {
+				respondError(w, errors.New("invalid token format. should be in the format of 'Bearer YOUR_TOKEN'"), http.StatusUnauthorized)
+				return
+			}
+
+			bearerToken := strings.TrimPrefix(authorizationToken, "Bearer ")
+			if len(bearerToken) != 64 {
+				respondError(w, errors.New("invalid token for the api"), http.StatusUnauthorized)
+				return
+			}
+
+			// check for api token in the database and get the project name
+			projectForToken, err := checkAPIToken(bearerToken,
+				currentSettings.CloudDBHost,
+				currentSettings.CloudDBName,
+				currentSettings.CloudDBUser,
+				currentSettings.CloudDBPassword,
+			)
+			if err != nil {
+				respondError(w, err, http.StatusUnauthorized)
+				return
+			}
+
+			if projectForToken != projectName {
+				respondError(w, errors.New("invalid token for the project"), http.StatusUnauthorized)
+				return
+			}
+		} else {
+			projectName = ""
+		}
+		v.Params.Set("cloud", "yes")
+		v.Params.Set("project", projectName)
+		v.Params.Set("bucket", currentSettings.CloudBucket)
+		v.Params.Set("configfile", currentSettings.CloudConfigFile)
+	} else {
+		v.Params.Set("cloud", "no")
+		v.Params.Set("guide", currentSettings.GuidelineFile)
+		v.Params.Set("guidecontent", currentSettings.GuidelineContentFile)
+		v.Params.Set("goal", currentSettings.GoalFile)
+		v.Params.Set("goalcontent", currentSettings.GoalContentFile)
+	}
 
 	ctx := context.WithValue(context.Background(), types.KeyValuesCtx, &v)
 
@@ -191,6 +244,35 @@ func algorithmRequestHandler(w http.ResponseWriter, r *http.Request) {
 	tx.Commit()
 
 	respondSuccess(w, result)
+}
+
+func checkAPIToken(token, host, dbname, user, password string) (string, error) {
+	// psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
+	psqlInfo := fmt.Sprintf("postgres://%s:%s@%s:5432/%s?sslmode=disable",
+		user,
+		password,
+		host,
+		dbname)
+	db, err := sql.Open("postgres", psqlInfo)
+	if err != nil {
+		return "", err
+	}
+	defer db.Close()
+
+	sqlStatement := `SELECT projects.project_id AS projectname FROM integrations
+LEFT JOIN projects ON (integrations.project_id = projects.id) WHERE integrations.api_key = $1
+AND integrations.deleted_at IS null`
+	projectName := ""
+	err = db.QueryRow(sqlStatement, token).Scan(&projectName)
+	if err != nil {
+		return "", errors.New("no project found")
+	}
+
+	if len(projectName) > 0 {
+		return projectName, nil
+	}
+
+	return "", errors.New("no project found")
 }
 
 // Helper functions for building responses.
