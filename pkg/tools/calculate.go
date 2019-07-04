@@ -66,6 +66,15 @@ func CalculateMMOLValue(value float64, unit string) float64 {
 	return value
 }
 
+// CalculateCholMMOLValue to convert value into mmol/L
+func CalculateCholMMOLValue(value float64, unit string) float64 {
+	if strings.ToLower(unit) == "mg/dl" {
+		return value / 38.67
+	}
+
+	return value
+}
+
 // CalculateLength to convert units
 func CalculateLength(value float64, unit, toUnit string) float64 {
 	result := value

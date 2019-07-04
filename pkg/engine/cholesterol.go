@@ -40,7 +40,7 @@ type CholesterolGuidelines []CholesterolGuideline
 
 // Process function
 func (b *CholesterolGuidelines) Process(cvd, age, chol float64, cholUnit, cholType string, medications map[string]bool) (Response, error) {
-	cholesterol := tools.CalculateMMOLValue(chol, cholUnit)
+	cholesterol := tools.CalculateCholMMOLValue(chol, cholUnit)
 
 	code := ""
 	value := fmt.Sprintf("%.1f%s", chol, cholUnit)
@@ -81,10 +81,10 @@ func (b *CholesterolGuidelines) Process(cvd, age, chol float64, cholUnit, cholTy
 
 			if c.Range != nil {
 				if c.Range.From != nil {
-					cholFrom = tools.CalculateMMOLValue(*c.Range.From, *c.Range.Unit)
+					cholFrom = tools.CalculateCholMMOLValue(*c.Range.From, *c.Range.Unit)
 				}
 				if c.Range.To != nil {
-					cholTo = tools.CalculateMMOLValue(*c.Range.To, *c.Range.Unit)
+					cholTo = tools.CalculateCholMMOLValue(*c.Range.To, *c.Range.Unit)
 				}
 			}
 

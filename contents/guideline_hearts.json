@@ -1044,7 +1044,7 @@
                             "from": 8.0,
                             "unit": "mmol/L"
                         },
-                        "target": "< 90mg/dL (5 mmol/L)"
+                        "target": "< 195mg/dL (5 mmol/L)"
                     }],
                     "code": "CHOL-REFER"
                 },
@@ -1056,7 +1056,7 @@
                             "from": 31,
                             "unit": "%"
                         },
-                        "target": "<90mg/dL (5mmol/L)"
+                        "target": "<195mg/dL (5mmol/L)"
                     }],
                     "code": "CHOL-VERY-HIGH-CVD-RISK"
                 },
@@ -1074,7 +1074,7 @@
                             "to": 7.9,
                             "unit": "mmol/L"
                         },
-                        "target": "< 90mg/dL (5 mmol/L)"
+                        "target": "< 195mg/dL (5 mmol/L)"
                     }],
                     "code": "CHOL-ELEVATED-WITH-HIGH-CVD-RISK"
                 },
@@ -1087,7 +1087,7 @@
                             "to": 20,
                             "unit": "%"
                         },
-                        "target": "< 90mg/dL (5 mmol/L)"
+                        "target": "< 195mg/dL (5 mmol/L)"
                     }],
                     "code": "CHOL-MOD-CVD-RISK"
                 },
@@ -1100,7 +1100,7 @@
                             "to": 10,
                             "unit": "%"
                         },
-                        "target": "Below 90mg/dL (5 mmol/L)"
+                        "target": "Below 195mg/dL (5 mmol/L)"
                     }],
                     "code": "CHOL-LOW-CVD-RISK"
                 },
@@ -1112,14 +1112,14 @@
                                 "to": 1,
                                 "unit": "%"
                             },
-                            "target": "Below 90mg/dL (5 mmol/L)"
+                            "target": "Below 195mg/dL (5 mmol/L)"
                         },
                         {
                             "range": {
                                 "to": 8.0,
                                 "unit": "mmol/L"
                             },
-                            "target": "Below 90mg/dL (5 mmol/L)"
+                            "target": "Below 195mg/dL (5 mmol/L)"
                         }
                     ],
                     "code": "CHOL-NO-CVD-RISK"
