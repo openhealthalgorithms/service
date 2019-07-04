@@ -1,6 +1,6 @@
 package pkg
 
-const version = "v0.6"
+const version = "v0.6.2"
 
 // GetVersion returns the current version
 func GetVersion() string {
