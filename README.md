@@ -1,3 +1,5 @@
+# PLEASE NOTE: This is an experimental project still in early development
+
 # Open Health Algorithms Service
 
 This service will generate binaries to be used as a package in any posix system. It will expose a `service` in `9595` port.
