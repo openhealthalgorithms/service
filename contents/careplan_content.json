@@ -1,0 +1,226 @@
+{
+    "meta"      : {
+    },
+    "goals"     : {
+        "G1": {
+            "id"         : "g1",
+            "title"      : "Improve blood pressure",
+            "description": "",
+            "category"   : "",
+            "status"     : "",
+            "start"      : "",
+            "end"        : "",
+            "subject"    : "",
+            "activities" : [],
+            "target"     : {
+                "detail": {},
+                "due"   : {}
+            },
+            "setby"      : "",
+            "addresses"  : "",
+            "notes"      : "",
+            "outcomeCode": ""
+        },
+        "G2": {
+            "id"         : "g2",
+            "title"      : "Quit smoking",
+            "description": "",
+            "category"   : "",
+            "status"     : "",
+            "start"      : "",
+            "end"        : "",
+            "subject"    : "",
+            "activities" : [],
+            "target"     : {
+                "detail": {},
+                "due"   : {}
+            },
+            "setby"      : "",
+            "addresses"  : "",
+            "notes"      : "",
+            "outcomeCode": ""
+        },
+        "G3": {
+            "id"         : "g3",
+            "title"      : "Weight reduction",
+            "description": "",
+            "category"   : "",
+            "status"     : "",
+            "start"      : "",
+            "end"        : "",
+            "subject"    : "",
+            "activities" : [],
+            "target"     : {
+                "detail": {},
+                "due"   : {}
+            },
+            "setby"      : "",
+            "addresses"  : "",
+            "notes"      : "",
+            "outcomeCode": ""
+        }
+    },
+    "activities": {
+        "A1": {
+            "id"              : "a1",
+            "title"           : "Salt reduction counselling",
+            "description"     : "Short intervention about nutrition and reducing salt consumption",
+            "category"        : "nutrition",
+            "components"      : [
+                {
+                    "id"  : "c1",
+                    "type": "video",
+                    "uri" : "youtube.co/4543958"
+                },
+                {
+                    "id"      : "c2",
+                    "type"    : "form",
+                    "uri"     : "component/form/1",
+                    "required": "c1"
+                }
+            ],
+            "role"            : [
+                "nurse"
+            ],
+            "outcomeConcept"  : {},
+            "activityDuration": {
+                "start" : "",
+                "end"   : "",
+                "repeat": {
+                    "frequency" : 1,
+                    "period"    : 3,
+                    "periodUnit": "m"
+                }
+            }
+        },
+        "A2": {
+            "id"              : "a2",
+            "title"           : "Blood Pressure Monitoring",
+            "description"     : "Monitoring of blood pressure in the community",
+            "category"        : "measurement",
+            "components"      : [
+                {
+                    "id"  : "c3",
+                    "type": "form",
+                    "uri" : "component/form/2"
+                }
+            ],
+            "role"            : [
+                "chw"
+            ],
+            "outcomeConcept"  : {
+            },
+            "activityDuration": {
+                "start" : "",
+                "end"   : "",
+                "repeat": {
+                    "frequency" : 1,
+                    "period"    : 1,
+                    "periodUnit": "m"
+                }
+            }
+        },
+        "A3": {
+            "id"              : "a3",
+            "title"           : "Prescribe first line antihypertensives",
+            "description"     : "Prescription of first line antihypertensive therapy",
+            "category"        : "medication",
+            "components"      : [
+                {
+                    "id"  : "c4",
+                    "type": "",
+                    "uri" : ""
+                }
+            ],
+            "role"            : [
+                "doctor"
+            ],
+            "outcomeConcept"  : {
+            },
+            "activityDuration": {
+                "start" : "",
+                "end"   : "",
+                "repeat": {
+                    "frequency" : 0,
+                    "period"    : 1,
+                    "periodUnit": "d"
+                },
+                "review": {
+                    "period"    : 1,
+                    "periodUnit": "m"
+                }
+            },
+            "comments"        : {
+                "comment": "Start first line anti-hypertensive therapy according to guidelines. Take into consideration age, gender, any drug allergies. ConAdvise about pot"
+            }
+        },
+        "A4": {
+            "id"              : "a4",
+            "title"           : "Prescribe second line antihypertensives",
+            "description"     : "Prescription of second line antihypertensive therapy",
+            "category"        : "medication",
+            "components"      : [
+                {
+                    "id"  : "c4",
+                    "type": "",
+                    "uri" : ""
+                }
+            ],
+            "role"            : [
+                "doctor"
+            ],
+            "outcomeConcept"  : {
+            },
+            "activityDuration": {
+                "start" : "",
+                "end"   : "",
+                "repeat": {
+                    "frequency" : 0,
+                    "period"    : 1,
+                    "periodUnit": "d"
+                },
+                "review": {
+                    "period"    : 1,
+                    "periodUnit": "m"
+                }
+            },
+            "comments"        : {
+                "comment": "Start second line anti-hypertensive therapy according to guidelines. Take into consideration age, gender, any drug allergies. ConAdvise about pot"
+            }
+        },
+        "A5": {
+            "id"              : "a5",
+            "title"           : "Prescribe third line antihypertensives",
+            "description"     : "Prescription of third line antihypertensive therapy",
+            "category"        : "medication",
+            "components"      : [
+                {
+                    "id"  : "c4",
+                    "type": "",
+                    "uri" : ""
+                }
+            ],
+            "role"            : [
+                "doctor"
+            ],
+            "outcomeConcept"  : {
+            },
+            "activityDuration": {
+                "start" : "",
+                "end"   : "",
+                "repeat": {
+                    "frequency" : 0,
+                    "period"    : 1,
+                    "periodUnit": "d"
+                },
+                "review": {
+                    "period"    : 1,
+                    "periodUnit": "m"
+                }
+            },
+            "comments"        : {
+                "comment": "Start third line anti-hypertensive therapy according to guidelines. Take into consideration age, gender, any drug allergies. ConAdvise about pot"
+            }
+        }
+    }
+}
