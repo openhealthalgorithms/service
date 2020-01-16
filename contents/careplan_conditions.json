@@ -40,11 +40,11 @@
                 {
                     "rules": [
                         {
-                            "anti-hypertensive": "rampiril",
+                            "anti-hypertensive": "first line",
                             "activity"         : "a4"
                         },
                         {
-                            "anti-hypertensive": "2nd",
+                            "anti-hypertensive": "second line",
                             "activity"         : "a5"
                         },
                         {

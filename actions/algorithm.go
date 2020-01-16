@@ -2,15 +2,20 @@ package actions
 
 import (
     "database/sql"
+    "encoding/json"
     "fmt"
     "net/http"
+    "strings"
 
     "github.com/labstack/echo/v4"
     "github.com/pkg/errors"
 
-    "github.com/openhealthalgorithms/service/models"
-
     _ "github.com/lib/pq"
+
+    "github.com/openhealthalgorithms/service/algorithms"
+    a "github.com/openhealthalgorithms/service/engines/assessments"
+    "github.com/openhealthalgorithms/service/models"
+    "github.com/openhealthalgorithms/service/tools"
 )
 
 // AlgorithmHandler function
@@ -23,169 +28,219 @@ func AlgorithmHandler(c echo.Context) error {
     if err = c.Validate(o); err != nil {
         return ErrorResponse(c, err, 400)
     }
+    if *o.Config.Algorithm != "hearts" {
+        return ErrorResponse(c, errors.New("algorithm not found"), 404)
+    }
+    guideFiles, err := tools.ParseGuidesFiles(c)
+    if err != nil {
+        return ErrorResponse(c, err, 500)
+    }
 
+    gd, gdc, gl, glc, cp, cpc, err := processGuides(guideFiles)
+    if err != nil {
+        return ErrorResponse(c, err, 500)
+    }
 
+    hearts := &algorithms.Hearts{
+        Guideline:        *gd,
+        GuidelineContent: *gdc,
+        Goal:             *gl,
+        GoalContent:      *glc,
+    }
 
-    // rCodes := make([]string, 0)
-    // if o.Response.Hearts != nil {
-    //     a := *o.Response.Hearts.Assessments
-    //     rCodes = append(rCodes, *a.BloodPressure.Code)
-    //     rCodes = append(rCodes, *a.BodyComposition.Components.BMI.Code)
-    //     rCodes = append(rCodes, *a.BodyComposition.Components.BodyFat.Code)
-    //     rCodes = append(rCodes, *a.BodyComposition.Components.WaistCirc.Code)
-    //     rCodes = append(rCodes, *a.BodyComposition.Components.WHR.Code)
-    //     rCodes = append(rCodes, *a.Cholesterol.Components.TChol.Code)
-    //     rCodes = append(rCodes, *a.CVD.Code)
-    //     rCodes = append(rCodes, *a.Diabetes.Code)
-    //     rCodes = append(rCodes, *a.Lifestyle.Components.Alcohol.Code)
-    //     rCodes = append(rCodes, *a.Lifestyle.Components.PhysicalActivity.Code)
-    //     rCodes = append(rCodes, *a.Lifestyle.Components.Smoking.Code)
-    //     rCodes = append(rCodes, *a.Lifestyle.Components.Diet.Components.Fruit.Code)
-    //     rCodes = append(rCodes, *a.Lifestyle.Components.Diet.Components.Vegetable.Code)
-    //     rCodes = append(rCodes, *a.Lifestyle.Components.Diet.Components.FruitVegetable.Code)
-    // }
-    //
-    // mappings, err := getMapping()
-    // if err != nil {
-    //     return ErrorResponse(c, err, 500)
-    // }
-    //
-    // contents, err := getContent()
-    // if err != nil {
-    //     return ErrorResponse(c, err, 500)
-    // }
-    //
-    // goals := make([]models.Goal, 0)
-    // activities := make([]string, 0)
-    //
-    // for _, m := range mappings.Mapping {
-    //     for _, c := range m.Conditions {
-    //         matchAND := true
-    //         for _, s := range c {
-    //             matchOR := false
-    //             for _, k := range s {
-    //                 _, check := tools.SliceContainsString(rCodes, k)
-    //                 matchOR = matchOR || check
-    //                 if matchOR {
-    //                     break
-    //                 }
-    //             }
-    //             matchAND = matchAND && matchOR
-    //         }
-    //         if matchAND {
-    //             break
-    //         }
-    //     }
-    //     goals = append(goals, m.Goals...)
-    //     activities = append(activities, getActivities(m.Activities, o.Request.Params.Components.Medications)...)
-    // }
-    //
-    // outGoals := getGoalsOutput(contents.Goals, goals)
-    // outActivities := getActivitiesOutput(contents.Activity, activities)
-    //
-    // out := models.IOutput{}
-    // out.Goals = outGoals
-    // out.Activities = outActivities
+    hs, hg, hr, hd, hrs, err := hearts.Process(*o)
+    if err != nil {
+        return ErrorResponse(c, err, 500)
+    }
 
-    return c.JSON(http.StatusOK, o)
+    output := models.NewOutput(*o.Config.Algorithm)
+    output.Assessments = hs
+    output.Goals = hg
+    output.Referrals = hr
+    output.Errors = make([]string, 0)
+    output.Errors = append(output.Errors, hrs...)
+    if o.Config.Debug != nil && *o.Config.Debug {
+        output.Debug = make(map[string]interface{})
+        for k, v := range hd {
+            output.Debug[k] = v
+        }
+    }
+
+    if o.Config.CarePlan != nil && *o.Config.CarePlan {
+        rCodes := make([]string, 0)
+        if hs != nil {
+            if hs.BloodPressure.Code != nil {
+                rCodes = append(rCodes, *hs.BloodPressure.Code)
+            }
+            if hs.BodyComposition != nil && hs.BodyComposition.Components.BMI != nil && hs.BodyComposition.Components.BMI.Code != nil {
+                rCodes = append(rCodes, *hs.BodyComposition.Components.BMI.Code)
+            }
+            if hs.BodyComposition != nil && hs.BodyComposition.Components.BodyFat != nil && hs.BodyComposition.Components.BodyFat.Code != nil {
+                rCodes = append(rCodes, *hs.BodyComposition.Components.BodyFat.Code)
+            }
+            if hs.BodyComposition != nil && hs.BodyComposition.Components.WaistCirc != nil && hs.BodyComposition.Components.WaistCirc.Code != nil {
+                rCodes = append(rCodes, *hs.BodyComposition.Components.WaistCirc.Code)
+            }
+            if hs.BodyComposition != nil && hs.BodyComposition.Components.WHR != nil && hs.BodyComposition.Components.WHR.Code != nil {
+                rCodes = append(rCodes, *hs.BodyComposition.Components.WHR.Code)
+            }
+            if hs.Cholesterol != nil && hs.Cholesterol.Components.TChol != nil && hs.Cholesterol.Components.TChol.Code != nil {
+                rCodes = append(rCodes, *hs.Cholesterol.Components.TChol.Code)
+            }
+            if hs.CVD.Code != nil {
+                rCodes = append(rCodes, *hs.CVD.Code)
+            }
+            if hs.Diabetes.Code != nil {
+                rCodes = append(rCodes, *hs.Diabetes.Code)
+            }
+            if hs.Lifestyle != nil && hs.Lifestyle.Components.Alcohol != nil && hs.Lifestyle.Components.Alcohol.Code != nil {
+                rCodes = append(rCodes, *hs.Lifestyle.Components.Alcohol.Code)
+            }
+            if hs.Lifestyle != nil && hs.Lifestyle.Components.PhysicalActivity != nil && hs.Lifestyle.Components.PhysicalActivity.Code != nil {
+                rCodes = append(rCodes, *hs.Lifestyle.Components.PhysicalActivity.Code)
+            }
+            if hs.Lifestyle != nil && hs.Lifestyle.Components.Smoking != nil && hs.Lifestyle.Components.Smoking.Code != nil {
+                rCodes = append(rCodes, *hs.Lifestyle.Components.Smoking.Code)
+            }
+            if hs.Lifestyle != nil && hs.Lifestyle.Components.Diet != nil && hs.Lifestyle.Components.Diet.Components.Fruit != nil && hs.Lifestyle.Components.Diet.Components.Fruit.Code != nil {
+                rCodes = append(rCodes, *hs.Lifestyle.Components.Diet.Components.Fruit.Code)
+            }
+            if hs.Lifestyle != nil && hs.Lifestyle.Components.Diet != nil && hs.Lifestyle.Components.Diet.Components.Vegetable != nil && hs.Lifestyle.Components.Diet.Components.Vegetable.Code != nil {
+                rCodes = append(rCodes, *hs.Lifestyle.Components.Diet.Components.Vegetable.Code)
+            }
+            if hs.Lifestyle != nil && hs.Lifestyle.Components.Diet != nil && hs.Lifestyle.Components.Diet.Components.FruitVegetable != nil && hs.Lifestyle.Components.Diet.Components.FruitVegetable.Code != nil {
+                rCodes = append(rCodes, *hs.Lifestyle.Components.Diet.Components.FruitVegetable.Code)
+            }
+        }
+
+        goals := make([]models.CarePlanGoal, 0)
+        activities := make([]string, 0)
+
+        for _, m := range cp.CarePlanConditionMapping {
+            for _, c := range m.CarePlanConditions {
+                matchAND := true
+                for _, s := range c {
+                    matchOR := false
+                    for _, k := range s {
+                        _, check := tools.SliceContainsString(rCodes, k)
+                        matchOR = matchOR || check
+                        if matchOR {
+                            break
+                        }
+                    }
+                    matchAND = matchAND && matchOR
+                }
+                if matchAND {
+                    goals = append(goals, m.CarePlanGoals...)
+                    activities = append(activities, getActivities(m.CarePlanActivities, o.Params.Components.Medications)...)
+                    break
+                }
+            }
+        }
+
+        outGoals := getGoalsOutput(cpc.CarePlanContentGoals, goals)
+        outActivities := getActivitiesOutput(cpc.CarePlanContentActivity, activities)
+
+        carePlan := models.CarePlanOutput{
+            CarePlanOutputGoals:      outGoals,
+            CarePlanOutputActivities: outActivities,
+        }
+        output.CarePlan = &carePlan
+    }
+
+    return c.JSON(http.StatusOK, output)
 }
 
-// func getMapping() (*models.IMapping, error) {
-//     mappings := new(models.IMapping)
-//
-//     mappingFile := envy.Get("MAPPING_FILE", "")
-//     if _, err := os.Stat(mappingFile); err != nil {
-//         return mappings, err
-//     }
-//
-//     mappingContent, err := ioutil.ReadFile(mappingFile)
-//     if err != nil {
-//         return mappings, err
-//     }
-//
-//     if err := json.Unmarshal(mappingContent, &mappings); err != nil {
-//         return mappings, err
-//     }
-//
-//     return mappings, nil
-// }
-//
-// func getContent() (*models.IContent, error) {
-//     content := new(models.IContent)
-//
-//     contentFile := envy.Get("CONTENT_FILE", "")
-//     if _, err := os.Stat(contentFile); err != nil {
-//         return content, err
-//     }
-//
-//     contentContent, err := ioutil.ReadFile(contentFile)
-//     if err != nil {
-//         return content, err
-//     }
-//
-//     if err := json.Unmarshal(contentContent, &content); err != nil {
-//         return content, err
-//     }
-//
-//     return content, nil
-// }
-//
-// func getActivities(activities []models.Activity, medications []models.ORMedication) []string {
-//     a := make([]string, 0)
-//
-//     mCats := make(map[string]string)
-//     for _, m := range medications {
-//         mCats[*m.Category] = *m.Generic
-//     }
-//
-//     for _, act := range activities {
-//         rules := act["rules"]
-//         if len(rules) > 1 {
-//             activity := ""
-//             for _, r := range rules {
-//                 for k, v := range mCats {
-//                     if r[k] == v {
-//                         activity = strings.ToUpper(r["activity"])
-//                     }
-//                 }
-//             }
-//             if len(activity) == 0 {
-//                 activity = strings.ToUpper(rules[len(rules)-1]["activity"])
-//             }
-//             a = append(a, activity)
-//         } else {
-//             activity := strings.ToUpper(rules[0]["activity"])
-//             a = append(a, activity)
-//         }
-//     }
-//
-//     return a
-// }
-//
-// func getGoalsOutput(g models.IContentGoals, gs []models.Goal) []models.IContentGoal {
-//     goals := make([]models.IContentGoal, 0)
-//
-//     for _, goal := range gs {
-//         s := string(goal)
-//         if value, ok := g[s]; ok {
-//             goals = append(goals, value)
-//         }
-//     }
-//
-//     return goals
-// }
-//
-// func getActivitiesOutput(a models.IContentActivities, as []string) []models.IContentActivity {
-//     activities := make([]models.IContentActivity, 0)
-//
-//     for _, s := range as {
-//         if value, ok := a[s]; ok {
-//             activities = append(activities, value)
-//         }
-//     }
-//
-//     return activities
-// }
+func processGuides(m map[string][]byte) (*a.Guidelines, *a.GuideContents, *a.GoalGuidelines, *a.GoalGuideContents, *models.CarePlanConditionsMapping, *models.CarePlanContentMapping, error) {
+    engineGuide := a.Guidelines{}
+    if err := json.Unmarshal(m["guide"], &engineGuide); err != nil {
+        return nil, nil, nil, nil, nil, nil, err
+    }
+
+    engineGuideContent := a.GuideContents{}
+    if err := json.Unmarshal(m["guideContent"], &engineGuideContent); err != nil {
+        return nil, nil, nil, nil, nil, nil, err
+    }
+
+    engineGoal := a.GoalGuidelines{}
+    if err := json.Unmarshal(m["goal"], &engineGoal); err != nil {
+        return nil, nil, nil, nil, nil, nil, err
+    }
+
+    engineGoalContent := a.GoalGuideContents{}
+    if err := json.Unmarshal(m["goalContent"], &engineGoalContent); err != nil {
+        return nil, nil, nil, nil, nil, nil, err
+    }
+
+    engineCarePlan := models.CarePlanConditionsMapping{}
+    if err := json.Unmarshal(m["careplan"], &engineCarePlan); err != nil {
+        return nil, nil, nil, nil, nil, nil, err
+    }
+
+    engineCarePlanContent := models.CarePlanContentMapping{}
+    if err := json.Unmarshal(m["careplanContent"], &engineCarePlanContent); err != nil {
+        return nil, nil, nil, nil, nil, nil, err
+    }
+
+    return &engineGuide, &engineGuideContent, &engineGoal, &engineGoalContent, &engineCarePlan, &engineCarePlanContent, nil
+}
+
+func getActivities(activities []models.CarePlanActivity, medications []models.ORMedication) []string {
+    a := make([]string, 0)
+
+    mCats := make(map[string]string)
+    for _, m := range medications {
+        mCats[*m.Class] = *m.Category
+    }
+
+    for _, act := range activities {
+        rules := act["rules"]
+        if len(rules) > 1 {
+            activity := ""
+            for _, r := range rules {
+                for k, v := range mCats {
+                    if r[k] == v {
+                        activity = strings.ToUpper(r["activity"])
+                    }
+                }
+            }
+            if len(activity) == 0 {
+                activity = strings.ToUpper(rules[len(rules)-1]["activity"])
+            }
+            a = append(a, activity)
+        } else {
+            activity := strings.ToUpper(rules[0]["activity"])
+            a = append(a, activity)
+        }
+    }
+
+    return a
+}
+
+func getGoalsOutput(g models.CarePlanContentGoals, gs []models.CarePlanGoal) []models.CarePlanContentGoal {
+    goals := make([]models.CarePlanContentGoal, 0)
+
+    for _, goal := range gs {
+        s := string(goal)
+        if value, ok := g[s]; ok {
+            goals = append(goals, value)
+        }
+    }
+
+    return goals
+}
+
+func getActivitiesOutput(a models.CarePlanContentActivities, as []string) []models.CarePlanContentActivity {
+    activities := make([]models.CarePlanContentActivity, 0)
+
+    for _, s := range as {
+        if value, ok := a[s]; ok {
+            activities = append(activities, value)
+        }
+    }
+
+    return activities
+}
 
 func checkAPIToken(token, host, dbname, user, password string) (string, error) {
     psqlInfo := fmt.Sprintf("postgres://%s:%s@%s:5432/%s?sslmode=disable",

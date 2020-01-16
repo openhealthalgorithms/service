@@ -85,3 +85,53 @@ type (
         Urgent *bool   `json:"urgent" validate:"required"`
     }
 )
+
+func NewORRReferrals() *ORRReferrals {
+    return &ORRReferrals{
+        Reasons: nil,
+        Refer:   nil,
+        Urgent:  nil,
+    }
+}
+
+func NewORRAssessments() *ORRAssessments {
+    return &ORRAssessments{
+        BloodPressure: &ORRAssessment{},
+        BodyComposition: &ORRBodyComposition{
+            Components: &ORRBodyCompositionComponents{
+                BMI:       nil,
+                BodyFat:   nil,
+                WaistCirc: nil,
+                WHR:       nil,
+            },
+            Message: nil,
+        },
+        Cholesterol: &ORRCholesterol{
+            Components: &ORRCholesterolComponents{
+                HDL:   nil,
+                LDL:   nil,
+                TG:    nil,
+                TChol: nil,
+            },
+            Message: nil,
+        },
+        CVD:      &ORRAssessment{},
+        Diabetes: &ORRAssessment{},
+        Lifestyle: &ORRLifestyle{
+            Components: &ORRLifestyleComponents{
+                Alcohol: nil,
+                Diet: &ORRDiet{
+                    Components: &ORRDietComponents{
+                        Fruit:          nil,
+                        FruitVegetable: nil,
+                        Vegetable:      nil,
+                    },
+                    Message: nil,
+                },
+                PhysicalActivity: nil,
+                Smoking:          nil,
+            },
+            Message: nil,
+        },
+    }
+}
