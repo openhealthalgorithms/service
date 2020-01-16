@@ -1,6 +1,7 @@
 package algorithms
 
 import (
+    "strconv"
     "strings"
 
     a "github.com/openhealthalgorithms/service/engines/assessments"
@@ -35,6 +36,10 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
     gender := strings.ToLower(gend[:1])
     age := tools.CalculateAge(float64(*o.Params.Demographics.Age.Value), *o.Params.Demographics.Age.Unit)
 
+    fv := 0
+    fvt := false
+    pa := 0
+    pat := false
     for _, ls := range o.Params.Components.Lifestyle {
         switch *ls.Name {
         case "smoking":
@@ -86,15 +91,42 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
                     referralReasons = append(referralReasons, ref)
                 }
             }
-        case "physical-activity":
+        case "exercise":
             // Physical Activity
             // TODO: MULTIPLE INPUTS
-            ph, err := h.Guideline.Body.Lifestyle.PhysicalActivity.Process(tools.CalculateExercise((*ls.Value).(int), *ls.Units, *ls.Frequency, *ls.Intensity), gender, age)
+            pat = true
+            pa += tools.CalculateExercise(int((*ls.Value).(float64)), *ls.Units, *ls.Frequency, *ls.Intensity)
+        case "fruit":
+            // Fruits (Diet)
+            fvt = true
+            fv += tools.CalculateDietConsumption(int((*ls.Value).(float64)), *ls.Frequency)
+            frt, err := h.Guideline.Body.Lifestyle.Diet.Fruit.Process(tools.CalculateDietConsumption(int((*ls.Value).(float64)), *ls.Frequency))
             if err != nil {
                 errs = append(errs, err.Error())
             } else {
-                res := GetResults(ph, *h.GuidelineContent.Body.Contents)
-                assessments.Lifestyle.Components.PhysicalActivity = &res
+                res := GetResults(frt, *h.GuidelineContent.Body.Contents)
+                assessments.Lifestyle.Components.Diet.Components.Fruit = &res
+                if res.Refer != nil && *res.Refer != "no" {
+                    referral = referral || true
+                    ref := m.ORRReferralReason{}
+                    if *res.Refer == "urgent" {
+                        referralUrgent = referralUrgent || true
+                        ref.Urgent = &TRUE
+                    }
+                    ref.Type = ls.Name
+                    referralReasons = append(referralReasons, ref)
+                }
+            }
+        case "vegetables":
+            // Vegetables (Diet)
+            fvt = true
+            fv += tools.CalculateDietConsumption(int((*ls.Value).(float64)), *ls.Frequency)
+            veg, err := h.Guideline.Body.Lifestyle.Diet.Vegetables.Process(tools.CalculateDietConsumption(int((*ls.Value).(float64)), *ls.Frequency))
+            if err != nil {
+                errs = append(errs, err.Error())
+            } else {
+                res := GetResults(veg, *h.GuidelineContent.Body.Contents)
+                assessments.Lifestyle.Components.Diet.Components.Vegetable = &res
                 if res.Refer != nil && *res.Refer != "no" {
                     referral = referral || true
                     ref := m.ORRReferralReason{}
@@ -108,6 +140,155 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
             }
         }
     }
+    if fvt {
+        // Fruit_Vegetables (Diet)
+        fveg, err := h.Guideline.Body.Lifestyle.Diet.FruitVegetables.Process(fv)
+        if err != nil {
+            errs = append(errs, err.Error())
+        } else {
+            res := GetResults(fveg, *h.GuidelineContent.Body.Contents)
+            assessments.Lifestyle.Components.Diet.Components.FruitVegetable = &res
+            if res.Refer != nil && *res.Refer != "no" {
+                referral = referral || true
+                ref := m.ORRReferralReason{}
+                if *res.Refer == "urgent" {
+                    referralUrgent = referralUrgent || true
+                    ref.Urgent = &TRUE
+                }
+                fvtype := "fruit_vegetable"
+                ref.Type = &fvtype
+                referralReasons = append(referralReasons, ref)
+            }
+        }
+    }
+    if pat {
+        ph, err := h.Guideline.Body.Lifestyle.PhysicalActivity.Process(pa, gender, age)
+        if err != nil {
+            errs = append(errs, err.Error())
+        } else {
+            res := GetResults(ph, *h.GuidelineContent.Body.Contents)
+            assessments.Lifestyle.Components.PhysicalActivity = &res
+            if res.Refer != nil && *res.Refer != "no" {
+                referral = referral || true
+                ref := m.ORRReferralReason{}
+                if *res.Refer == "urgent" {
+                    referralUrgent = referralUrgent || true
+                    ref.Urgent = &TRUE
+                }
+                patype := "physical_exercise"
+                ref.Type = &patype
+                referralReasons = append(referralReasons, ref)
+            }
+        }
+    }
+
+    height, weight, hip, waist, bft := 0.0, 0.0, 0.0, 0.0, 0.0
+    sbpTotal, dbpTotal, bpCount := 0, 0, 0
+
+    for _, bm := range o.Params.Components.BodyMeasurements {
+        switch *bm.Name {
+        case "height":
+            height = tools.ConvertLength((*bm.Value).(float64), *bm.Units)
+        case "weight":
+            weight = tools.ConvertWeight((*bm.Value).(float64), *bm.Units)
+        case "hip":
+            hip = tools.ConvertLength((*bm.Value).(float64), *bm.Units)
+        case "waist":
+            waist = tools.ConvertLength((*bm.Value).(float64), *bm.Units)
+        case "body-fat":
+            bft = tools.ConvertLength((*bm.Value).(float64), *bm.Units)
+        case "blood_pressure":
+            bp := (*bm.Value).(string)
+            bps := strings.Split(bp, "/")
+            sbp, _ := strconv.Atoi(bps[0])
+            dbp, _ := strconv.Atoi(bps[1])
+            sbpTotal += sbp
+            dbpTotal += dbp
+            bpCount++
+        }
+    }
+
+    // BMI
+    bmi, err := h.Guideline.Body.BodyComposition.BMI.Process(height, weight)
+    if err != nil {
+        errs = append(errs, err.Error())
+    } else {
+        res := GetResults(bmi, *h.GuidelineContent.Body.Contents)
+        assessments.BodyComposition.Components.BMI = &res
+        if res.Refer != nil && *res.Refer != "no" {
+            referral = referral || true
+            ref := m.ORRReferralReason{}
+            if *res.Refer == "urgent" {
+                referralUrgent = referralUrgent || true
+                ref.Urgent = &TRUE
+            }
+            patype := "bmi"
+            ref.Type = &patype
+            referralReasons = append(referralReasons, ref)
+        }
+    }
+
+    // Waist Circumference
+    waistCirc, err := h.Guideline.Body.BodyComposition.WaistCirc.Process(gender, waist, "m")
+    if err != nil {
+        errs = append(errs, err.Error())
+    } else {
+        res := GetResults(waistCirc, *h.GuidelineContent.Body.Contents)
+        assessments.BodyComposition.Components.WaistCirc = &res
+        if res.Refer != nil && *res.Refer != "no" {
+            referral = referral || true
+            ref := m.ORRReferralReason{}
+            if *res.Refer == "urgent" {
+                referralUrgent = referralUrgent || true
+                ref.Urgent = &TRUE
+            }
+            patype := "waist circumference"
+            ref.Type = &patype
+            referralReasons = append(referralReasons, ref)
+        }
+    }
+
+    // WHR
+    whr, err := h.Guideline.Body.BodyComposition.WHR.Process(gender, waist, hip)
+    if err != nil {
+        errs = append(errs, err.Error())
+    } else {
+        res := GetResults(whr, *h.GuidelineContent.Body.Contents)
+        assessments.BodyComposition.Components.WHR = &res
+        if res.Refer != nil && *res.Refer != "no" {
+            referral = referral || true
+            ref := m.ORRReferralReason{}
+            if *res.Refer == "urgent" {
+                referralUrgent = referralUrgent || true
+                ref.Urgent = &TRUE
+            }
+            patype := "whr"
+            ref.Type = &patype
+            referralReasons = append(referralReasons, ref)
+        }
+
+    }
+
+    // BodyFat
+    bodyFat, err := h.Guideline.Body.BodyComposition.BodyFat.Process(gender, age, bft)
+    if err != nil {
+        errs = append(errs, err.Error())
+    } else {
+        res := GetResults(bodyFat, *h.GuidelineContent.Body.Contents)
+        assessments.BodyComposition.Components.BodyFat = &res
+        if res.Refer != nil && *res.Refer != "no" {
+            referral = referral || true
+            ref := m.ORRReferralReason{}
+            if *res.Refer == "urgent" {
+                referralUrgent = referralUrgent || true
+                ref.Urgent = &TRUE
+            }
+            patype := "body_fat"
+            ref.Type = &patype
+            referralReasons = append(referralReasons, ref)
+        }
+
+    }
 
     referrals.Refer = &referral
     referrals.Urgent = &referralUrgent
@@ -118,157 +299,6 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
 
 // func (d *Data) get(ctx context.Context) error {
 //     var err error
-//
-//     fmt.Println("---- PA ----")
-//
-//     dietGrading := 0
-//
-//     fmt.Println("---- DIET (FRUIT) ----")
-//     // Fruits (Diet)
-//     frt, err := engineGuide.Body.Lifestyle.Diet.Fruit.Process(p.Fruits)
-//     if err != nil {
-//         errs = append(errs, err.Error())
-//     } else {
-//         res, lifestyleActions = GetResults(frt, *engineContent.Body.Contents, lifestyleActions)
-//         assessment.AssessmentsAttributes.Lifestyle.Components.Diet.Components.Fruit = res
-//         dietGrading += res.Grading
-//         if res.Refer != "no" {
-//             referral = referral || true
-//             ref := ds.ReferralsResponse{}
-//             if res.Refer == "urgent" {
-//                 referralUrgent = referralUrgent || true
-//                 ref.RUrgent = true
-//             }
-//             ref.RType = "fruit"
-//             referralReasons = append(referralReasons, ref)
-//         }
-//     }
-//
-//     fmt.Println("---- DIET (VEGETABLE) ----")
-//     // Vegetables (Diet)
-//     veg, err := engineGuide.Body.Lifestyle.Diet.Vegetables.Process(p.Vegetables)
-//     if err != nil {
-//         errs = append(errs, err.Error())
-//     } else {
-//         res, lifestyleActions = GetResults(veg, *engineContent.Body.Contents, lifestyleActions)
-//         assessment.AssessmentsAttributes.Lifestyle.Components.Diet.Components.Vegetable = res
-//         dietGrading += res.Grading
-//         if res.Refer != "no" {
-//             referral = referral || true
-//             ref := ds.ReferralsResponse{}
-//             if res.Refer == "urgent" {
-//                 referralUrgent = referralUrgent || true
-//                 ref.RUrgent = true
-//             }
-//             ref.RType = "vegetable"
-//             referralReasons = append(referralReasons, ref)
-//         }
-//     }
-//
-//     fmt.Println("---- DIET (COMBINED) ----")
-//     // Fruit_Vegetables (Diet)
-//     fveg, err := engineGuide.Body.Lifestyle.Diet.FruitVegetables.Process(p.Fruits + p.Vegetables)
-//     if err != nil {
-//         errs = append(errs, err.Error())
-//     } else {
-//         res, lifestyleActions = GetResults(fveg, *engineContent.Body.Contents, lifestyleActions)
-//         assessment.AssessmentsAttributes.Lifestyle.Components.Diet.Components.FruitVegetable = res
-//         dietGrading += res.Grading
-//         if res.Refer != "no" {
-//             referral = referral || true
-//             ref := ds.ReferralsResponse{}
-//             if res.Refer == "urgent" {
-//                 referralUrgent = referralUrgent || true
-//                 ref.RUrgent = true
-//             }
-//             ref.RType = "fruit_vegetable"
-//             referralReasons = append(referralReasons, ref)
-//         }
-//     }
-//
-//     fmt.Println("---- BMI ----")
-//     // BMI
-//     bmi, err := engineGuide.Body.BodyComposition.BMI.Process(p.Height, p.Weight)
-//     if err != nil {
-//         errs = append(errs, err.Error())
-//     } else {
-//         res, lifestyleActions = GetResults(bmi, *engineContent.Body.Contents, lifestyleActions)
-//         assessment.AssessmentsAttributes.BodyComposition.Components.BMI = res
-//         bodyCompositionGrading += res.Grading
-//         if res.Refer != "no" {
-//             referral = referral || true
-//             ref := ds.ReferralsResponse{}
-//             if res.Refer == "urgent" {
-//                 referralUrgent = referralUrgent || true
-//                 ref.RUrgent = true
-//             }
-//             ref.RType = "bmi"
-//             referralReasons = append(referralReasons, ref)
-//         }
-//     }
-//
-//     fmt.Println("---- WAIST ----")
-//     // Waist Circumference
-//     waistCirc, err := engineGuide.Body.BodyComposition.WaistCirc.Process(p.Gender, p.Waist, p.WaistUnit)
-//     if err != nil {
-//         errs = append(errs, err.Error())
-//     } else {
-//         res, lifestyleActions = GetResults(waistCirc, *engineContent.Body.Contents, lifestyleActions)
-//         assessment.AssessmentsAttributes.BodyComposition.Components.WaistCirc = res
-//         bodyCompositionGrading += res.Grading
-//         if res.Refer != "no" {
-//             referral = referral || true
-//             ref := ds.ReferralsResponse{}
-//             if res.Refer == "urgent" {
-//                 referralUrgent = referralUrgent || true
-//                 ref.RUrgent = true
-//             }
-//             ref.RType = "waist circumference"
-//             referralReasons = append(referralReasons, ref)
-//         }
-//     }
-//
-//     fmt.Println("---- WHR ----")
-//     // WHR
-//     whr, err := engineGuide.Body.BodyComposition.WHR.Process(p.Gender, p.Waist, p.Hip)
-//     if err != nil {
-//         errs = append(errs, err.Error())
-//     } else {
-//         res, lifestyleActions = GetResults(whr, *engineContent.Body.Contents, lifestyleActions)
-//         assessment.AssessmentsAttributes.BodyComposition.Components.WHR = res
-//         bodyCompositionGrading += res.Grading
-//         if res.Refer != "no" {
-//             referral = referral || true
-//             ref := ds.ReferralsResponse{}
-//             if res.Refer == "urgent" {
-//                 referralUrgent = referralUrgent || true
-//                 ref.RUrgent = true
-//             }
-//             ref.RType = "whr"
-//             referralReasons = append(referralReasons, ref)
-//         }
-//     }
-//
-//     fmt.Println("---- BODY FAT ----")
-//     // BodyFat
-//     bodyFat, err := engineGuide.Body.BodyComposition.BodyFat.Process(p.Gender, p.Age, p.BodyFat)
-//     if err != nil {
-//         errs = append(errs, err.Error())
-//     } else {
-//         res, lifestyleActions = GetResults(bodyFat, *engineContent.Body.Contents, lifestyleActions)
-//         assessment.AssessmentsAttributes.BodyComposition.Components.BodyFat = res
-//         bodyCompositionGrading += res.Grading
-//         if res.Refer != "no" {
-//             referral = referral || true
-//             ref := ds.ReferralsResponse{}
-//             if res.Refer == "urgent" {
-//                 referralUrgent = referralUrgent || true
-//                 ref.RUrgent = true
-//             }
-//             ref.RType = "body fat"
-//             referralReasons = append(referralReasons, ref)
-//         }
-//     }
 //
 //     bslOrA1c := 0.0
 //     bslOrA1cType := "HbA1C"
