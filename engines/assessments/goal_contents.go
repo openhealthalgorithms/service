@@ -1,6 +1,7 @@
 package assessments
 
 import (
+    "github.com/openhealthalgorithms/service/models"
     "github.com/openhealthalgorithms/service/tools"
 )
 
@@ -44,17 +45,17 @@ type GoalGuidelinesContentResponse struct {
 }
 
 // GenerateGoalsGuideline function
-func (g *GoalGuideContents) GenerateGoalsGuideline(codes ...string) []GoalGuidelinesContentResponse {
-    ggc := make([]GoalGuidelinesContentResponse, 0)
+func (g *GoalGuideContents) GenerateGoalsGuideline(codes ...string) []models.ORRGoal {
+    ggc := make([]models.ORRGoal, 0)
 
     for k, v := range *g.Body.GoalGuidelinesContents {
         _, found := tools.SliceContainsString(codes, k)
         if found {
-            ggcr := GoalGuidelinesContentResponse{}
-            ggcr.Code = k
-            ggcr.Eval = *v.Eval
-            ggcr.TFL = *v.TFL
-            ggcr.Message = *v.Message
+            ggcr := models.ORRGoal{}
+            ggcr.Code = &k
+            ggcr.Eval = v.Eval
+            ggcr.TFL = v.TFL
+            ggcr.Message = v.Message
             ggc = append(ggc, ggcr)
         }
     }

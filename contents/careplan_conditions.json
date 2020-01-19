@@ -9,7 +9,8 @@
                         "BP-EMERGENCY",
                         "BP-HTN-REVIEW",
                         "BP-HTN-DM",
-                        "BP-HTN"
+                        "BP-HTN",
+                        "BP-HTN-ON-MEDICATION"
                     ],
                     "cvd_risk"    : [
                         "CVD-EXISTING",

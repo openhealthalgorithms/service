@@ -1,6 +1,7 @@
 package algorithms
 
 import (
+    "errors"
     "strconv"
     "strings"
 
@@ -26,12 +27,15 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
     debug := make(map[string]interface{})
     errs := make([]string, 0)
 
+    debugInputValue := false
+    if o.Config.Debug != nil {
+        debugInputValue = *o.Config.Debug
+    }
+
     referral := false
     referralUrgent := false
     referralReasons := make([]m.ORRReferralReason, 0)
 
-    TRUE := true
-    // FALSE := false
     gend := *o.Params.Demographics.Gender
     gender := strings.ToLower(gend[:1])
     age := tools.CalculateAge(float64(*o.Params.Demographics.Age.Value), *o.Params.Demographics.Age.Unit)
@@ -40,11 +44,11 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
     fvt := false
     pa := 0
     pat := false
+    cSm := false
     for _, ls := range o.Params.Components.Lifestyle {
         switch *ls.Name {
         case "smoking":
             // Smoking
-            cSm := false
             exSm := false
             q := false
             if *ls.Value == "smoker" {
@@ -66,7 +70,11 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
                     ref := m.ORRReferralReason{}
                     if *res.Refer == "urgent" {
                         referralUrgent = referralUrgent || true
-                        ref.Urgent = &TRUE
+                        val := true
+                        ref.Urgent = &val
+                    } else {
+                        val := false
+                        ref.Urgent = &val
                     }
                     ref.Type = ls.Name
                     referralReasons = append(referralReasons, ref)
@@ -83,9 +91,13 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
                 if res.Refer != nil && *res.Refer != "no" {
                     referral = referral || true
                     ref := m.ORRReferralReason{}
-                    if *res.Refer == "refer" {
+                    if *res.Refer == "urgent" {
                         referralUrgent = referralUrgent || true
-                        ref.Urgent = &TRUE
+                        val := true
+                        ref.Urgent = &val
+                    } else {
+                        val := false
+                        ref.Urgent = &val
                     }
                     ref.Type = ls.Name
                     referralReasons = append(referralReasons, ref)
@@ -93,7 +105,6 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
             }
         case "exercise":
             // Physical Activity
-            // TODO: MULTIPLE INPUTS
             pat = true
             pa += tools.CalculateExercise(int((*ls.Value).(float64)), *ls.Units, *ls.Frequency, *ls.Intensity)
         case "fruit":
@@ -111,7 +122,11 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
                     ref := m.ORRReferralReason{}
                     if *res.Refer == "urgent" {
                         referralUrgent = referralUrgent || true
-                        ref.Urgent = &TRUE
+                        val := true
+                        ref.Urgent = &val
+                    } else {
+                        val := false
+                        ref.Urgent = &val
                     }
                     ref.Type = ls.Name
                     referralReasons = append(referralReasons, ref)
@@ -132,7 +147,11 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
                     ref := m.ORRReferralReason{}
                     if *res.Refer == "urgent" {
                         referralUrgent = referralUrgent || true
-                        ref.Urgent = &TRUE
+                        val := true
+                        ref.Urgent = &val
+                    } else {
+                        val := false
+                        ref.Urgent = &val
                     }
                     ref.Type = ls.Name
                     referralReasons = append(referralReasons, ref)
@@ -153,7 +172,11 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
                 ref := m.ORRReferralReason{}
                 if *res.Refer == "urgent" {
                     referralUrgent = referralUrgent || true
-                    ref.Urgent = &TRUE
+                    val := true
+                    ref.Urgent = &val
+                } else {
+                    val := false
+                    ref.Urgent = &val
                 }
                 fvtype := "fruit_vegetable"
                 ref.Type = &fvtype
@@ -173,7 +196,11 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
                 ref := m.ORRReferralReason{}
                 if *res.Refer == "urgent" {
                     referralUrgent = referralUrgent || true
-                    ref.Urgent = &TRUE
+                    val := true
+                    ref.Urgent = &val
+                } else {
+                    val := false
+                    ref.Urgent = &val
                 }
                 patype := "physical_exercise"
                 ref.Type = &patype
@@ -220,7 +247,11 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
             ref := m.ORRReferralReason{}
             if *res.Refer == "urgent" {
                 referralUrgent = referralUrgent || true
-                ref.Urgent = &TRUE
+                val := true
+                ref.Urgent = &val
+            } else {
+                val := false
+                ref.Urgent = &val
             }
             patype := "bmi"
             ref.Type = &patype
@@ -240,7 +271,11 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
             ref := m.ORRReferralReason{}
             if *res.Refer == "urgent" {
                 referralUrgent = referralUrgent || true
-                ref.Urgent = &TRUE
+                val := true
+                ref.Urgent = &val
+            } else {
+                val := false
+                ref.Urgent = &val
             }
             patype := "waist circumference"
             ref.Type = &patype
@@ -260,7 +295,11 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
             ref := m.ORRReferralReason{}
             if *res.Refer == "urgent" {
                 referralUrgent = referralUrgent || true
-                ref.Urgent = &TRUE
+                val := true
+                ref.Urgent = &val
+            } else {
+                val := false
+                ref.Urgent = &val
             }
             patype := "whr"
             ref.Type = &patype
@@ -281,143 +320,242 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
             ref := m.ORRReferralReason{}
             if *res.Refer == "urgent" {
                 referralUrgent = referralUrgent || true
-                ref.Urgent = &TRUE
+                val := true
+                ref.Urgent = &val
+            } else {
+                val := false
+                ref.Urgent = &val
             }
             patype := "body_fat"
             ref.Type = &patype
             referralReasons = append(referralReasons, ref)
         }
+    }
 
+    sbp, dbp := 0, 0
+    sbp = sbpTotal / bpCount
+    dbp = dbpTotal / bpCount
+
+    bloodTestType, bslUnit, cholUnit := "", "", ""
+    bslValue, cholValue := 0.0, 0.0
+
+    for _, bs := range o.Params.Components.BiologicalSamples {
+        switch *bs.Name {
+        case "blood_sugar":
+            if bs.Type != nil {
+                bloodTestType = *bs.Type
+            }
+            bslUnit = *bs.Units
+            bslValue = (*bs.Value).(float64)
+        case "a1c":
+            bslUnit = "%"
+            bslValue = (*bs.Value).(float64)
+            bloodTestType = "HbA1c"
+        case "total_cholesterol":
+            cholUnit = *bs.Units
+            cholValue = (*bs.Value).(float64)
+        }
+    }
+
+    conditions := make(map[string]bool)
+    allergies := make(map[string]string)
+    for _, cnd := range o.Params.Components.MedicalHistory {
+        switch *cnd.Category {
+        case "condition":
+            conditions[strings.ToLower(*cnd.Name)] = *cnd.IsActive
+        case "allergy":
+            allergies[strings.ToLower(*cnd.Type)] = *cnd.Allergen
+        }
+    }
+
+    medications := make(map[string]bool)
+    for _, cnd := range o.Params.Components.Medications {
+        medications[*cnd.Class] = true
+        medications[*cnd.Category] = true
+    }
+
+    diab := false
+    if _, ok := conditions["diabetes"]; !ok {
+        diab = true
+    }
+
+    // Diabetes
+    diabetes, err := h.Guideline.Body.Diabetes.Process(diab, bslValue, bloodTestType, bslUnit, medications)
+    if err != nil {
+        errs = append(errs, err.Error())
+    } else {
+        res := GetResults(diabetes, *h.GuidelineContent.Body.Contents)
+        assessments.Diabetes = &res
+        if res.Refer != nil && *res.Refer != "no" {
+            referral = referral || true
+            ref := m.ORRReferralReason{}
+            if *res.Refer == "urgent" {
+                referralUrgent = referralUrgent || true
+                val := true
+                ref.Urgent = &val
+            } else {
+                val := false
+                ref.Urgent = &val
+            }
+            patype := "diabetes"
+            ref.Type = &patype
+            referralReasons = append(referralReasons, ref)
+        }
+    }
+
+    // Blood Pressure
+    diab = false
+    if diabetes.Value == "diabetes" {
+        diab = true
+    }
+    bp, err := h.Guideline.Body.BloodPressure.Process(diab, sbp, dbp, age, medications)
+    if err != nil {
+        errs = append(errs, err.Error())
+    } else {
+        res := GetResults(bp, *h.GuidelineContent.Body.Contents)
+        assessments.BloodPressure = &res
+        if res.Refer != nil && *res.Refer != "no" {
+            referral = referral || true
+            ref := m.ORRReferralReason{}
+            if *res.Refer == "urgent" {
+                referralUrgent = referralUrgent || true
+                val := true
+                ref.Urgent = &val
+            } else {
+                val := false
+                ref.Urgent = &val
+            }
+            patype := "blood_pressure"
+            ref.Type = &patype
+            referralReasons = append(referralReasons, ref)
+        }
+    }
+
+    countries := tools.Countries()
+    region := ""
+    if code, ok := countries[*o.Params.Demographics.BirthCountryCode]; ok {
+        if code.Region != "#N/A" {
+            region = code.Region
+        } else {
+            errr := errors.New("unsupported country/region")
+            errs = append(errs, errr.Error())
+
+            return assessments, goals, referrals, debug, errs, err
+        }
+    }
+
+    // CVD
+    cvdScore := ""
+    cvd, dbg, err := h.Guideline.Body.CVD.Guidelines.Process(
+        conditions,
+        age,
+        *h.Guideline.Body.CVD.PreProcessing,
+        medications,
+        region,
+        gender,
+        sbp,
+        cholValue,
+        cholUnit,
+        diab,
+        cSm,
+        debugInputValue,
+    )
+    if err == nil {
+        cvdScore = cvd.Value
+        res := GetResults(cvd, *h.GuidelineContent.Body.Contents)
+        assessments.CVD = &res
+        if res.Refer != nil && *res.Refer != "no" {
+            referral = referral || true
+            ref := m.ORRReferralReason{}
+            if *res.Refer == "urgent" {
+                referralUrgent = referralUrgent || true
+                val := true
+                ref.Urgent = &val
+            } else {
+                val := false
+                ref.Urgent = &val
+            }
+            patype := "cvd"
+            ref.Type = &patype
+            referralReasons = append(referralReasons, ref)
+        }
+    } else {
+        errs = append(errs, err.Error())
+    }
+
+    // Cholesterol
+    if len(cvdScore) > 0 {
+        cvdForChol := 1.0
+        if cvdScore == "10-20%" {
+            cvdForChol = 20.0
+        } else if cvdScore == "20-30%" {
+            cvdForChol = 30.0
+        } else if cvdScore == "30-40%" {
+            cvdForChol = 40.0
+        } else if cvdScore == ">40%" {
+            cvdForChol = 50.0
+        } else if cvdScore == "<10%" {
+            cvdForChol = 10.0
+        }
+
+        chol, err := h.Guideline.Body.Cholesterol.TotalCholesterol.Process(cvdForChol, age, cholValue, cholUnit, "total cholesterol", medications)
+        if err != nil {
+            errs = append(errs, err.Error())
+        } else {
+            res := GetResults(chol, *h.GuidelineContent.Body.Contents)
+            assessments.Cholesterol.Components.TChol = &res
+            if res.Refer != nil && *res.Refer != "no" {
+                referral = referral || true
+                ref := m.ORRReferralReason{}
+                if *res.Refer == "urgent" {
+                    referralUrgent = referralUrgent || true
+                    val := true
+                    ref.Urgent = &val
+                } else {
+                    val := false
+                    ref.Urgent = &val
+                }
+                patype := "total_cholesterol"
+                ref.Type = &patype
+                referralReasons = append(referralReasons, ref)
+            }
+        }
     }
 
     referrals.Refer = &referral
     referrals.Urgent = &referralUrgent
     referrals.Reasons = referralReasons
 
+    /***** GOALS *****/
+    codes := h.Goal.GenerateGoals(
+        *assessments.Lifestyle.Components.Smoking,
+        *assessments.Lifestyle.Components.Alcohol,
+        *assessments.Lifestyle.Components.PhysicalActivity,
+        *assessments.Lifestyle.Components.Diet.Components.Fruit,
+        *assessments.Lifestyle.Components.Diet.Components.Vegetable,
+        *assessments.BodyComposition.Components.BMI,
+        *assessments.BodyComposition.Components.WaistCirc,
+        *assessments.BodyComposition.Components.WHR,
+        *assessments.BodyComposition.Components.BodyFat,
+        *assessments.BloodPressure,
+        *assessments.Diabetes,
+        *assessments.Cholesterol.Components.TChol,
+        *assessments.CVD,
+    )
+
+    goals = h.GoalContent.GenerateGoalsGuideline(codes...)
+
+    if debugInputValue {
+        for k, v := range dbg {
+            debug[k] = v
+        }
+        debug["input"] = o
+    }
+
     return assessments, goals, referrals, debug, errs, err
 }
 
 // func (d *Data) get(ctx context.Context) error {
-//     var err error
-//
-//     bslOrA1c := 0.0
-//     bslOrA1cType := "HbA1C"
-//     bslOrA1cUnit := "%"
-//     if p.A1C > 0.0 {
-//         bslOrA1c = p.A1C
-//     } else {
-//         bslOrA1c = p.Bsl
-//         bslOrA1cType = p.BslType
-//         bslOrA1cUnit = p.BslUnit
-//     }
-//
-//     fmt.Println("---- DIABETES ----")
-//     // Diabetes
-//     diabetes, err := engineGuide.Body.Diabetes.Process(p.Diabetes, bslOrA1c, bslOrA1cType, bslOrA1cUnit, p.Medications)
-//     if err != nil {
-//         errs = append(errs, err.Error())
-//     } else {
-//         res, followupActions = GetResults(diabetes, *engineContent.Body.Contents, followupActions)
-//         assessment.AssessmentsAttributes.Diabetes = res
-//         if res.Refer != "no" {
-//             referral = referral || true
-//             ref := ds.ReferralsResponse{}
-//             if res.Refer == "urgent" {
-//                 referralUrgent = referralUrgent || true
-//                 ref.RUrgent = true
-//             }
-//             ref.RType = "diabetes"
-//             referralReasons = append(referralReasons, ref)
-//         }
-//     }
-//
-//     fmt.Println("---- BP ----")
-//     // Blood Pressure
-//     diab := false
-//     if diabetes.Value == "diabetes" {
-//         diab = true
-//     }
-//     bp, err := engineGuide.Body.BloodPressure.Process(diab, p.Sbp, p.Dbp, p.Age, p.Medications)
-//     if err != nil {
-//         errs = append(errs, err.Error())
-//     } else {
-//         res, followupActions = GetResults(bp, *engineContent.Body.Contents, followupActions)
-//         assessment.AssessmentsAttributes.BloodPressure = res
-//         if res.Refer != "no" {
-//             referral = referral || true
-//             ref := ds.ReferralsResponse{}
-//             if res.Refer == "urgent" {
-//                 referralUrgent = referralUrgent || true
-//                 ref.RUrgent = true
-//             }
-//             ref.RType = "blood pressure"
-//             referralReasons = append(referralReasons, ref)
-//         }
-//     }
-//
-//     fmt.Println("---- CVD ----")
-//     // CVD
-//     cvdScore := ""
-//     cvd, err := engineGuide.Body.CVD.Guidelines.Process(ctx, p.ConditionNames, p.Age, *engineGuide.Body.CVD.PreProcessing, p.Medications)
-//     if err == nil {
-//         cvdScore = cvd.Value
-//         res, followupActions = GetResults(cvd, *engineContent.Body.Contents, followupActions)
-//         assessment.AssessmentsAttributes.CVD = res
-//         if res.Refer != "no" {
-//             referral = referral || true
-//             ref := ds.ReferralsResponse{}
-//             if res.Refer == "urgent" {
-//                 referralUrgent = referralUrgent || true
-//                 ref.RUrgent = true
-//             }
-//             ref.RType = "cvd"
-//             referralReasons = append(referralReasons, ref)
-//         }
-//     } else {
-//         errs = append(errs, err.Error())
-//     }
-//
-//     fmt.Println("---- CHOLESTEROL ----")
-//     // fmt.Println("CVD Score: ", cvdScore)
-//     // Cholesterol
-//     if len(cvdScore) > 0 {
-//         cvdForChol := 1.0
-//         if cvdScore == "10-20%" {
-//             cvdForChol = 20.0
-//         } else if cvdScore == "20-30%" {
-//             cvdForChol = 30.0
-//         } else if cvdScore == "30-40%" {
-//             cvdForChol = 40.0
-//         } else if cvdScore == ">40%" {
-//             cvdForChol = 50.0
-//         } else if cvdScore == "<10%" {
-//             cvdForChol = 10.0
-//         }
-//         // fmt.Println("CVD for Chol: ", cvdForChol)
-//         chol, err := engineGuide.Body.Cholesterol.TotalCholesterol.Process(cvdForChol, p.Age, p.TChol, p.CholUnit, "total cholesterol", p.Medications)
-//         if err != nil {
-//             errs = append(errs, err.Error())
-//         } else {
-//             res, medicationsActions = GetResults(chol, *engineContent.Body.Contents, medicationsActions)
-//             assessment.AssessmentsAttributes.Cholesterol.Components.TotalCholesterol = res
-//             cholesterolGrading += res.Grading
-//             if res.Refer != "no" {
-//                 referral = referral || true
-//                 ref := ds.ReferralsResponse{}
-//                 if res.Refer == "urgent" {
-//                     referralUrgent = referralUrgent || true
-//                     ref.RUrgent = true
-//                 }
-//                 ref.RType = "total cholesterol"
-//                 referralReasons = append(referralReasons, ref)
-//             }
-//         }
-//     }
-//
-//     // assessment.RecommendationsAttributes.Lifestyle.Actions = lifestyleActions
-//     // assessment.RecommendationsAttributes.Medications.Actions = medicationsActions
-//     // assessment.RecommendationsAttributes.Followup.Actions = followupActions
-//
 //     fmt.Println("---- ASSESSMENTS MESSAGES ----")
 //
 //     // Assessment message calculation
@@ -452,52 +590,6 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
 //             }
 //         }
 //     }
-//
-//     if referral {
-//         assessment.AssessmentReferralAttibutes.Refer = true
-//         if referralUrgent {
-//             assessment.AssessmentReferralAttibutes.Urgent = true
-//         }
-//         assessment.AssessmentReferralAttibutes.Reasons = referralReasons
-//     }
-//
-//     fmt.Println("---- GOALS ----")
-//     /***** GOALS *****/
-//     codes := engineGoal.GenerateGoals(
-//         assessment.AssessmentsAttributes.Lifestyle.Components.Smoking,
-//         assessment.AssessmentsAttributes.Lifestyle.Components.Alcohol,
-//         assessment.AssessmentsAttributes.Lifestyle.Components.PhysicalActivity,
-//         assessment.AssessmentsAttributes.Lifestyle.Components.Diet.Components.Fruit,
-//         assessment.AssessmentsAttributes.Lifestyle.Components.Diet.Components.Vegetable,
-//         assessment.AssessmentsAttributes.BodyComposition.Components.BMI,
-//         assessment.AssessmentsAttributes.BodyComposition.Components.WaistCirc,
-//         assessment.AssessmentsAttributes.BodyComposition.Components.WHR,
-//         assessment.AssessmentsAttributes.BodyComposition.Components.BodyFat,
-//         assessment.AssessmentsAttributes.BloodPressure,
-//         assessment.AssessmentsAttributes.Diabetes,
-//         assessment.AssessmentsAttributes.Cholesterol.Components.TotalCholesterol,
-//         assessment.AssessmentsAttributes.CVD,
-//     )
-//
-//     goals := engineGoalContent.GenerateGoalsGuideline(codes...)
-//     assessment.GoalsAttributes = goals
-//
-//     fmt.Println("---- DEBUG ----")
-//     if p.Debug {
-//         m := make(map[string]interface{})
-//         err := json.Unmarshal(p.Input, &m)
-//         if err != nil {
-//             assessment.Input = map[string]interface{}{"error": "Cannot preview inputs"}
-//         } else {
-//             assessment.Input = m
-//         }
-//     }
-//
-//     d.Algorithm = assessment
-//     d.Errors = errs
-//     fmt.Println("---- COMPLETE ----")
-//
-//     return nil
 // }
 
 // GetResults from response

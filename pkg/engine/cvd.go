@@ -6,7 +6,7 @@ import (
 	"math"
 	"strconv"
 
-	who "github.com/openhealthalgorithms/service/pkg/riskmodels/whocvd"
+    who "github.com/openhealthalgorithms/service/riskmodels/whocvd"
 )
 
 // CVDGuidelinesFull object

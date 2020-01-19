@@ -14,7 +14,7 @@ type Output struct {
     Goals       []ORRGoal              `json:"goals"`
     Referrals   *ORRReferrals          `json:"referrals"`
     CarePlan    *CarePlanOutput        `json:"careplan,omitempty"`
-    Debug       map[string]interface{} `json:"input,omitempty"`
+    Debug       map[string]interface{} `json:"debug,omitempty"`
 }
 
 // NewOutput function

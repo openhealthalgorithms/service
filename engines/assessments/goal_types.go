@@ -1,9 +1,8 @@
 package assessments
 
 import (
+    "github.com/openhealthalgorithms/service/models"
     "github.com/openhealthalgorithms/service/tools"
-
-    ds "github.com/openhealthalgorithms/service/pkg/datastructure"
 )
 
 // GoalGuidelines object
@@ -60,29 +59,29 @@ type Condition struct {
 
 // GenerateGoals function
 func (g *GoalGuidelines) GenerateGoals(
-    smoking ds.Assessment,
-    alcohol ds.Assessment,
-    physicalActivity ds.Assessment,
-    fruit ds.Assessment,
-    vegetables ds.Assessment,
-    bmi ds.Assessment,
-    waistCirc ds.Assessment,
-    whr ds.Assessment,
-    bodyFat ds.Assessment,
-    bloodPressure ds.Assessment,
-    diabetes ds.Assessment,
-    cholesterol ds.Assessment,
-    cvd ds.Assessment,
+    smoking models.ORRAssessment,
+    alcohol models.ORRAssessment,
+    physicalActivity models.ORRAssessment,
+    fruit models.ORRAssessment,
+    vegetables models.ORRAssessment,
+    bmi models.ORRAssessment,
+    waistCirc models.ORRAssessment,
+    whr models.ORRAssessment,
+    bodyFat models.ORRAssessment,
+    bloodPressure models.ORRAssessment,
+    diabetes models.ORRAssessment,
+    cholesterol models.ORRAssessment,
+    cvd models.ORRAssessment,
 ) []string {
     codes := make([]string, 0)
 
-    codes = checkConditions(g.Body.WeightControl, smoking.Code, alcohol.Code, physicalActivity.Code, fruit.Code, vegetables.Code, bmi.Code, waistCirc.Code, whr.Code, bodyFat.Code, bloodPressure.Code, diabetes.Code, cholesterol.Code, cvd.Code, codes)
-    codes = checkConditions(g.Body.SmokingControl, smoking.Code, alcohol.Code, physicalActivity.Code, fruit.Code, vegetables.Code, bmi.Code, waistCirc.Code, whr.Code, bodyFat.Code, bloodPressure.Code, diabetes.Code, cholesterol.Code, cvd.Code, codes)
-    codes = checkConditions(g.Body.AlcoholControl, smoking.Code, alcohol.Code, physicalActivity.Code, fruit.Code, vegetables.Code, bmi.Code, waistCirc.Code, whr.Code, bodyFat.Code, bloodPressure.Code, diabetes.Code, cholesterol.Code, cvd.Code, codes)
-    codes = checkConditions(g.Body.MedicalControl, smoking.Code, alcohol.Code, physicalActivity.Code, fruit.Code, vegetables.Code, bmi.Code, waistCirc.Code, whr.Code, bodyFat.Code, bloodPressure.Code, diabetes.Code, cholesterol.Code, cvd.Code, codes)
-    codes = checkConditions(g.Body.BloodPressureControl, smoking.Code, alcohol.Code, physicalActivity.Code, fruit.Code, vegetables.Code, bmi.Code, waistCirc.Code, whr.Code, bodyFat.Code, bloodPressure.Code, diabetes.Code, cholesterol.Code, cvd.Code, codes)
-    codes = checkConditions(g.Body.BloodSugarControl, smoking.Code, alcohol.Code, physicalActivity.Code, fruit.Code, vegetables.Code, bmi.Code, waistCirc.Code, whr.Code, bodyFat.Code, bloodPressure.Code, diabetes.Code, cholesterol.Code, cvd.Code, codes)
-    codes = checkConditions(g.Body.CholesterolControl, smoking.Code, alcohol.Code, physicalActivity.Code, fruit.Code, vegetables.Code, bmi.Code, waistCirc.Code, whr.Code, bodyFat.Code, bloodPressure.Code, diabetes.Code, cholesterol.Code, cvd.Code, codes)
+    codes = checkConditions(g.Body.WeightControl, *smoking.Code, *alcohol.Code, *physicalActivity.Code, *fruit.Code, *vegetables.Code, *bmi.Code, *waistCirc.Code, *whr.Code, *bodyFat.Code, *bloodPressure.Code, *diabetes.Code, *cholesterol.Code, *cvd.Code, codes)
+    codes = checkConditions(g.Body.SmokingControl, *smoking.Code, *alcohol.Code, *physicalActivity.Code, *fruit.Code, *vegetables.Code, *bmi.Code, *waistCirc.Code, *whr.Code, *bodyFat.Code, *bloodPressure.Code, *diabetes.Code, *cholesterol.Code, *cvd.Code, codes)
+    codes = checkConditions(g.Body.AlcoholControl, *smoking.Code, *alcohol.Code, *physicalActivity.Code, *fruit.Code, *vegetables.Code, *bmi.Code, *waistCirc.Code, *whr.Code, *bodyFat.Code, *bloodPressure.Code, *diabetes.Code, *cholesterol.Code, *cvd.Code, codes)
+    codes = checkConditions(g.Body.MedicalControl, *smoking.Code, *alcohol.Code, *physicalActivity.Code, *fruit.Code, *vegetables.Code, *bmi.Code, *waistCirc.Code, *whr.Code, *bodyFat.Code, *bloodPressure.Code, *diabetes.Code, *cholesterol.Code, *cvd.Code, codes)
+    codes = checkConditions(g.Body.BloodPressureControl, *smoking.Code, *alcohol.Code, *physicalActivity.Code, *fruit.Code, *vegetables.Code, *bmi.Code, *waistCirc.Code, *whr.Code, *bodyFat.Code, *bloodPressure.Code, *diabetes.Code, *cholesterol.Code, *cvd.Code, codes)
+    codes = checkConditions(g.Body.BloodSugarControl, *smoking.Code, *alcohol.Code, *physicalActivity.Code, *fruit.Code, *vegetables.Code, *bmi.Code, *waistCirc.Code, *whr.Code, *bodyFat.Code, *bloodPressure.Code, *diabetes.Code, *cholesterol.Code, *cvd.Code, codes)
+    codes = checkConditions(g.Body.CholesterolControl, *smoking.Code, *alcohol.Code, *physicalActivity.Code, *fruit.Code, *vegetables.Code, *bmi.Code, *waistCirc.Code, *whr.Code, *bodyFat.Code, *bloodPressure.Code, *diabetes.Code, *cholesterol.Code, *cvd.Code, codes)
 
     return codes
 }
