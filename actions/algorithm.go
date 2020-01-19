@@ -4,7 +4,9 @@ import (
     "database/sql"
     "encoding/json"
     "fmt"
+    "log"
     "net/http"
+    "path/filepath"
     "strings"
 
     "github.com/labstack/echo/v4"
@@ -13,14 +15,36 @@ import (
     _ "github.com/lib/pq"
 
     "github.com/openhealthalgorithms/service/algorithms"
+    "github.com/openhealthalgorithms/service/config"
+    "github.com/openhealthalgorithms/service/database"
     a "github.com/openhealthalgorithms/service/engines/assessments"
     "github.com/openhealthalgorithms/service/models"
     "github.com/openhealthalgorithms/service/tools"
 )
 
+var (
+    dbFile = filepath.Join(tools.GetCurrentDirectory(), "logs.db")
+    sqlite *database.SqliteDb
+)
+
+func load(c echo.Context) error {
+    var err error
+    currentSettings := c.Get("current_config").(config.Settings)
+    dbFile = currentSettings.LogFile
+    sqlite, err = database.InitDb(dbFile)
+    if err != nil {
+        return err
+    }
+    return nil
+}
+
 // AlgorithmHandler function
 func AlgorithmHandler(c echo.Context) error {
     var err error
+    err = load(c)
+    if err != nil {
+        return ErrorResponse(c, err, 500)
+    }
     o := new(models.OHARequest)
     if err = c.Bind(o); err != nil {
         return ErrorResponse(c, err, 500)
@@ -147,6 +171,25 @@ func AlgorithmHandler(c echo.Context) error {
         }
         output.CarePlan = &carePlan
     }
+
+    tx, err := sqlite.DB.Begin()
+    if err != nil {
+        log.Println(err)
+    }
+    stmt, err := tx.Prepare("insert into logs(request, response) values(?, ?)")
+    if err != nil {
+        log.Println(err)
+    }
+    defer stmt.Close()
+
+    requestObj, _ := json.Marshal(o)
+    responseObj, _ := json.Marshal(output)
+    _, err = stmt.Exec(string(requestObj), string(responseObj))
+    if err != nil {
+        tx.Rollback()
+        log.Println(err)
+    }
+    tx.Commit()
 
     return c.JSON(http.StatusOK, output)
 }
