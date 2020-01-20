@@ -203,3 +203,14 @@ func GetCurrentDirectory() string {
 
     return pwd
 }
+
+// GetFullGenderText returns full gender text
+func GetFullGenderText(g string) string {
+    gender := "female"
+
+    if strings.ToLower(g) == "m" {
+        gender = "male"
+    }
+
+    return gender
+}

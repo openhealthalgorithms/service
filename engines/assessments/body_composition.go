@@ -108,11 +108,7 @@ func (b *WaistCircGuidelines) Process(gender string, waist float64, waistUnit st
     value := fmt.Sprintf("%.1fcm", waist)
     target := ""
 
-    if gender == "m" {
-        gender = "male"
-    } else {
-        gender = "female"
-    }
+    gender = tools.GetFullGenderText(gender)
 
     for _, g := range *b {
         for _, c := range *g.Conditions {
@@ -174,11 +170,7 @@ func (b *WHRGuidelines) Process(gender string, waist, hip float64) (Response, er
     value := fmt.Sprintf("%.2f", whr)
     target := ""
 
-    if gender == "m" {
-        gender = "male"
-    } else {
-        gender = "female"
-    }
+    gender = tools.GetFullGenderText(gender)
 
     for _, g := range *b {
         for _, c := range *g.Conditions {
@@ -238,11 +230,7 @@ func (b *BodyFatGuidelines) Process(gender string, age, bodyFat float64) (Respon
     value := fmt.Sprintf("%.1f%%", bodyFat)
     target := ""
 
-    if gender == "m" {
-        gender = "male"
-    } else {
-        gender = "female"
-    }
+    gender = tools.GetFullGenderText(gender)
 
     for _, g := range *b {
         for _, c := range *g.Conditions {

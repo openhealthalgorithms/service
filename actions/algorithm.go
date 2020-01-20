@@ -194,6 +194,7 @@ func AlgorithmHandler(c echo.Context) error {
     return c.JSON(http.StatusOK, output)
 }
 
+// processGuides maps the guide files to specific types
 func processGuides(m map[string][]byte) (*a.Guidelines, *a.GuideContents, *a.GoalGuidelines, *a.GoalGuideContents, *models.CarePlanConditionsMapping, *models.CarePlanContentMapping, error) {
     engineGuide := a.Guidelines{}
     if err := json.Unmarshal(m["guide"], &engineGuide); err != nil {
@@ -228,6 +229,7 @@ func processGuides(m map[string][]byte) (*a.Guidelines, *a.GuideContents, *a.Goa
     return &engineGuide, &engineGuideContent, &engineGoal, &engineGoalContent, &engineCarePlan, &engineCarePlanContent, nil
 }
 
+// getActivities returns the appropriate activity from a list of activities according to additional rules
 func getActivities(activities []models.CarePlanActivity, medications []models.ORMedication) []string {
     a := make([]string, 0)
 
@@ -241,10 +243,16 @@ func getActivities(activities []models.CarePlanActivity, medications []models.OR
         if len(rules) > 1 {
             activity := ""
             for _, r := range rules {
+                done := false
                 for k, v := range mCats {
                     if r[k] == v {
                         activity = strings.ToUpper(r["activity"])
+                        done = true
+                        break
                     }
+                }
+                if done {
+                    break
                 }
             }
             if len(activity) == 0 {

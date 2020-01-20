@@ -105,11 +105,7 @@ func (a *AlcoholGuidelines) Process(units float64, gender string) (Response, err
     value := fmt.Sprintf("%.1f units", units)
     target := ""
 
-    if gender == "m" {
-        gender = "male"
-    } else {
-        gender = "female"
-    }
+    gender = tools.GetFullGenderText(gender)
 
     for _, g := range *a {
         for _, c := range *g.Conditions {
@@ -172,11 +168,7 @@ func (p *PhysicalActivityGuidelines) Process(duration int, gender string, age fl
     value := fmt.Sprintf("%d minutes", duration)
     target := ""
 
-    if gender == "m" {
-        gender = "male"
-    } else {
-        gender = "female"
-    }
+    gender = tools.GetFullGenderText(gender)
 
     for _, g := range *p {
         for _, c := range *g.Conditions {
