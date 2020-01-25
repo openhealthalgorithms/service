@@ -14,6 +14,7 @@ type Settings struct {
     CloudBucket            string
     CloudConfigFile        string
     CloudDBHost            string
+    CloudDBPort            string
     CloudDBName            string
     CloudDBUser            string
     CloudDBPassword        string

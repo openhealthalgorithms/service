@@ -47,6 +47,7 @@ func CurrentConfig() echo.MiddlewareFunc {
                     // check for api token in the database and get the project name
                     projectForToken, err := checkAPIToken(bearerToken,
                         currentSettings.CloudDBHost,
+                        currentSettings.CloudDBPort,
                         currentSettings.CloudDBName,
                         currentSettings.CloudDBUser,
                         currentSettings.CloudDBPassword,

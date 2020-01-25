@@ -526,6 +526,26 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
     referrals.Urgent = &referralUrgent
     referrals.Reasons = referralReasons
 
+    /***** Utilizing Message Pool *****/
+    dietCodes := []string{
+        *assessments.Lifestyle.Components.Diet.Components.Fruit.Code,
+        *assessments.Lifestyle.Components.Diet.Components.Vegetable.Code,
+        *assessments.Lifestyle.Components.Diet.Components.FruitVegetable.Code,
+    }
+
+    dietMessageFromPool := h.GuidelineContent.Body.MessagePool.Process(dietCodes, "diet")
+    assessments.Lifestyle.Components.Diet.Message = &dietMessageFromPool
+
+    bodyCompositionCodes := []string{
+        *assessments.BodyComposition.Components.BMI.Code,
+        *assessments.BodyComposition.Components.WaistCirc.Code,
+        *assessments.BodyComposition.Components.WHR.Code,
+        *assessments.BodyComposition.Components.BodyFat.Code,
+    }
+
+    bcMessageFromPool := h.GuidelineContent.Body.MessagePool.Process(bodyCompositionCodes, "body-composition")
+    assessments.BodyComposition.Message = &bcMessageFromPool
+
     /***** GOALS *****/
     codes := h.Goal.GenerateGoals(
         *assessments.Lifestyle.Components.Smoking,

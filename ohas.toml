@@ -21,6 +21,7 @@ cloud_enable = false
 cloud_bucket_name = ""
 cloud_config_file = ""
 cloud_db_host = ""
+cloud_db_port = ""
 cloud_db_name = ""
 cloud_db_user = ""
 cloud_db_password = ""

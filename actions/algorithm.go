@@ -268,6 +268,7 @@ func getActivities(activities []models.CarePlanActivity, medications []models.OR
     return a
 }
 
+// getGoalsOutput returns the Careplan goal from a list of goals
 func getGoalsOutput(g models.CarePlanContentGoals, gs []models.CarePlanGoal) []models.CarePlanContentGoal {
     goals := make([]models.CarePlanContentGoal, 0)
 
@@ -281,6 +282,7 @@ func getGoalsOutput(g models.CarePlanContentGoals, gs []models.CarePlanGoal) []m
     return goals
 }
 
+// getActivitiesOutput returns the Careplan activity from a list of activities
 func getActivitiesOutput(a models.CarePlanContentActivities, as []string) []models.CarePlanContentActivity {
     activities := make([]models.CarePlanContentActivity, 0)
 
@@ -293,11 +295,13 @@ func getActivitiesOutput(a models.CarePlanContentActivities, as []string) []mode
     return activities
 }
 
-func checkAPIToken(token, host, dbname, user, password string) (string, error) {
-    psqlInfo := fmt.Sprintf("postgres://%s:%s@%s:5432/%s?sslmode=disable",
+// checkAPIToken returns the API tokens or error
+func checkAPIToken(token, host, port, dbname, user, password string) (string, error) {
+    psqlInfo := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable",
         user,
         password,
         host,
+        port,
         dbname)
     db, err := sql.Open("postgres", psqlInfo)
     if err != nil {

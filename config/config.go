@@ -46,6 +46,7 @@ func defaultSettings() map[string]interface{} {
         "cloud.cloud_bucket_name":      "",
         "cloud.cloud_config_file":      "",
         "cloud.cloud_db_host":          "",
+        "cloud.cloud_db_port":          "",
         "cloud.cloud_db_name":          "",
         "cloud.cloud_db_user":          "",
         "cloud.cloud_db_password":      "",
@@ -72,6 +73,7 @@ func configSettings(v *viper.Viper) Settings {
         settings.CloudBucket = v.GetString("cloud.cloud_bucket_name")
         settings.CloudConfigFile = v.GetString("cloud.cloud_config_file")
         settings.CloudDBHost = v.GetString("cloud.cloud_db_host")
+        settings.CloudDBPort = v.GetString("cloud.cloud_db_port")
         settings.CloudDBName = v.GetString("cloud.cloud_db_name")
         settings.CloudDBUser = v.GetString("cloud.cloud_db_user")
         settings.CloudDBPassword = v.GetString("cloud.cloud_db_password")

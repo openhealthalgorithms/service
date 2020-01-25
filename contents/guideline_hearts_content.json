@@ -9,7 +9,7 @@
         "last_updated"    : "21-01-2019"
     },
     "body": {
-        "contents": {
+        "contents"    : {
             "SM-CURRENT"                      : {
                 "eval"   : "Smoker",
                 "grading": 0,
@@ -410,7 +410,77 @@
                 "refer"  : "urgent"
             }
         },
-        "gradings": {
+        "message-pool": [
+            {
+                "assessment": "body-composition",
+                "conditions": [
+                    [
+                        "BMI-UNDERWEIGHT",
+                        "BMI-OBESE",
+                        "WST-HIGH",
+                        "WHR-HIGH",
+                        "BFT-OBESE",
+                        "BFT-UNDERWEIGHT"
+                    ]
+                ],
+                "message"   : "You are in abnormal range. Try to do more exercise and follow guidelines for healthy life."
+            },
+            {
+                "assessment": "body-composition",
+                "conditions": [
+                    [
+                        "BMI-OVERWEIGHT",
+                        "BFT-OVERWEIGHT"
+                    ]
+                ],
+                "message"   : "You are mildly out of shape."
+            },
+            {
+                "assessment": "body-composition",
+                "conditions": [
+                    [
+                        "BMI-NORMAL"
+                    ],
+                    [
+                        "WST-NORMAL"
+                    ],
+                    [
+                        "WHR-NORMAL"
+                    ],
+                    [
+                        "BFT-NORMAL"
+                    ]
+                ],
+                "message"   : "Great work. Keep"
+            },
+            {
+                "assessment": "diet",
+                "conditions": [
+                    [
+                        "FRT-LOW",
+                        "VEG-LOW",
+                        "FRT-VEG-LOW"
+                    ]
+                ],
+                "message"   : "You are not following healthy diet. Please make sure to consume ample fruits and vegetables."
+            },
+            {
+                "assessment": "diet",
+                "conditions": [
+                    [
+                        "FRT-TARGET"
+                    ],
+                    [
+                        "VEG-TARGET"
+                    ],
+                    [
+                        "FRT-VEG-TARGET"
+                    ]
+                ],
+                "message"   : "You are following healthy diet, keep up the good work."
+            }
+        ],
+        "test"        : {
             "body-composition": [
                 {
                     "grading": {

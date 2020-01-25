@@ -28,6 +28,18 @@ func SliceContainsString(s []string, a string) (int, bool) {
     return -1, false
 }
 
+// SliceContainsAnyString returns true if any string of the given list is found
+func SliceContainsAnyString(s, matches []string) bool {
+    for _, m := range matches {
+        _, f := SliceContainsString(s, m)
+        if f {
+            return true
+        }
+    }
+
+    return false
+}
+
 // StrBeforeSubstr returns a string preceding a given substr.
 func StrBeforeSubstr(str, substr string) string {
     p := strings.Index(str, substr)
