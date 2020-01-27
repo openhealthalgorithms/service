@@ -1,0 +1,137 @@
+{
+    "meta"    : {
+    },
+    "mappings": [
+        {
+            "conditions": [
+                {
+                    "hypertension": [
+                        "BP-EMERGENCY",
+                        "BP-HTN-REVIEW",
+                        "BP-HTN-DM",
+                        "BP-HTN",
+                        "BP-HTN-ON-MEDICATION"
+                    ],
+                    "cvd_risk"    : [
+                        "CVD-EXISTING",
+                        "CVD-MODERATE-RISK",
+                        "CVD-HIGH-RISK",
+                        "CVD-VERY-HIGH-RISK"
+                    ]
+                }
+            ],
+            "goals"     : [
+                "G1"
+            ],
+            "activities": [
+                {
+                    "rules": [
+                        {
+                            "activity": "a1"
+                        }
+                    ]
+                },
+                {
+                    "rules": [
+                        {
+                            "activity": "a2"
+                        }
+                    ]
+                },
+                {
+                    "rules": [
+                        {
+                            "anti-hypertensive": "first line",
+                            "activity"         : "a4"
+                        },
+                        {
+                            "anti-hypertensive": "second line",
+                            "activity"         : "a5"
+                        },
+                        {
+                            "activity": "a3"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "conditions": [
+                {
+                    "smoker"  : [
+                        "SM-CURRENT"
+                    ],
+                    "cvd_risk": [
+                        "CVD-EXISTING",
+                        "CVD-MODERATE-RISK",
+                        "CVD-HIGH-RISK",
+                        "CVD-VERY-HIGH-RISK"
+                    ]
+                }
+            ],
+            "goals"     : [
+                "G2"
+            ],
+            "activities": [
+                {
+                    "rules": [
+                        {
+                            "activity": "a6"
+                        }
+                    ]
+                },
+                {
+                    "rules": [
+                        {
+                            "activity": "a7"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "conditions": [
+                {
+                    "lifestyle": [
+                        "PA-SEDENTARY",
+                        "PA-UNDER",
+                        "FRT-LOW",
+                        "VEG-LOW",
+                        "FRT-VEG-LOW",
+                        "BMI-OVERWEIGHT",
+                        "BMI-OBESE",
+                        "WST-HIGH",
+                        "WHR-HIGH",
+                        "BFT-OBESE",
+                        "BFT-OVERWEIGHT"
+                    ],
+                    "cvd_risk" : [
+                        "CVD-EXISTING",
+                        "CVD-MODERATE-RISK",
+                        "CVD-HIGH-RISK",
+                        "CVD-VERY-HIGH-RISK"
+                    ]
+                }
+            ],
+            "goals"     : [
+                "G3"
+            ],
+            "activities": [
+                {
+                    "rules": [
+                        {
+                            "activity": "a8"
+                        }
+                    ]
+                },
+                {
+                    "rules": [
+                        {
+                            "activity": "a9"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
