@@ -1,227 +1,230 @@
 {
     "config": {
-        "algorithm": "hearts",
+        "algorithm" : "hearts",
         "risk_model": "whocvd"
     },
     "params": {
         "demographics": {
-            "gender": "female",
-            "age": {
+            "gender"             : "female",
+            "age"                : {
                 "value": 65,
-                "unit": "year"
+                "unit" : "year"
             },
-            "birth_country": "Bangladesh",
-            "birth_country_code": "BD",
-            "living_country": "Bangladesh",
+            "birth_country"      : "Bangladesh",
+            "birth_country_code" : "BD",
+            "living_country"     : "Bangladesh",
             "living_country_code": "BD",
-            "race": "Bengali",
-            "ethnicity": "Bengali"
+            "race"               : "Bengali",
+            "ethnicity"          : "Bengali"
         },
-        "components": {
-            "lifestyle": [
+        "components"  : {
+            "lifestyle"         : [
                 {
-                    "name": "smoking",
-                    "category": "addiction",
-                    "value": "non-smoker",
+                    "name"            : "smoking",
+                    "category"        : "addiction",
+                    "value"           : "non-smoker",
                     "quit_within_year": false
                 },
                 {
-                    "name": "alcohol_history",
-                    "category": "addiction",
-                    "value": 12,
-                    "units": "units",
+                    "name"     : "alcohol_history",
+                    "category" : "addiction",
+                    "value"    : 12,
+                    "units"    : "units",
                     "frequency": "daily"
                 },
                 {
-                    "name": "fruit",
-                    "category": "nutrition",
-                    "value": 3,
-                    "units": "servings",
+                    "name"     : "fruit",
+                    "category" : "nutrition",
+                    "value"    : 3,
+                    "units"    : "servings",
                     "frequency": "daily"
                 },
                 {
-                    "name": "vegetables",
-                    "category": "nutrition",
-                    "value": 3,
-                    "units": "servings",
+                    "name"     : "vegetables",
+                    "category" : "nutrition",
+                    "value"    : 3,
+                    "units"    : "servings",
                     "frequency": "daily"
                 },
                 {
-                    "name": "exercise",
-                    "category": "physical-activity",
-                    "value": 20,
-                    "units": "minutes",
+                    "name"     : "exercise",
+                    "category" : "physical-activity",
+                    "value"    : 20,
+                    "units"    : "minutes",
                     "frequency": "daily",
                     "intensity": "moderate"
                 },
                 {
-                    "name": "exercise",
-                    "category": "physical-activity",
-                    "value": 30,
-                    "units": "minutes",
+                    "name"     : "exercise",
+                    "category" : "physical-activity",
+                    "value"    : 30,
+                    "units"    : "minutes",
                     "frequency": "daily",
                     "intensity": "high"
                 }
             ],
-            "body-measurements": [
+            "body-measurements" : [
                 {
                     "effectiveDate": "timestamp",
-                    "name": "blood_pressure",
-                    "category": "vital-signs",
-                    "value": "150/95",
-                    "units": "mmHg",
-                    "arm": "right"
+                    "name"         : "blood_pressure",
+                    "category"     : "vital-signs",
+                    "value"        : "150/95",
+                    "units"        : "mmHg",
+                    "arm"          : "right"
                 },
                 {
                     "effectiveDate": "timestamp",
-                    "name": "blood_pressure",
-                    "category": "vital-signs",
-                    "value": "145/90",
-                    "units": "mmHg",
-                    "arm": "right"
+                    "name"         : "blood_pressure",
+                    "category"     : "vital-signs",
+                    "value"        : "145/90",
+                    "units"        : "mmHg",
+                    "arm"          : "right"
                 },
                 {
                     "effectiveDate": "timestamp",
-                    "name": "blood_pressure",
-                    "category": "vital-signs",
-                    "value": "148/88",
-                    "units": "mmHg",
-                    "arm": "right"
+                    "name"         : "blood_pressure",
+                    "category"     : "vital-signs",
+                    "value"        : "148/88",
+                    "units"        : "mmHg",
+                    "arm"          : "right"
                 },
                 {
                     "effectiveDate": "timestamp",
-                    "name": "height",
-                    "category": "anthropometry",
-                    "units": "cm",
-                    "value": 180
+                    "name"         : "height",
+                    "category"     : "anthropometry",
+                    "units"        : "cm",
+                    "value"        : 180
                 },
                 {
                     "effectiveDate": "timestamp",
-                    "name": "weight",
-                    "category": "anthropometry",
-                    "units": "kg",
-                    "value": 80
+                    "name"         : "weight",
+                    "category"     : "anthropometry",
+                    "units"        : "kg",
+                    "value"        : 80
                 },
                 {
                     "effectiveDate": "timestamp",
-                    "name": "hip",
-                    "category": "anthropometry",
-                    "units": "cm",
-                    "value": 90
+                    "name"         : "hip",
+                    "category"     : "anthropometry",
+                    "units"        : "cm",
+                    "value"        : 90
                 },
                 {
                     "effectiveDate": "timestamp",
-                    "name": "waist",
-                    "category": "anthropometry",
-                    "units": "cm",
-                    "value": 100
+                    "name"         : "waist",
+                    "category"     : "anthropometry",
+                    "units"        : "cm",
+                    "value"        : 100
                 },
                 {
                     "effectiveDate": "timestamp",
-                    "name": "body-fat",
-                    "category": "anthropometry",
-                    "units": "%",
-                    "value": 25
+                    "name"         : "body-fat",
+                    "category"     : "anthropometry",
+                    "units"        : "%",
+                    "value"        : 25
                 },
                 {
                     "effectiveDate": "timestamp",
-                    "name": "muscle",
-                    "category": "anthropometry",
-                    "units": "%",
-                    "value": 20
+                    "name"         : "muscle",
+                    "category"     : "anthropometry",
+                    "units"        : "%",
+                    "value"        : 20
                 },
                 {
                     "effectiveDate": "timestamp",
-                    "name": "visceral_fat",
-                    "category": "anthropometry",
-                    "units": "%",
-                    "value": 10
+                    "name"         : "visceral_fat",
+                    "category"     : "anthropometry",
+                    "units"        : "%",
+                    "value"        : 10
                 }
             ],
             "biological-samples": [
                 {
                     "effectiveDate": "timestamp",
-                    "name": "a1c",
-                    "category": "blood-test",
-                    "value": 8.5,
-                    "units": "%"
+                    "name"         : "a1c",
+                    "category"     : "blood-test",
+                    "value"        : 8.5,
+                    "units"        : "%"
                 },
                 {
                     "effectiveDate": "timestamp",
-                    "name": "blood_sugar",
-                    "category": "blood-test",
-                    "value": 9.6,
-                    "units": "mmol/L",
-                    "type": "fasting"
+                    "name"         : "blood_sugar",
+                    "category"     : "blood-test",
+                    "value"        : 9.6,
+                    "units"        : "mmol/L",
+                    "type"         : "fasting"
                 },
                 {
                     "effectiveDate": "timestamp",
-                    "name": "total_cholesterol",
-                    "category": "blood-test",
-                    "value": 5.6,
-                    "units": "mmol/L"
+                    "name"         : "total_cholesterol",
+                    "category"     : "blood-test",
+                    "value"        : 5.6,
+                    "units"        : "mmol/L"
                 },
                 {
                     "effectiveDate": "timestamp",
-                    "name": "hdl",
-                    "category": "blood-test",
-                    "value": 1.3,
-                    "units": "mmol/L"
+                    "name"         : "hdl",
+                    "category"     : "blood-test",
+                    "value"        : 1.3,
+                    "units"        : "mmol/L"
                 },
                 {
                     "effectiveDate": "timestamp",
-                    "name": "ldl",
-                    "category": "blood-test",
-                    "value": 1.3,
-                    "units": "mmol/L"
+                    "name"         : "ldl",
+                    "category"     : "blood-test",
+                    "value"        : 1.3,
+                    "units"        : "mmol/L"
                 },
                 {
                     "effectiveDate": "timestamp",
-                    "name": "tg",
-                    "category": "blood-test",
-                    "value": 6,
-                    "units": "mmol/L"
+                    "name"         : "tg",
+                    "category"     : "blood-test",
+                    "value"        : 6,
+                    "units"        : "mmol/L"
                 }
             ],
-            "medical_history": [
+            "medical_history"   : [
                 {
-                    "name": "hypertension",
-                    "category": "condition",
+                    "name"     : "hypertension",
+                    "category" : "condition",
                     "is_active": false
                 },
                 {
-                    "name": "diabetes",
-                    "category": "condition",
+                    "name"     : "diabetes",
+                    "category" : "condition",
                     "is_active": false
                 },
                 {
-                    "name": "ckd",
-                    "category": "condition",
+                    "name"     : "ckd",
+                    "category" : "condition",
                     "is_active": false
                 },
                 {
-                    "name": "tuberculosis",
-                    "category": "condition",
+                    "name"     : "tuberculosis",
+                    "category" : "condition",
                     "is_active": false
                 },
                 {
-                    "category": "allergy",
-                    "type": "medication",
-                    "allergen": "ace-i",
+                    "category"   : "allergy",
+                    "type"       : "medication",
+                    "allergen"   : "ace-i",
                     "criticality": "",
-                    "reaction": "cough"
+                    "reaction"   : "cough"
                 }
             ],
-            "medications": [
+            "medications"       : [
                 {
-                    "generic": "rampiril",
-                    "category": "anti-hypertensive",
-                    "class": ""
+                    "generic"  : "rampiril",
+                    "class"    : "anti-hypertensive",
+                    "category" : "first line",
+                    "status"   : "initiated",
+                    "dose"     : "5mg",
+                    "frequency": "daily"
                 }
             ],
-            "family_history": [
+            "family_history"    : [
                 {
-                    "name": "cardiovascular-disease",
+                    "name"    : "cardiovascular-disease",
                     "relative": "1st degree"
                 }
             ]

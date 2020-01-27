@@ -6,11 +6,14 @@ guideline_file = "guideline_hearts.json"                            # name of th
 guideline_content_file = "guideline_hearts_content.json"            # name of the guideline content JSON file
 goal_file = "goals_hearts.json"                                     # name of the goal JSON file
 goal_content_file = "goals_hearts_content.json"                     # name of the goal content JSON file
+careplan_file = "careplan_conditions.json"                          # name of the careplan conditions JSON file
+careplan_content_file = "careplan_content.json"                     # name of the careplan content JSON file
 log_file = "ohas-logs.db"                                           # name of the logs database file
 
 [directories]
 guideline_path = "contents"                                         # path of the directory for guideline JSON and guideline content JSON file
 goal_path = "contents"                                              # path of the directory for goal JSON and goal content JSON file
+careplan_path = "contents"                                          # path of the directory for careplan JSON and careplan content JSON file
 log_file_path = "~"                                                 # path of the log file
 
 [cloud]
@@ -18,6 +21,7 @@ cloud_enable = false
 cloud_bucket_name = ""
 cloud_config_file = ""
 cloud_db_host = ""
+cloud_db_port = ""
 cloud_db_name = ""
 cloud_db_user = ""
 cloud_db_password = ""
