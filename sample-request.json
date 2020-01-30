@@ -1,7 +1,9 @@
 {
     "config": {
         "algorithm" : "hearts",
-        "risk_model": "whocvd"
+        "risk_model": "whocvd",
+        "debug"     : false,
+        "careplan"  : true
     },
     "params": {
         "demographics": {

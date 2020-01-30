@@ -527,41 +527,98 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
     referrals.Reasons = referralReasons
 
     /***** Utilizing Message Pool *****/
-    dietCodes := []string{
-        *assessments.Lifestyle.Components.Diet.Components.Fruit.Code,
-        *assessments.Lifestyle.Components.Diet.Components.Vegetable.Code,
-        *assessments.Lifestyle.Components.Diet.Components.FruitVegetable.Code,
+    dietCodes := make([]string, 0)
+    if assessments.Lifestyle != nil && assessments.Lifestyle.Components.Diet != nil {
+        ab := assessments.Lifestyle.Components.Diet.Components
+        if ab.Fruit != nil {
+            dietCodes = append(dietCodes, *ab.Fruit.Code)
+        }
+        if ab.Vegetable != nil {
+            dietCodes = append(dietCodes, *ab.Vegetable.Code)
+        }
+        if ab.FruitVegetable != nil {
+            dietCodes = append(dietCodes, *ab.FruitVegetable.Code)
+        }
     }
 
-    dietMessageFromPool := h.GuidelineContent.Body.MessagePool.Process(dietCodes, "diet")
+    dietMessageFromPool := ""
+    if len(dietCodes) > 0 {
+        dietMessageFromPool = h.GuidelineContent.Body.MessagePool.Process(dietCodes, "diet")
+    }
     assessments.Lifestyle.Components.Diet.Message = &dietMessageFromPool
 
-    bodyCompositionCodes := []string{
-        *assessments.BodyComposition.Components.BMI.Code,
-        *assessments.BodyComposition.Components.WaistCirc.Code,
-        *assessments.BodyComposition.Components.WHR.Code,
-        *assessments.BodyComposition.Components.BodyFat.Code,
+    bodyCompositionCodes := make([]string, 0)
+    if assessments.BodyComposition != nil {
+        ab := assessments.BodyComposition.Components
+        if ab.BMI != nil {
+            bodyCompositionCodes = append(bodyCompositionCodes, *ab.BMI.Code)
+        }
+        if ab.WaistCirc != nil {
+            bodyCompositionCodes = append(bodyCompositionCodes, *ab.WaistCirc.Code)
+        }
+        if ab.WHR != nil {
+            bodyCompositionCodes = append(bodyCompositionCodes, *ab.WHR.Code)
+        }
+        if ab.BodyFat != nil {
+            bodyCompositionCodes = append(bodyCompositionCodes, *ab.BodyFat.Code)
+        }
     }
 
-    bcMessageFromPool := h.GuidelineContent.Body.MessagePool.Process(bodyCompositionCodes, "body-composition")
+    bcMessageFromPool := ""
+    if len(bodyCompositionCodes) > 0 {
+        bcMessageFromPool = h.GuidelineContent.Body.MessagePool.Process(bodyCompositionCodes, "body-composition")
+    }
     assessments.BodyComposition.Message = &bcMessageFromPool
 
     /***** GOALS *****/
-    codes := h.Goal.GenerateGoals(
-        *assessments.Lifestyle.Components.Smoking,
-        *assessments.Lifestyle.Components.Alcohol,
-        *assessments.Lifestyle.Components.PhysicalActivity,
-        *assessments.Lifestyle.Components.Diet.Components.Fruit,
-        *assessments.Lifestyle.Components.Diet.Components.Vegetable,
-        *assessments.BodyComposition.Components.BMI,
-        *assessments.BodyComposition.Components.WaistCirc,
-        *assessments.BodyComposition.Components.WHR,
-        *assessments.BodyComposition.Components.BodyFat,
-        *assessments.BloodPressure,
-        *assessments.Diabetes,
-        *assessments.Cholesterol.Components.TChol,
-        *assessments.CVD,
-    )
+    lSmoking, lAlcohol, lPhysicalActivity, lFruit, lVegetable, lBMI, lWaistCirc, lWHR, lBodyFat, lBloodPressure, lDiabetes, lTChol, lCVD := "", "", "", "", "", "", "", "", "", "", "", "", ""
+    if assessments.Lifestyle != nil {
+        if assessments.Lifestyle.Components.Smoking != nil {
+            lSmoking = *assessments.Lifestyle.Components.Smoking.Code
+        }
+        if assessments.Lifestyle.Components.Alcohol != nil {
+            lAlcohol = *assessments.Lifestyle.Components.Alcohol.Code
+        }
+        if assessments.Lifestyle.Components.PhysicalActivity != nil {
+            lPhysicalActivity = *assessments.Lifestyle.Components.PhysicalActivity.Code
+        }
+        if assessments.Lifestyle.Components.Diet != nil {
+            if assessments.Lifestyle.Components.Diet.Components.Fruit != nil {
+                lFruit = *assessments.Lifestyle.Components.Diet.Components.Fruit.Code
+            }
+            if assessments.Lifestyle.Components.Diet.Components.Vegetable != nil {
+                lVegetable = *assessments.Lifestyle.Components.Diet.Components.Vegetable.Code
+            }
+        }
+    }
+    if assessments.BodyComposition != nil {
+        if assessments.BodyComposition.Components.BMI != nil {
+            lBMI = *assessments.BodyComposition.Components.BMI.Code
+        }
+        if assessments.BodyComposition.Components.WaistCirc != nil {
+            lWaistCirc = *assessments.BodyComposition.Components.WaistCirc.Code
+        }
+        if assessments.BodyComposition.Components.WHR != nil {
+            lWHR = *assessments.BodyComposition.Components.WHR.Code
+        }
+        if assessments.BodyComposition.Components.BodyFat != nil {
+            lBodyFat = *assessments.BodyComposition.Components.BodyFat.Code
+        }
+    }
+    if assessments.BloodPressure != nil {
+        lBloodPressure = *assessments.BloodPressure.Code
+    }
+    if assessments.Diabetes != nil {
+        lDiabetes = *assessments.Diabetes.Code
+    }
+    if assessments.Cholesterol != nil && assessments.Cholesterol.Components.TChol != nil {
+        lTChol = *assessments.Cholesterol.Components.TChol.Code
+    }
+    if assessments.CVD != nil {
+        lCVD = *assessments.CVD.Code
+    }
+
+    codes := h.Goal.GenerateGoals(lSmoking, lAlcohol, lPhysicalActivity, lFruit, lVegetable, lBMI, lWaistCirc, lWHR, lBodyFat, lBloodPressure, lDiabetes, lTChol, lCVD)
 
     goals = h.GoalContent.GenerateGoalsGuideline(codes...)
 
@@ -574,43 +631,6 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
 
     return assessments, goals, referrals, debug, errs, err
 }
-
-// func (d *Data) get(ctx context.Context) error {
-//     fmt.Println("---- ASSESSMENTS MESSAGES ----")
-//
-//     // Assessment message calculation
-//     if engineContent.Body.Gradings.Lifestyle != nil {
-//         for _, bc := range *engineContent.Body.Gradings.Lifestyle {
-//             if lifestyleGrading >= *bc.Grading.From && lifestyleGrading <= *bc.Grading.To {
-//                 assessment.AssessmentsAttributes.Lifestyle.Message = *bc.Message
-//             }
-//         }
-//     }
-//
-//     if engineContent.Body.Gradings.Diet != nil {
-//         for _, bc := range *engineContent.Body.Gradings.Diet {
-//             if dietGrading >= *bc.Grading.From && dietGrading <= *bc.Grading.To {
-//                 assessment.AssessmentsAttributes.Lifestyle.Components.Diet.Message = *bc.Message
-//             }
-//         }
-//     }
-//
-//     if engineContent.Body.Gradings.BodyComposition != nil {
-//         for _, bc := range *engineContent.Body.Gradings.BodyComposition {
-//             if bodyCompositionGrading >= *bc.Grading.From && bodyCompositionGrading <= *bc.Grading.To {
-//                 assessment.AssessmentsAttributes.BodyComposition.Message = *bc.Message
-//             }
-//         }
-//     }
-//
-//     if engineContent.Body.Gradings.Cholesterol != nil {
-//         for _, bc := range *engineContent.Body.Gradings.Cholesterol {
-//             if cholesterolGrading >= *bc.Grading.From && cholesterolGrading <= *bc.Grading.To {
-//                 assessment.AssessmentsAttributes.Cholesterol.Message = *bc.Message
-//             }
-//         }
-//     }
-// }
 
 // GetResults from response
 func GetResults(response a.Response, contents a.Contents) m.ORRAssessment {
