@@ -619,7 +619,6 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
     }
 
     codes := h.Goal.GenerateGoals(lSmoking, lAlcohol, lPhysicalActivity, lFruit, lVegetable, lBMI, lWaistCirc, lWHR, lBodyFat, lBloodPressure, lDiabetes, lTChol, lCVD)
-
     goals = h.GoalContent.GenerateGoalsGuideline(codes...)
 
     if debugInputValue {
