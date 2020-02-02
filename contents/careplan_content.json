@@ -11,7 +11,13 @@
             "start"      : "",
             "end"        : "",
             "subject"    : "",
-            "activities" : [],
+            "activities" : [
+                "a1",
+                "a2",
+                "a3",
+                "a4",
+                "a5"
+            ],
             "target"     : {
                 "detail": {},
                 "due"   : {}
@@ -30,7 +36,10 @@
             "start"      : "",
             "end"        : "",
             "subject"    : "",
-            "activities" : [],
+            "activities" : [
+                "a6",
+                "a7"
+            ],
             "target"     : {
                 "detail": {},
                 "due"   : {}
@@ -49,7 +58,10 @@
             "start"      : "",
             "end"        : "",
             "subject"    : "",
-            "activities" : [],
+            "activities" : [
+                "a8",
+                "a9"
+            ],
             "target"     : {
                 "detail": {},
                 "due"   : {}
