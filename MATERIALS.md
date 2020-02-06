@@ -1,4 +1,4 @@
-# Golang Learning Path
+# Golang Learning Materials
 
 ## Books
 
