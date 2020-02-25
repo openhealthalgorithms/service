@@ -82,7 +82,7 @@ house_keep: ## Remove any .DS_Store files
 	find $(BASE_PATH) -name ".DS_Store" -depth -exec rm {} \;
 
 docker_image: ## Make docker image
-	docker build . -t ohas:$(LAST_TAG)
+	docker build . -t openhealthalgorithms/ohas:$(LAST_TAG)
 
 test: ## Run tests
 	go test ./... -coverpkg=./... -coverprofile=$(COVER_OUT)
