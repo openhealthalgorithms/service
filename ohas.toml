@@ -11,10 +11,10 @@ careplan_content_file = "careplan_content.json"                     # name of th
 log_file = "ohas-logs.db"                                           # name of the logs database file
 
 [directories]
-guideline_path = "contents"                                         # path of the directory for guideline JSON and guideline content JSON file
-goal_path = "contents"                                              # path of the directory for goal JSON and goal content JSON file
-careplan_path = "contents"                                          # path of the directory for careplan JSON and careplan content JSON file
-log_file_path = "~"                                                 # path of the log file
+guideline_path = "/contents"                                         # path of the directory for guideline JSON and guideline content JSON file
+goal_path = "/contents"                                              # path of the directory for goal JSON and goal content JSON file
+careplan_path = "/contents"                                          # path of the directory for careplan JSON and careplan content JSON file
+log_file_path = "/ohaslogs"                                          # path of the log file
 
 [cloud]
 cloud_enable = false

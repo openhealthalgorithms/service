@@ -81,6 +81,9 @@ zip_artifacts: ## Create a zip archive with artifacts
 house_keep: ## Remove any .DS_Store files
 	find $(BASE_PATH) -name ".DS_Store" -depth -exec rm {} \;
 
+docker_image: ## Make docker image
+	docker build . -t ohas:$(LAST_TAG)
+
 test: ## Run tests
 	go test ./... -coverpkg=./... -coverprofile=$(COVER_OUT)
 
@@ -95,5 +98,5 @@ cover: ## Show tests coverage
 .PHONY: all clean_all \
 	clean clean_darwin_linux clean_releases clean_tmp \
 	build build_darwin build_linux \
-	artifacts zip_artifacts test cover \
+	artifacts zip_artifacts docker_image test cover \
 	house_keep

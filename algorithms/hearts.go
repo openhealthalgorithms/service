@@ -375,8 +375,8 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
     }
 
     diab := false
-    if _, ok := conditions["diabetes"]; !ok {
-        diab = true
+    if d, ok := conditions["diabetes"]; ok {
+        diab = d
     }
 
     // Diabetes
