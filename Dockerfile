@@ -1,6 +1,5 @@
 FROM alpine:edge AS builder
-RUN apk update
-RUN apk upgrade
+RUN apk update && apk upgrade
 RUN apk add --update go=1.13.4-r2 gcc=9.2.0-r5 g++=9.2.0-r5
 
 # Set necessary environmet variables needed for our image
@@ -31,6 +30,9 @@ RUN cp /build/ohas .
 
 # Build a small image
 FROM alpine:edge
+
+RUN apk add --no-cache bash
+RUN apk add --no-cache ca-certificates
 
 COPY ./contents/. /contents
 
