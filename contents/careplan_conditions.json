@@ -21,7 +21,7 @@
                 }
             ],
             "goals"     : [
-                "G1"
+                "G2"
             ],
             "activities": [
                 {
@@ -34,7 +34,7 @@
                 {
                     "rules": [
                         {
-                            "activity": "a2"
+                            "activity": "a4"
                         }
                     ]
                 },
@@ -42,14 +42,10 @@
                     "rules": [
                         {
                             "anti-hypertensive": "first line",
-                            "activity"         : "a4"
+                            "activity"         : "a3"
                         },
                         {
-                            "anti-hypertensive": "second line",
-                            "activity"         : "a5"
-                        },
-                        {
-                            "activity": "a3"
+                            "activity": "a2"
                         }
                     ]
                 }
@@ -58,54 +54,14 @@
         {
             "conditions": [
                 {
-                    "smoker"  : [
-                        "SM-CURRENT"
+                    "cholesterol": [
+                        "CHOL-REFER",
+                        "CHOL-VERY-HIGH-CVD-RISK",
+                        "CHOL-ELEVATED-WITH-HIGH-CVD-RISK",
+                        "CHOL-MOD-CVD-RISK",
+                        "CHOL-LOW-CVD-RISK"
                     ],
-                    "cvd_risk": [
-                        "CVD-EXISTING",
-                        "CVD-MODERATE-RISK",
-                        "CVD-HIGH-RISK",
-                        "CVD-VERY-HIGH-RISK"
-                    ]
-                }
-            ],
-            "goals"     : [
-                "G2"
-            ],
-            "activities": [
-                {
-                    "rules": [
-                        {
-                            "activity": "a6"
-                        }
-                    ]
-                },
-                {
-                    "rules": [
-                        {
-                            "activity": "a7"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "conditions": [
-                {
-                    "lifestyle": [
-                        "PA-SEDENTARY",
-                        "PA-UNDER",
-                        "FRT-LOW",
-                        "VEG-LOW",
-                        "FRT-VEG-LOW",
-                        "BMI-OVERWEIGHT",
-                        "BMI-OBESE",
-                        "WST-HIGH",
-                        "WHR-HIGH",
-                        "BFT-OBESE",
-                        "BFT-OVERWEIGHT"
-                    ],
-                    "cvd_risk" : [
+                    "cvd_risk"   : [
                         "CVD-EXISTING",
                         "CVD-MODERATE-RISK",
                         "CVD-HIGH-RISK",
@@ -120,6 +76,13 @@
                 {
                     "rules": [
                         {
+                            "activity": "a5"
+                        }
+                    ]
+                },
+                {
+                    "rules": [
+                        {
                             "activity": "a8"
                         }
                     ]
@@ -127,7 +90,369 @@
                 {
                     "rules": [
                         {
+                            "cholesterol-lowering": "first line",
+                            "activity"            : "a7"
+                        },
+                        {
+                            "activity": "a6"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "conditions": [
+                {
+                    "diabetes": [
+                        "DM-EXISTING-GOOD-CONTROL",
+                        "DM-EXISTING-OVER-CONTROL",
+                        "DM-EXISTING-POOR-CONTROL",
+                        "DM-NEW-DIAGNOSIS",
+                        "DM-PRE-DIABETES"
+                    ]
+                }
+            ],
+            "goals"     : [
+                "G5"
+            ],
+            "activities": [
+                {
+                    "rules": [
+                        {
                             "activity": "a9"
+                        }
+                    ]
+                },
+                {
+                    "rules": [
+                        {
+                            "activity": "a16"
+                        }
+                    ]
+                },
+                {
+                    "rules": [
+                        {
+                            "glycemic-controlling": "first line",
+                            "activity"            : "a11"
+                        },
+                        {
+                            "glycemic-controlling": "second line",
+                            "activity"            : "a12"
+                        },
+                        {
+                            "glycemic-controlling": "third line",
+                            "activity"            : "a13"
+                        },
+                        {
+                            "glycemic-controlling": "fourth line",
+                            "activity"            : "a14"
+                        },
+                        {
+                            "glycemic-controlling": "fifth line",
+                            "activity"            : "a15"
+                        },
+                        {
+                            "activity": "a10"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "conditions": [
+                {
+                    "hypertension": [
+                        "BP-EMERGENCY",
+                        "BP-HTN-REVIEW",
+                        "BP-HTN-DM",
+                        "BP-HTN",
+                        "BP-HTN-ON-MEDICATION"
+                    ],
+                    "cvd_risk"    : [
+                        "CVD-EXISTING",
+                        "CVD-MODERATE-RISK",
+                        "CVD-HIGH-RISK",
+                        "CVD-VERY-HIGH-RISK"
+                    ],
+                    "diabetes"    : [
+                        "DM-EXISTING-GOOD-CONTROL",
+                        "DM-EXISTING-OVER-CONTROL",
+                        "DM-EXISTING-POOR-CONTROL",
+                        "DM-NEW-DIAGNOSIS",
+                        "DM-PRE-DIABETES"
+                    ]
+                },
+                {
+                    "smoker": [
+                        "SM-CURRENT"
+                    ]
+                }
+            ],
+            "goals"     : [
+                "G4"
+            ],
+            "activities": [
+                {
+                    "rules": [
+                        {
+                            "activity": "a17"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "conditions": [
+                {
+                    "bmi": [
+                        "BMI-OBESE",
+                        "BMI-OVERWEIGHT"
+                    ]
+                }
+            ],
+            "goals"     : [
+                "G8"
+            ],
+            "activities": [
+                {
+                    "rules": [
+                        {
+                            "activity": "a18"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "conditions": [
+                {
+                    "smoker": [
+                        "SM-CURRENT"
+                    ]
+                }
+            ],
+            "goals"     : [
+                "G10"
+            ],
+            "activities": [
+                {
+                    "rules": [
+                        {
+                            "activity": "a19"
+                        }
+                    ]
+                },
+                {
+                    "rules": [
+                        {
+                            "anti-smoking": "first line",
+                            "activity"    : "a21"
+                        },
+                        {
+                            "activity": "a20"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "conditions": [
+                {
+                    "alcohol": [
+                        "ALC-LOW-RISK-MALE",
+                        "ALC-LOW-RISK-FEMALE",
+                        "ALC-AT-RISK-FEMALE",
+                        "ALC-AT-RISK-MALE"
+                    ]
+                }
+            ],
+            "goals"     : [
+                "G12"
+            ],
+            "activities": [
+                {
+                    "rules": [
+                        {
+                            "activity": "a22"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "conditions": [
+                {
+                    "fruit_veg": [
+                        "FRT-LOW",
+                        "VEG-LOW",
+                        "FRT-VEG-LOW"
+                    ]
+                }
+            ],
+            "goals"     : [
+                "G13"
+            ],
+            "activities": [
+                {
+                    "rules": [
+                        {
+                            "activity": "a23"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "conditions": [
+                {
+                    "lifestyle": [
+                        "PA-SEDENTARY",
+                        "PA-UNDER"
+                    ]
+                }
+            ],
+            "goals"     : [
+                "G15"
+            ],
+            "activities": [
+                {
+                    "rules": [
+                        {
+                            "activity": "a24"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "conditions": [
+                {
+                    "cvd_risk": [
+                        "CVD-LOW-RISK",
+                        "BP-TARGET",
+                        "DM-NONE"
+                    ]
+                }
+            ],
+            "goals"     : [
+                "G1"
+            ],
+            "activities": [
+                {
+                    "rules": [
+                        {
+                            "activity": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "conditions": [
+                {
+                    "bmi": [
+                        "BMI-UNDERWEIGHT"
+                    ]
+                }
+            ],
+            "goals"     : [
+                "G6"
+            ],
+            "activities": [
+                {
+                    "rules": [
+                        {
+                            "activity": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "conditions": [
+                {
+                    "bmi": [
+                        "BMI-NORMAL"
+                    ]
+                }
+            ],
+            "goals"     : [
+                "G7"
+            ],
+            "activities": [
+                {
+                    "rules": [
+                        {
+                            "activity": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "conditions": [
+                {
+                    "smoker": [
+                        "SM-RECENTLY-QUIT",
+                        "SM-EX-SMOKER",
+                        "SM-NON-SMOKER"
+                    ]
+                }
+            ],
+            "goals"     : [
+                "G9"
+            ],
+            "activities": [
+                {
+                    "rules": [
+                        {
+                            "activity": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "conditions": [
+                {
+                    "alcohol": [
+                        "ALC-NONE"
+                    ]
+                }
+            ],
+            "goals"     : [
+                "G11"
+            ],
+            "activities": [
+                {
+                    "rules": [
+                        {
+                            "activity": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "conditions": [
+                {
+                    "lifestyle": [
+                        "PA-TARGET",
+                        "FRT-TARGET",
+                        "VEG-TARGET",
+                        "FRT-VEG-TARGET"
+                    ]
+                }
+            ],
+            "goals"     : [
+                "G14"
+            ],
+            "activities": [
+                {
+                    "rules": [
+                        {
+                            "activity": ""
                         }
                     ]
                 }
