@@ -2,6 +2,8 @@
 
 # Open Health Algorithms Service
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/openhealthalgorithms/service)](https://goreportcard.com/report/github.com/openhealthalgorithms/service)
+
 This service will generate binaries to be used as a package in any posix system. It will expose a `service` in `9595` port.
 
 [CHANGELOG](./CHANGELOG.md)
