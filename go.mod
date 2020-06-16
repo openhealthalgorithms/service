@@ -12,5 +12,7 @@ require (
 	github.com/pkg/errors v0.8.0
 	github.com/spf13/viper v1.6.1
 	go.opencensus.io v0.22.2 // indirect
+	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect
+	golang.org/x/tools v0.0.0-20200616195046-dc31b401abb5 // indirect
 	google.golang.org/api v0.15.0
 )

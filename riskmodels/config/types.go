@@ -1,5 +1,6 @@
 package config
 
+// ColorChart object
 type ColorChart struct {
 	Cholesterol bool
 	Diabetes    bool
@@ -9,8 +10,10 @@ type ColorChart struct {
 	Chart       [][]int
 }
 
+// RegionColorChart object
 type RegionColorChart map[string][]ColorChart
 
+// Settings object
 type Settings struct {
 	RegionColorChart RegionColorChart
 }

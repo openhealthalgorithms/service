@@ -9,6 +9,7 @@ type CustomValidator struct {
 	Validator *validator.Validate
 }
 
+// Validate interface
 func (cv *CustomValidator) Validate(i interface{}) error {
 	return cv.Validator.Struct(i)
 }

@@ -7,14 +7,23 @@ type CarePlanConditionsMapping struct {
 }
 
 type (
+
+	// CarePlanConditionMapping object
 	CarePlanConditionMapping struct {
 		CarePlanConditions []CarePlanCondition `json:"conditions"`
 		CarePlanGoals      []CarePlanGoal      `json:"goals"`
 		CarePlanActivities []CarePlanActivity  `json:"activities"`
 	}
 
+	// CarePlanCondition object
 	CarePlanCondition map[string][]string
-	CarePlanGoal      string
-	CarePlanActivity  map[string][]CarePlanRule
-	CarePlanRule      map[string]string
+
+	// CarePlanGoal object
+	CarePlanGoal string
+
+	// CarePlanActivity object
+	CarePlanActivity map[string][]CarePlanRule
+
+	// CarePlanRule object
+	CarePlanRule map[string]string
 )

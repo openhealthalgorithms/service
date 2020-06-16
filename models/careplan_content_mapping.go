@@ -7,8 +7,14 @@ type CarePlanContentMapping struct {
 	CarePlanContentActivity CarePlanContentActivities `json:"activities"`
 }
 
+// CarePlanContentGoals object
 type CarePlanContentGoals map[string]CarePlanContentGoal
+
+// CarePlanContentGoal object
 type CarePlanContentGoal map[string]interface{}
 
+// CarePlanContentActivities object
 type CarePlanContentActivities map[string]CarePlanContentActivity
+
+// CarePlanContentActivity object
 type CarePlanContentActivity map[string]interface{}

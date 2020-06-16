@@ -12,6 +12,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/pkg/errors"
 
+	// imported for pgsql support
 	_ "github.com/lib/pq"
 
 	"github.com/openhealthalgorithms/service/algorithms"

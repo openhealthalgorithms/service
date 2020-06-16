@@ -1,11 +1,13 @@
 package models
 
+// OHARequest object
 type OHARequest struct {
 	Config *ORConfig `json:"config" validate:"required"`
 	Params *ORParams `json:"params" validate:"required"`
 }
 
 type (
+	// ORConfig object
 	ORConfig struct {
 		Algorithm *string `json:"algorithm" validate:"required"`
 		RiskModel *string `json:"risk_model" validate:"required"`
@@ -13,16 +15,19 @@ type (
 		CarePlan  *bool   `json:"careplan" validate:""`
 	}
 
+	// ORParams object
 	ORParams struct {
 		Demographics *ORDemographics    `json:"demographics" validate:"required"`
 		Components   *ORParamComponents `json:"components" validate:"required"`
 	}
 
+	// ORAge object
 	ORAge struct {
 		Value *int64  `json:"value" validate:"required"`
 		Unit  *string `json:"unit" validate:"required"`
 	}
 
+	// ORDemographics object
 	ORDemographics struct {
 		Gender            *string `json:"gender" validate:"required"`
 		Age               *ORAge  `json:"age" validate:"required"`
@@ -34,6 +39,7 @@ type (
 		Ethnicity         *string `json:"ethnicity" validate:""`
 	}
 
+	// ORParamComponents object
 	ORParamComponents struct {
 		Lifestyle         []ORLifestyle        `json:"lifestyle" validate:"required"`
 		BodyMeasurements  []ORBodyMeasurement  `json:"body-measurements" validate:"required"`
@@ -43,6 +49,7 @@ type (
 		FamilyHistory     []ORFamilyHistory    `json:"family_history" validate:""`
 	}
 
+	// ORLifestyle object
 	ORLifestyle struct {
 		Name           *string      `json:"name" validate:"required"`
 		Category       *string      `json:"category" validate:"required"`
@@ -53,6 +60,7 @@ type (
 		QuitWithinYear *bool        `json:"quit_within_year" validate:""`
 	}
 
+	// ORBodyMeasurement object
 	ORBodyMeasurement struct {
 		EffectiveDate *string      `json:"effectiveDate" validate:"required"`
 		Name          *string      `json:"name" validate:"required"`
@@ -62,6 +70,7 @@ type (
 		Arm           *string      `json:"arm" validate:""`
 	}
 
+	// ORBiologicalSample object
 	ORBiologicalSample struct {
 		EffectiveDate *string      `json:"effectiveDate" validate:"required"`
 		Name          *string      `json:"name" validate:"required"`
@@ -71,6 +80,7 @@ type (
 		Type          *string      `json:"type" validate:""`
 	}
 
+	// ORMedicalHistory object
 	ORMedicalHistory struct {
 		Name        *string `json:"name" validate:""`
 		Category    *string `json:"category" validate:"required"`
@@ -81,6 +91,7 @@ type (
 		Reaction    *string `json:"reaction" validate:""`
 	}
 
+	// ORMedication object
 	ORMedication struct {
 		Generic   *string `json:"generic" validate:""`
 		Category  *string `json:"category" validate:"required"`
@@ -90,6 +101,7 @@ type (
 		Frequency *string `json:"frequency" validate:""`
 	}
 
+	// ORFamilyHistory object
 	ORFamilyHistory struct {
 		Name     *string `json:"name" validate:"required"`
 		Relative *string `json:"relative" validate:"required"`
