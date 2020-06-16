@@ -10,7 +10,7 @@ var (
 
 func init() {
 	regionalColorChart = make(RegionColorChart, 0)
-	
+
 	regionalColorChart["AFRD"] = []ColorChart{
 		{Cholesterol: true, Diabetes: true, Gender: "f", Smoker: false, Age: 40, Chart: [][]int{{20, 30, 50, 50, 50}, {10, 10, 20, 30, 50}, {10, 10, 10, 10, 30}, {10, 10, 10, 10, 10}}},
 		{Cholesterol: true, Diabetes: true, Gender: "f", Smoker: false, Age: 50, Chart: [][]int{{30, 40, 50, 50, 50}, {10, 10, 20, 30, 50}, {10, 10, 10, 20, 30}, {10, 10, 10, 10, 10}}},
