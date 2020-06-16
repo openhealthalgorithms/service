@@ -198,7 +198,8 @@ func (p *PhysicalActivityGuidelines) Process(duration int, gender string, age fl
 				conditionGender = false
 			}
 
-			if conditionGender && (age >= ageFrom && age <= ageTo) && duration >= from && duration <= to {
+			// if conditionGender && (age >= ageFrom && age <= ageTo) && duration >= from && duration <= to {
+			if conditionGender && tools.Float64InBetween(age, ageFrom, ageTo) && tools.IntInBetween(duration, from, to) {
 				code = *g.Code
 				target = *c.Target
 				break

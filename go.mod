@@ -4,6 +4,7 @@ go 1.13
 
 require (
 	cloud.google.com/go v0.38.0
+	github.com/fzipp/gocyclo v0.0.0-20150627053110-6acd4345c835 // indirect
 	github.com/go-playground/validator/v10 v10.1.0
 	github.com/google/uuid v1.0.0
 	github.com/labstack/echo/v4 v4.1.13
