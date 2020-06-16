@@ -1,105 +1,997 @@
 {
-    "meta"      : {
-    },
-    "goals"     : {
-        "G1" : {
-            "id"         : "g1",
-            "title"      : "Maintain current lifestyle",
-            "description": "",
-            "category"   : "",
-            "status"     : "",
-            "start"      : "",
-            "end"        : "",
-            "subject"    : "",
-            "activities" : [],
-            "target"     : {
-                "detail": {},
-                "due"   : {}
+    "activities": {
+        "A1": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 3,
+                    "periodUnit": "m"
+                },
+                "start": ""
             },
-            "setby"      : "",
-            "addresses"  : "",
-            "notes"      : "",
-            "outcomeCode": ""
+            "category": "survey",
+            "components": [
+                {
+                    "id": "c1",
+                    "type": "video",
+                    "uri": "https://www.youtube.com/embed/dCyfrii02Qw"
+                },
+                {
+                    "id": "c2",
+                    "required": "c1",
+                    "type": "form",
+                    "uri": "component/form/1"
+                }
+            ],
+            "description": "Short intervention about nutrition and reducing salt consumption",
+            "id": "a1",
+            "outcomeConcept": {},
+            "role": [
+                "chw",
+                "nurse"
+            ],
+            "title": "Counseling about reduced salt intake",
+            "tag": "nutrition"
         },
-        "G2" : {
-            "id"         : "g2",
-            "title"      : "Improve blood pressure control",
+        "A10": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 1,
+                    "periodUnit": "d"
+                },
+                "review": {
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "medication",
+            "comments": {
+                "comment": "Start first line diabetic medication according to guidelines"
+            },
+            "components": [
+                {
+                    "id": "c13",
+                    "type": "protocol",
+                    "uri": "component/medicine/metformin250"
+                }
+            ],
+            "description": "Diabetic therapy - first line",
+            "id": "a10",
+            "outcomeConcept": {},
+            "role": [
+                "doctor"
+            ],
+            "title": "Initiate METFORMIN 250 – 500 mg once daily",
+            "tag": "medication"
+        },
+        "A11": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 2,
+                    "period": 1,
+                    "periodUnit": "d"
+                },
+                "review": {
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "medication",
+            "comments": {
+                "comment": "Start second line diabetic medication according to guidelines"
+            },
+            "components": [
+                {
+                    "id": "c14",
+                    "type": "protocol",
+                    "uri": "component/medicine/metformin500"
+                }
+            ],
+            "description": "Diabetic therapy - second line",
+            "id": "a11",
+            "outcomeConcept": {},
+            "role": [
+                "doctor"
+            ],
+            "title": "Increase dose of METFORMIN to 500 mg twice daily",
+            "tag": "medication"
+        },
+        "A12": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 2,
+                    "period": 1,
+                    "periodUnit": "d"
+                },
+                "review": {
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "medication",
+            "comments": {
+                "comment": "Start third line diabetic medication according to guidelines"
+            },
+            "components": [
+                {
+                    "id": "c15",
+                    "type": "protocol",
+                    "uri": "component/medicine/metformin1000"
+                }
+            ],
+            "description": "Diabetic therapy - third line",
+            "id": "a12",
+            "outcomeConcept": {},
+            "role": [
+                "doctor"
+            ],
+            "title": "Increase dose of METFORMIN to 1000 mg twice daily",
+            "tag": "medication"
+        },
+        "A13": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 2,
+                    "period": 1,
+                    "periodUnit": "d"
+                },
+                "review": {
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "medication",
+            "comments": {
+                "comment": "Start fourth line diabetic medication according to guidelines"
+            },
+            "components": [
+                {
+                    "id": "c16",
+                    "type": "protocol",
+                    "uri": "component/medicine/gliclazide40"
+                }
+            ],
+            "description": "Diabetic therapy - fourth line",
+            "id": "a13",
+            "outcomeConcept": {},
+            "role": [
+                "doctor"
+            ],
+            "title": "ADD GLICLAZIDE, 40 mg once a daily",
+            "tag": "medication"
+        },
+        "A14": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 2,
+                    "period": 1,
+                    "periodUnit": "d"
+                },
+                "review": {
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "medication",
+            "comments": {
+                "comment": "Start fifth line diabetic medication according to guidelines"
+            },
+            "components": [
+                {
+                    "id": "c17",
+                    "type": "protocol",
+                    "uri": "component/medicine/gliclazide80"
+                }
+            ],
+            "description": "Diabetic therapy - fifth line",
+            "id": "a14",
+            "outcomeConcept": {},
+            "role": [
+                "doctor"
+            ],
+            "title": "Increase dose of GLICLAZIDE",
+            "tag": "medication"
+        },
+        "A15": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "medication",
+            "components": [
+                {
+                    "id": "c18",
+                    "type": "refer",
+                    "uri": "component/referral/1"
+                }
+            ],
+            "description": "Diabetic therapy - refer for insulin",
+            "id": "a15",
+            "outcomeConcept": {},
+            "role": [
+                "doctor"
+            ],
+            "title": "REFER to higher-level of care for starting insulin",
+            "tag": "medication"
+        },
+        "A16": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "measurement",
+            "components": [
+                {
+                    "id": "c19",
+                    "type": "form",
+                    "uri": "component/form/19"
+                }
+            ],
+            "description": "Monitoring of blood pressure in the community",
+            "id": "a16",
+            "outcomeConcept": {},
+            "role": [
+                "chw",
+                "nurse"
+            ],
+            "title": "Repeat measurement of fasting blood sugar / HbA1c",
+            "tag": "measurement"
+        },
+        "A17": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 3,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "survey",
+            "components": [
+                {
+                    "id": "c20",
+                    "type": "video",
+                    "uri": "https://www.youtube.com/embed/f7zQLLhuG-8"
+                },
+                {
+                    "id": "c21",
+                    "required": "c20",
+                    "type": "form",
+                    "uri": "component/form/21"
+                }
+            ],
+            "description": "Counseling on medication adherence",
+            "id": "a17",
+            "outcomeConcept": {},
+            "role": [
+                "chw",
+                "nurse"
+            ],
+            "title": "Counseling on medication adherence",
+            "tag": "medication"
+        },
+        "A18": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 3,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "survey",
+            "components": [
+                {
+                    "id": "c22",
+                    "type": "video",
+                    "uri": "https://www.youtube.com/embed/YPl0naO6GR0"
+                },
+                {
+                    "id": "c23",
+                    "required": "c22",
+                    "type": "form",
+                    "uri": "component/form/23"
+                }
+            ],
+            "description": "Counseling on diet for weight reduction",
+            "id": "a18",
+            "outcomeConcept": {},
+            "role": [
+                "chw",
+                "nurse"
+            ],
+            "title": "Counseling on diet for weight reduction",
+            "tag": "nutrition"
+        },
+        "A19": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 3,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "survey",
+            "components": [
+                {
+                    "id": "c24",
+                    "type": "video",
+                    "uri": "https://www.youtube.com/embed/7PMKz7jR5rc"
+                },
+                {
+                    "id": "c25",
+                    "required": "c24",
+                    "type": "form",
+                    "uri": "component/form/25"
+                }
+            ],
+            "description": "Counseling on smoking cessation",
+            "id": "a19",
+            "outcomeConcept": {},
+            "role": [
+                "chw",
+                "nurse"
+            ],
+            "title": "Counseling on smoking cessation",
+            "tag": "addiction"
+        },
+        "A2": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 1,
+                    "periodUnit": "d"
+                },
+                "review": {
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "medication",
+            "comments": {
+                "comment": "Start first line anti-hypertensive therapy according to guidelines. Take into consideration age, gender, any drug allergies. ConAdvise about pot"
+            },
+            "components": [
+                {
+                    "id": "c3",
+                    "type": "protocol",
+                    "uri": "component/medicine/ramipril5"
+                }
+            ],
+            "description": "Prescription of first line antihypertensive therapy",
+            "id": "a2",
+            "outcomeConcept": {},
+            "role": [
+                "doctor"
+            ],
+            "title": "Prescribe first-line antihypertensive",
+            "tag": "medication"
+        },
+        "A20": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 1,
+                    "periodUnit": "d"
+                },
+                "start": ""
+            },
+            "category": "medication",
+            "components": [
+                {
+                    "id": "c26",
+                    "type": "protocol",
+                    "uri": "component/medicine/nicotinegum"
+                }
+            ],
+            "description": "Use of smoking cessation aids",
+            "id": "a20",
+            "outcomeConcept": {},
+            "role": [
+                "doctor"
+            ],
+            "title": "Use of smoking cessation aids",
+            "tag": "addiction"
+        },
+        "A21": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 1,
+                    "periodUnit": "d"
+                },
+                "start": ""
+            },
+            "category": "medication",
+            "components": [
+                {
+                    "id": "c27",
+                    "type": "protocol",
+                    "uri": "component/medicine/nicotinepatch"
+                }
+            ],
+            "description": "Prescribe drugs for smoking cessation",
+            "id": "a21",
+            "outcomeConcept": {},
+            "role": [
+                "doctor"
+            ],
+            "title": "Prescribe drugs",
+            "tag": "addiction"
+        },
+        "A22": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 3,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "survey",
+            "components": [
+                {
+                    "id": "c28",
+                    "type": "video",
+                    "uri": "https://www.youtube.com/embed/Xpl9Egv861U"
+                },
+                {
+                    "id": "c29",
+                    "required": "c28",
+                    "type": "form",
+                    "uri": "component/form/29"
+                }
+            ],
+            "description": "Counseling on reducing alcohol intake",
+            "id": "a22",
+            "outcomeConcept": {},
+            "role": [
+                "chw",
+                "nurse"
+            ],
+            "title": "Counseling on reducing alcohol intake",
+            "tag": "addiction"
+        },
+        "A23": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 3,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "survey",
+            "components": [
+                {
+                    "id": "c30",
+                    "type": "video",
+                    "uri": "https://www.youtube.com/embed/7MlE4G8ntss"
+                },
+                {
+                    "id": "c31",
+                    "required": "c30",
+                    "type": "form",
+                    "uri": "component/form/31"
+                }
+            ],
+            "description": "Counseling on increasing Fruits and vegetables intake",
+            "id": "a23",
+            "outcomeConcept": {},
+            "role": [
+                "chw",
+                "nurse"
+            ],
+            "title": "Counseling on increasing Fruits and vegetables intake",
+            "tag": "nutrition"
+        },
+        "A24": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 3,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "survey",
+            "components": [
+                {
+                    "id": "c32",
+                    "type": "video",
+                    "uri": "https://www.youtube.com/embed/wWGulLAa0O0"
+                },
+                {
+                    "id": "c33",
+                    "required": "c32",
+                    "type": "form",
+                    "uri": "component/form/33"
+                }
+            ],
+            "description": "Counseling on increasing Physical activity",
+            "id": "a24",
+            "outcomeConcept": {},
+            "role": [
+                "chw",
+                "nurse"
+            ],
+            "title": "Counseling on increasing Physical activity",
+            "tag": "exercise"
+        },
+        "A3": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 2,
+                    "period": 1,
+                    "periodUnit": "d"
+                },
+                "review": {
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "medication",
+            "comments": {
+                "comment": "Start second line anti-hypertensive therapy according to guidelines. Take into consideration age, gender, any drug allergies. ConAdvise about pot"
+            },
+            "components": [
+                {
+                    "id": "c4",
+                    "type": "protocol",
+                    "uri": "component/medicine/ramipril10"
+                }
+            ],
+            "description": "Prescription of second line antihypertensive therapy",
+            "id": "a3",
+            "outcomeConcept": {},
+            "role": [
+                "doctor"
+            ],
+            "title": "Prescribe second-line antihypertensive",
+            "tag": "medication"
+        },
+        "A4": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 3,
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "measurement",
+            "components": [
+                {
+                    "id": "c5",
+                    "type": "form",
+                    "uri": "component/form/5"
+                }
+            ],
+            "description": "Monitoring of blood pressure in the community",
+            "id": "a4",
+            "outcomeConcept": {},
+            "role": [
+                "chw"
+            ],
+            "title": "Repeat measurement of BP in community",
+            "tag": "measurement"
+        },
+        "A5": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 3,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "survey",
+            "components": [
+                {
+                    "id": "c6",
+                    "type": "video",
+                    "uri": "https://www.youtube.com/embed/qZwkQ7j5Ikw"
+                },
+                {
+                    "id": "c7",
+                    "required": "c6",
+                    "type": "form",
+                    "uri": "component/form/7"
+                }
+            ],
+            "description": "Short intervention about cholesterol control",
+            "id": "a5",
+            "outcomeConcept": {},
+            "role": [
+                "chw",
+                "nurse"
+            ],
+            "title": "Counselling about lipid lowering diet",
+            "tag": "nutrition"
+        },
+        "A6": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 1,
+                    "periodUnit": "d"
+                },
+                "review": {
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "medication",
+            "comments": {
+                "comment": "Start first line cholesterol lowering therapy according to guidelines"
+            },
+            "components": [
+                {
+                    "id": "c8",
+                    "type": "protocol",
+                    "uri": "component/medicine/atorvastatin10"
+                }
+            ],
+            "description": "Prescription of first line cholesterol lowering drug",
+            "id": "a6",
+            "outcomeConcept": {},
+            "role": [
+                "doctor"
+            ],
+            "title": "Prescribe first-line cholesterol lowering drug",
+            "tag": "medication"
+        },
+        "A7": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 2,
+                    "period": 1,
+                    "periodUnit": "d"
+                },
+                "review": {
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "medication",
+            "comments": {
+                "comment": "Start second line cholesterol lowering therapy according to guidelines"
+            },
+            "components": [
+                {
+                    "id": "c9",
+                    "type": "protocol",
+                    "uri": "component/medicine/atorvastatin20"
+                }
+            ],
+            "description": "Prescription of second line cholesterol lowering drug",
+            "id": "a7",
+            "outcomeConcept": {},
+            "role": [
+                "doctor"
+            ],
+            "title": "Prescribe second-line cholesterol lowering drug",
+            "tag": "medication"
+        },
+        "A8": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "measurement",
+            "components": [
+                {
+                    "id": "c10",
+                    "type": "form",
+                    "uri": "component/form/10"
+                }
+            ],
+            "description": "Monitoring of cholesterol in the community",
+            "id": "a8",
+            "outcomeConcept": {},
+            "role": [
+                "chw",
+                "nurse"
+            ],
+            "title": "Repeat measurement of total cholesterol level",
+            "tag": "measurement"
+        },
+        "A9": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 3,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "survey",
+            "components": [
+                {
+                    "id": "c11",
+                    "type": "video",
+                    "uri": "https://www.youtube.com/embed/AM5MgWN5C8c"
+                },
+                {
+                    "id": "c12",
+                    "required": "c11",
+                    "type": "form",
+                    "uri": "component/form/12"
+                }
+            ],
+            "description": "Monitoring of diet and physical activity",
+            "id": "a9",
+            "outcomeConcept": {},
+            "role": [
+                "chw",
+                "nurse"
+            ],
+            "title": "Counselling about diet / physical activity to improve glycemic control",
+            "tag": "nutrition"
+        }
+    },
+    "goals": {
+        "G1": {
+            "activities": [],
+            "addresses": "",
+            "category": "",
             "description": "",
-            "category"   : "",
-            "status"     : "",
-            "start"      : "",
-            "end"        : "",
-            "subject"    : "",
-            "activities" : [
+            "end": "",
+            "id": "g1",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "Maintain current lifestyle"
+        },
+        "G10": {
+            "activities": [
+                "a19",
+                "a20",
+                "a21"
+            ],
+            "addresses": "",
+            "category": "",
+            "description": "",
+            "end": "",
+            "id": "g10",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "Quit tobacco use"
+        },
+        "G11": {
+            "activities": [],
+            "addresses": "",
+            "category": "",
+            "description": "",
+            "end": "",
+            "id": "g11",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "Alcohol use prevention"
+        },
+        "G12": {
+            "activities": [
+                "a22"
+            ],
+            "addresses": "",
+            "category": "",
+            "description": "",
+            "end": "",
+            "id": "g12",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "Quit alcohol consumption"
+        },
+        "G13": {
+            "activities": [
+                "a23"
+            ],
+            "addresses": "",
+            "category": "",
+            "description": "",
+            "end": "",
+            "id": "g13",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "Increase fruits and vegetables intake"
+        },
+        "G14": {
+            "activities": [],
+            "addresses": "",
+            "category": "",
+            "description": "",
+            "end": "",
+            "id": "g14",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "Maintain current status"
+        },
+        "G15": {
+            "activities": [
+                "a24"
+            ],
+            "addresses": "",
+            "category": "",
+            "description": "",
+            "end": "",
+            "id": "g15",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "Increase physical activity"
+        },
+        "G2": {
+            "activities": [
                 "a1",
                 "a2",
                 "a3",
                 "a4"
             ],
-            "target"     : {
-                "detail": {},
-                "due"   : {}
-            },
-            "setby"      : "",
-            "addresses"  : "",
-            "notes"      : "",
-            "outcomeCode": ""
-        },
-        "G3" : {
-            "id"         : "g3",
-            "title"      : "Cholesterol control",
+            "addresses": "",
+            "category": "",
             "description": "",
-            "category"   : "",
-            "status"     : "",
-            "start"      : "",
-            "end"        : "",
-            "subject"    : "",
-            "activities" : [
+            "end": "",
+            "id": "g2",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "Improve blood pressure control"
+        },
+        "G3": {
+            "activities": [
                 "a5",
                 "a6",
                 "a7",
                 "a8"
             ],
-            "target"     : {
-                "detail": {},
-                "due"   : {}
-            },
-            "setby"      : "",
-            "addresses"  : "",
-            "notes"      : "",
-            "outcomeCode": ""
-        },
-        "G4" : {
-            "id"         : "g4",
-            "title"      : "Medication adherence",
+            "addresses": "",
+            "category": "",
             "description": "",
-            "category"   : "",
-            "status"     : "",
-            "start"      : "",
-            "end"        : "",
-            "subject"    : "",
-            "activities" : [
+            "end": "",
+            "id": "g3",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "Cholesterol control"
+        },
+        "G4": {
+            "activities": [
                 "a17"
             ],
-            "target"     : {
-                "detail": {},
-                "due"   : {}
-            },
-            "setby"      : "",
-            "addresses"  : "",
-            "notes"      : "",
-            "outcomeCode": ""
-        },
-        "G5" : {
-            "id"         : "g5",
-            "title"      : "Improve glycemic control",
+            "addresses": "",
+            "category": "",
             "description": "",
-            "category"   : "",
-            "status"     : "",
-            "start"      : "",
-            "end"        : "",
-            "subject"    : "",
-            "activities" : [
+            "end": "",
+            "id": "g4",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "Medication adherence"
+        },
+        "G5": {
+            "activities": [
                 "a9",
                 "a10",
                 "a11",
@@ -109,980 +1001,101 @@
                 "a15",
                 "a16"
             ],
-            "target"     : {
-                "detail": {},
-                "due"   : {}
-            },
-            "setby"      : "",
-            "addresses"  : "",
-            "notes"      : "",
-            "outcomeCode": ""
-        },
-        "G6" : {
-            "id"         : "g6",
-            "title"      : "Increase weight",
+            "addresses": "",
+            "category": "",
             "description": "",
-            "category"   : "",
-            "status"     : "",
-            "start"      : "",
-            "end"        : "",
-            "subject"    : "",
-            "activities" : [],
-            "target"     : {
+            "end": "",
+            "id": "g5",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
                 "detail": {},
-                "due"   : {}
+                "due": {}
             },
-            "setby"      : "",
-            "addresses"  : "",
-            "notes"      : "",
-            "outcomeCode": ""
+            "title": "Improve glycemic control"
         },
-        "G7" : {
-            "id"         : "g7",
-            "title"      : "Maintain current weight",
+        "G6": {
+            "activities": [],
+            "addresses": "",
+            "category": "",
             "description": "",
-            "category"   : "",
-            "status"     : "",
-            "start"      : "",
-            "end"        : "",
-            "subject"    : "",
-            "activities" : [],
-            "target"     : {
+            "end": "",
+            "id": "g6",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
                 "detail": {},
-                "due"   : {}
+                "due": {}
             },
-            "setby"      : "",
-            "addresses"  : "",
-            "notes"      : "",
-            "outcomeCode": ""
+            "title": "Increase weight"
         },
-        "G8" : {
-            "id"         : "g8",
-            "title"      : "Weight reduction",
+        "G7": {
+            "activities": [],
+            "addresses": "",
+            "category": "",
             "description": "",
-            "category"   : "",
-            "status"     : "",
-            "start"      : "",
-            "end"        : "",
-            "subject"    : "",
-            "activities" : [
+            "end": "",
+            "id": "g7",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "Maintain current weight"
+        },
+        "G8": {
+            "activities": [
                 "a18"
             ],
-            "target"     : {
-                "detail": {},
-                "due"   : {}
-            },
-            "setby"      : "",
-            "addresses"  : "",
-            "notes"      : "",
-            "outcomeCode": ""
-        },
-        "G9" : {
-            "id"         : "g9",
-            "title"      : "Tobacco use prevention",
+            "addresses": "",
+            "category": "",
             "description": "",
-            "category"   : "",
-            "status"     : "",
-            "start"      : "",
-            "end"        : "",
-            "subject"    : "",
-            "activities" : [],
-            "target"     : {
+            "end": "",
+            "id": "g8",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
                 "detail": {},
-                "due"   : {}
+                "due": {}
             },
-            "setby"      : "",
-            "addresses"  : "",
-            "notes"      : "",
-            "outcomeCode": ""
+            "title": "Weight reduction"
         },
-        "G10": {
-            "id"         : "g10",
-            "title"      : "Quit tobacco use",
+        "G9": {
+            "activities": [],
+            "addresses": "",
+            "category": "",
             "description": "",
-            "category"   : "",
-            "status"     : "",
-            "start"      : "",
-            "end"        : "",
-            "subject"    : "",
-            "activities" : [
-                "a19",
-                "a20",
-                "a21"
-            ],
-            "target"     : {
+            "end": "",
+            "id": "g9",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
                 "detail": {},
-                "due"   : {}
+                "due": {}
             },
-            "setby"      : "",
-            "addresses"  : "",
-            "notes"      : "",
-            "outcomeCode": ""
-        },
-        "G11": {
-            "id"         : "g11",
-            "title"      : "Alcohol use prevention",
-            "description": "",
-            "category"   : "",
-            "status"     : "",
-            "start"      : "",
-            "end"        : "",
-            "subject"    : "",
-            "activities" : [],
-            "target"     : {
-                "detail": {},
-                "due"   : {}
-            },
-            "setby"      : "",
-            "addresses"  : "",
-            "notes"      : "",
-            "outcomeCode": ""
-        },
-        "G12": {
-            "id"         : "g12",
-            "title"      : "Quit alcohol consumption",
-            "description": "",
-            "category"   : "",
-            "status"     : "",
-            "start"      : "",
-            "end"        : "",
-            "subject"    : "",
-            "activities" : [
-                "a22"
-            ],
-            "target"     : {
-                "detail": {},
-                "due"   : {}
-            },
-            "setby"      : "",
-            "addresses"  : "",
-            "notes"      : "",
-            "outcomeCode": ""
-        },
-        "G13": {
-            "id"         : "g13",
-            "title"      : "Increase fruits and vegetables intake",
-            "description": "",
-            "category"   : "",
-            "status"     : "",
-            "start"      : "",
-            "end"        : "",
-            "subject"    : "",
-            "activities" : [
-                "a23"
-            ],
-            "target"     : {
-                "detail": {},
-                "due"   : {}
-            },
-            "setby"      : "",
-            "addresses"  : "",
-            "notes"      : "",
-            "outcomeCode": ""
-        },
-        "G14": {
-            "id"         : "g14",
-            "title"      : "Maintain current status",
-            "description": "",
-            "category"   : "",
-            "status"     : "",
-            "start"      : "",
-            "end"        : "",
-            "subject"    : "",
-            "activities" : [],
-            "target"     : {
-                "detail": {},
-                "due"   : {}
-            },
-            "setby"      : "",
-            "addresses"  : "",
-            "notes"      : "",
-            "outcomeCode": ""
-        },
-        "G15": {
-            "id"         : "g15",
-            "title"      : "Increase physical activity",
-            "description": "",
-            "category"   : "",
-            "status"     : "",
-            "start"      : "",
-            "end"        : "",
-            "subject"    : "",
-            "activities" : [
-                "a24"
-            ],
-            "target"     : {
-                "detail": {},
-                "due"   : {}
-            },
-            "setby"      : "",
-            "addresses"  : "",
-            "notes"      : "",
-            "outcomeCode": ""
+            "title": "Tobacco use prevention"
         }
     },
-    "activities": {
-        "A1" : {
-            "id"              : "a1",
-            "title"           : "Counseling about reduced salt intake",
-            "description"     : "Short intervention about nutrition and reducing salt consumption",
-            "category"        : "survey",
-            "components"      : [
-                {
-                    "id"  : "c1",
-                    "type": "video",
-                    "uri" : "youtube.co/4543958"
-                },
-                {
-                    "id"      : "c2",
-                    "type"    : "form",
-                    "uri"     : "component/form/1",
-                    "required": "c1"
-                }
-            ],
-            "role"            : [
-                "chw",
-                "nurse"
-            ],
-            "outcomeConcept"  : {},
-            "activityDuration": {
-                "start" : "",
-                "end"   : "",
-                "repeat": {
-                    "frequency" : 1,
-                    "period"    : 3,
-                    "periodUnit": "m"
-                }
-            }
-        },
-        "A2" : {
-            "id"              : "a2",
-            "title"           : "Prescribe first-line antihypertensive",
-            "description"     : "Prescription of first line antihypertensive therapy",
-            "category"        : "medication",
-            "components"      : [
-                {
-                    "id"  : "c3",
-                    "type": "",
-                    "uri" : ""
-                }
-            ],
-            "role"            : [
-                "doctor"
-            ],
-            "outcomeConcept"  : {},
-            "activityDuration": {
-                "start" : "",
-                "end"   : "",
-                "repeat": {
-                    "frequency" : 1,
-                    "period"    : 1,
-                    "periodUnit": "d"
-                },
-                "review": {
-                    "period"    : 1,
-                    "periodUnit": "m"
-                }
-            },
-            "comments"        : {
-                "comment": "Start first line anti-hypertensive therapy according to guidelines. Take into consideration age, gender, any drug allergies. ConAdvise about pot"
-            }
-        },
-        "A3" : {
-            "id"              : "a3",
-            "title"           : "Prescribe second-line antihypertensive",
-            "description"     : "Prescription of second line antihypertensive therapy",
-            "category"        : "medication",
-            "components"      : [
-                {
-                    "id"  : "c4",
-                    "type": "",
-                    "uri" : ""
-                }
-            ],
-            "role"            : [
-                "doctor"
-            ],
-            "outcomeConcept"  : {},
-            "activityDuration": {
-                "start" : "",
-                "end"   : "",
-                "repeat": {
-                    "frequency" : 2,
-                    "period"    : 1,
-                    "periodUnit": "d"
-                },
-                "review": {
-                    "period"    : 1,
-                    "periodUnit": "m"
-                }
-            },
-            "comments"        : {
-                "comment": "Start second line anti-hypertensive therapy according to guidelines. Take into consideration age, gender, any drug allergies. ConAdvise about pot"
-            }
-        },
-        "A4" : {
-            "id"              : "a4",
-            "title"           : "Repeat measurement of BP in community",
-            "description"     : "Monitoring of blood pressure in the community",
-            "category"        : "measurement",
-            "components"      : [
-                {
-                    "id"  : "c5",
-                    "type": "form",
-                    "uri" : "component/form/5"
-                }
-            ],
-            "role"            : [
-                "chw"
-            ],
-            "outcomeConcept"  : {},
-            "activityDuration": {
-                "start" : "",
-                "end"   : "",
-                "repeat": {
-                    "frequency" : 3,
-                    "period"    : 1,
-                    "periodUnit": "m"
-                }
-            }
-        },
-        "A5" : {
-            "id"              : "a5",
-            "title"           : "Counselling about lipid lowering diet",
-            "description"     : "Short intervention about cholesterol control",
-            "category"        : "survey",
-            "components"      : [
-                {
-                    "id"  : "c6",
-                    "type": "video",
-                    "uri" : "youtube.co/4543958"
-                },
-                {
-                    "id"      : "c7",
-                    "type"    : "form",
-                    "uri"     : "component/form/7",
-                    "required": "c6"
-                }
-            ],
-            "role"            : [
-                "chw",
-                "nurse"
-            ],
-            "outcomeConcept"  : {},
-            "activityDuration": {
-                "start" : "",
-                "end"   : "",
-                "repeat": {
-                    "frequency" : 1,
-                    "period"    : 3,
-                    "periodUnit": "m"
-                }
-            }
-        },
-        "A6" : {
-            "id"              : "a6",
-            "title"           : "Prescribe first-line cholesterol lowering drug",
-            "description"     : "Prescription of first line cholesterol lowering drug",
-            "category"        : "medication",
-            "components"      : [
-                {
-                    "id"  : "c8",
-                    "type": "",
-                    "uri" : ""
-                }
-            ],
-            "role"            : [
-                "doctor"
-            ],
-            "outcomeConcept"  : {},
-            "activityDuration": {
-                "start" : "",
-                "end"   : "",
-                "repeat": {
-                    "frequency" : 1,
-                    "period"    : 1,
-                    "periodUnit": "d"
-                },
-                "review": {
-                    "period"    : 1,
-                    "periodUnit": "m"
-                }
-            },
-            "comments"        : {
-                "comment": "Start first line cholesterol lowering therapy according to guidelines"
-            }
-        },
-        "A7" : {
-            "id"              : "a7",
-            "title"           : "Prescribe second-line cholesterol lowering drug",
-            "description"     : "Prescription of second line cholesterol lowering drug",
-            "category"        : "medication",
-            "components"      : [
-                {
-                    "id"  : "c9",
-                    "type": "",
-                    "uri" : ""
-                }
-            ],
-            "role"            : [
-                "doctor"
-            ],
-            "outcomeConcept"  : {},
-            "activityDuration": {
-                "start" : "",
-                "end"   : "",
-                "repeat": {
-                    "frequency" : 2,
-                    "period"    : 1,
-                    "periodUnit": "d"
-                },
-                "review": {
-                    "period"    : 1,
-                    "periodUnit": "m"
-                }
-            },
-            "comments"        : {
-                "comment": "Start second line cholesterol lowering therapy according to guidelines"
-            }
-        },
-        "A8" : {
-            "id"              : "a8",
-            "title"           : "Repeat measurement of total cholesterol level",
-            "description"     : "Monitoring of cholesterol in the community",
-            "category"        : "measurement",
-            "components"      : [
-                {
-                    "id"  : "c10",
-                    "type": "form",
-                    "uri" : "component/form/10"
-                }
-            ],
-            "role"            : [
-                "chw",
-                "nurse"
-            ],
-            "outcomeConcept"  : {},
-            "activityDuration": {
-                "start" : "",
-                "end"   : "",
-                "repeat": {
-                    "frequency" : 1,
-                    "period"    : 1,
-                    "periodUnit": "m"
-                }
-            }
-        },
-        "A9" : {
-            "id"              : "a9",
-            "title"           : "Counselling about diet / physical activity to improve glycemic contro",
-            "description"     : "Monitoring of diet and physical activity",
-            "category"        : "survey",
-            "components"      : [
-                {
-                    "id"  : "c11",
-                    "type": "video",
-                    "uri" : "youtube.co/4543958"
-                },
-                {
-                    "id"      : "c12",
-                    "type"    : "form",
-                    "uri"     : "component/form/12",
-                    "required": "c11"
-                }
-            ],
-            "role"            : [
-                "chw",
-                "nurse"
-            ],
-            "outcomeConcept"  : {},
-            "activityDuration": {
-                "start" : "",
-                "end"   : "",
-                "repeat": {
-                    "frequency" : 1,
-                    "period"    : 3,
-                    "periodUnit": "m"
-                }
-            }
-        },
-        "A10": {
-            "id"              : "a10",
-            "title"           : "Initiate METFORMIN 250 – 500 mg once daily",
-            "description"     : "Diabetic therapy - first line",
-            "category"        : "medication",
-            "components"      : [
-                {
-                    "id"  : "c13",
-                    "type": "medinice",
-                    "uri" : "component/medicine/metformin250"
-                }
-            ],
-            "role"            : [
-                "doctor"
-            ],
-            "outcomeConcept"  : {},
-            "activityDuration": {
-                "start" : "",
-                "end"   : "",
-                "repeat": {
-                    "frequency" : 1,
-                    "period"    : 1,
-                    "periodUnit": "d"
-                },
-                "review": {
-                    "period"    : 1,
-                    "periodUnit": "m"
-                }
-            },
-            "comments"        : {
-                "comment": "Start first line diabetic medication according to guidelines"
-            }
-        },
-        "A11": {
-            "id"              : "a11",
-            "title"           : "Increase dose of METFORMIN to 500 mg twice daily",
-            "description"     : "Diabetic therapy - second line",
-            "category"        : "medication",
-            "components"      : [
-                {
-                    "id"  : "c14",
-                    "type": "medinice",
-                    "uri" : "component/medicine/metformin500"
-                }
-            ],
-            "role"            : [
-                "doctor"
-            ],
-            "outcomeConcept"  : {},
-            "activityDuration": {
-                "start" : "",
-                "end"   : "",
-                "repeat": {
-                    "frequency" : 2,
-                    "period"    : 1,
-                    "periodUnit": "d"
-                },
-                "review": {
-                    "period"    : 1,
-                    "periodUnit": "m"
-                }
-            },
-            "comments"        : {
-                "comment": "Start second line diabetic medication according to guidelines"
-            }
-        },
-        "A12": {
-            "id"              : "a12",
-            "title"           : "Increase dose of METFORMIN to 1000 mg twice daily",
-            "description"     : "Diabetic therapy - third line",
-            "category"        : "medication",
-            "components"      : [
-                {
-                    "id"  : "c15",
-                    "type": "medinice",
-                    "uri" : "component/medicine/metformin1000"
-                }
-            ],
-            "role"            : [
-                "doctor"
-            ],
-            "outcomeConcept"  : {},
-            "activityDuration": {
-                "start" : "",
-                "end"   : "",
-                "repeat": {
-                    "frequency" : 2,
-                    "period"    : 1,
-                    "periodUnit": "d"
-                },
-                "review": {
-                    "period"    : 1,
-                    "periodUnit": "m"
-                }
-            },
-            "comments"        : {
-                "comment": "Start third line diabetic medication according to guidelines"
-            }
-        },
-        "A13": {
-            "id"              : "a13",
-            "title"           : "ADD GLICLAZIDE, 40 mg once a daily",
-            "description"     : "Diabetic therapy - fourth line",
-            "category"        : "medication",
-            "components"      : [
-                {
-                    "id"  : "c15",
-                    "type": "medinice",
-                    "uri" : "component/medicine/metformin1000"
-                },
-                {
-                    "id"  : "c16",
-                    "type": "medinice",
-                    "uri" : "component/medicine/gliclazide40"
-                }
-            ],
-            "role"            : [
-                "doctor"
-            ],
-            "outcomeConcept"  : {},
-            "activityDuration": {
-                "start" : "",
-                "end"   : "",
-                "repeat": {
-                    "frequency" : 2,
-                    "period"    : 1,
-                    "periodUnit": "d"
-                },
-                "review": {
-                    "period"    : 1,
-                    "periodUnit": "m"
-                }
-            },
-            "comments"        : {
-                "comment": "Start fourth line diabetic medication according to guidelines"
-            }
-        },
-        "A14": {
-            "id"              : "a14",
-            "title"           : "Increase dose of GLICLAZIDE",
-            "description"     : "Diabetic therapy - fifth line",
-            "category"        : "medication",
-            "components"      : [
-                {
-                    "id"  : "c15",
-                    "type": "medinice",
-                    "uri" : "component/medicine/metformin1000"
-                },
-                {
-                    "id"  : "c17",
-                    "type": "medinice",
-                    "uri" : "component/medicine/gliclazide80"
-                }
-            ],
-            "role"            : [
-                "doctor"
-            ],
-            "outcomeConcept"  : {},
-            "activityDuration": {
-                "start" : "",
-                "end"   : "",
-                "repeat": {
-                    "frequency" : 2,
-                    "period"    : 1,
-                    "periodUnit": "d"
-                },
-                "review": {
-                    "period"    : 1,
-                    "periodUnit": "m"
-                }
-            },
-            "comments"        : {
-                "comment": "Start fifth line diabetic medication according to guidelines"
-            }
-        },
-        "A15": {
-            "id"              : "a15",
-            "title"           : "REFER to higher-level of care for starting insulin",
-            "description"     : "Diabetic therapy - refer for insulin",
-            "category"        : "medication",
-            "components"      : [
-                {
-                    "id"  : "c18",
-                    "type": "refer",
-                    "uri" : "component/referral/1"
-                }
-            ],
-            "role"            : [
-                "doctor"
-            ],
-            "outcomeConcept"  : {},
-            "activityDuration": {
-                "start" : "",
-                "end"   : "",
-                "repeat": {
-                    "frequency" : 1,
-                    "period"    : 1,
-                    "periodUnit": "m"
-                }
-            }
-        },
-        "A16": {
-            "id"              : "a16",
-            "title"           : "Repeat measurement of fasting blood sugar / HbA1c",
-            "description"     : "Monitoring of blood pressure in the community",
-            "category"        : "measurement",
-            "components"      : [
-                {
-                    "id"  : "c19",
-                    "type": "form",
-                    "uri" : "component/form/19"
-                }
-            ],
-            "role"            : [
-                "chw",
-                "nurse"
-            ],
-            "outcomeConcept"  : {},
-            "activityDuration": {
-                "start" : "",
-                "end"   : "",
-                "repeat": {
-                    "frequency" : 1,
-                    "period"    : 1,
-                    "periodUnit": "m"
-                }
-            }
-        },
-        "A17": {
-            "id"              : "a17",
-            "title"           : "Counseling on medication adherence",
-            "description"     : "Counseling on medication adherence",
-            "category"        : "survey",
-            "components"      : [
-                {
-                    "id"  : "c20",
-                    "type": "video",
-                    "uri" : "youtube.co/4543958"
-                },
-                {
-                    "id"      : "c21",
-                    "type"    : "form",
-                    "uri"     : "component/form/21",
-                    "required": "c20"
-                }
-            ],
-            "role"            : [
-                "chw",
-                "nurse"
-            ],
-            "outcomeConcept"  : {},
-            "activityDuration": {
-                "start" : "",
-                "end"   : "",
-                "repeat": {
-                    "frequency" : 1,
-                    "period"    : 3,
-                    "periodUnit": "m"
-                }
-            }
-        },
-        "A18": {
-            "id"              : "a18",
-            "title"           : "Counseling on diet for weight reduction",
-            "description"     : "Counseling on diet for weight reduction",
-            "category"        : "survey",
-            "components"      : [
-                {
-                    "id"  : "c22",
-                    "type": "video",
-                    "uri" : "youtube.co/4543958"
-                },
-                {
-                    "id"      : "c23",
-                    "type"    : "form",
-                    "uri"     : "component/form/23",
-                    "required": "c22"
-                }
-            ],
-            "role"            : [
-                "chw",
-                "nurse"
-            ],
-            "outcomeConcept"  : {},
-            "activityDuration": {
-                "start" : "",
-                "end"   : "",
-                "repeat": {
-                    "frequency" : 1,
-                    "period"    : 3,
-                    "periodUnit": "m"
-                }
-            }
-        },
-        "A19": {
-            "id"              : "a19",
-            "title"           : "Counseling on smoking cessation",
-            "description"     : "Counseling on smoking cessation",
-            "category"        : "survey",
-            "components"      : [
-                {
-                    "id"  : "c24",
-                    "type": "video",
-                    "uri" : "youtube.co/4543958"
-                },
-                {
-                    "id"      : "c25",
-                    "type"    : "form",
-                    "uri"     : "component/form/25",
-                    "required": "c24"
-                }
-            ],
-            "role"            : [
-                "chw",
-                "nurse"
-            ],
-            "outcomeConcept"  : {},
-            "activityDuration": {
-                "start" : "",
-                "end"   : "",
-                "repeat": {
-                    "frequency" : 1,
-                    "period"    : 3,
-                    "periodUnit": "m"
-                }
-            }
-        },
-        "A20": {
-            "id"              : "a20",
-            "title"           : "Use of smoking cessation aids",
-            "description"     : "Use of smoking cessation aids",
-            "category"        : "medication",
-            "components"      : [
-                {
-                    "id"  : "c26",
-                    "type": "",
-                    "uri" : ""
-                }
-            ],
-            "role"            : [
-                "doctor"
-            ],
-            "outcomeConcept"  : {},
-            "activityDuration": {
-                "start" : "",
-                "end"   : "",
-                "repeat": {
-                    "frequency" : 1,
-                    "period"    : 1,
-                    "periodUnit": "d"
-                }
-            }
-        },
-        "A21": {
-            "id"              : "a21",
-            "title"           : "Prescribe drugs",
-            "description"     : "Prescribe drugs for smoking cessation",
-            "category"        : "medication",
-            "components"      : [
-                {
-                    "id"  : "c27",
-                    "type": "",
-                    "uri" : ""
-                }
-            ],
-            "role"            : [
-                "doctor"
-            ],
-            "outcomeConcept"  : {},
-            "activityDuration": {
-                "start" : "",
-                "end"   : "",
-                "repeat": {
-                    "frequency" : 1,
-                    "period"    : 1,
-                    "periodUnit": "d"
-                }
-            }
-        },
-        "A22": {
-            "id"              : "a22",
-            "title"           : "Counseling on reducing alcohol intake",
-            "description"     : "Counseling on reducing alcohol intake",
-            "category"        : "survey",
-            "components"      : [
-                {
-                    "id"  : "c28",
-                    "type": "video",
-                    "uri" : "youtube.co/4543958"
-                },
-                {
-                    "id"      : "c29",
-                    "type"    : "form",
-                    "uri"     : "component/form/29",
-                    "required": "c28"
-                }
-            ],
-            "role"            : [
-                "chw",
-                "nurse"
-            ],
-            "outcomeConcept"  : {},
-            "activityDuration": {
-                "start" : "",
-                "end"   : "",
-                "repeat": {
-                    "frequency" : 1,
-                    "period"    : 3,
-                    "periodUnit": "m"
-                }
-            }
-        },
-        "A23": {
-            "id"              : "a23",
-            "title"           : "Counseling on increasing Fruits and vegetables intake",
-            "description"     : "Counseling on increasing Fruits and vegetables intake",
-            "category"        : "survey",
-            "components"      : [
-                {
-                    "id"  : "c30",
-                    "type": "video",
-                    "uri" : "youtube.co/4543958"
-                },
-                {
-                    "id"      : "c31",
-                    "type"    : "form",
-                    "uri"     : "component/form/31",
-                    "required": "c30"
-                }
-            ],
-            "role"            : [
-                "chw",
-                "nurse"
-            ],
-            "outcomeConcept"  : {},
-            "activityDuration": {
-                "start" : "",
-                "end"   : "",
-                "repeat": {
-                    "frequency" : 1,
-                    "period"    : 3,
-                    "periodUnit": "m"
-                }
-            }
-        },
-        "A24": {
-            "id"              : "a24",
-            "title"           : "Counseling on increasing Physical activity",
-            "description"     : "Counseling on increasing Physical activity",
-            "category"        : "survey",
-            "components"      : [
-                {
-                    "id"  : "c32",
-                    "type": "video",
-                    "uri" : "youtube.co/4543958"
-                },
-                {
-                    "id"      : "c33",
-                    "type"    : "form",
-                    "uri"     : "component/form/33",
-                    "required": "c32"
-                }
-            ],
-            "role"            : [
-                "chw",
-                "nurse"
-            ],
-            "outcomeConcept"  : {},
-            "activityDuration": {
-                "start" : "",
-                "end"   : "",
-                "repeat": {
-                    "frequency" : 1,
-                    "period"    : 3,
-                    "periodUnit": "m"
-                }
-            }
-        }
-    }
+    "meta": {}
 }
