@@ -1,7 +1,9 @@
 package riskmodels
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"strconv"
 
 	"github.com/pkg/errors"
@@ -11,11 +13,11 @@ import (
 )
 
 var (
-	riskConfig = config.NewSettings()
+	riskConfig config.WHOColorChart
 )
 
 // Calculate risk score
-func Calculate(region, gender string, ageValue float64, sbpValue int, tChol float64, cholUnit string, diabetes, currentSmoker, debug bool) (map[string]string, map[string]interface{}, error) {
+func Calculate(region, gender string, ageValue float64, sbpValue int, tChol float64, cholUnit string, diabetes, currentSmoker, debug bool, colorChartPath string) (map[string]string, map[string]interface{}, error) {
 	if !(len(region) > 0 && (gender == "m" || gender == "f")) {
 		return nil, nil, errors.New("invalid input for risk model, valid region needed")
 	}
@@ -26,6 +28,16 @@ func Calculate(region, gender string, ageValue float64, sbpValue int, tChol floa
 	if tChol > 0 && len(cholUnit) > 3 {
 		chol = true
 		cholValue = tools.ConvertCholesterol(tChol, cholUnit)
+	}
+
+	riskConfigFile, err := ioutil.ReadFile(colorChartPath)
+	if err != nil {
+		return nil, nil, errors.New("Read file error: " + err.Error())
+	}
+
+	if err := json.Unmarshal(riskConfigFile, &riskConfig); err != nil {
+		fmt.Println(err)
+		return nil, nil, err
 	}
 
 	contents := getContents(region, gender, chol, diabetes, currentSmoker, age)
@@ -50,7 +62,7 @@ func Calculate(region, gender string, ageValue float64, sbpValue int, tChol floa
 }
 
 func getContents(region, gender string, cholesterol, diabetes, smoker bool, age int) [][]int {
-	values := riskConfig.RegionColorChart[region]
+	values := riskConfig.ColorCharts[region]
 	for _, v := range values {
 		if v.Cholesterol == cholesterol && v.Diabetes == diabetes && v.Gender == gender && v.Smoker == smoker && v.Age == age {
 			return v.Chart

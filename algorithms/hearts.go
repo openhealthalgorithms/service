@@ -19,7 +19,7 @@ type Hearts struct {
 }
 
 // Process function
-func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORRReferrals, map[string]interface{}, []string, error) {
+func (h *Hearts) Process(o m.OHARequest, colorChartPath string) (*m.ORRAssessments, []m.ORRGoal, *m.ORRReferrals, map[string]interface{}, []string, error) {
 	var err error
 	assessments := m.NewORRAssessments()
 	goals := make([]m.ORRGoal, 0)
@@ -459,6 +459,7 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
 		diab,
 		cSm,
 		debugInputValue,
+		colorChartPath,
 	)
 	if err == nil {
 		cvdScore = cvd.Value

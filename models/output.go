@@ -30,7 +30,11 @@ func NewOutput(algorithmName string) *Output {
 
 // Meta object
 type Meta struct {
-	AlgorithmName string    `json:"algorithm"`
-	RequestID     uuid.UUID `json:"request_id"`
-	APIVersion    string    `json:"api_version"`
+	AlgorithmName    string    `json:"algorithm"`
+	RequestID        uuid.UUID `json:"request_id"`
+	APIVersion       string    `json:"api_version"`
+	Debug            bool      `json:"debug,omitempty"`
+	CarePlan         bool      `json:"careplan,omitempty"`
+	RiskModel        string    `json:"risk_model,omitempty"`
+	RiskModelVersion string    `json:"risk_model_version,omitempty"`
 }
