@@ -14,6 +14,7 @@ type (
 		Debug            *bool   `json:"debug" validate:""`
 		CarePlan         *bool   `json:"careplan" validate:""`
 		RiskModelVersion *string `json:"risk_model_version" validate:""`
+		LabBased         *bool   `json:"lab_based" validate:""`
 	}
 
 	// ORParams object

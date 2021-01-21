@@ -25,6 +25,7 @@ func Countries() CountryCode {
 	countries["AU"] = Country{"Australia", "#N/A"}
 	countries["AT"] = Country{"Austria", "EURA"}
 	countries["AZ"] = Country{"Azerbaijan", "EURB"}
+
 	countries["BS"] = Country{"Bahamas", "AMRB"}
 	countries["BH"] = Country{"Bahrain", "EMRB"}
 	countries["BD"] = Country{"Bangladesh", "SEARD"}
@@ -41,6 +42,7 @@ func Countries() CountryCode {
 	countries["BG"] = Country{"Bulgaria", "EURB"}
 	countries["BF"] = Country{"Burkina Faso", "AFRD"}
 	countries["BI"] = Country{"Burundi", "AFRE"}
+
 	countries["KH"] = Country{"Cambodia", "WPRB"}
 	countries["CM"] = Country{"Cameroon", "AFRD"}
 	countries["CA"] = Country{"Canada", "AMRA"}
@@ -59,10 +61,12 @@ func Countries() CountryCode {
 	countries["CU"] = Country{"Cuba", "AMRA"}
 	countries["CY"] = Country{"Cyprus", "EURA"}
 	countries["CZ"] = Country{"Czech Republic", "EURA"}
+
 	countries["DK"] = Country{"Denmark", "EURA"}
 	countries["DJ"] = Country{"Djibouti", "EMRD"}
 	countries["DM"] = Country{"Dominica", "AMRB"}
 	countries["DO"] = Country{"Dominican Republic", "AMRB"}
+
 	countries["EC"] = Country{"Ecuador", "AMRD"}
 	countries["EG"] = Country{"Egypt", "EMRD"}
 	countries["SV"] = Country{"El Salvador", "AMRB"}
@@ -70,9 +74,11 @@ func Countries() CountryCode {
 	countries["ER"] = Country{"Eritrea", "AFRE"}
 	countries["EE"] = Country{"Estonia", "EURC"}
 	countries["ET"] = Country{"Ethiopia", "AFRE"}
+
 	countries["FJ"] = Country{"Fiji", "WPRB"}
 	countries["FI"] = Country{"Finland", "EURA"}
 	countries["FR"] = Country{"France", "EURA"}
+
 	countries["GA"] = Country{"Gabon", "AFRD"}
 	countries["GM"] = Country{"Gambia", "AFRD"}
 	countries["GE"] = Country{"Georgia", "EURB"}
@@ -84,9 +90,11 @@ func Countries() CountryCode {
 	countries["GN"] = Country{"Guinea", "AFRD"}
 	countries["GW"] = Country{"Guinea - Bissau", "AFRD"}
 	countries["GY"] = Country{"Guyana", "AMRB"}
+
 	countries["HT"] = Country{"Haiti", "AMRD"}
 	countries["HN"] = Country{"Honduras", "AMRB"}
 	countries["HU"] = Country{"Hungary", "EURC"}
+
 	countries["IS"] = Country{"Iceland", "EURA"}
 	countries["IN"] = Country{"India", "SEARD"}
 	countries["ID"] = Country{"Indonesia", "SEARB"}
@@ -95,9 +103,11 @@ func Countries() CountryCode {
 	countries["IE"] = Country{"Ireland", "EURA"}
 	countries["IL"] = Country{"Israel", "EURA"}
 	countries["IT"] = Country{"Italy", "EURA"}
+
 	countries["JM"] = Country{"Jamaica", "AMRB"}
 	countries["JP"] = Country{"Japan", "#N/A"}
 	countries["JO"] = Country{"Jordan", "EMRB"}
+
 	countries["KZ"] = Country{"Kazakhstan", "EURC"}
 	countries["KE"] = Country{"Kenya", "AFRE"}
 	countries["KI"] = Country{"Kiribati", "WPRB"}
@@ -105,6 +115,7 @@ func Countries() CountryCode {
 	countries["KR"] = Country{"Korea(South)", "WPRB"}
 	countries["KW"] = Country{"Kuwait", "EMRB"}
 	countries["KG"] = Country{"Kyrgyzstan", "EURB"}
+
 	countries["LA"] = Country{"Lao PDR", "WPRB"}
 	countries["LV"] = Country{"Latvia", "EURC"}
 	countries["LB"] = Country{"Lebanon", "EMRB"}
@@ -113,7 +124,7 @@ func Countries() CountryCode {
 	countries["LY"] = Country{"Libya", "EMRB"}
 	countries["LT"] = Country{"Lithuania", "EURC"}
 	countries["LU"] = Country{"Luxembourg", "EURA"}
-	countries["MK"] = Country{"Macedonia, Republic of", "EURB"}
+
 	countries["MG"] = Country{"Madagascar", "AFRD"}
 	countries["MW"] = Country{"Malawi", "AFRE"}
 	countries["MY"] = Country{"Malaysia", "WPRB"}
@@ -132,6 +143,7 @@ func Countries() CountryCode {
 	countries["MA"] = Country{"Morocco", "EMRD"}
 	countries["MZ"] = Country{"Mozambique", "AFRE"}
 	countries["MM"] = Country{"Myanmar", "SEARD"}
+
 	countries["NA"] = Country{"Namibia", "AFRE"}
 	countries["NR"] = Country{"Nauru", "WPRB"}
 	countries["NP"] = Country{"Nepal", "SEARD"}
@@ -142,7 +154,9 @@ func Countries() CountryCode {
 	countries["NG"] = Country{"Nigeria", "AFRD"}
 	countries["NU"] = Country{"Niue", "WPRB"}
 	countries["NO"] = Country{"Norway", "EURA"}
+
 	countries["OM"] = Country{"Oman", "EMRB"}
+
 	countries["PK"] = Country{"Pakistan", "EMRD"}
 	countries["PW"] = Country{"Palau", "WPRB"}
 	countries["PA"] = Country{"Panama", "AMRB"}
@@ -152,10 +166,14 @@ func Countries() CountryCode {
 	countries["PH"] = Country{"Philippines", "WPRB"}
 	countries["PL"] = Country{"Poland", "EURB"}
 	countries["PT"] = Country{"Portugal", "EURA"}
+
 	countries["QA"] = Country{"Qatar", "EMRB"}
+
+	countries["MK"] = Country{"Macedonia, Republic of", "EURB"}
 	countries["RO"] = Country{"Romania", "EURB"}
 	countries["RU"] = Country{"Russian Federation", "EURC"}
 	countries["RW"] = Country{"Rwanda", "AFRE"}
+
 	countries["KN"] = Country{"Saint Kitts And Nevis", "AMRB"}
 	countries["LC"] = Country{"Saint Lucia", "AMRB"}
 	countries["VC"] = Country{"Saint Vincent and The Grenadines", "AMRB"}
@@ -183,6 +201,7 @@ func Countries() CountryCode {
 	countries["SE"] = Country{"Sweden", "EURA"}
 	countries["CH"] = Country{"Switzerland", "EURA"}
 	countries["SY"] = Country{"Syria", "EMRB"}
+
 	countries["TW"] = Country{"Taiwan, Republic of China", "#N/A"}
 	countries["TJ"] = Country{"Tajikistan", "EURB"}
 	countries["TZ"] = Country{"United Republic of Tanzania", "AFRE"}
@@ -194,6 +213,7 @@ func Countries() CountryCode {
 	countries["TR"] = Country{"Turkey", "EURB"}
 	countries["TM"] = Country{"Turkmenistan", "EURB"}
 	countries["TV"] = Country{"Tuvalu", "WPRB"}
+
 	countries["UG"] = Country{"Uganda", "AFRE"}
 	countries["UA"] = Country{"Ukraine", "EURC"}
 	countries["AE"] = Country{"United Arab Emirates", "EMRB"}
@@ -201,10 +221,13 @@ func Countries() CountryCode {
 	countries["US"] = Country{"United States of America", "AMRA"}
 	countries["UY"] = Country{"Uruguay", "AMRB"}
 	countries["UZ"] = Country{"Uzbekistan", "EURB"}
+
 	countries["VU"] = Country{"Vanuatu", "WPRB"}
 	countries["VE"] = Country{"Venezuela", "AMRB"}
 	countries["VN"] = Country{"Viet Nam", "WPRB"}
+
 	countries["YE"] = Country{"Yemen", "EMRD"}
+
 	countries["ZM"] = Country{"Zambia", "AFRE"}
 	countries["ZW"] = Country{"Zimbabwe", "AFRE"}
 

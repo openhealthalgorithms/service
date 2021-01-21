@@ -37,7 +37,7 @@ func ConvertSbp(sbp int) int {
 
 // ConvertAge function
 func ConvertAge(age float64) int {
-	if age <= 18 {
+	if age < 40 {
 		return 0
 	} else if age < 50 {
 		return 40
