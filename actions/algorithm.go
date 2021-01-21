@@ -64,7 +64,7 @@ func AlgorithmHandler(c echo.Context) error {
 		o.Config.RiskModelVersion = &rmVersion
 	}
 
-	colorChartPath := filepath.Join(currentSettings.ColorChart, *o.Config.RiskModel, *o.Config.RiskModelVersion+".json")
+	colorChartPath := filepath.Join(currentSettings.ColorChart, *o.Config.RiskModel, *o.Config.RiskModelVersion, "charts.json")
 	if _, e := os.Stat(colorChartPath); e != nil {
 		return ErrorResponse(c, e, 400)
 	}
