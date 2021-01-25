@@ -1,25 +1,15 @@
 package tools
 
 import (
-	"math"
 	"strings"
 )
 
 // ConvertCholesterol function
-func ConvertCholesterol(cholesterol float64, unit string) int {
+func ConvertCholesterol(cholesterol float64, unit string) float64 {
 	if strings.ToLower(unit) == "mgdl" || strings.ToLower(unit) == "mg/dl" {
-		cholesterol = cholesterol * (1 / 38.67)
+		cholesterol = cholesterol / 38.67
 	}
-
-	tmp := int(math.Floor(cholesterol)) - 4
-
-	if tmp < 1 {
-		return 0
-	} else if tmp <= 4 {
-		return tmp
-	}
-
-	return 4
+	return cholesterol
 }
 
 // ConvertSbp function

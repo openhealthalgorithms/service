@@ -107,6 +107,7 @@ type CVDGuidelines []CVDGuideline
 
 // Process function
 func (b *CVDGuidelines) Process(
+	version string,
 	existingConditions map[string]bool,
 	age float64,
 	preProcessing PreProcessing,
@@ -120,6 +121,8 @@ func (b *CVDGuidelines) Process(
 	currentSmoker,
 	debug bool,
 	colorChartPath string,
+	labBased bool,
+	bmi float64,
 ) (Response, map[string]interface{}, error) {
 	code := ""
 	value := ""
@@ -130,7 +133,7 @@ func (b *CVDGuidelines) Process(
 	highRiskCondition := preProcessing.HighRiskCondition.PreProcess(existingConditions, age)
 
 	// CVD Assessments
-	whocvd, dbg, err := riskmodels.Calculate(region, gender, age, sbp, tChol, cholUnit, diabetes, currentSmoker, debug, colorChartPath)
+	whocvd, dbg, err := riskmodels.Calculate(version, region, gender, age, sbp, tChol, cholUnit, diabetes, currentSmoker, debug, colorChartPath, labBased, bmi)
 	if err != nil {
 		return Response{}, nil, err
 	}

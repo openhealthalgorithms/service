@@ -64,8 +64,18 @@ func AlgorithmHandler(c echo.Context) error {
 		o.Config.RiskModelVersion = &rmVersion
 	}
 
+	if o.Config.LabBased == nil {
+		lab := false
+		o.Config.LabBased = &lab
+	}
+
 	colorChartPath := filepath.Join(currentSettings.ColorChart, *o.Config.RiskModel, *o.Config.RiskModelVersion, "charts.json")
 	if _, e := os.Stat(colorChartPath); e != nil {
+		return ErrorResponse(c, e, 400)
+	}
+
+	countriesPath := filepath.Join(currentSettings.ColorChart, *o.Config.RiskModel, *o.Config.RiskModelVersion, "countries.json")
+	if _, e := os.Stat(countriesPath); e != nil {
 		return ErrorResponse(c, e, 400)
 	}
 
@@ -86,7 +96,7 @@ func AlgorithmHandler(c echo.Context) error {
 		GoalContent:      *glc,
 	}
 
-	hs, hg, hr, hd, hrs, err := hearts.Process(*o, colorChartPath)
+	hs, hg, hr, hd, hrs, err := hearts.Process(*o, colorChartPath, countriesPath)
 	if err != nil {
 		return ErrorResponse(c, err, 500)
 	}
@@ -100,6 +110,7 @@ func AlgorithmHandler(c echo.Context) error {
 	output.Meta.Debug = false
 	output.Meta.CarePlan = false
 	output.Meta.RiskModelVersion = *o.Config.RiskModelVersion
+	output.Meta.LabBased = *o.Config.LabBased
 
 	if o.Config.Debug != nil && *o.Config.Debug {
 		output.Debug = make(map[string]interface{})

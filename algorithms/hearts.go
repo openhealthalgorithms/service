@@ -19,7 +19,7 @@ type Hearts struct {
 }
 
 // Process function
-func (h *Hearts) Process(o m.OHARequest, colorChartPath string) (*m.ORRAssessments, []m.ORRGoal, *m.ORRReferrals, map[string]interface{}, []string, error) {
+func (h *Hearts) Process(o m.OHARequest, colorChartPath, countriesPath string) (*m.ORRAssessments, []m.ORRGoal, *m.ORRReferrals, map[string]interface{}, []string, error) {
 	var err error
 	assessments := m.NewORRAssessments()
 	goals := make([]m.ORRGoal, 0)
@@ -404,9 +404,9 @@ func (h *Hearts) Process(o m.OHARequest, colorChartPath string) (*m.ORRAssessmen
 	}
 
 	// Blood Pressure
-	diab = false
-	if diabetes.Value == "diabetes" {
-		diab = true
+	diab = true
+	if diabetes.Code == "DM-NONE" || diabetes.Code == "DM-PRE-DIABETES" {
+		diab = false
 	}
 	bp, err := h.Guideline.Body.BloodPressure.Process(diab, sbp, dbp, age, medications)
 	if err != nil {
@@ -431,9 +431,9 @@ func (h *Hearts) Process(o m.OHARequest, colorChartPath string) (*m.ORRAssessmen
 		}
 	}
 
-	countries := tools.Countries()
+	countries := tools.Countries(countriesPath)
 	region := ""
-	if code, ok := countries[*o.Params.Demographics.BirthCountryCode]; ok {
+	if code, ok := countries.Countries[*o.Params.Demographics.BirthCountryCode]; ok {
 		if code.Region != "#N/A" {
 			region = code.Region
 		} else {
@@ -442,11 +442,24 @@ func (h *Hearts) Process(o m.OHARequest, colorChartPath string) (*m.ORRAssessmen
 
 			return assessments, goals, referrals, debug, errs, err
 		}
+	} else {
+		errr := errors.New("invalid country/region")
+		errs = append(errs, errr.Error())
+
+		return assessments, goals, referrals, debug, errs, err
 	}
 
 	// CVD
+	bmiValue, err := strconv.ParseFloat(bmi.Value, 64)
+	if err != nil {
+		errr := errors.New("invalid BMI value")
+		errs = append(errs, errr.Error())
+		return assessments, goals, referrals, debug, errs, err
+	}
+
 	cvdScore := ""
 	cvd, dbg, err := h.Guideline.Body.CVD.Guidelines.Process(
+		*o.Config.RiskModelVersion,
 		conditions,
 		age,
 		*h.Guideline.Body.CVD.PreProcessing,
@@ -460,6 +473,8 @@ func (h *Hearts) Process(o m.OHARequest, colorChartPath string) (*m.ORRAssessmen
 		cSm,
 		debugInputValue,
 		colorChartPath,
+		*o.Config.LabBased,
+		bmiValue,
 	)
 	if err == nil {
 		cvdScore = cvd.Value
@@ -615,7 +630,7 @@ func (h *Hearts) Process(o m.OHARequest, colorChartPath string) (*m.ORRAssessmen
 	if assessments.Cholesterol != nil && assessments.Cholesterol.Components.TChol != nil {
 		lTChol = *assessments.Cholesterol.Components.TChol.Code
 	}
-	if assessments.CVD != nil {
+	if assessments.CVD != nil && assessments.CVD.Code != nil {
 		lCVD = *assessments.CVD.Code
 	}
 
