@@ -1201,6 +1201,7 @@
                             "from": 31,
                             "unit": "%"
                         },
+                        "version": "v1",
                         "target": "Risk Management"
                     }],
                     "code": "CVD-VERY-HIGH-RISK"
@@ -1217,6 +1218,7 @@
                             "to": 30,
                             "unit": "%"
                         },
+                        "version": "v1",
                         "target": "Risk Management"
                     }],
                     "code": "CVD-HIGH-RISK"
@@ -1233,6 +1235,7 @@
                             "to": 20,
                             "unit": "%"
                         },
+                        "version": "v1",
                         "target": "Reduce risk"
                     }],
                     "code": "CVD-MODERATE-RISK"
@@ -1248,6 +1251,73 @@
                             "to": 10,
                             "unit": "%"
                         },
+                        "version": "v1",
+                        "target": "Maintain low risk"
+                    }],
+                    "code": "CVD-LOW-RISK"
+                },
+                {
+                    "category": "very high risk",
+                    "definition": "At very high cvd risk, WHO/ISH > 20",
+                    "conditions": [{
+                        "age_check_for_cvd": true,
+                        "existing_cvd": false,
+                        "high_risk_conditions": false,
+                        "range": {
+                            "from": 20,
+                            "unit": "%"
+                        },
+                        "version": "v2",
+                        "target": "Risk Management"
+                    }],
+                    "code": "CVD-VERY-HIGH-RISK"
+                },
+                {
+                    "category": "high risk",
+                    "definition": "At high cvd risk, WHO/ISH 10-20",
+                    "conditions": [{
+                        "age_check_for_cvd": true,
+                        "existing_cvd": false,
+                        "high_risk_conditions": false,
+                        "range": {
+                            "from": 10,
+                            "to": 19,
+                            "unit": "%"
+                        },
+                        "version": "v2",
+                        "target": "Risk Management"
+                    }],
+                    "code": "CVD-HIGH-RISK"
+                },
+                {
+                    "category": "moderate risk",
+                    "definition": "Moderate cvd risk, WHO/ISH 5-10",
+                    "conditions": [{
+                        "age_check_for_cvd": true,
+                        "existing_cvd": false,
+                        "high_risk_conditions": false,
+                        "range": {
+                            "from": 5,
+                            "to": 9,
+                            "unit": "%"
+                        },
+                        "version": "v2",
+                        "target": "Reduce risk"
+                    }],
+                    "code": "CVD-MODERATE-RISK"
+                },
+                {
+                    "category": "low risk",
+                    "definition": "Low cvd risk, WHO/ISH < 5",
+                    "conditions": [{
+                        "age_check_for_cvd": true,
+                        "existing_cvd": false,
+                        "high_risk_conditions": false,
+                        "range": {
+                            "to": 4,
+                            "unit": "%"
+                        },
+                        "version": "v2",
                         "target": "Maintain low risk"
                     }],
                     "code": "CVD-LOW-RISK"

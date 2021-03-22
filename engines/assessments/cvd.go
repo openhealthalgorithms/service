@@ -88,6 +88,7 @@ type CVDCondition struct {
 	HighRiskCondition *bool                 `json:"high_risk_conditions"`
 	AgeCheckForCVD    *bool                 `json:"age_check_for_cvd"`
 	Range             *RangeFloat           `json:"range"`
+	Version           *string               `json:"version"`
 	Target            *string               `json:"target"`
 }
 
@@ -181,7 +182,14 @@ func (b *CVDGuidelines) Process(
 				}
 			}
 
-			if conditionMedication && conditionAge && conditionExistingCVD && conditionHighRisk && (riskScore >= rangeFrom && riskScore <= rangeTo) {
+			versionMatch := true
+			if c.Version != nil {
+				if *c.Version != version {
+					versionMatch = false
+				}
+			}
+
+			if versionMatch && conditionMedication && conditionAge && conditionExistingCVD && conditionHighRisk && (riskScore >= rangeFrom && riskScore <= rangeTo) {
 				code = *g.Code
 				if code != "CVD-AGE-FALSE" {
 					value = fmt.Sprintf("%s%%", riskRange)

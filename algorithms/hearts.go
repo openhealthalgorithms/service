@@ -478,7 +478,7 @@ func (h *Hearts) Process(o m.OHARequest, colorChartPath, countriesPath string) (
 	)
 	if err == nil {
 		cvdScore = cvd.Value
-		res := GetResults(cvd, *h.GuidelineContent.Body.Contents)
+		res := GetResultWithVersion(cvd, *h.GuidelineContent.Body.Contents, *o.Config.RiskModelVersion)
 		assessments.CVD = &res
 		if res.Refer != nil && *res.Refer != "no" {
 			referral = referral || true
@@ -656,6 +656,26 @@ func GetResults(response a.Response, contents a.Contents) m.ORRAssessment {
 	assessment.Target = &response.Target
 
 	if output, ok := contents[response.Code]; ok {
+		assessment.Eval = output.Eval
+		assessment.TFL = output.TFL
+		assessment.Message = output.Message
+		assessment.Refer = output.Refer
+	}
+
+	return assessment
+}
+
+// GetResultWithVersion from response
+func GetResultWithVersion(response a.Response, contents a.Contents, version string) m.ORRAssessment {
+	assessment := m.ORRAssessment{}
+
+	code := response.Code + "-" + strings.ToUpper(version)
+
+	if output, ok := contents[code]; ok {
+		assessment.Code = &response.Code
+		assessment.Value = &response.Value
+		assessment.Target = &response.Target
+
 		assessment.Eval = output.Eval
 		assessment.TFL = output.TFL
 		assessment.Message = output.Message
