@@ -1,0 +1,1113 @@
+{
+    "activities": {
+        "A1": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 3,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "survey",
+            "components": [
+                {
+                    "id": "c1",
+                    "type": "video",
+                    "uri": "https://www.youtube.com/embed/dCyfrii02Qw"
+                },
+                {
+                    "id": "c2",
+                    "required": "c1",
+                    "type": "form",
+                    "uri": "component/form/1"
+                }
+            ],
+            "description": "লবন খাওয়া কমান",
+            "id": "a1",
+            "outcomeConcept": {},
+            "role": [
+                "chw",
+                "nurse"
+            ],
+            "tag": "nutrition",
+            "title": "লবন খাওয়া কমান"
+        },
+        "A10": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 1,
+                    "periodUnit": "d"
+                },
+                "review": {
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "medication",
+            "comments": {
+                "comment": "Start first line diabetic medication according to guidelines"
+            },
+            "components": [
+                {
+                    "id": "c13",
+                    "type": "protocol",
+                    "uri": "component/medicine/metformin250"
+                }
+            ],
+            "description": "Diabetic therapy - first line",
+            "id": "a10",
+            "outcomeConcept": {},
+            "role": [
+                "doctor"
+            ],
+            "tag": "medication",
+            "title": "Initiate METFORMIN 250 – 500 mg once daily"
+        },
+        "A11": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 2,
+                    "period": 1,
+                    "periodUnit": "d"
+                },
+                "review": {
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "medication",
+            "comments": {
+                "comment": "Start second line diabetic medication according to guidelines"
+            },
+            "components": [
+                {
+                    "id": "c14",
+                    "type": "protocol",
+                    "uri": "component/medicine/metformin500"
+                }
+            ],
+            "description": "Diabetic therapy - second line",
+            "id": "a11",
+            "outcomeConcept": {},
+            "role": [
+                "doctor"
+            ],
+            "tag": "medication",
+            "title": "Increase dose of METFORMIN to 500 mg twice daily"
+        },
+        "A12": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 2,
+                    "period": 1,
+                    "periodUnit": "d"
+                },
+                "review": {
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "medication",
+            "comments": {
+                "comment": "Start third line diabetic medication according to guidelines"
+            },
+            "components": [
+                {
+                    "id": "c15",
+                    "type": "protocol",
+                    "uri": "component/medicine/metformin1000"
+                }
+            ],
+            "description": "Diabetic therapy - third line",
+            "id": "a12",
+            "outcomeConcept": {},
+            "role": [
+                "doctor"
+            ],
+            "tag": "medication",
+            "title": "Increase dose of METFORMIN to 1000 mg twice daily"
+        },
+        "A13": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 2,
+                    "period": 1,
+                    "periodUnit": "d"
+                },
+                "review": {
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "medication",
+            "comments": {
+                "comment": "Start fourth line diabetic medication according to guidelines"
+            },
+            "components": [
+                {
+                    "id": "c16",
+                    "type": "protocol",
+                    "uri": "component/medicine/gliclazide40"
+                }
+            ],
+            "description": "Diabetic therapy - fourth line",
+            "id": "a13",
+            "outcomeConcept": {},
+            "role": [
+                "doctor"
+            ],
+            "tag": "medication",
+            "title": "ADD GLICLAZIDE, 40 mg once a daily"
+        },
+        "A14": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 2,
+                    "period": 1,
+                    "periodUnit": "d"
+                },
+                "review": {
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "medication",
+            "comments": {
+                "comment": "Start fifth line diabetic medication according to guidelines"
+            },
+            "components": [
+                {
+                    "id": "c17",
+                    "type": "protocol",
+                    "uri": "component/medicine/gliclazide80"
+                }
+            ],
+            "description": "Diabetic therapy - fifth line",
+            "id": "a14",
+            "outcomeConcept": {},
+            "role": [
+                "doctor"
+            ],
+            "tag": "medication",
+            "title": "Increase dose of GLICLAZIDE"
+        },
+        "A15": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "review": {
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "medication",
+            "components": [
+                {
+                    "id": "c18",
+                    "type": "refer",
+                    "uri": "component/referral/1"
+                }
+            ],
+            "description": "Diabetic therapy - refer for insulin",
+            "id": "a15",
+            "outcomeConcept": {},
+            "role": [
+                "doctor"
+            ],
+            "tag": "medication",
+            "title": "REFER to higher-level of care for starting insulin"
+        },
+        "A16": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "measurement",
+            "components": [
+                {
+                    "id": "c19",
+                    "type": "form",
+                    "uri": "component/form/19"
+                }
+            ],
+            "description": "Monitoring of blood pressure in the community",
+            "id": "a16",
+            "outcomeConcept": {},
+            "role": [
+                "chw",
+                "nurse"
+            ],
+            "tag": "measurement",
+            "title": "Repeat measurement of fasting blood sugar / HbA1c"
+        },
+        "A17": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 3,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "survey",
+            "components": [
+                {
+                    "id": "c20",
+                    "type": "video",
+                    "uri": "https://www.youtube.com/embed/f7zQLLhuG-8"
+                },
+                {
+                    "id": "c21",
+                    "required": "c20",
+                    "type": "form",
+                    "uri": "component/form/21"
+                }
+            ],
+            "description": "নিয়মিত ওষুধ খাওয়ার ব্যাপারে কাউন্সেলিং করুন",
+            "id": "a17",
+            "outcomeConcept": {},
+            "role": [
+                "chw",
+                "nurse"
+            ],
+            "tag": "medication",
+            "title": "নিয়মিত ওষুধ খাওয়ার ব্যাপারে কাউন্সেলিং করুন"
+        },
+        "A18": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 3,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "survey",
+            "components": [
+                {
+                    "id": "c22",
+                    "type": "video",
+                    "uri": "https://www.youtube.com/embed/YPl0naO6GR0"
+                },
+                {
+                    "id": "c23",
+                    "required": "c22",
+                    "type": "form",
+                    "uri": "component/form/23"
+                }
+            ],
+            "description": "ওজন কমানোর জন্য খাদ্যাভ্যাসের ব্যাপারে কাউন্সেলিং করুন",
+            "id": "a18",
+            "outcomeConcept": {},
+            "role": [
+                "chw",
+                "nurse"
+            ],
+            "tag": "nutrition",
+            "title": "ওজন কমানোর জন্য খাদ্যাভ্যাসের ব্যাপারে কাউন্সেলিং করুন"
+        },
+        "A19": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 3,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "survey",
+            "components": [
+                {
+                    "id": "c24",
+                    "type": "video",
+                    "uri": "https://www.youtube.com/embed/7PMKz7jR5rc"
+                },
+                {
+                    "id": "c25",
+                    "required": "c24",
+                    "type": "form",
+                    "uri": "component/form/25"
+                }
+            ],
+            "description": "ধূূমপান ছেড়ে দেওয়ার জন্য কাউন্সেলিং করুন",
+            "id": "a19",
+            "outcomeConcept": {},
+            "role": [
+                "chw",
+                "nurse"
+            ],
+            "tag": "addiction",
+            "title": "ধূূমপান ছেড়ে দেওয়ার জন্য কাউন্সেলিং করুন"
+        },
+        "A2": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 1,
+                    "periodUnit": "d"
+                },
+                "review": {
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "medication",
+            "comments": {
+                "comment": "Start first line anti-hypertensive therapy according to guidelines. Take into consideration age, gender, any drug allergies. ConAdvise about pot"
+            },
+            "components": [
+                {
+                    "id": "c3",
+                    "type": "protocol",
+                    "uri": "component/medicine/ramipril5"
+                }
+            ],
+            "description": "প্রথম ধাপের উচ্চ রক্তচাপের ওষুধ প্রেসক্রাইব করুন",
+            "id": "a2",
+            "outcomeConcept": {},
+            "role": [
+                "doctor"
+            ],
+            "tag": "medication",
+            "title": "প্রথম ধাপের উচ্চ রক্তচাপের ওষুধ প্রেসক্রাইব করুন"
+        },
+        "A20": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 1,
+                    "periodUnit": "d"
+                },
+                "review": {
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "medication",
+            "components": [
+                {
+                    "id": "c26",
+                    "type": "protocol",
+                    "uri": "component/medicine/nicotinegum"
+                }
+            ],
+            "description": "Use of smoking cessation aids",
+            "id": "a20",
+            "outcomeConcept": {},
+            "role": [
+                "doctor"
+            ],
+            "tag": "addiction",
+            "title": "Use of smoking cessation aids"
+        },
+        "A21": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 1,
+                    "periodUnit": "d"
+                },
+                "review": {
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "medication",
+            "components": [
+                {
+                    "id": "c27",
+                    "type": "protocol",
+                    "uri": "component/medicine/nicotinepatch"
+                }
+            ],
+            "description": "ধূমপান ছেড়ে দেওয়ার সহায়িকা ব্যবহার করুন",
+            "id": "a21",
+            "outcomeConcept": {},
+            "role": [
+                "doctor"
+            ],
+            "tag": "addiction",
+            "title": "ধূমপান ছেড়ে দেওয়ার সহায়িকা ব্যবহার করুন"
+        },
+        "A22": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 3,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "survey",
+            "components": [
+                {
+                    "id": "c28",
+                    "type": "video",
+                    "uri": "https://www.youtube.com/embed/Xpl9Egv861U"
+                },
+                {
+                    "id": "c29",
+                    "required": "c28",
+                    "type": "form",
+                    "uri": "component/form/29"
+                }
+            ],
+            "description": "মদ্যপান ছেড়ে দেওয়ার জন্য কাউন্সেলিং করুন",
+            "id": "a22",
+            "outcomeConcept": {},
+            "role": [
+                "chw",
+                "nurse"
+            ],
+            "tag": "addiction",
+            "title": "মদ্যপান ছেড়ে দেওয়ার জন্য কাউন্সেলিং করুন"
+        },
+        "A23": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 3,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "survey",
+            "components": [
+                {
+                    "id": "c30",
+                    "type": "video",
+                    "uri": "https://www.youtube.com/embed/7MlE4G8ntss"
+                },
+                {
+                    "id": "c31",
+                    "required": "c30",
+                    "type": "form",
+                    "uri": "component/form/31"
+                }
+            ],
+            "description": "বেশি করে ফলমূল এবং শাকশব্জি খাওয়ার জন্য কাউন্সেলিং করুন",
+            "id": "a23",
+            "outcomeConcept": {},
+            "role": [
+                "chw",
+                "nurse"
+            ],
+            "tag": "nutrition",
+            "title": "বেশি করে ফলমূল এবং শাকশব্জি খাওয়ার জন্য কাউন্সেলিং করুন"
+        },
+        "A24": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 3,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "survey",
+            "components": [
+                {
+                    "id": "c32",
+                    "type": "video",
+                    "uri": "https://www.youtube.com/embed/wWGulLAa0O0"
+                },
+                {
+                    "id": "c33",
+                    "required": "c32",
+                    "type": "form",
+                    "uri": "component/form/33"
+                }
+            ],
+            "description": "শারীরিক পরিশ্রম বাড়ানোর জন্য কউন্সেলিং করুন",
+            "id": "a24",
+            "outcomeConcept": {},
+            "role": [
+                "chw",
+                "nurse"
+            ],
+            "tag": "exercise",
+            "title": "শারীরিক পরিশ্রম বাড়ানোর জন্য কউন্সেলিং করুন"
+        },
+        "A3": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 2,
+                    "period": 1,
+                    "periodUnit": "d"
+                },
+                "review": {
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "medication",
+            "comments": {
+                "comment": "Start second line anti-hypertensive therapy according to guidelines. Take into consideration age, gender, any drug allergies. ConAdvise about pot"
+            },
+            "components": [
+                {
+                    "id": "c4",
+                    "type": "protocol",
+                    "uri": "component/medicine/ramipril10"
+                }
+            ],
+            "description": "দ্বিতীয় ধাপের উচ্চ রক্তচাপের ওষুধ প্রেসক্রাইব করুন",
+            "id": "a3",
+            "outcomeConcept": {},
+            "role": [
+                "doctor"
+            ],
+            "tag": "medication",
+            "title": "দ্বিতীয় ধাপের উচ্চ রক্তচাপের ওষুধ প্রেসক্রাইব করুন"
+        },
+        "A4": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 3,
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "measurement",
+            "components": [
+                {
+                    "id": "c5",
+                    "type": "form",
+                    "uri": "component/form/5"
+                }
+            ],
+            "description": "Monitoring of blood pressure in the community",
+            "id": "a4",
+            "outcomeConcept": {},
+            "role": [
+                "chw"
+            ],
+            "tag": "measurement",
+            "title": "Repeat measurement of BP in community"
+        },
+        "A5": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 3,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "survey",
+            "components": [
+                {
+                    "id": "c6",
+                    "type": "video",
+                    "uri": "https://www.youtube.com/embed/qZwkQ7j5Ikw"
+                },
+                {
+                    "id": "c7",
+                    "required": "c6",
+                    "type": "form",
+                    "uri": "component/form/7"
+                }
+            ],
+            "description": "Short intervention about cholesterol control",
+            "id": "a5",
+            "outcomeConcept": {},
+            "role": [
+                "chw",
+                "nurse"
+            ],
+            "tag": "nutrition",
+            "title": "Counselling about cholesterol lowering diet"
+        },
+        "A6": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 1,
+                    "periodUnit": "d"
+                },
+                "review": {
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "medication",
+            "comments": {
+                "comment": "Start first line cholesterol lowering therapy according to guidelines"
+            },
+            "components": [
+                {
+                    "id": "c8",
+                    "type": "protocol",
+                    "uri": "component/medicine/atorvastatin10"
+                }
+            ],
+            "description": "প্রথম ধাপের উচ্চ চর্বি কমানোর ওষুধ প্রেসক্রাইব করুন",
+            "id": "a6",
+            "outcomeConcept": {},
+            "role": [
+                "doctor"
+            ],
+            "tag": "medication",
+            "title": "প্রথম ধাপের উচ্চ চর্বি কমানোর ওষুধ প্রেসক্রাইব করুন"
+        },
+        "A7": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 2,
+                    "period": 1,
+                    "periodUnit": "d"
+                },
+                "review": {
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "medication",
+            "comments": {
+                "comment": "Start second line cholesterol lowering therapy according to guidelines"
+            },
+            "components": [
+                {
+                    "id": "c9",
+                    "type": "protocol",
+                    "uri": "component/medicine/atorvastatin20"
+                }
+            ],
+            "description": "Prescription of second line cholesterol lowering drug",
+            "id": "a7",
+            "outcomeConcept": {},
+            "role": [
+                "doctor"
+            ],
+            "tag": "medication",
+            "title": "Prescribe second-line cholesterol lowering drug"
+        },
+        "A8": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "measurement",
+            "components": [
+                {
+                    "id": "c10",
+                    "type": "form",
+                    "uri": "component/form/10"
+                }
+            ],
+            "description": "Monitoring of cholesterol in the community",
+            "id": "a8",
+            "outcomeConcept": {},
+            "role": [
+                "chw",
+                "nurse"
+            ],
+            "tag": "measurement",
+            "title": "Repeat measurement of total cholesterol level"
+        },
+        "A9": {
+            "activityDuration": {
+                "end": "",
+                "repeat": {
+                    "frequency": 1,
+                    "period": 3,
+                    "periodUnit": "m"
+                },
+                "start": ""
+            },
+            "category": "survey",
+            "components": [
+                {
+                    "id": "c11",
+                    "type": "video",
+                    "uri": "https://www.youtube.com/embed/AM5MgWN5C8c"
+                },
+                {
+                    "id": "c12",
+                    "required": "c11",
+                    "type": "form",
+                    "uri": "component/form/12"
+                }
+            ],
+            "description": "রক্তে সুগার নিয়ন্ত্রনে রাখার ব্যাপারে কাউন্সেলিং করুন",
+            "id": "a9",
+            "outcomeConcept": {},
+            "role": [
+                "chw",
+                "nurse"
+            ],
+            "tag": "nutrition",
+            "title": "রক্তে সুগার নিয়ন্ত্রনে রাখার ব্যাপারে কাউন্সেলিং করুন"
+        }
+    },
+    "goals": {
+        "G1": {
+            "activities": [],
+            "addresses": "",
+            "category": "",
+            "description": "",
+            "end": "",
+            "id": "g1",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "Maintain current lifestyle"
+        },
+        "G10": {
+            "activities": [
+                "a19",
+                "a20",
+                "a21"
+            ],
+            "addresses": "",
+            "category": "",
+            "description": "",
+            "end": "",
+            "id": "g10",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "তামাক ছেড়ে দিন"
+        },
+        "G11": {
+            "activities": [],
+            "addresses": "",
+            "category": "",
+            "description": "",
+            "end": "",
+            "id": "g11",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "মদ্যপান করবেন না"
+        },
+        "G12": {
+            "activities": [
+                "a22"
+            ],
+            "addresses": "",
+            "category": "",
+            "description": "",
+            "end": "",
+            "id": "g12",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "মদ্যপা্ন ছেড়ে দিন"
+        },
+        "G13": {
+            "activities": [
+                "a23"
+            ],
+            "addresses": "",
+            "category": "",
+            "description": "",
+            "end": "",
+            "id": "g13",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "শাকশব্জি এবং ফলমূল খাওয়া বাড়াতে হবে"
+        },
+        "G14": {
+            "activities": [],
+            "addresses": "",
+            "category": "",
+            "description": "",
+            "end": "",
+            "id": "g14",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "বর্তমান অবস্থায় থাকুন"
+        },
+        "G15": {
+            "activities": [
+                "a24"
+            ],
+            "addresses": "",
+            "category": "",
+            "description": "",
+            "end": "",
+            "id": "g15",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "শারীরিক পরিশ্রম বাড়াতে হবে"
+        },
+        "G2": {
+            "activities": [
+                "a1",
+                "a2",
+                "a3",
+                "a4"
+            ],
+            "addresses": "",
+            "category": "",
+            "description": "",
+            "end": "",
+            "id": "g2",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "রক্তচাপ নিয়ন্ত্রনে রাখুন"
+        },
+        "G3": {
+            "activities": [
+                "a5",
+                "a6",
+                "a7",
+                "a8"
+            ],
+            "addresses": "",
+            "category": "",
+            "description": "",
+            "end": "",
+            "id": "g3",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "চর্বি নিয়ন্ত্রনে রাখুন"
+        },
+        "G4": {
+            "activities": [
+                "a17"
+            ],
+            "addresses": "",
+            "category": "",
+            "description": "",
+            "end": "",
+            "id": "g4",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "নিয়মিত ওষুধ গ্রহন করুন"
+        },
+        "G5": {
+            "activities": [
+                "a9",
+                "a10",
+                "a11",
+                "a12",
+                "a13",
+                "a14",
+                "a15",
+                "a16"
+            ],
+            "addresses": "",
+            "category": "",
+            "description": "",
+            "end": "",
+            "id": "g5",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "ডায়বেটিস নিয়ন্ত্রনে রাখুন"
+        },
+        "G6": {
+            "activities": [],
+            "addresses": "",
+            "category": "",
+            "description": "",
+            "end": "",
+            "id": "g6",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "ওজন বাড়ান"
+        },
+        "G7": {
+            "activities": [],
+            "addresses": "",
+            "category": "",
+            "description": "",
+            "end": "",
+            "id": "g7",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "বর্তমান ওজন বজায় রাখুন"
+        },
+        "G8": {
+            "activities": [
+                "a18"
+            ],
+            "addresses": "",
+            "category": "",
+            "description": "",
+            "end": "",
+            "id": "g8",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "ওজন কমান"
+        },
+        "G9": {
+            "activities": [],
+            "addresses": "",
+            "category": "",
+            "description": "",
+            "end": "",
+            "id": "g9",
+            "notes": "",
+            "outcomeCode": "",
+            "setby": "",
+            "start": "",
+            "status": "",
+            "subject": "",
+            "target": {
+                "detail": {},
+                "due": {}
+            },
+            "title": "তামাক ব্যবহার করবেন না"
+        }
+    },
+    "meta": {}
+}
