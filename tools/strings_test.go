@@ -234,24 +234,3 @@ func TestSliceStringEqual(t *testing.T) {
 		}
 	}
 }
-
-func TestStringBetweenDelimeters(t *testing.T) {
-	type betweenTest struct {
-		original string
-		left     string
-		right    string
-		result   string
-	}
-
-	betweenTests := []betweenTest{
-		{`APP "Default Web Site/" (applicationPool:DefaultAppPool)`, `"`, `"`, `Default Web Site/`},
-		{`APP "Default Web Site/" (applicationPool:DefaultAppPool)`, `:`, `)`, `DefaultAppPool`},
-	}
-
-	for _, bt := range betweenTests {
-		actual := StringBetweenDelimeters(bt.original, bt.left, bt.right)
-		if !reflect.DeepEqual(bt.result, actual) {
-			t.Errorf("expected %v, got %v", bt.result, actual)
-		}
-	}
-}

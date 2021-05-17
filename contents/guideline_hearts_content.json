@@ -1,413 +1,441 @@
 {
     "meta": {
-        "guideline_name"  : "HEARTS",
-        "publisher"       : "World Health Organisation",
+        "guideline_name": "HEARTS",
+        "publisher": "World Health Organisation",
         "publication_date": "",
-        "content_type"    : "Message file",
-        "published_by"    : "Fred Hersch",
-        "version_number"  : "0.3",
-        "last_updated"    : "21-01-2019"
+        "content_type": "Message file",
+        "published_by": "Fred Hersch",
+        "version_number": "0.3",
+        "last_updated": "21-01-2019"
     },
     "body": {
-        "contents"    : {
-            "SM-CURRENT"                      : {
-                "eval"   : "Smoker",
+        "contents": {
+            "SM-CURRENT": {
+                "eval": "Smoker",
                 "grading": 0,
-                "tfl"    : "RED",
+                "tfl": "RED",
                 "message": "Quit now. It's the best thing you can do for your health.",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "SM-RECENTLY-QUIT"                : {
-                "eval"   : "Ex-Smoker",
+            "SM-RECENTLY-QUIT": {
+                "eval": "Ex-Smoker",
                 "grading": 0,
-                "tfl"    : "AMBER",
+                "tfl": "AMBER",
                 "message": "Quitting smoking is the best thing you can do for your health. If you need support to stay strong, speak to your doctor",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "SM-EX-SMOKER"                    : {
-                "eval"   : "Non Smoker",
+            "SM-EX-SMOKER": {
+                "eval": "Non Smoker",
                 "grading": 0,
-                "tfl"    : "GREEN",
+                "tfl": "GREEN",
                 "message": "Good work quitting. It's the best thing you can do for your health. Stay strong",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "SM-NON-SMOKER"                   : {
-                "eval"   : "Non Smoker",
+            "SM-NON-SMOKER": {
+                "eval": "Non Smoker",
                 "grading": 0,
-                "tfl"    : "GREEN",
+                "tfl": "GREEN",
                 "message": "Great. Your lungs thank you!",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "ALC-NONE"                        : {
-                "eval"   : "Non Drinker",
+            "ALC-NONE": {
+                "eval": "Non Drinker",
                 "grading": 0,
-                "tfl"    : "GREEN",
+                "tfl": "GREEN",
                 "message": "",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "ALC-LOW-RISK-MALE"               : {
-                "eval"   : "Low Risk",
+            "ALC-LOW-RISK-MALE": {
+                "eval": "Low Risk",
                 "grading": 0,
-                "tfl"    : "AMBER",
+                "tfl": "AMBER",
                 "message": "If you regularly drink 14 units per week, it's best to spread your drinking over 3 or more days (avoid heavy drinking on any single day)",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "ALC-LOW-RISK-FEMALE"             : {
-                "eval"   : "Low Risk",
+            "ALC-LOW-RISK-FEMALE": {
+                "eval": "Low Risk",
                 "grading": 0,
-                "tfl"    : "AMBER",
+                "tfl": "AMBER",
                 "message": "If you regularly drink 7 units per week, it's best to spread your drinking over 3 or more days (avoid heavy drinking on any single day)",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "ALC-AT-RISK-MALE"                : {
-                "eval"   : "At Risk",
+            "ALC-AT-RISK-MALE": {
+                "eval": "At Risk",
                 "grading": 0,
-                "tfl"    : "RED",
+                "tfl": "RED",
                 "message": "Alcohol at this level can be harmful to your health. To cut down, try and reduce the number of drinks per day and introduce drink free days.",
-                "refer"  : "yes"
+                "refer": "yes"
             },
-            "ALC-AT-RISK-FEMALE"              : {
-                "eval"   : "At Risk",
+            "ALC-AT-RISK-FEMALE": {
+                "eval": "At Risk",
                 "grading": 0,
-                "tfl"    : "RED",
+                "tfl": "RED",
                 "message": "Alcohol at this level can be harmful to your health. To cut down, try and reduce the number of drinks per day and introduce drink free days.",
-                "refer"  : "yes"
+                "refer": "yes"
             },
-            "PA-SEDENTARY"                    : {
-                "eval"   : "Sedentary",
+            "PA-SEDENTARY": {
+                "eval": "Sedentary",
                 "grading": 0,
-                "tfl"    : "RED",
+                "tfl": "RED",
                 "message": "No physical activity is very harfmul to your health. Every bit of movement counts. Start small and build up slowly.",
-                "refer"  : "yes"
+                "refer": "yes"
             },
-            "PA-UNDER"                        : {
-                "eval"   : "Below target",
+            "PA-UNDER": {
+                "eval": "Below target",
                 "grading": 0,
-                "tfl"    : "AMBER",
+                "tfl": "AMBER",
                 "message": "Not quit meeting targets. Aim for 150 minutes of moderate OR 75 minutes of vigroous intensity exercise per week",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "PA-TARGET"                       : {
-                "eval"   : "On target",
+            "PA-TARGET": {
+                "eval": "On target",
                 "grading": 0,
-                "tfl"    : "GREEN",
+                "tfl": "GREEN",
                 "message": "Keep up the physical activity. Every little bit counts!",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "FRT-LOW"                         : {
-                "eval"   : "Below target",
+            "FRT-LOW": {
+                "eval": "Below target",
                 "grading": 5,
-                "tfl"    : "AMBER",
+                "tfl": "AMBER",
                 "message": "Fruit is good for your overall health.",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "FRT-TARGET"                      : {
-                "eval"   : "On target",
+            "FRT-TARGET": {
+                "eval": "On target",
                 "grading": 0,
-                "tfl"    : "GREEN",
+                "tfl": "GREEN",
                 "message": "Keep eating fruit!",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "VEG-LOW"                         : {
-                "eval"   : "Below target",
+            "VEG-LOW": {
+                "eval": "Below target",
                 "grading": 5,
-                "tfl"    : "AMBER",
+                "tfl": "AMBER",
                 "message": "Eat more vegetables",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "VEG-TARGET"                      : {
-                "eval"   : "On target",
+            "VEG-TARGET": {
+                "eval": "On target",
                 "grading": 0,
-                "tfl"    : "GREEN",
+                "tfl": "GREEN",
                 "message": "Vegetables are great for your health. Good job!",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "FRT-VEG-LOW"                     : {
-                "eval"   : "Below target",
+            "FRT-VEG-LOW": {
+                "eval": "Below target",
                 "grading": 5,
-                "tfl"    : "AMBER",
+                "tfl": "AMBER",
                 "message": "Eat more fruits and vegetables",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "FRT-VEG-TARGET"                  : {
-                "eval"   : "On target",
+            "FRT-VEG-TARGET": {
+                "eval": "On target",
                 "grading": 0,
-                "tfl"    : "GREEN",
+                "tfl": "GREEN",
                 "message": "Fruits and vegetables are great for your health. Good job!",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "BMI-UNDERWEIGHT"                 : {
-                "eval"   : "Underweight",
+            "BMI-UNDERWEIGHT": {
+                "eval": "Underweight",
                 "grading": 10,
-                "tfl"    : "RED",
+                "tfl": "RED",
                 "message": "Talk to a dietitian about safe weight gain",
-                "refer"  : "yes"
+                "refer": "yes"
             },
-            "BMI-NORMAL"                      : {
-                "eval"   : "Normal Weight",
+            "BMI-NORMAL": {
+                "eval": "Normal Weight",
                 "grading": 0,
-                "tfl"    : "GREEN",
+                "tfl": "GREEN",
                 "message": "Regular diet and exercise will help you to maintain your current weight",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "BMI-OVERWEIGHT"                  : {
-                "eval"   : "Overweight",
+            "BMI-OVERWEIGHT": {
+                "eval": "Overweight",
                 "grading": 5,
-                "tfl"    : "AMBER",
+                "tfl": "AMBER",
                 "message": "Being overweight can increase your risk of heart disease and diabetes",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "BMI-OBESE"                       : {
-                "eval"   : "Obese",
+            "BMI-OBESE": {
+                "eval": "Obese",
                 "grading": 10,
-                "tfl"    : "RED",
+                "tfl": "RED",
                 "message": "Obesity is a risk factor for developing many conditions. Talk to a dietitian today",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "WST-NORMAL"                      : {
-                "eval"   : "Healthy level",
+            "WST-NORMAL": {
+                "eval": "Healthy level",
                 "grading": 0,
-                "tfl"    : "GREEN",
+                "tfl": "GREEN",
                 "message": "Waist circumference is within healthy range",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "WST-HIGH"                        : {
-                "eval"   : "At risk",
+            "WST-HIGH": {
+                "eval": "At risk",
                 "grading": 10,
-                "tfl"    : "AMBER",
+                "tfl": "AMBER",
                 "message": "Waist circumference is higher than health range",
-                "refer"  : "yes"
+                "refer": "yes"
             },
-            "WHR-NORMAL"                      : {
-                "eval"   : "Healthy",
+            "WHR-NORMAL": {
+                "eval": "Healthy",
                 "grading": 0,
-                "tfl"    : "GREEN",
+                "tfl": "GREEN",
                 "message": "Your waist hip ratio is normal",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "WHR-HIGH"                        : {
-                "eval"   : "Abnormal",
+            "WHR-HIGH": {
+                "eval": "Abnormal",
                 "grading": 10,
-                "tfl"    : "AMBER",
+                "tfl": "AMBER",
                 "message": "Your waist hip ratio is above the target",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "BFT-OBESE"                       : {
-                "eval"   : "Obese",
+            "BFT-OBESE": {
+                "eval": "Obese",
                 "grading": 10,
-                "tfl"    : "RED",
+                "tfl": "RED",
                 "message": "Body fat is in the obese range. Discuss with health professional",
-                "refer"  : "yes"
+                "refer": "yes"
             },
-            "BFT-OVERWEIGHT"                  : {
-                "eval"   : "Overweight",
+            "BFT-OVERWEIGHT": {
+                "eval": "Overweight",
                 "grading": 5,
-                "tfl"    : "AMBER",
+                "tfl": "AMBER",
                 "message": "Body fat is in the obese range. Discuss with health professional",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "BFT-NORMAL"                      : {
-                "eval"   : "Healthy",
+            "BFT-NORMAL": {
+                "eval": "Healthy",
                 "grading": 0,
-                "tfl"    : "GREEN",
+                "tfl": "GREEN",
                 "message": "Body fat is in a healthy range",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "BFT-UNDERWEIGHT"                 : {
-                "eval"   : "Low",
+            "BFT-UNDERWEIGHT": {
+                "eval": "Low",
                 "grading": 0,
-                "tfl"    : "BLUE",
+                "tfl": "BLUE",
                 "message": "Body fat is below normal. Discuss with a health professional",
-                "refer"  : "5"
+                "refer": "5"
             },
-            "BP-EMERGENCY"                    : {
-                "eval"   : "Severly Elevated",
+            "BP-EMERGENCY": {
+                "eval": "Severly Elevated",
                 "grading": 0,
-                "tfl"    : "DEEP-RED",
+                "tfl": "DEEP-RED",
                 "message": "Requires immediate referral to hospital",
-                "refer"  : "urgent"
+                "refer": "urgent"
             },
-            "BP-HTN-REVIEW"                   : {
-                "eval"   : "Hypertension",
+            "BP-HTN-REVIEW": {
+                "eval": "Hypertension",
                 "grading": 0,
-                "tfl"    : "RED",
+                "tfl": "RED",
                 "message": "Blood pressure is significantly elevated. Requires further assessment",
-                "refer"  : "urgent"
+                "refer": "urgent"
             },
-            "BP-HTN-DM"                       : {
-                "eval"   : "Elevated",
+            "BP-HTN-DM": {
+                "eval": "Elevated",
                 "grading": 0,
-                "tfl"    : "AMBER",
+                "tfl": "AMBER",
                 "message": "Blood pressure is above target with history of diabetes. Discuss with your doctor",
-                "refer"  : "yes"
+                "refer": "yes"
             },
-            "BP-HTN"                          : {
-                "eval"   : "Hypertension",
+            "BP-HTN": {
+                "eval": "Hypertension",
                 "grading": 0,
-                "tfl"    : "AMBER",
+                "tfl": "AMBER",
                 "message": "Your BP indicates hypertension. Discuss with local health professional",
-                "refer"  : "yes"
+                "refer": "yes"
             },
-            "BP-HTN-ON-MEDICATION"            : {
-                "eval"   : "Hypertension",
+            "BP-HTN-ON-MEDICATION": {
+                "eval": "Hypertension",
                 "grading": 0,
-                "tfl"    : "AMBER",
+                "tfl": "AMBER",
                 "message": "Your BP indicates hypertension. Discuss with local health professional",
-                "refer"  : "yes"
+                "refer": "yes"
             },
-            "BP-DM-TARGET"                    : {
-                "eval"   : "On target",
+            "BP-DM-TARGET": {
+                "eval": "On target",
                 "grading": 0,
-                "tfl"    : "GREEN",
+                "tfl": "GREEN",
                 "message": "Meeting BP targets with history of DM. Keep up the good work",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "BP-ELEVATED"                     : {
-                "eval"   : "Elevated",
+            "BP-ELEVATED": {
+                "eval": "Elevated",
                 "grading": 0,
-                "tfl"    : "GREEN",
+                "tfl": "GREEN",
                 "message": "BP is slightly raised. Focus on diet and lifestyle",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "BP-TARGET"                       : {
-                "eval"   : "Normal",
+            "BP-TARGET": {
+                "eval": "Normal",
                 "grading": 0,
-                "tfl"    : "GREEN",
+                "tfl": "GREEN",
                 "message": "BP is on target. Great job.",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "DM-EXISTING"                     : {
-                "eval"   : "Existing",
+            "DM-EXISTING": {
+                "eval": "Existing",
                 "grading": 0,
-                "tfl"    : "AMBER",
+                "tfl": "AMBER",
                 "message": "Existing diagnosis of Diabetes. Review management",
-                "refer"  : "yes"
+                "refer": "yes"
             },
-            "DM-EXISTING-GOOD-CONTROL"        : {
-                "eval"   : "Well Controlled",
+            "DM-EXISTING-GOOD-CONTROL": {
+                "eval": "Well Controlled",
                 "grading": 0,
-                "tfl"    : "GREEN",
+                "tfl": "GREEN",
                 "message": "Diabetes is well controlled",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "DM-EXISTING-OVER-CONTROL"        : {
-                "eval"   : "Over Controlled",
+            "DM-EXISTING-OVER-CONTROL": {
+                "eval": "Over Controlled",
                 "grading": 0,
-                "tfl"    : "AMBER",
+                "tfl": "AMBER",
                 "message": "Diabetes is too tightly controlled. Review",
-                "refer"  : "yes"
+                "refer": "yes"
             },
-            "DM-EXISTING-POOR-CONTROL"        : {
-                "eval"   : "Poor Control",
+            "DM-EXISTING-POOR-CONTROL": {
+                "eval": "Poor Control",
                 "grading": 0,
-                "tfl"    : "AMBER",
+                "tfl": "AMBER",
                 "message": "Diabetes is poorly controlled. Review",
-                "refer"  : "yes"
+                "refer": "yes"
             },
-            "DM-NEW-DIAGNOSIS"                : {
-                "eval"   : "Newly diagnosis",
+            "DM-NEW-DIAGNOSIS": {
+                "eval": "Newly diagnosis",
                 "grading": 0,
-                "tfl"    : "RED",
+                "tfl": "RED",
                 "message": "New diagnosis of diabetes based on pathology",
-                "refer"  : "yes"
+                "refer": "yes"
             },
-            "DM-PRE-DIABETES"                 : {
-                "eval"   : "Pre-diabetes",
+            "DM-PRE-DIABETES": {
+                "eval": "Pre-diabetes",
                 "grading": 0,
-                "tfl"    : "AMBER",
+                "tfl": "AMBER",
                 "message": "Pathology suggests 'pre-diabetes'. Discuss lifestyle modification with local health team",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "DM-NONE"                         : {
-                "eval"   : "No Diabetes",
+            "DM-NONE": {
+                "eval": "No Diabetes",
                 "grading": 0,
-                "tfl"    : "GREEN",
+                "tfl": "GREEN",
                 "message": "Normal blood sugar. Review family history for follow up",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "CHOL-REFER"                      : {
-                "eval"   : "Refer",
+            "CHOL-REFER": {
+                "eval": "Refer",
                 "grading": 0,
-                "tfl"    : "DEEP-RED",
+                "tfl": "DEEP-RED",
                 "message": "Cholesterol level > 8mmol/L requires referral and use of statins",
-                "refer"  : "urgent"
+                "refer": "urgent"
             },
-            "CHOL-VERY-HIGH-CVD-RISK"         : {
-                "eval"   : "CVD Risk",
+            "CHOL-VERY-HIGH-CVD-RISK": {
+                "eval": "CVD Risk",
                 "grading": 0,
-                "tfl"    : "RED",
+                "tfl": "RED",
                 "message": "Treat based on high CVD risk regardless of total cholesterol",
-                "refer"  : "urgent"
+                "refer": "urgent"
             },
             "CHOL-ELEVATED-WITH-HIGH-CVD-RISK": {
-                "eval"   : "Elevated",
+                "eval": "Elevated",
                 "grading": 0,
-                "tfl"    : "AMBER",
+                "tfl": "AMBER",
                 "message": "Based on Tchol > 5 and high CVD risk, requires medication",
-                "refer"  : "yes"
+                "refer": "yes"
             },
-            "CHOL-MOD-CVD-RISK"               : {
-                "eval"   : "Mod CVD risk",
+            "CHOL-MOD-CVD-RISK": {
+                "eval": "Mod CVD risk",
                 "grading": 0,
-                "tfl"    : "GREEN",
+                "tfl": "GREEN",
                 "message": "Lipid lowering diet. Manage CVD risk factors",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "CHOL-LOW-CVD-RISK"               : {
-                "eval"   : "Mod CVD risk",
+            "CHOL-LOW-CVD-RISK": {
+                "eval": "Mod CVD risk",
                 "grading": 0,
-                "tfl"    : "GREEN",
+                "tfl": "GREEN",
                 "message": "Lipid lowering diet.",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "CHOL-NO-CVD-RISK"                : {
-                "eval"   : "Normal",
+            "CHOL-NO-CVD-RISK": {
+                "eval": "Normal",
                 "grading": 0,
-                "tfl"    : "GREEN",
+                "tfl": "GREEN",
                 "message": "Maintain a healthy diet",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "CVD-AGE-FALSE"                   : {
-                "eval"   : "Not Calculated",
+            "CVD-AGE-FALSE": {
+                "eval": "Not Calculated",
                 "grading": 0,
-                "tfl"    : "GRAY",
+                "tfl": "GRAY",
                 "message": "Report based on individual risk factors",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "CVD-EXISTING"                    : {
-                "eval"   : "High Risk",
+            "CVD-EXISTING": {
+                "eval": "High Risk",
                 "grading": 0,
-                "tfl"    : "DARK-RED",
+                "tfl": "DARK-RED",
                 "message": "You have a high risk condition or existing heart disease. Not for CVD Risk Assessment",
-                "refer"  : "yes"
+                "refer": "yes"
             },
-            "CVD-LOW-RISK"                    : {
-                "eval"   : "Low Risk",
+            "CVD-LOW-RISK-WHO_ISH_2007": {
+                "eval": "Low Risk",
                 "grading": 0,
-                "tfl"    : "GREEN",
+                "tfl": "GREEN",
                 "message": "Your risk of a CVD event is low",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "CVD-MODERATE-RISK"               : {
-                "eval"   : "Moderate Risk",
+            "CVD-LOW-RISK-WHO_ISH_2019": {
+                "eval": "Low Risk",
                 "grading": 0,
-                "tfl"    : "AMBER",
+                "tfl": "GREEN",
+                "message": "Your risk of a CVD event is low",
+                "refer": "no"
+            },
+            "CVD-MODERATE-RISK-WHO_ISH_2007": {
+                "eval": "Moderate Risk",
+                "grading": 0,
+                "tfl": "AMBER",
                 "message": "Your risk of a CVD event is in the moderate category. Address modifiable risk factors",
-                "refer"  : "no"
+                "refer": "no"
             },
-            "CVD-HIGH-RISK"                   : {
-                "eval"   : "High Risk",
+            "CVD-MODERATE-RISK-WHO_ISH_2019": {
+                "eval": "Moderate Risk",
                 "grading": 0,
-                "tfl"    : "RED",
+                "tfl": "AMBER",
+                "message": "Your risk of a CVD event is in the moderate category. Address modifiable risk factors",
+                "refer": "no"
+            },
+            "CVD-HIGH-RISK-WHO_ISH_2007": {
+                "eval": "High Risk",
+                "grading": 0,
+                "tfl": "RED",
                 "message": "Your risk of a CVD event is High. You should consult a doctor for managing your risks",
-                "refer"  : "yes"
+                "refer": "yes"
             },
-            "CVD-VERY-HIGH-RISK"              : {
-                "eval"   : "Very High Risk",
+            "CVD-HIGH-RISK-WHO_ISH_2019": {
+                "eval": "High Risk",
                 "grading": 0,
-                "tfl"    : "DARK-RED",
+                "tfl": "RED",
+                "message": "Your risk of a CVD event is High. You should consult a doctor for managing your risks",
+                "refer": "yes"
+            },
+            "CVD-VERY-HIGH-RISK-WHO_ISH_2007": {
+                "eval": "Very High Risk",
+                "grading": 0,
+                "tfl": "DARK-RED",
                 "message": "You're at very high CVD risk. Seek immediate care to address risks",
-                "refer"  : "urgent"
+                "refer": "urgent"
+            },
+            "CVD-VERY-HIGH-RISK-WHO_ISH_2019": {
+                "eval": "Very High Risk",
+                "grading": 0,
+                "tfl": "DARK-RED",
+                "message": "You're at very high CVD risk. Seek immediate care to address risks",
+                "refer": "urgent"
             }
         },
         "message-pool": [
@@ -423,7 +451,7 @@
                         "BFT-UNDERWEIGHT"
                     ]
                 ],
-                "message"   : "You are in abnormal range. Try to do more exercise and follow guidelines for healthy life."
+                "message": "You are in abnormal range. Try to do more exercise and follow guidelines for healthy life."
             },
             {
                 "assessment": "body-composition",
@@ -433,7 +461,7 @@
                         "BFT-OVERWEIGHT"
                     ]
                 ],
-                "message"   : "You are mildly out of shape."
+                "message": "You are mildly out of shape."
             },
             {
                 "assessment": "body-composition",
@@ -451,7 +479,7 @@
                         "BFT-NORMAL"
                     ]
                 ],
-                "message"   : "Great work. Keep"
+                "message": "Great work. Keep"
             },
             {
                 "assessment": "diet",
@@ -462,7 +490,7 @@
                         "FRT-VEG-LOW"
                     ]
                 ],
-                "message"   : "You are not following healthy diet. Please make sure to consume ample fruits and vegetables."
+                "message": "You are not following healthy diet. Please make sure to consume ample fruits and vegetables."
             },
             {
                 "assessment": "diet",
@@ -477,45 +505,45 @@
                         "FRT-VEG-TARGET"
                     ]
                 ],
-                "message"   : "You are following healthy diet, keep up the good work."
+                "message": "You are following healthy diet, keep up the good work."
             }
         ],
-        "test"        : {
+        "test": {
             "body-composition": [
                 {
                     "grading": {
                         "from": 0,
-                        "to"  : 4
+                        "to": 4
                     },
                     "message": "Great work. Keep"
                 },
                 {
                     "grading": {
                         "from": 5,
-                        "to"  : 9
+                        "to": 9
                     },
                     "message": "You are mildly out of shape."
                 },
                 {
                     "grading": {
                         "from": 10,
-                        "to"  : 100
+                        "to": 100
                     },
                     "message": "You are in abnormal range. Try to do more exercise and follow guidelines for healthy life."
                 }
             ],
-            "diet"            : [
+            "diet": [
                 {
                     "grading": {
                         "from": 0,
-                        "to"  : 4
+                        "to": 4
                     },
                     "message": "You are following healthy diet, keep up the good work."
                 },
                 {
                     "grading": {
                         "from": 5,
-                        "to"  : 20
+                        "to": 20
                     },
                     "message": "You are not following healthy diet. Please make sure to consume ample fruits and vegetables."
                 }

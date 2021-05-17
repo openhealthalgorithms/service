@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"path/filepath"
 	"strings"
 
@@ -24,13 +25,14 @@ import (
 )
 
 var (
-	dbFile = filepath.Join(tools.GetCurrentDirectory(), "logs.db")
-	sqlite *database.SqliteDb
+	dbFile          = filepath.Join(tools.GetCurrentDirectory(), "logs.db")
+	sqlite          *database.SqliteDb
+	currentSettings config.Settings
 )
 
 func load(c echo.Context) error {
 	var err error
-	currentSettings := c.Get("current_config").(config.Settings)
+	currentSettings = c.Get("current_config").(config.Settings)
 	dbFile = currentSettings.LogFile
 	sqlite, err = database.InitDb(dbFile)
 	if err != nil {
@@ -56,6 +58,27 @@ func AlgorithmHandler(c echo.Context) error {
 	if *o.Config.Algorithm != "hearts" {
 		return ErrorResponse(c, errors.New("algorithm not found"), 404)
 	}
+
+	if o.Config.RiskModelVersion == nil {
+		rmVersion := "who_ish_2007"
+		o.Config.RiskModelVersion = &rmVersion
+	}
+
+	if o.Config.LabBased == nil {
+		lab := false
+		o.Config.LabBased = &lab
+	}
+
+	colorChartPath := filepath.Join(currentSettings.ColorChart, *o.Config.RiskModel, *o.Config.RiskModelVersion, "charts.json")
+	if _, e := os.Stat(colorChartPath); e != nil {
+		return ErrorResponse(c, e, 400)
+	}
+
+	countriesPath := filepath.Join(currentSettings.ColorChart, *o.Config.RiskModel, *o.Config.RiskModelVersion, "countries.json")
+	if _, e := os.Stat(countriesPath); e != nil {
+		return ErrorResponse(c, e, 400)
+	}
+
 	guideFiles, err := tools.ParseGuidesFiles(c)
 	if err != nil {
 		return ErrorResponse(c, err, 500)
@@ -73,7 +96,7 @@ func AlgorithmHandler(c echo.Context) error {
 		GoalContent:      *glc,
 	}
 
-	hs, hg, hr, hd, hrs, err := hearts.Process(*o)
+	hs, hg, hr, hd, hrs, err := hearts.Process(*o, colorChartPath, countriesPath)
 	if err != nil {
 		return ErrorResponse(c, err, 500)
 	}
@@ -84,11 +107,17 @@ func AlgorithmHandler(c echo.Context) error {
 	output.Referrals = hr
 	output.Errors = make([]string, 0)
 	output.Errors = append(output.Errors, hrs...)
+	output.Meta.Debug = false
+	output.Meta.CarePlan = false
+	output.Meta.RiskModelVersion = *o.Config.RiskModelVersion
+	output.Meta.LabBased = *o.Config.LabBased
+
 	if o.Config.Debug != nil && *o.Config.Debug {
 		output.Debug = make(map[string]interface{})
 		for k, v := range hd {
 			output.Debug[k] = v
 		}
+		output.Meta.Debug = true
 	}
 
 	if o.Config.CarePlan != nil && *o.Config.CarePlan {
@@ -171,6 +200,7 @@ func AlgorithmHandler(c echo.Context) error {
 			CarePlanOutputActivities: outActivities,
 		}
 		output.CarePlan = &carePlan
+		output.Meta.CarePlan = true
 	}
 
 	tx, err := sqlite.DB.Begin()

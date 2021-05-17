@@ -35,6 +35,7 @@ type Content struct {
 	TFL     *string `json:"tfl"`
 	Message *string `json:"message"`
 	Refer   *string `json:"refer"`
+	Version *string `json:"version"`
 }
 
 // MessagePool object

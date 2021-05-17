@@ -88,6 +88,7 @@ type CVDCondition struct {
 	HighRiskCondition *bool                 `json:"high_risk_conditions"`
 	AgeCheckForCVD    *bool                 `json:"age_check_for_cvd"`
 	Range             *RangeFloat           `json:"range"`
+	Version           *string               `json:"cvd_risk_model"`
 	Target            *string               `json:"target"`
 }
 
@@ -107,6 +108,7 @@ type CVDGuidelines []CVDGuideline
 
 // Process function
 func (b *CVDGuidelines) Process(
+	version string,
 	existingConditions map[string]bool,
 	age float64,
 	preProcessing PreProcessing,
@@ -119,6 +121,9 @@ func (b *CVDGuidelines) Process(
 	diabetes,
 	currentSmoker,
 	debug bool,
+	colorChartPath string,
+	labBased bool,
+	bmi float64,
 ) (Response, map[string]interface{}, error) {
 	code := ""
 	value := ""
@@ -129,7 +134,7 @@ func (b *CVDGuidelines) Process(
 	highRiskCondition := preProcessing.HighRiskCondition.PreProcess(existingConditions, age)
 
 	// CVD Assessments
-	whocvd, dbg, err := riskmodels.Calculate(region, gender, age, sbp, tChol, cholUnit, diabetes, currentSmoker, debug)
+	whocvd, dbg, err := riskmodels.Calculate(version, region, gender, age, sbp, tChol, cholUnit, diabetes, currentSmoker, debug, colorChartPath, labBased, bmi)
 	if err != nil {
 		return Response{}, nil, err
 	}
@@ -177,7 +182,14 @@ func (b *CVDGuidelines) Process(
 				}
 			}
 
-			if conditionMedication && conditionAge && conditionExistingCVD && conditionHighRisk && (riskScore >= rangeFrom && riskScore <= rangeTo) {
+			versionMatch := true
+			if c.Version != nil {
+				if *c.Version != version {
+					versionMatch = false
+				}
+			}
+
+			if versionMatch && conditionMedication && conditionAge && conditionExistingCVD && conditionHighRisk && (riskScore >= rangeFrom && riskScore <= rangeTo) {
 				code = *g.Code
 				if code != "CVD-AGE-FALSE" {
 					value = fmt.Sprintf("%s%%", riskRange)

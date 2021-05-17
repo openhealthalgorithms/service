@@ -24,13 +24,20 @@ func NewOutput(algorithmName string) *Output {
 	output.Meta.AlgorithmName = algorithmName
 	output.Meta.APIVersion = pkg.GetVersion()
 	output.Meta.RequestID = uuid.New()
+	output.Meta.Comments = []string{}
 
 	return output
 }
 
 // Meta object
 type Meta struct {
-	AlgorithmName string    `json:"algorithm"`
-	RequestID     uuid.UUID `json:"request_id"`
-	APIVersion    string    `json:"api_version"`
+	AlgorithmName    string    `json:"algorithm"`
+	RequestID        uuid.UUID `json:"request_id"`
+	APIVersion       string    `json:"api_version"`
+	Debug            bool      `json:"debug,omitempty"`
+	CarePlan         bool      `json:"careplan,omitempty"`
+	RiskModel        string    `json:"risk_model,omitempty"`
+	RiskModelVersion string    `json:"risk_model_version,omitempty"`
+	LabBased         bool      `json:"lab_based"`
+	Comments         []string  `json:"comments"`
 }

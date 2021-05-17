@@ -9,10 +9,12 @@ type OHARequest struct {
 type (
 	// ORConfig object
 	ORConfig struct {
-		Algorithm *string `json:"algorithm" validate:"required"`
-		RiskModel *string `json:"risk_model" validate:"required"`
-		Debug     *bool   `json:"debug" validate:""`
-		CarePlan  *bool   `json:"careplan" validate:""`
+		Algorithm        *string `json:"algorithm" validate:"required"`
+		RiskModel        *string `json:"risk_model" validate:"required"`
+		Debug            *bool   `json:"debug" validate:""`
+		CarePlan         *bool   `json:"careplan" validate:""`
+		RiskModelVersion *string `json:"risk_model_version" validate:""`
+		LabBased         *bool   `json:"lab_based" validate:""`
 	}
 
 	// ORParams object

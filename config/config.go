@@ -66,6 +66,7 @@ func configSettings(v *viper.Viper) Settings {
 	settings.CareplanConditionsFile = filepath.Join(v.GetString("directories.careplan_path"), v.GetString("files.careplan_file"))
 	settings.CareplanContentFile = filepath.Join(v.GetString("directories.careplan_path"), v.GetString("files.careplan_content_file"))
 	settings.LogFile = filepath.Join(v.GetString("directories.log_file_path"), v.GetString("files.log_file"))
+	settings.ColorChart = v.GetString("directories.guideline_path")
 
 	cloudEnable := v.GetBool("cloud.cloud_enable")
 	if cloudEnable {

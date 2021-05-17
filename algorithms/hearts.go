@@ -19,7 +19,7 @@ type Hearts struct {
 }
 
 // Process function
-func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORRReferrals, map[string]interface{}, []string, error) {
+func (h *Hearts) Process(o m.OHARequest, colorChartPath, countriesPath string) (*m.ORRAssessments, []m.ORRGoal, *m.ORRReferrals, map[string]interface{}, []string, error) {
 	var err error
 	assessments := m.NewORRAssessments()
 	goals := make([]m.ORRGoal, 0)
@@ -404,9 +404,9 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
 	}
 
 	// Blood Pressure
-	diab = false
-	if diabetes.Value == "diabetes" {
-		diab = true
+	diab = true
+	if diabetes.Code == "DM-NONE" || diabetes.Code == "DM-PRE-DIABETES" {
+		diab = false
 	}
 	bp, err := h.Guideline.Body.BloodPressure.Process(diab, sbp, dbp, age, medications)
 	if err != nil {
@@ -431,9 +431,9 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
 		}
 	}
 
-	countries := tools.Countries()
+	countries := tools.Countries(countriesPath)
 	region := ""
-	if code, ok := countries[*o.Params.Demographics.BirthCountryCode]; ok {
+	if code, ok := countries.Countries[*o.Params.Demographics.BirthCountryCode]; ok {
 		if code.Region != "#N/A" {
 			region = code.Region
 		} else {
@@ -442,11 +442,24 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
 
 			return assessments, goals, referrals, debug, errs, err
 		}
+	} else {
+		errr := errors.New("invalid country/region")
+		errs = append(errs, errr.Error())
+
+		return assessments, goals, referrals, debug, errs, err
 	}
 
 	// CVD
+	bmiValue, err := strconv.ParseFloat(bmi.Value, 64)
+	if err != nil {
+		errr := errors.New("invalid BMI value")
+		errs = append(errs, errr.Error())
+		return assessments, goals, referrals, debug, errs, err
+	}
+
 	cvdScore := ""
 	cvd, dbg, err := h.Guideline.Body.CVD.Guidelines.Process(
+		*o.Config.RiskModelVersion,
 		conditions,
 		age,
 		*h.Guideline.Body.CVD.PreProcessing,
@@ -459,10 +472,13 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
 		diab,
 		cSm,
 		debugInputValue,
+		colorChartPath,
+		*o.Config.LabBased,
+		bmiValue,
 	)
 	if err == nil {
 		cvdScore = cvd.Value
-		res := GetResults(cvd, *h.GuidelineContent.Body.Contents)
+		res := GetResultWithVersion(cvd, *h.GuidelineContent.Body.Contents, *o.Config.RiskModelVersion)
 		assessments.CVD = &res
 		if res.Refer != nil && *res.Refer != "no" {
 			referral = referral || true
@@ -614,7 +630,7 @@ func (h *Hearts) Process(o m.OHARequest) (*m.ORRAssessments, []m.ORRGoal, *m.ORR
 	if assessments.Cholesterol != nil && assessments.Cholesterol.Components.TChol != nil {
 		lTChol = *assessments.Cholesterol.Components.TChol.Code
 	}
-	if assessments.CVD != nil {
+	if assessments.CVD != nil && assessments.CVD.Code != nil {
 		lCVD = *assessments.CVD.Code
 	}
 
@@ -640,6 +656,26 @@ func GetResults(response a.Response, contents a.Contents) m.ORRAssessment {
 	assessment.Target = &response.Target
 
 	if output, ok := contents[response.Code]; ok {
+		assessment.Eval = output.Eval
+		assessment.TFL = output.TFL
+		assessment.Message = output.Message
+		assessment.Refer = output.Refer
+	}
+
+	return assessment
+}
+
+// GetResultWithVersion from response
+func GetResultWithVersion(response a.Response, contents a.Contents, version string) m.ORRAssessment {
+	assessment := m.ORRAssessment{}
+
+	code := response.Code + "-" + strings.ToUpper(version)
+
+	if output, ok := contents[code]; ok {
+		assessment.Code = &response.Code
+		assessment.Value = &response.Value
+		assessment.Target = &response.Target
+
 		assessment.Eval = output.Eval
 		assessment.TFL = output.TFL
 		assessment.Message = output.Message

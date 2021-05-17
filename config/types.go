@@ -10,6 +10,7 @@ type Settings struct {
 	CareplanConditionsFile string
 	CareplanContentFile    string
 	LogFile                string
+	ColorChart             string
 	CloudEnable            bool
 	CloudBucket            string
 	CloudConfigFile        string
