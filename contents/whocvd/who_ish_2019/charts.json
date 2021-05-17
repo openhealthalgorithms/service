@@ -1,9 +1,9 @@
 {
   "meta": {
-    "version": "v2",
+    "version": "who_ish_2019",
     "whoversion": "2019",
     "config": {
-      "ages": [
+      "ageGroups": [
         {"from": 40, "to": 44, "key": "40-44"},
         {"from": 45, "to": 49, "key": "45-49"},
         {"from": 50, "to": 54, "key": "50-54"},
@@ -12,21 +12,21 @@
         {"from": 65, "to": 69, "key": "65-69"},
         {"from": 70, "to": 149, "key": "70-74"}
       ],
-      "cholesterols": [
+      "cholesterolLevels": [
         {"from": 0, "to": 3.9},
         {"from": 4, "to": 4.9},
         {"from": 5, "to": 5.9},
         {"from": 6, "to": 6.9},
         {"from": 7, "to": 100.9}
       ],
-      "bmis": [
+      "bmiLevels": [
         {"from": 0, "to": 19.9},
         {"from": 20, "to": 24},
         {"from": 25, "to": 29},
         {"from": 30, "to": 34},
         {"from": 35, "to": 100.9}
       ],
-      "systolics": [
+      "systolicLevels": [
         {"from": 180, "to": 300},
         {"from": 160, "to": 179},
         {"from": 140, "to": 159},

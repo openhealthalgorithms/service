@@ -35,7 +35,7 @@ func Calculate(
 	}
 
 	group, row, column, riskValues := [][]int{}, -1, -1, []config.RiskRange{}
-	if version == "v2" {
+	if version == "who_ish_2019" {
 		group, row, column, riskValues, err = processV2(colorChartPath, region, labBased, gender, ageValue, sbpValue, tChol, cholUnit, diabetes, currentSmoker, bmi)
 	} else {
 		group, row, column, riskValues, err = processV1(colorChartPath, region, labBased, gender, ageValue, sbpValue, tChol, cholUnit, diabetes, currentSmoker)

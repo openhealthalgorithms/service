@@ -88,7 +88,7 @@ type CVDCondition struct {
 	HighRiskCondition *bool                 `json:"high_risk_conditions"`
 	AgeCheckForCVD    *bool                 `json:"age_check_for_cvd"`
 	Range             *RangeFloat           `json:"range"`
-	Version           *string               `json:"version"`
+	Version           *string               `json:"cvd_risk_model"`
 	Target            *string               `json:"target"`
 }
 

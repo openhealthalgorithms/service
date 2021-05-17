@@ -381,56 +381,56 @@
                 "message": "You have a high risk condition or existing heart disease. Not for CVD Risk Assessment",
                 "refer": "yes"
             },
-            "CVD-LOW-RISK-V1": {
+            "CVD-LOW-RISK-WHO_ISH_2007": {
                 "eval": "Low Risk",
                 "grading": 0,
                 "tfl": "GREEN",
                 "message": "Your risk of a CVD event is low",
                 "refer": "no"
             },
-            "CVD-LOW-RISK-V2": {
+            "CVD-LOW-RISK-WHO_ISH_2019": {
                 "eval": "Low Risk",
                 "grading": 0,
                 "tfl": "GREEN",
                 "message": "Your risk of a CVD event is low",
                 "refer": "no"
             },
-            "CVD-MODERATE-RISK-V1": {
+            "CVD-MODERATE-RISK-WHO_ISH_2007": {
                 "eval": "Moderate Risk",
                 "grading": 0,
                 "tfl": "AMBER",
                 "message": "Your risk of a CVD event is in the moderate category. Address modifiable risk factors",
                 "refer": "no"
             },
-            "CVD-MODERATE-RISK-V2": {
+            "CVD-MODERATE-RISK-WHO_ISH_2019": {
                 "eval": "Moderate Risk",
                 "grading": 0,
                 "tfl": "AMBER",
                 "message": "Your risk of a CVD event is in the moderate category. Address modifiable risk factors",
                 "refer": "no"
             },
-            "CVD-HIGH-RISK-V1": {
+            "CVD-HIGH-RISK-WHO_ISH_2007": {
                 "eval": "High Risk",
                 "grading": 0,
                 "tfl": "RED",
                 "message": "Your risk of a CVD event is High. You should consult a doctor for managing your risks",
                 "refer": "yes"
             },
-            "CVD-HIGH-RISK-V2": {
+            "CVD-HIGH-RISK-WHO_ISH_2019": {
                 "eval": "High Risk",
                 "grading": 0,
                 "tfl": "RED",
                 "message": "Your risk of a CVD event is High. You should consult a doctor for managing your risks",
                 "refer": "yes"
             },
-            "CVD-VERY-HIGH-RISK-V1": {
+            "CVD-VERY-HIGH-RISK-WHO_ISH_2007": {
                 "eval": "Very High Risk",
                 "grading": 0,
                 "tfl": "DARK-RED",
                 "message": "You're at very high CVD risk. Seek immediate care to address risks",
                 "refer": "urgent"
             },
-            "CVD-VERY-HIGH-RISK-V2": {
+            "CVD-VERY-HIGH-RISK-WHO_ISH_2019": {
                 "eval": "Very High Risk",
                 "grading": 0,
                 "tfl": "DARK-RED",

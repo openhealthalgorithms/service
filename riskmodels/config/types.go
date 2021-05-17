@@ -28,10 +28,10 @@ type RiskRange struct {
 
 // Configs object
 type Configs struct {
-	Ages         []AgeRange  `json:"ages"`
-	Cholesterols []CholRange `json:"cholesterols"`
-	BMIs         []CholRange `json:"bmis"`
-	Systolics    []SBPRange  `json:"systolics"`
+	Ages         []AgeRange  `json:"ageGroups"`
+	Cholesterols []CholRange `json:"cholesterolLevels"`
+	BMIs         []CholRange `json:"bmiLevels"`
+	Systolics    []SBPRange  `json:"systolicLevels"`
 	RiskValues   []RiskRange `json:"riskValues"`
 }
 

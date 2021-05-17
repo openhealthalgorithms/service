@@ -1,22 +1,22 @@
 {
   "meta": {
-    "version": "v1",
+    "version": "who_ish_2007",
     "whoversion": "2007",
     "config": {
-      "ages": [
+      "ageGroups": [
         {"from": 40, "to": 49, "key": "40-49"},
         {"from": 50, "to": 59, "key": "50-59"},
         {"from": 60, "to": 69, "key": "60-69"},
         {"from": 70, "to": 149, "key": "70-79"}
       ],
-      "cholesterols": [
+      "cholesterolLevels": [
         {"from": 4, "to": 4.9},
         {"from": 5, "to": 5.9},
         {"from": 6, "to": 6.9},
         {"from": 7, "to": 7.9},
         {"from": 8, "to": 100.9}
       ],
-      "systolics": [
+      "systolicLevels": [
         {"from": 180, "to": 300},
         {"from": 160, "to": 179},
         {"from": 140, "to": 159},

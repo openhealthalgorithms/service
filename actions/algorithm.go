@@ -60,7 +60,7 @@ func AlgorithmHandler(c echo.Context) error {
 	}
 
 	if o.Config.RiskModelVersion == nil {
-		rmVersion := "v1"
+		rmVersion := "who_ish_2007"
 		o.Config.RiskModelVersion = &rmVersion
 	}
 
