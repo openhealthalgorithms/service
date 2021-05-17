@@ -31,8 +31,8 @@
                 "chw",
                 "nurse"
             ],
-            "title": "Counseling about reduced salt intake",
-            "tag": "nutrition"
+            "tag": "nutrition",
+            "title": "Counseling about reduced salt intake"
         },
         "A10": {
             "activityDuration": {
@@ -65,8 +65,8 @@
             "role": [
                 "doctor"
             ],
-            "title": "Initiate METFORMIN 250 – 500 mg once daily",
-            "tag": "medication"
+            "tag": "medication",
+            "title": "Initiate METFORMIN 250 – 500 mg once daily"
         },
         "A11": {
             "activityDuration": {
@@ -99,8 +99,8 @@
             "role": [
                 "doctor"
             ],
-            "title": "Increase dose of METFORMIN to 500 mg twice daily",
-            "tag": "medication"
+            "tag": "medication",
+            "title": "Increase dose of METFORMIN to 500 mg twice daily"
         },
         "A12": {
             "activityDuration": {
@@ -133,8 +133,8 @@
             "role": [
                 "doctor"
             ],
-            "title": "Increase dose of METFORMIN to 1000 mg twice daily",
-            "tag": "medication"
+            "tag": "medication",
+            "title": "Increase dose of METFORMIN to 1000 mg twice daily"
         },
         "A13": {
             "activityDuration": {
@@ -167,8 +167,8 @@
             "role": [
                 "doctor"
             ],
-            "title": "ADD GLICLAZIDE, 40 mg once a daily",
-            "tag": "medication"
+            "tag": "medication",
+            "title": "ADD GLICLAZIDE, 40 mg once a daily"
         },
         "A14": {
             "activityDuration": {
@@ -201,14 +201,18 @@
             "role": [
                 "doctor"
             ],
-            "title": "Increase dose of GLICLAZIDE",
-            "tag": "medication"
+            "tag": "medication",
+            "title": "Increase dose of GLICLAZIDE"
         },
         "A15": {
             "activityDuration": {
                 "end": "",
                 "repeat": {
                     "frequency": 1,
+                    "period": 1,
+                    "periodUnit": "m"
+                },
+                "review": {
                     "period": 1,
                     "periodUnit": "m"
                 },
@@ -228,8 +232,8 @@
             "role": [
                 "doctor"
             ],
-            "title": "REFER to higher-level of care for starting insulin",
-            "tag": "medication"
+            "tag": "medication",
+            "title": "REFER to higher-level of care for starting insulin"
         },
         "A16": {
             "activityDuration": {
@@ -256,8 +260,8 @@
                 "chw",
                 "nurse"
             ],
-            "title": "Repeat measurement of fasting blood sugar / HbA1c",
-            "tag": "measurement"
+            "tag": "measurement",
+            "title": "Repeat measurement of fasting blood sugar / HbA1c"
         },
         "A17": {
             "activityDuration": {
@@ -290,8 +294,8 @@
                 "chw",
                 "nurse"
             ],
-            "title": "Counseling on medication adherence",
-            "tag": "medication"
+            "tag": "medication",
+            "title": "Counseling on medication adherence"
         },
         "A18": {
             "activityDuration": {
@@ -324,8 +328,8 @@
                 "chw",
                 "nurse"
             ],
-            "title": "Counseling on diet for weight reduction",
-            "tag": "nutrition"
+            "tag": "nutrition",
+            "title": "Counseling on diet for weight reduction"
         },
         "A19": {
             "activityDuration": {
@@ -358,8 +362,8 @@
                 "chw",
                 "nurse"
             ],
-            "title": "Counseling on smoking cessation",
-            "tag": "addiction"
+            "tag": "addiction",
+            "title": "Counseling on smoking cessation"
         },
         "A2": {
             "activityDuration": {
@@ -392,8 +396,8 @@
             "role": [
                 "doctor"
             ],
-            "title": "Prescribe first-line antihypertensive",
-            "tag": "medication"
+            "tag": "medication",
+            "title": "Prescribe first-line antihypertensive"
         },
         "A20": {
             "activityDuration": {
@@ -402,6 +406,10 @@
                     "frequency": 1,
                     "period": 1,
                     "periodUnit": "d"
+                },
+                "review": {
+                    "period": 1,
+                    "periodUnit": "m"
                 },
                 "start": ""
             },
@@ -419,8 +427,8 @@
             "role": [
                 "doctor"
             ],
-            "title": "Use of smoking cessation aids",
-            "tag": "addiction"
+            "tag": "addiction",
+            "title": "Use of smoking cessation aids"
         },
         "A21": {
             "activityDuration": {
@@ -429,6 +437,10 @@
                     "frequency": 1,
                     "period": 1,
                     "periodUnit": "d"
+                },
+                "review": {
+                    "period": 1,
+                    "periodUnit": "m"
                 },
                 "start": ""
             },
@@ -446,8 +458,8 @@
             "role": [
                 "doctor"
             ],
-            "title": "Prescribe drugs",
-            "tag": "addiction"
+            "tag": "addiction",
+            "title": "Prescribe drugs"
         },
         "A22": {
             "activityDuration": {
@@ -480,8 +492,8 @@
                 "chw",
                 "nurse"
             ],
-            "title": "Counseling on reducing alcohol intake",
-            "tag": "addiction"
+            "tag": "addiction",
+            "title": "Counseling on reducing alcohol intake"
         },
         "A23": {
             "activityDuration": {
@@ -514,8 +526,8 @@
                 "chw",
                 "nurse"
             ],
-            "title": "Counseling on increasing Fruits and vegetables intake",
-            "tag": "nutrition"
+            "tag": "nutrition",
+            "title": "Counseling on increasing Fruits and vegetables intake"
         },
         "A24": {
             "activityDuration": {
@@ -548,8 +560,8 @@
                 "chw",
                 "nurse"
             ],
-            "title": "Counseling on increasing Physical activity",
-            "tag": "exercise"
+            "tag": "exercise",
+            "title": "Counseling on increasing Physical activity"
         },
         "A3": {
             "activityDuration": {
@@ -582,8 +594,8 @@
             "role": [
                 "doctor"
             ],
-            "title": "Prescribe second-line antihypertensive",
-            "tag": "medication"
+            "tag": "medication",
+            "title": "Prescribe second-line antihypertensive"
         },
         "A4": {
             "activityDuration": {
@@ -609,8 +621,8 @@
             "role": [
                 "chw"
             ],
-            "title": "Repeat measurement of BP in community",
-            "tag": "measurement"
+            "tag": "measurement",
+            "title": "Repeat measurement of BP in community"
         },
         "A5": {
             "activityDuration": {
@@ -643,8 +655,8 @@
                 "chw",
                 "nurse"
             ],
-            "title": "Counselling about lipid lowering diet",
-            "tag": "nutrition"
+            "tag": "nutrition",
+            "title": "Counselling about lipid lowering diet"
         },
         "A6": {
             "activityDuration": {
@@ -677,8 +689,8 @@
             "role": [
                 "doctor"
             ],
-            "title": "Prescribe first-line cholesterol lowering drug",
-            "tag": "medication"
+            "tag": "medication",
+            "title": "Prescribe first-line cholesterol lowering drug"
         },
         "A7": {
             "activityDuration": {
@@ -711,8 +723,8 @@
             "role": [
                 "doctor"
             ],
-            "title": "Prescribe second-line cholesterol lowering drug",
-            "tag": "medication"
+            "tag": "medication",
+            "title": "Prescribe second-line cholesterol lowering drug"
         },
         "A8": {
             "activityDuration": {
@@ -739,8 +751,8 @@
                 "chw",
                 "nurse"
             ],
-            "title": "Repeat measurement of total cholesterol level",
-            "tag": "measurement"
+            "tag": "measurement",
+            "title": "Repeat measurement of total cholesterol level"
         },
         "A9": {
             "activityDuration": {
@@ -773,8 +785,8 @@
                 "chw",
                 "nurse"
             ],
-            "title": "Counselling about diet / physical activity to improve glycemic control",
-            "tag": "nutrition"
+            "tag": "nutrition",
+            "title": "Counselling about diet / physical activity to improve glycemic control"
         }
     },
     "goals": {
