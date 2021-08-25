@@ -10,11 +10,11 @@
         {"from": 70, "to": 149, "key": "70-79"}
       ],
       "cholesterolLevels": [
-        {"from": 4, "to": 4.9},
-        {"from": 5, "to": 5.9},
-        {"from": 6, "to": 6.9},
-        {"from": 7, "to": 7.9},
-        {"from": 8, "to": 100.9}
+        {"from": 4, "to": 4.999},
+        {"from": 5, "to": 5.999},
+        {"from": 6, "to": 6.999},
+        {"from": 7, "to": 7.999},
+        {"from": 8, "to": 100.999}
       ],
       "systolicLevels": [
         {"from": 180, "to": 300},
