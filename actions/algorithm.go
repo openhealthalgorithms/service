@@ -96,10 +96,10 @@ func AlgorithmHandler(c echo.Context) error {
 		GoalContent:      *glc,
 	}
 
-	hs, hg, hr, hd, hrs, err := hearts.Process(*o, colorChartPath, countriesPath)
-	if err != nil {
-		return ErrorResponse(c, err, 500)
-	}
+	hs, hg, hr, hd, hrs, _ := hearts.Process(*o, colorChartPath, countriesPath)
+	// if err != nil {
+	// 	return ErrorResponse(c, err, 500)
+	// }
 
 	output := models.NewOutput(*o.Config.Algorithm)
 	output.Assessments = hs

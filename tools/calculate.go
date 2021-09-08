@@ -1,6 +1,7 @@
 package tools
 
 import (
+	"math"
 	"strings"
 )
 
@@ -18,7 +19,7 @@ func CalculateAge(age float64, unit string) float64 {
 		}
 	}
 
-	return calAge
+	return math.Ceil(calAge*100) / 100
 }
 
 // CalculateExercise to minutes and moderate type weekly
