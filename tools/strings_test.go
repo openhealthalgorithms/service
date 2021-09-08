@@ -234,3 +234,23 @@ func TestSliceStringEqual(t *testing.T) {
 		}
 	}
 }
+
+func TestGetFullGenderText(t *testing.T) {
+	type genderTest struct {
+		str    string
+		output string
+	}
+
+	var genderTests = []genderTest{
+		{"m", "male"},
+		{"f", "female"},
+		{"t", "female"},
+	}
+
+	for _, sas := range genderTests {
+		actual := GetFullGenderText(sas.str)
+		if actual != sas.output {
+			t.Errorf("GetFullGenderText(%s): expected %s, actual %s", sas.str, sas.output, actual)
+		}
+	}
+}
