@@ -590,48 +590,74 @@ func (h *Hearts) Process(o m.OHARequest, colorChartPath, countriesPath string) (
 	lSmoking, lAlcohol, lPhysicalActivity, lFruit, lVegetable, lBMI, lWaistCirc, lWHR, lBodyFat, lBloodPressure, lDiabetes, lTChol, lCVD := "", "", "", "", "", "", "", "", "", "", "", "", ""
 	if assessments.Lifestyle != nil {
 		if assessments.Lifestyle.Components.Smoking != nil {
-			lSmoking = *assessments.Lifestyle.Components.Smoking.Code
+			if assessments.Lifestyle.Components.Smoking.Code != nil {
+				lSmoking = *assessments.Lifestyle.Components.Smoking.Code
+			}
 		}
 		if assessments.Lifestyle.Components.Alcohol != nil {
-			lAlcohol = *assessments.Lifestyle.Components.Alcohol.Code
+			if assessments.Lifestyle.Components.Alcohol.Code != nil {
+				lAlcohol = *assessments.Lifestyle.Components.Alcohol.Code
+			}
 		}
 		if assessments.Lifestyle.Components.PhysicalActivity != nil {
-			lPhysicalActivity = *assessments.Lifestyle.Components.PhysicalActivity.Code
+			if assessments.Lifestyle.Components.PhysicalActivity.Code != nil {
+				lPhysicalActivity = *assessments.Lifestyle.Components.PhysicalActivity.Code
+			}
 		}
 		if assessments.Lifestyle.Components.Diet != nil {
 			if assessments.Lifestyle.Components.Diet.Components.Fruit != nil {
-				lFruit = *assessments.Lifestyle.Components.Diet.Components.Fruit.Code
+				if assessments.Lifestyle.Components.Diet.Components.Fruit.Code != nil {
+					lFruit = *assessments.Lifestyle.Components.Diet.Components.Fruit.Code
+				}
 			}
 			if assessments.Lifestyle.Components.Diet.Components.Vegetable != nil {
-				lVegetable = *assessments.Lifestyle.Components.Diet.Components.Vegetable.Code
+				if assessments.Lifestyle.Components.Diet.Components.Vegetable.Code != nil {
+					lVegetable = *assessments.Lifestyle.Components.Diet.Components.Vegetable.Code
+				}
 			}
 		}
 	}
 	if assessments.BodyComposition != nil {
 		if assessments.BodyComposition.Components.BMI != nil {
-			lBMI = *assessments.BodyComposition.Components.BMI.Code
+			if assessments.BodyComposition.Components.BMI.Code != nil {
+				lBMI = *assessments.BodyComposition.Components.BMI.Code
+			}
 		}
 		if assessments.BodyComposition.Components.WaistCirc != nil {
-			lWaistCirc = *assessments.BodyComposition.Components.WaistCirc.Code
+			if assessments.BodyComposition.Components.WaistCirc.Code != nil {
+				lWaistCirc = *assessments.BodyComposition.Components.WaistCirc.Code
+			}
 		}
 		if assessments.BodyComposition.Components.WHR != nil {
-			lWHR = *assessments.BodyComposition.Components.WHR.Code
+			if assessments.BodyComposition.Components.WHR.Code != nil {
+				lWHR = *assessments.BodyComposition.Components.WHR.Code
+			}
 		}
 		if assessments.BodyComposition.Components.BodyFat != nil {
-			lBodyFat = *assessments.BodyComposition.Components.BodyFat.Code
+			if assessments.BodyComposition.Components.BodyFat.Code != nil {
+				lBodyFat = *assessments.BodyComposition.Components.BodyFat.Code
+			}
 		}
 	}
 	if assessments.BloodPressure != nil {
-		lBloodPressure = *assessments.BloodPressure.Code
+		if assessments.BloodPressure.Code != nil {
+			lBloodPressure = *assessments.BloodPressure.Code
+		}
 	}
 	if assessments.Diabetes != nil {
-		lDiabetes = *assessments.Diabetes.Code
+		if assessments.Diabetes.Code != nil {
+			lDiabetes = *assessments.Diabetes.Code
+		}
 	}
 	if assessments.Cholesterol != nil && assessments.Cholesterol.Components.TChol != nil {
-		lTChol = *assessments.Cholesterol.Components.TChol.Code
+		if assessments.Cholesterol.Components.TChol.Code != nil {
+			lTChol = *assessments.Cholesterol.Components.TChol.Code
+		}
 	}
-	if assessments.CVD != nil && assessments.CVD.Code != nil {
-		lCVD = *assessments.CVD.Code
+	if assessments.CVD != nil {
+		if assessments.CVD.Code != nil {
+			lCVD = *assessments.CVD.Code
+		}
 	}
 
 	codes := h.Goal.GenerateGoals(lSmoking, lAlcohol, lPhysicalActivity, lFruit, lVegetable, lBMI, lWaistCirc, lWHR, lBodyFat, lBloodPressure, lDiabetes, lTChol, lCVD)
