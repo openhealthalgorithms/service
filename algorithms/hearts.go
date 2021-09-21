@@ -2,6 +2,7 @@ package algorithms
 
 import (
 	"errors"
+	"fmt"
 	"strconv"
 	"strings"
 
@@ -500,7 +501,7 @@ func (h *Hearts) Process(o m.OHARequest, colorChartPath, countriesPath string) (
 	}
 
 	// Cholesterol
-	if len(cvdScore) > 0 {
+	if len(cvdScore) > 0 && cholValue > 0 {
 		cvdForChol := 1.0
 		if cvdScore == "10-20%" {
 			cvdForChol = 20.0
@@ -515,6 +516,30 @@ func (h *Hearts) Process(o m.OHARequest, colorChartPath, countriesPath string) (
 		}
 
 		chol, err := h.Guideline.Body.Cholesterol.TotalCholesterol.Process(cvdForChol, age, cholValue, cholUnit, "total cholesterol", medications)
+		if err != nil {
+			errs = append(errs, err.Error())
+		} else {
+			res := GetResults(chol, *h.GuidelineContent.Body.Contents)
+			assessments.Cholesterol.Components.TChol = &res
+			if res.Refer != nil && *res.Refer != "no" {
+				referral = referral || true
+				ref := m.ORRReferralReason{}
+				if *res.Refer == "urgent" {
+					referralUrgent = referralUrgent || true
+					val := true
+					ref.Urgent = &val
+				} else {
+					val := false
+					ref.Urgent = &val
+				}
+				patype := "total_cholesterol"
+				ref.Type = &patype
+				referralReasons = append(referralReasons, ref)
+			}
+		}
+	} else {
+		errs = append(errs, "cholesterol assessment was not performed due to missing cvd assessment")
+		chol, err := a.GetResponse("total cholesterol", "CHOL-CALCULATION-FALSE", fmt.Sprintf("%.1f%s", cholValue, cholUnit), "Below 195mg/dL (5 mmol/L)")
 		if err != nil {
 			errs = append(errs, err.Error())
 		} else {

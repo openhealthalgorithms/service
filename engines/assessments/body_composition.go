@@ -63,7 +63,7 @@ func (b *BMIGuidelines) Process(height, weight float64) (Response, error) {
 			if c.To != nil {
 				to = *c.To
 			}
-			if bmi >= from && bmi <= to {
+			if bmi > from && bmi <= to {
 				code = *g.Code
 				target = *c.Target
 				break
