@@ -539,8 +539,7 @@ func (h *Hearts) Process(o m.OHARequest, colorChartPath, countriesPath string) (
 		}
 	} else {
 		errs = append(errs, "cholesterol assessment was not performed due to missing cvd assessment")
-		value := fmt.Sprintf("%.1f%s", cholValue, cholUnit)
-		chol, err := a.GetResponse("total cholesterol", "CHOL-CALCULATION-FALSE", value, "Below 195mg/dL (5 mmol/L)")
+		chol, err := a.GetResponse("total cholesterol", "CHOL-CALCULATION-FALSE", fmt.Sprintf("%.1f%s", cholValue, cholUnit), "Below 195mg/dL (5 mmol/L)")
 		if err != nil {
 			errs = append(errs, err.Error())
 		} else {
