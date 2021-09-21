@@ -267,7 +267,7 @@
                     "definition": "South Asian BMI > 27.5 kg/m2",
                     "conditions": [
                         {
-                            "from": 27.6,
+                            "from": 27.5,
                             "unit": "kg/m2",
                             "target": "18.5–23"
                         }
@@ -279,7 +279,7 @@
                     "definition": "South Asian BMI > 23–27.5 kg/m2",
                     "conditions": [
                         {
-                            "from": 23.1,
+                            "from": 23,
                             "to": 27.5,
                             "unit": "kg/m2",
                             "target": "18.5-23"
@@ -339,12 +339,14 @@
                     "conditions": [
                         {
                             "gender": "male",
+                            "from": 20,
                             "to": 91,
                             "unit": "cm",
                             "target": "90cm"
                         },
                         {
                             "gender": "female",
+                            "from": 20,
                             "to": 81,
                             "unit": "cm",
                             "target": "80cm"
@@ -377,11 +379,13 @@
                     "conditions": [
                         {
                             "gender": "male",
+                            "from": 0.5,
                             "to": 0.90,
                             "target": "0.90"
                         },
                         {
                             "gender": "female",
+                            "from": 0.5,
                             "to": 0.85,
                             "target": "0.85"
                         }
@@ -643,6 +647,7 @@
                                 "from": 60
                             },
                             "range": {
+                                "from": 3,
                                 "to": 13,
                                 "unit": "%"
                             },
@@ -655,6 +660,7 @@
                                 "to": 59
                             },
                             "range": {
+                                "from": 3,
                                 "to": 11,
                                 "unit": "%"
                             },
@@ -667,6 +673,7 @@
                                 "to": 39
                             },
                             "range": {
+                                "from": 3,
                                 "to": 8,
                                 "unit": "%"
                             },
@@ -678,6 +685,7 @@
                                 "from": 60
                             },
                             "range": {
+                                "from": 3,
                                 "to": 24,
                                 "unit": "%"
                             },
@@ -690,6 +698,7 @@
                                 "to": 59
                             },
                             "range": {
+                                "from": 3,
                                 "to": 23,
                                 "unit": "%"
                             },
@@ -702,6 +711,7 @@
                                 "to": 39
                             },
                             "range": {
+                                "from": 3,
                                 "to": 21,
                                 "unit": "%"
                             },
