@@ -367,6 +367,13 @@
                 "message": "Maintain a healthy diet",
                 "refer": "no"
             },
+            "CHOL-CALCULATION-FALSE": {
+                "eval": "No Assessment",
+                "grading": 0,
+                "tfl": "GRAY",
+                "message": "No assessment performed",
+                "refer": "no"
+            },
             "CVD-AGE-FALSE": {
                 "eval": "Not Calculated",
                 "grading": 0,

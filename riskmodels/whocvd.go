@@ -46,7 +46,7 @@ func Calculate(
 	}
 
 	if len(group) == 0 {
-		return nil, nil, errors.New("invalid version given")
+		return nil, nil, errors.New("invalid risk model version given")
 	}
 
 	riskScore := group[row][column]
@@ -112,7 +112,7 @@ func processV1(colorChartPath, region string, labBased bool, gender string, ageV
 	if val, ok := smoking[ageRange]; ok {
 		ageGroup = val
 	} else {
-		return nil, -1, -1, nil, errors.New("cannot perform calculation for the given age")
+		return nil, -1, -1, nil, errors.New("cannot perform cvd calculation for the given age")
 	}
 
 	// get sbp index
@@ -174,7 +174,7 @@ func processV2(colorChartPath, region string, labBased bool, gender string, ageV
 	if val, ok := smoking[ageRange]; ok {
 		ageGroup = val
 	} else {
-		return nil, -1, -1, nil, errors.New("cannot perform calculation for the given age")
+		return nil, -1, -1, nil, errors.New("cannot perform cvd calculation for the given age")
 	}
 
 	// get sbp index
