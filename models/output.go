@@ -6,9 +6,16 @@ import (
 	"github.com/openhealthalgorithms/service/pkg"
 )
 
+// OutputError object
+type OutputError struct {
+	Category string   `json:"category"`
+	Key      string   `json:"key"`
+	Messages []string `json:"messages"`
+}
+
 // Output object
 type Output struct {
-	Errors      []string               `json:"errors"`
+	Errors      []OutputError          `json:"errors"`
 	Meta        Meta                   `json:"meta"`
 	Assessments *ORRAssessments        `json:"assessments"`
 	Goals       []ORRGoal              `json:"goals"`
@@ -25,6 +32,7 @@ func NewOutput(algorithmName string) *Output {
 	output.Meta.APIVersion = pkg.GetVersion()
 	output.Meta.RequestID = uuid.New()
 	output.Meta.Comments = []string{}
+	output.Errors = []OutputError{}
 
 	return output
 }

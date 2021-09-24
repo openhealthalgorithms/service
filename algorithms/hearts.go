@@ -1,7 +1,6 @@
 package algorithms
 
 import (
-	"errors"
 	"fmt"
 	"strconv"
 	"strings"
@@ -20,13 +19,13 @@ type Hearts struct {
 }
 
 // Process function
-func (h *Hearts) Process(o m.OHARequest, colorChartPath, countriesPath string) (*m.ORRAssessments, []m.ORRGoal, *m.ORRReferrals, map[string]interface{}, []string, error) {
+func (h *Hearts) Process(o m.OHARequest, colorChartPath, countriesPath string) (*m.ORRAssessments, []m.ORRGoal, *m.ORRReferrals, map[string]interface{}, []m.OutputError, error) {
 	var err error
 	assessments := m.NewORRAssessments()
 	goals := make([]m.ORRGoal, 0)
 	referrals := m.NewORRReferrals()
 	debug := make(map[string]interface{})
-	errs := make([]string, 0)
+	outputErrs := make([]m.OutputError, 0)
 
 	debugInputValue := false
 	if o.Config.Debug != nil {
@@ -62,7 +61,21 @@ func (h *Hearts) Process(o m.OHARequest, colorChartPath, countriesPath string) (
 			}
 			sm, err := h.Guideline.Body.Lifestyle.Smoking.Process(cSm, exSm, q)
 			if err != nil {
+				errs := make([]string, 0)
 				errs = append(errs, err.Error())
+				smoking, err := a.GetResponse("smoking", "ASSESSMENT-FALSE", "", "no")
+				if err != nil {
+					errs = append(errs, err.Error())
+				} else {
+					res := GetResults(smoking, *h.GuidelineContent.Body.Contents)
+					assessments.Lifestyle.Components.Smoking = &res
+				}
+				oe := m.OutputError{
+					Category: "assessments",
+					Key:      "smoking",
+					Messages: errs,
+				}
+				outputErrs = append(outputErrs, oe)
 			} else {
 				res := GetResults(sm, *h.GuidelineContent.Body.Contents)
 				assessments.Lifestyle.Components.Smoking = &res
@@ -85,7 +98,21 @@ func (h *Hearts) Process(o m.OHARequest, colorChartPath, countriesPath string) (
 			// Alcohol
 			alc, err := h.Guideline.Body.Lifestyle.Alcohol.Process(tools.CalculateAlcoholConsumption((*ls.Value).(float64), *ls.Frequency), gender)
 			if err != nil {
+				errs := make([]string, 0)
 				errs = append(errs, err.Error())
+				alcohol, err := a.GetResponse("alcohol", "ASSESSMENT-FALSE", "", "No alcohol")
+				if err != nil {
+					errs = append(errs, err.Error())
+				} else {
+					res := GetResults(alcohol, *h.GuidelineContent.Body.Contents)
+					assessments.Lifestyle.Components.Alcohol = &res
+				}
+				oe := m.OutputError{
+					Category: "assessments",
+					Key:      "alcohol",
+					Messages: errs,
+				}
+				outputErrs = append(outputErrs, oe)
 			} else {
 				res := GetResults(alc, *h.GuidelineContent.Body.Contents)
 				assessments.Lifestyle.Components.Alcohol = &res
@@ -114,7 +141,21 @@ func (h *Hearts) Process(o m.OHARequest, colorChartPath, countriesPath string) (
 			fv += tools.CalculateDietConsumption(int((*ls.Value).(float64)), *ls.Frequency)
 			frt, err := h.Guideline.Body.Lifestyle.Diet.Fruit.Process(tools.CalculateDietConsumption(int((*ls.Value).(float64)), *ls.Frequency))
 			if err != nil {
+				errs := make([]string, 0)
 				errs = append(errs, err.Error())
+				fruit, err := a.GetResponse("fruit", "ASSESSMENT-FALSE", "", ">2 servings/day")
+				if err != nil {
+					errs = append(errs, err.Error())
+				} else {
+					res := GetResults(fruit, *h.GuidelineContent.Body.Contents)
+					assessments.Lifestyle.Components.Diet.Components.Fruit = &res
+				}
+				oe := m.OutputError{
+					Category: "assessments",
+					Key:      "fruit",
+					Messages: errs,
+				}
+				outputErrs = append(outputErrs, oe)
 			} else {
 				res := GetResults(frt, *h.GuidelineContent.Body.Contents)
 				assessments.Lifestyle.Components.Diet.Components.Fruit = &res
@@ -139,7 +180,21 @@ func (h *Hearts) Process(o m.OHARequest, colorChartPath, countriesPath string) (
 			fv += tools.CalculateDietConsumption(int((*ls.Value).(float64)), *ls.Frequency)
 			veg, err := h.Guideline.Body.Lifestyle.Diet.Vegetables.Process(tools.CalculateDietConsumption(int((*ls.Value).(float64)), *ls.Frequency))
 			if err != nil {
+				errs := make([]string, 0)
 				errs = append(errs, err.Error())
+				vegetable, err := a.GetResponse("vegetable", "ASSESSMENT-FALSE", "", "5 or more servings/day")
+				if err != nil {
+					errs = append(errs, err.Error())
+				} else {
+					res := GetResults(vegetable, *h.GuidelineContent.Body.Contents)
+					assessments.Lifestyle.Components.Diet.Components.Vegetable = &res
+				}
+				oe := m.OutputError{
+					Category: "assessments",
+					Key:      "vegetable",
+					Messages: errs,
+				}
+				outputErrs = append(outputErrs, oe)
 			} else {
 				res := GetResults(veg, *h.GuidelineContent.Body.Contents)
 				assessments.Lifestyle.Components.Diet.Components.Vegetable = &res
@@ -164,7 +219,21 @@ func (h *Hearts) Process(o m.OHARequest, colorChartPath, countriesPath string) (
 		// Fruit_Vegetables (Diet)
 		fveg, err := h.Guideline.Body.Lifestyle.Diet.FruitVegetables.Process(fv)
 		if err != nil {
+			errs := make([]string, 0)
 			errs = append(errs, err.Error())
+			fruit_vegetable, err := a.GetResponse("fruit_vegetable", "ASSESSMENT-FALSE", "", ">5 servings/day")
+			if err != nil {
+				errs = append(errs, err.Error())
+			} else {
+				res := GetResults(fruit_vegetable, *h.GuidelineContent.Body.Contents)
+				assessments.Lifestyle.Components.Diet.Components.FruitVegetable = &res
+			}
+			oe := m.OutputError{
+				Category: "assessments",
+				Key:      "fruit_vegetable",
+				Messages: errs,
+			}
+			outputErrs = append(outputErrs, oe)
 		} else {
 			res := GetResults(fveg, *h.GuidelineContent.Body.Contents)
 			assessments.Lifestyle.Components.Diet.Components.FruitVegetable = &res
@@ -188,7 +257,21 @@ func (h *Hearts) Process(o m.OHARequest, colorChartPath, countriesPath string) (
 	if pat {
 		ph, err := h.Guideline.Body.Lifestyle.PhysicalActivity.Process(pa, gender, age)
 		if err != nil {
+			errs := make([]string, 0)
 			errs = append(errs, err.Error())
+			physical_activity, err := a.GetResponse("physical_activity", "ASSESSMENT-FALSE", "", ">150 minutes")
+			if err != nil {
+				errs = append(errs, err.Error())
+			} else {
+				res := GetResults(physical_activity, *h.GuidelineContent.Body.Contents)
+				assessments.Lifestyle.Components.PhysicalActivity = &res
+			}
+			oe := m.OutputError{
+				Category: "assessments",
+				Key:      "physical_activity",
+				Messages: errs,
+			}
+			outputErrs = append(outputErrs, oe)
 		} else {
 			res := GetResults(ph, *h.GuidelineContent.Body.Contents)
 			assessments.Lifestyle.Components.PhysicalActivity = &res
@@ -239,7 +322,21 @@ func (h *Hearts) Process(o m.OHARequest, colorChartPath, countriesPath string) (
 	// BMI
 	bmi, err := h.Guideline.Body.BodyComposition.BMI.Process(height, weight)
 	if err != nil {
+		errs := make([]string, 0)
 		errs = append(errs, err.Error())
+		bmi_res, err := a.GetResponse("bmi", "ASSESSMENT-FALSE", "", "18.5-23")
+		if err != nil {
+			errs = append(errs, err.Error())
+		} else {
+			res := GetResults(bmi_res, *h.GuidelineContent.Body.Contents)
+			assessments.BodyComposition.Components.BMI = &res
+		}
+		oe := m.OutputError{
+			Category: "assessments",
+			Key:      "bmi",
+			Messages: errs,
+		}
+		outputErrs = append(outputErrs, oe)
 	} else {
 		res := GetResults(bmi, *h.GuidelineContent.Body.Contents)
 		assessments.BodyComposition.Components.BMI = &res
@@ -263,7 +360,21 @@ func (h *Hearts) Process(o m.OHARequest, colorChartPath, countriesPath string) (
 	// Waist Circumference
 	waistCirc, err := h.Guideline.Body.BodyComposition.WaistCirc.Process(gender, waist, "m")
 	if err != nil {
+		errs := make([]string, 0)
 		errs = append(errs, err.Error())
+		waistCirc_res, err := a.GetResponse("waist_circ", "ASSESSMENT-FALSE", "", "")
+		if err != nil {
+			errs = append(errs, err.Error())
+		} else {
+			res := GetResults(waistCirc_res, *h.GuidelineContent.Body.Contents)
+			assessments.BodyComposition.Components.WaistCirc = &res
+		}
+		oe := m.OutputError{
+			Category: "assessments",
+			Key:      "waist_circ",
+			Messages: errs,
+		}
+		outputErrs = append(outputErrs, oe)
 	} else {
 		res := GetResults(waistCirc, *h.GuidelineContent.Body.Contents)
 		assessments.BodyComposition.Components.WaistCirc = &res
@@ -287,7 +398,21 @@ func (h *Hearts) Process(o m.OHARequest, colorChartPath, countriesPath string) (
 	// WHR
 	whr, err := h.Guideline.Body.BodyComposition.WHR.Process(gender, waist, hip)
 	if err != nil {
+		errs := make([]string, 0)
 		errs = append(errs, err.Error())
+		whr_res, err := a.GetResponse("whr", "ASSESSMENT-FALSE", "", "")
+		if err != nil {
+			errs = append(errs, err.Error())
+		} else {
+			res := GetResults(whr_res, *h.GuidelineContent.Body.Contents)
+			assessments.BodyComposition.Components.WHR = &res
+		}
+		oe := m.OutputError{
+			Category: "assessments",
+			Key:      "whr",
+			Messages: errs,
+		}
+		outputErrs = append(outputErrs, oe)
 	} else {
 		res := GetResults(whr, *h.GuidelineContent.Body.Contents)
 		assessments.BodyComposition.Components.WHR = &res
@@ -312,7 +437,21 @@ func (h *Hearts) Process(o m.OHARequest, colorChartPath, countriesPath string) (
 	// BodyFat
 	bodyFat, err := h.Guideline.Body.BodyComposition.BodyFat.Process(gender, age, bft)
 	if err != nil {
+		errs := make([]string, 0)
 		errs = append(errs, err.Error())
+		bodyFat_res, err := a.GetResponse("body_fat", "ASSESSMENT-FALSE", "", "")
+		if err != nil {
+			errs = append(errs, err.Error())
+		} else {
+			res := GetResults(bodyFat_res, *h.GuidelineContent.Body.Contents)
+			assessments.BodyComposition.Components.BodyFat = &res
+		}
+		oe := m.OutputError{
+			Category: "assessments",
+			Key:      "body_fat",
+			Messages: errs,
+		}
+		outputErrs = append(outputErrs, oe)
 	} else {
 		res := GetResults(bodyFat, *h.GuidelineContent.Body.Contents)
 		assessments.BodyComposition.Components.BodyFat = &res
@@ -383,7 +522,21 @@ func (h *Hearts) Process(o m.OHARequest, colorChartPath, countriesPath string) (
 	// Diabetes
 	diabetes, err := h.Guideline.Body.Diabetes.Process(diab, bslValue, bloodTestType, bslUnit, medications)
 	if err != nil {
+		errs := make([]string, 0)
 		errs = append(errs, err.Error())
+		diab_res, err := a.GetResponse("diabetes", "ASSESSMENT-FALSE", "", "")
+		if err != nil {
+			errs = append(errs, err.Error())
+		} else {
+			res := GetResults(diab_res, *h.GuidelineContent.Body.Contents)
+			assessments.Diabetes = &res
+		}
+		oe := m.OutputError{
+			Category: "assessments",
+			Key:      "diabetes",
+			Messages: errs,
+		}
+		outputErrs = append(outputErrs, oe)
 	} else {
 		res := GetResults(diabetes, *h.GuidelineContent.Body.Contents)
 		assessments.Diabetes = &res
@@ -411,7 +564,25 @@ func (h *Hearts) Process(o m.OHARequest, colorChartPath, countriesPath string) (
 	}
 	bp, err := h.Guideline.Body.BloodPressure.Process(diab, sbp, dbp, age, medications)
 	if err != nil {
+		errs := make([]string, 0)
 		errs = append(errs, err.Error())
+		value := ""
+		if sbp > 0 && dbp > 0 {
+			value = fmt.Sprintf("%d/%d", sbp, dbp)
+		}
+		bp_res, err := a.GetResponse("blood_pressure", "ASSESSMENT-FALSE", value, "")
+		if err != nil {
+			errs = append(errs, err.Error())
+		} else {
+			res := GetResults(bp_res, *h.GuidelineContent.Body.Contents)
+			assessments.BloodPressure = &res
+		}
+		oe := m.OutputError{
+			Category: "assessments",
+			Key:      "blood_pressure",
+			Messages: errs,
+		}
+		outputErrs = append(outputErrs, oe)
 	} else {
 		res := GetResults(bp, *h.GuidelineContent.Body.Contents)
 		assessments.BloodPressure = &res
@@ -432,75 +603,89 @@ func (h *Hearts) Process(o m.OHARequest, colorChartPath, countriesPath string) (
 		}
 	}
 
+	// CVD
+	errs := make([]string, 0)
 	countries := tools.Countries(countriesPath)
 	region := ""
 	if code, ok := countries.Countries[*o.Params.Demographics.BirthCountryCode]; ok {
 		if code.Region != "#N/A" {
 			region = code.Region
 		} else {
-			errr := errors.New("unsupported country/region")
-			errs = append(errs, errr.Error())
-
-			return assessments, goals, referrals, debug, errs, err
+			errs = append(errs, "unsupported country/region")
 		}
 	} else {
-		errr := errors.New("invalid country/region")
-		errs = append(errs, errr.Error())
-
-		return assessments, goals, referrals, debug, errs, err
+		errs = append(errs, "invalid country/region")
 	}
 
-	// CVD
 	bmiValue, err := strconv.ParseFloat(bmi.Value, 64)
 	if err != nil {
-		errr := errors.New("invalid BMI value")
-		errs = append(errs, errr.Error())
-		return assessments, goals, referrals, debug, errs, err
+		errs = append(errs, "invalid BMI value")
 	}
 
 	cvdScore := ""
-	cvd, dbg, err := h.Guideline.Body.CVD.Guidelines.Process(
-		*o.Config.RiskModelVersion,
-		conditions,
-		age,
-		*h.Guideline.Body.CVD.PreProcessing,
-		medications,
-		region,
-		gender,
-		sbp,
-		cholValue,
-		cholUnit,
-		diab,
-		cSm,
-		debugInputValue,
-		colorChartPath,
-		*o.Config.LabBased,
-		bmiValue,
-	)
-	if err == nil {
-		cvdScore = cvd.Value
-		res := GetResultWithVersion(cvd, *h.GuidelineContent.Body.Contents, *o.Config.RiskModelVersion)
-		assessments.CVD = &res
-		if res.Refer != nil && *res.Refer != "no" {
-			referral = referral || true
-			ref := m.ORRReferralReason{}
-			if *res.Refer == "urgent" {
-				referralUrgent = referralUrgent || true
-				val := true
-				ref.Urgent = &val
-			} else {
-				val := false
-				ref.Urgent = &val
+	dbg := make(map[string]interface{})
+	if len(errs) == 0 {
+		cvd, dbug, err := h.Guideline.Body.CVD.Guidelines.Process(
+			*o.Config.RiskModelVersion,
+			conditions,
+			age,
+			*h.Guideline.Body.CVD.PreProcessing,
+			medications,
+			region,
+			gender,
+			sbp,
+			cholValue,
+			cholUnit,
+			diab,
+			cSm,
+			debugInputValue,
+			colorChartPath,
+			*o.Config.LabBased,
+			bmiValue,
+		)
+		if err == nil {
+			cvdScore = cvd.Value
+			res := GetResultWithVersion(cvd, *h.GuidelineContent.Body.Contents, *o.Config.RiskModelVersion)
+			assessments.CVD = &res
+			if res.Refer != nil && *res.Refer != "no" {
+				referral = referral || true
+				ref := m.ORRReferralReason{}
+				if *res.Refer == "urgent" {
+					referralUrgent = referralUrgent || true
+					val := true
+					ref.Urgent = &val
+				} else {
+					val := false
+					ref.Urgent = &val
+				}
+				patype := "cvd"
+				ref.Type = &patype
+				referralReasons = append(referralReasons, ref)
 			}
-			patype := "cvd"
-			ref.Type = &patype
-			referralReasons = append(referralReasons, ref)
+		} else {
+			errs = append(errs, err.Error())
 		}
-	} else {
-		errs = append(errs, err.Error())
+		dbg = dbug
+	}
+
+	if len(errs) > 0 {
+		cvd_res, err := a.GetResponse("cvd", "ASSESSMENT-FALSE", "", "")
+		if err != nil {
+			errs = append(errs, err.Error())
+		} else {
+			res := GetResults(cvd_res, *h.GuidelineContent.Body.Contents)
+			assessments.CVD = &res
+		}
+		oe := m.OutputError{
+			Category: "assessments",
+			Key:      "cvd",
+			Messages: errs,
+		}
+		outputErrs = append(outputErrs, oe)
 	}
 
 	// Cholesterol
+	errs = make([]string, 0)
 	if len(cvdScore) > 0 && cholValue > 0 {
 		cvdForChol := 1.0
 		if cvdScore == "10-20%" {
@@ -539,28 +724,28 @@ func (h *Hearts) Process(o m.OHARequest, colorChartPath, countriesPath string) (
 		}
 	} else {
 		errs = append(errs, "cholesterol assessment was not performed due to missing cvd assessment")
-		chol, err := a.GetResponse("total cholesterol", "CHOL-CALCULATION-FALSE", fmt.Sprintf("%.1f%s", cholValue, cholUnit), "Below 195mg/dL (5 mmol/L)")
+	}
+
+	if len(errs) > 0 {
+		value := ""
+		target := ""
+		if cholValue > 0 && len(cholUnit) > 0 {
+			value = fmt.Sprintf("%.1f%s", cholValue, cholUnit)
+			target = "Below 195mg/dL (5 mmol/L)"
+		}
+		chol_res, err := a.GetResponse("total_cholesterol", "ASSESSMENT-FALSE", value, target)
 		if err != nil {
 			errs = append(errs, err.Error())
 		} else {
-			res := GetResults(chol, *h.GuidelineContent.Body.Contents)
+			res := GetResults(chol_res, *h.GuidelineContent.Body.Contents)
 			assessments.Cholesterol.Components.TChol = &res
-			if res.Refer != nil && *res.Refer != "no" {
-				referral = referral || true
-				ref := m.ORRReferralReason{}
-				if *res.Refer == "urgent" {
-					referralUrgent = referralUrgent || true
-					val := true
-					ref.Urgent = &val
-				} else {
-					val := false
-					ref.Urgent = &val
-				}
-				patype := "total_cholesterol"
-				ref.Type = &patype
-				referralReasons = append(referralReasons, ref)
-			}
 		}
+		oe := m.OutputError{
+			Category: "assessments",
+			Key:      "total_cholesterol",
+			Messages: errs,
+		}
+		outputErrs = append(outputErrs, oe)
 	}
 
 	referrals.Refer = &referral
@@ -695,7 +880,7 @@ func (h *Hearts) Process(o m.OHARequest, colorChartPath, countriesPath string) (
 		debug["input"] = o
 	}
 
-	return assessments, goals, referrals, debug, errs, err
+	return assessments, goals, referrals, debug, outputErrs, err
 }
 
 // GetResults from response
