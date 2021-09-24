@@ -105,7 +105,7 @@ func AlgorithmHandler(c echo.Context) error {
 	output.Assessments = hs
 	output.Goals = hg
 	output.Referrals = hr
-	output.Errors = make([]string, 0)
+	output.Errors = make([]models.OutputError, 0)
 	output.Errors = append(output.Errors, hrs...)
 	output.Meta.Debug = false
 	output.Meta.CarePlan = false
